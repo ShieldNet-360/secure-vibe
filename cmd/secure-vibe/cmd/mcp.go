@@ -44,5 +44,7 @@ is given; sensitive system directories are always denied.`,
 	c.Flags().StringVar(&allowedRoots, "allowed-roots", "", "comma-separated absolute directories that file-reading tools may read from (default: the current working directory). Sensitive dirs (~/.ssh, ~/.aws, ~/.gnupg, /etc/shadow, ...) are always denied.")
 	c.Flags().BoolVar(&allowAnyPath, "allow-any-path", false, "disable the default-to-cwd allow-list and accept any absolute path the process can stat (local debugging only; mutually exclusive with --allowed-roots)")
 	c.Flags().StringVar(&vulnSource, "vuln-source", "local", "where lookup_vulnerability / check_dependency read OSV advisories from: 'local' (no network, default), 'external' (api.osv.dev only), or 'hybrid' (osv.dev first, fall back to local)")
+	// `secure-vibe mcp connect` registers this server with Claude Code.
+	c.AddCommand(connectMCPCmd())
 	return c
 }

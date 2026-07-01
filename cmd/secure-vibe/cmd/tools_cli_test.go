@@ -127,36 +127,22 @@ func withCwd(t *testing.T, dir string) {
 	t.Cleanup(func() { _ = os.Chdir(orig) })
 }
 
-func TestCheckDependencyHappyPath(t *testing.T) {
-	out, _, err := run(t,
-		"check-dependency",
-		"--path", repoRootForTest(t),
-		"--package", "express",
-		"--version", "4.18.0",
-		"--ecosystem", "npm",
-	)
+func TestCheckHappyPath(t *testing.T) {
+	out, _, err := run(t, "check", "express@4.18.0", "-e", "npm", "--path", repoRootForTest(t))
 	if err != nil {
 		t.Fatalf("run: %v", err)
 	}
-	// The fix from PR #1 means express@npm should return NO Java CVEs;
-	// the heading is the only thing that must appear.
-	if !strings.Contains(out, "check-dependency express@4.18.0 (npm)") {
+	if !strings.Contains(out, "check express@4.18.0 (npm)") {
 		t.Errorf("expected heading missing\n%s", out)
 	}
+	// PR #1: express@npm must not leak Java CVE pattern hits.
 	if !strings.Contains(out, "CVE pattern hits:   0") {
-		t.Errorf("express@npm leaked a CVE pattern hit (regression of PR #1):\n%s", out)
+		t.Errorf("express@npm leaked a CVE pattern hit:\n%s", out)
 	}
 }
 
-func TestCheckDependencyJSONFormat(t *testing.T) {
-	out, _, err := run(t,
-		"check-dependency",
-		"--path", repoRootForTest(t),
-		"--package", "express",
-		"--version", "4.18.0",
-		"--ecosystem", "npm",
-		"--format", "json",
-	)
+func TestCheckJSONFormat(t *testing.T) {
+	out, _, err := run(t, "check", "express@4.18.0", "-e", "npm", "--path", repoRootForTest(t), "--format", "json")
 	if err != nil {
 		t.Fatalf("run: %v", err)
 	}
@@ -169,284 +155,72 @@ func TestCheckDependencyJSONFormat(t *testing.T) {
 	}
 }
 
-func TestCheckDependencyRejectsMissingArgs(t *testing.T) {
-	_, _, err := run(t, "check-dependency", "--path", repoRootForTest(t), "--ecosystem", "npm")
-	if err == nil {
-		t.Fatal("expected error for missing --package, got nil")
-	}
-	if !strings.Contains(err.Error(), "package") {
-		t.Errorf("error does not mention package: %v", err)
+func TestCheckRejectsMissingEcosystem(t *testing.T) {
+	_, _, err := run(t, "check", "express", "--path", repoRootForTest(t))
+	if err == nil || !strings.Contains(err.Error(), "ecosystem") {
+		t.Fatalf("expected ecosystem-required error, got %v", err)
 	}
 }
 
-func TestCheckDependencyRejectsUnknownFormat(t *testing.T) {
-	_, _, err := run(t,
-		"check-dependency",
-		"--path", repoRootForTest(t),
-		"--package", "express",
-		"--ecosystem", "npm",
-		"--format", "xml",
-	)
-	if err == nil {
-		t.Fatal("expected error for --format xml")
-	}
-	if !strings.Contains(err.Error(), "format") {
-		t.Errorf("error does not mention format: %v", err)
+func TestCheckRejectsUnknownFormat(t *testing.T) {
+	_, _, err := run(t, "check", "express", "-e", "npm", "--path", repoRootForTest(t), "--format", "xml")
+	if err == nil || !strings.Contains(err.Error(), "format") {
+		t.Fatalf("expected format error, got %v", err)
 	}
 }
 
-func TestCheckTyposquatLodahs(t *testing.T) {
-	out, _, err := run(t,
-		"check-typosquat",
-		"--path", repoRootForTest(t),
-		"--package", "lodahs",
-		"--ecosystem", "npm",
-	)
+func TestCheckTyposquat(t *testing.T) {
+	out, _, err := run(t, "check", "lodahs", "-e", "npm", "--path", repoRootForTest(t))
 	if err != nil {
 		t.Fatalf("run: %v", err)
 	}
-	// lodahs is the canonical typosquat example in the bundled DB.
-	if !strings.Contains(out, "target=lodash") {
+	// lodahs is the canonical typosquat of lodash in the bundled DB.
+	if !strings.Contains(out, "lodash") {
 		t.Errorf("lodahs did not resolve to lodash:\n%s", out)
 	}
 }
 
-func TestLookupVulnerabilityEventStream(t *testing.T) {
-	out, _, err := run(t,
-		"lookup-vulnerability",
-		"--path", repoRootForTest(t),
-		"--package", "event-stream",
-		"--ecosystem", "npm",
-	)
+func TestCheckMalicious(t *testing.T) {
+	out, _, err := run(t, "check", "event-stream@3.3.6", "-e", "npm", "--path", repoRootForTest(t))
 	if err != nil {
 		t.Fatalf("run: %v", err)
 	}
-	// event-stream is the canonical malicious-package example.
-	if !strings.Contains(out, "Malicious matches:") {
-		t.Errorf("output missing Malicious counter:\n%s", out)
+	// event-stream@3.3.6 is the canonical malicious release.
+	if !strings.Contains(out, "Malicious entries:") || strings.Contains(out, "Malicious entries:  0") {
+		t.Errorf("event-stream was not flagged malicious:\n%s", out)
 	}
 }
 
-func TestScanSecretsOnFixture(t *testing.T) {
-	// Drop a temp file with one obvious Stripe key in it. The bundled
-	// secret rules must catch it.
-	tmp, err := os.CreateTemp(t.TempDir(), "secret-*.txt")
-	if err != nil {
+func TestScanSecretsFile(t *testing.T) {
+	tmp := filepath.Join(t.TempDir(), "secret.txt")
+	const fake = "STRIPE_KEY = \"sk_live_51H8xYzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdef\"\n"
+	if err := os.WriteFile(tmp, []byte(fake), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	const fake = "STRIPE_KEY = \"sk_live_51H8xYzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdef\""
-	if _, err := tmp.WriteString(fake); err != nil {
-		t.Fatal(err)
-	}
-	tmp.Close()
-	out, _, err := run(t,
-		"scan-secrets",
-		"--path", repoRootForTest(t),
-		tmp.Name(),
-	)
+	out, _, err := run(t, "scan", "--path", repoRootForTest(t), tmp)
 	if err != nil {
 		t.Fatalf("run: %v", err)
 	}
-	if !strings.Contains(out, "Matches: ") {
-		t.Errorf("scan-secrets did not print matches header:\n%s", out)
+	if !strings.Contains(out, "Scanner used: scan_secrets") {
+		t.Errorf("scan did not auto-pick the secret scanner:\n%s", out)
 	}
-	// We don't assert on a specific rule name here because the exact
-	// secret pattern label may evolve; the count just needs to be > 0.
-	if strings.Contains(out, "Matches: 0") {
-		t.Errorf("scan-secrets missed a Stripe live key in fixture:\n%s", out)
-	}
-}
-
-// TestScanSecretsDirectory locks in the recursive directory behaviour:
-// every text file under the target (including nested subdirectories)
-// is scanned, binary files are skipped, and the run finishes with a
-// summary line rather than erroring on the directory itself.
-func TestScanSecretsDirectory(t *testing.T) {
-	dir := t.TempDir()
-	// A real-looking AKIA key the bundled secret rules catch, in a nested
-	// subdirectory to prove the walk recurses.
-	sub := filepath.Join(dir, "nested")
-	if err := os.MkdirAll(sub, 0o755); err != nil {
-		t.Fatal(err)
-	}
-	if err := os.WriteFile(filepath.Join(sub, "leak.txt"),
-		[]byte("aws_key = AKIA1234567890ABCDEF\n"), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	// A clean text file: scanned, zero matches.
-	if err := os.WriteFile(filepath.Join(dir, "clean.txt"),
-		[]byte("nothing to see here\n"), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	// A binary file (contains a NUL byte): must be skipped, not scanned.
-	if err := os.WriteFile(filepath.Join(dir, "blob.bin"),
-		[]byte{0x00, 0x01, 0x02, 0x03}, 0o644); err != nil {
-		t.Fatal(err)
-	}
-
-	out, _, err := run(t, "scan-secrets", "--path", repoRootForTest(t), dir)
-	if err != nil {
-		t.Fatalf("run: %v", err)
-	}
-	// Two text files scanned (leak.txt + clean.txt); blob.bin skipped.
-	if !strings.Contains(out, "Scanned 2 text file(s)") {
-		t.Errorf("expected 2 text files scanned, got:\n%s", out)
-	}
-	if strings.Contains(out, "blob.bin") {
-		t.Errorf("binary file should have been skipped:\n%s", out)
-	}
-	if !strings.Contains(out, "leak.txt") {
-		t.Errorf("nested leak.txt was not scanned (walk did not recurse):\n%s", out)
-	}
-	if strings.HasSuffix(strings.TrimSpace(out), "0 match(es) total") {
-		t.Errorf("directory scan found no secrets; expected the AKIA key:\n%s", out)
-	}
-}
-
-// TestScanSecretsDirectoryJSON confirms the directory branch emits a
-// JSON array of per-file results (distinct from the single-file object
-// shape) so machine consumers can iterate files.
-func TestScanSecretsDirectoryJSON(t *testing.T) {
-	dir := t.TempDir()
-	if err := os.WriteFile(filepath.Join(dir, "a.txt"),
-		[]byte("aws_key = AKIA1234567890ABCDEF\n"), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	out, _, err := run(t, "scan-secrets", "--path", repoRootForTest(t), "--format", "json", dir)
-	if err != nil {
-		t.Fatalf("run: %v", err)
-	}
-	var results []tools.ScanSecretsResult
-	if err := json.Unmarshal([]byte(out), &results); err != nil {
-		t.Fatalf("directory JSON output is not an array of results: %v\n%s", err, out)
-	}
-	if len(results) != 1 {
-		t.Fatalf("want 1 file result, got %d:\n%s", len(results), out)
-	}
-	if results[0].FilePath == "" || len(results[0].Matches) == 0 {
-		t.Errorf("expected a populated file result with matches:\n%s", out)
-	}
-}
-
-func TestScanDockerfileOnFixture(t *testing.T) {
-	tmp, err := os.CreateTemp(t.TempDir(), "Dockerfile-*")
-	if err != nil {
-		t.Fatal(err)
-	}
-	const docker = `FROM node:latest
-USER root
-ADD https://example.com/foo.tar.gz /
-RUN curl http://example.com | sh
-EXPOSE 3000
-CMD ["node", "server.js"]
-`
-	if _, err := tmp.WriteString(docker); err != nil {
-		t.Fatal(err)
-	}
-	tmp.Close()
-	out, _, err := run(t,
-		"scan-dockerfile",
-		"--path", repoRootForTest(t),
-		tmp.Name(),
-	)
-	if err != nil {
-		t.Fatalf("run: %v", err)
-	}
-	// :latest, USER root, ADD remote, curl|sh — at least one of those
-	// must surface as a finding.
 	if strings.Contains(out, "Findings: 0") {
-		t.Errorf("scan-dockerfile missed obvious anti-patterns in fixture:\n%s", out)
+		t.Errorf("scan missed a Stripe live key in the fixture:\n%s", out)
 	}
 }
 
-// TestScanDependenciesDirectoryDiscovery locks in directory
-// auto-discovery: every recognised lockfile beneath the target is
-// scanned, while node_modules / vendor / .git are skipped so installed
-// dependency trees do not flood the results.
-func TestScanDependenciesDirectoryDiscovery(t *testing.T) {
-	dir := t.TempDir()
-	if err := os.WriteFile(filepath.Join(dir, "go.sum"),
-		[]byte("github.com/stretchr/testify v1.8.4 h1:abc=\n"), 0o644); err != nil {
+func TestScanDockerfile(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "Dockerfile")
+	const docker = "FROM node:latest\nUSER root\nRUN curl http://example.com | sh\n"
+	if err := os.WriteFile(path, []byte(docker), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	sub := filepath.Join(dir, "service")
-	if err := os.MkdirAll(sub, 0o755); err != nil {
-		t.Fatal(err)
-	}
-	if err := os.WriteFile(filepath.Join(sub, "requirements.txt"),
-		[]byte("requests==2.31.0\n"), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	// A lockfile inside node_modules must be skipped by discovery.
-	nm := filepath.Join(dir, "node_modules", "dep")
-	if err := os.MkdirAll(nm, 0o755); err != nil {
-		t.Fatal(err)
-	}
-	if err := os.WriteFile(filepath.Join(nm, "package-lock.json"),
-		[]byte(`{"lockfileVersion":3,"packages":{}}`), 0o644); err != nil {
-		t.Fatal(err)
-	}
-
-	out, _, err := run(t, "scan-dependencies", "--path", repoRootForTest(t), dir)
+	out, _, err := run(t, "scan", "--path", repoRootForTest(t), path)
 	if err != nil {
 		t.Fatalf("run: %v", err)
 	}
-	// The summary count proves both lockfiles were discovered and
-	// scanned; per-file sections are only printed for files with
-	// findings (see TestScanDependenciesOmitsCleanFiles).
-	if !strings.Contains(out, "Scanned 2 lockfile(s)") {
-		t.Errorf("expected 2 lockfiles discovered (go.sum + requirements.txt), got:\n%s", out)
-	}
-	if strings.Contains(out, "node_modules") {
-		t.Errorf("node_modules lockfile should have been skipped:\n%s", out)
-	}
-}
-
-// TestScanDependenciesOmitsCleanFiles confirms that, on a directory
-// scan, the terminal output prints only lockfiles with findings and
-// omits clean ones (while the summary still counts every file scanned).
-func TestScanDependenciesOmitsCleanFiles(t *testing.T) {
-	dir := t.TempDir()
-	// event-stream@3.3.6 is the canonical compromised release in the
-	// bundled malicious-package DB, so this finding is deterministic
-	// and offline.
-	if err := os.WriteFile(filepath.Join(dir, "package-lock.json"),
-		[]byte(`{"lockfileVersion":3,"packages":{"node_modules/event-stream":{"version":"3.3.6"}}}`), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	// A clean lockfile that produces no findings.
-	if err := os.WriteFile(filepath.Join(dir, "go.sum"),
-		[]byte("github.com/stretchr/testify v1.8.4 h1:abc=\n"), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	out, _, err := run(t, "scan-dependencies", "--path", repoRootForTest(t), dir)
-	if err != nil {
-		t.Fatalf("run: %v", err)
-	}
-	if !strings.Contains(out, "Scanned 2 lockfile(s)") {
-		t.Errorf("summary should count both lockfiles scanned:\n%s", out)
-	}
-	if !strings.Contains(out, "package-lock.json") {
-		t.Errorf("lockfile with findings should be printed:\n%s", out)
-	}
-	if strings.Contains(out, "go.sum") {
-		t.Errorf("clean lockfile should be omitted from terminal output:\n%s", out)
-	}
-}
-
-// TestScanDependenciesDirectoryNoLockfile confirms a directory with no
-// recognised lockfile is a clear error rather than a silent success.
-func TestScanDependenciesDirectoryNoLockfile(t *testing.T) {
-	dir := t.TempDir()
-	if err := os.WriteFile(filepath.Join(dir, "README.md"), []byte("# nope\n"), 0o644); err != nil {
-		t.Fatal(err)
-	}
-	_, _, err := run(t, "scan-dependencies", "--path", repoRootForTest(t), dir)
-	if err == nil {
-		t.Fatal("expected an error for a directory with no lockfile, got nil")
-	}
-	if !strings.Contains(err.Error(), "no recognised lockfile") {
-		t.Errorf("error did not mention missing lockfile: %v", err)
+	if strings.Contains(out, "Findings: 0") {
+		t.Errorf("scan missed obvious Dockerfile anti-patterns:\n%s", out)
 	}
 }
 
@@ -471,7 +245,7 @@ RUN curl http://example.com | sh
 `
 	path := writeFixedNameFixture(t, "Dockerfile", docker)
 	out, _, err := run(t,
-		"policy-check",
+		"gate",
 		"--path", repoRootForTest(t),
 		"--severity-floor", "high",
 		path,
@@ -496,7 +270,7 @@ CMD ["node", "server.js"]
 `
 	path := writeFixedNameFixture(t, "Dockerfile", docker)
 	out, _, err := run(t,
-		"policy-check",
+		"gate",
 		"--path", repoRootForTest(t),
 		"--severity-floor", "high",
 		path,

@@ -22,31 +22,43 @@ It scans for secrets / vulnerable dependencies / misconfig, gates a build in
 CI, serves the security skills over MCP (secure-vibe mcp), and installs IDE
 config. Maintainer commands for building the skills library live under
 "secure-vibe dev".`,
+		Args:          cobra.NoArgs,
 		SilenceUsage:  true,
 		SilenceErrors: true,
+		// Bare `secure-vibe` prints the splash (logo + version + links +
+		// quick start) instead of the raw help dump.
+		Run: func(c *cobra.Command, _ []string) {
+			renderBanner(c.OutOrStdout())
+		},
 	}
 
 	// End-user runtime commands (the focused top-level surface).
 	root.AddCommand(initCmd())
-	root.AddCommand(updateCmd())
-	root.AddCommand(selfUpdateCmd())
-	root.AddCommand(configureCmd())
+	root.AddCommand(scanCmd())          // auto-detect scanner, report only
+	root.AddCommand(policyCheckCmd())   // gate: same detection, CI exit code
+	root.AddCommand(checkCmd())         // single-package malicious/typosquat/CVE/OSV lookup
+	root.AddCommand(contributeCmd())    // LEARN loop
+	root.AddCommand(mcpCmd())           // MCP server (+ `mcp connect`)
+	root.AddCommand(updateCmd())        // library data (+ `--self` for the binary)
 	root.AddCommand(statusCmd())
 	root.AddCommand(listCmd())
+	root.AddCommand(configureCmd())
 	root.AddCommand(versionCmd())
-	root.AddCommand(connectMCPCmd())
-	root.AddCommand(mcpCmd())
-	// Scan / lookup surface — twins of the MCP tools, see tools_cli.go.
-	root.AddCommand(checkDependencyCmd())
-	root.AddCommand(checkTyposquatCmd())
-	root.AddCommand(lookupVulnerabilityCmd())
-	root.AddCommand(scanSecretsCmd())
-	root.AddCommand(scanDependenciesCmd())
-	root.AddCommand(scanDockerfileCmd())
-	root.AddCommand(scanGitHubActionsCmd())
-	root.AddCommand(policyCheckCmd())
-	root.AddCommand(contributeCmd())
+	lc := logoCmd()
+	lc.Hidden = true // still runnable, kept out of the help list
+	root.AddCommand(lc)
 	// Maintainer commands, grouped under `dev` to keep top-level help focused.
 	root.AddCommand(devCmd())
+
+	// Show the mark above the root help — bare `secure-vibe` (which prints
+	// help) and `secure-vibe --help`. Scoped to the root so subcommand help
+	// (e.g. `secure-vibe gate --help`) stays clean.
+	defaultHelp := root.HelpFunc()
+	root.SetHelpFunc(func(c *cobra.Command, args []string) {
+		if c == root {
+			renderBanner(c.OutOrStdout())
+		}
+		defaultHelp(c, args)
+	})
 	return root
 }

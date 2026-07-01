@@ -234,7 +234,7 @@ Returns exit 0 always; the result still lists findings — use
 }
 
 func renderCheckDependencyText(w io.Writer, res *tools.CheckDependencyResult) error {
-	fmt.Fprintf(w, "=== check-dependency %s@%s (%s) ===\n", res.Package, res.Version, res.Ecosystem)
+	fmt.Fprintf(w, "=== check %s@%s (%s) ===\n", res.Package, res.Version, res.Ecosystem)
 	fmt.Fprintf(w, "Malicious entries:  %d\n", len(res.Malicious))
 	fmt.Fprintf(w, "Typosquat matches:  %d\n", len(res.Typosquats))
 	fmt.Fprintf(w, "CVE pattern hits:   %d\n", len(res.CVEs))

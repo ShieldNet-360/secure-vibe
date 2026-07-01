@@ -18,7 +18,7 @@ func TestScanSecretsWritesHTMLReport(t *testing.T) {
 	}
 	outDir := filepath.Join(dir, "reports")
 
-	stdout, _, err := run(t, "scan-secrets", "--path", repoRootForTest(t), "--report-dir", outDir, src)
+	stdout, _, err := run(t, "scan", "--path", repoRootForTest(t), "--report-dir", outDir, src)
 	if err != nil {
 		t.Fatalf("run: %v", err)
 	}
@@ -26,12 +26,12 @@ func TestScanSecretsWritesHTMLReport(t *testing.T) {
 		t.Errorf("expected a confirmation line on stdout, got:\n%s", stdout)
 	}
 	// Terminal should NOT carry the usual scan output when reporting.
-	if strings.Contains(stdout, "=== scan-secrets") {
+	if strings.Contains(stdout, "=== scan") {
 		t.Errorf("terminal scan output leaked while --report-dir was set:\n%s", stdout)
 	}
 
-	htmlPath := filepath.Join(outDir, "scan-secrets-report.html")
-	pdfPath := filepath.Join(outDir, "scan-secrets-report.pdf")
+	htmlPath := filepath.Join(outDir, "scan-report.html")
+	pdfPath := filepath.Join(outDir, "scan-report.pdf")
 	body, err := os.ReadFile(htmlPath)
 	if err != nil {
 		t.Fatalf("read HTML report: %v", err)
@@ -39,7 +39,7 @@ func TestScanSecretsWritesHTMLReport(t *testing.T) {
 	html := string(body)
 	for _, want := range []string{
 		"<!DOCTYPE html>",
-		"scan-secrets report",
+		"scan report",
 		"file(s) scanned",
 		"<table>",
 		"badge sev-",
@@ -71,19 +71,19 @@ func TestScanDependenciesReportDirectory(t *testing.T) {
 		t.Fatal(err)
 	}
 	outDir := filepath.Join(dir, "reports")
-	stdout, _, err := run(t, "scan-dependencies", "--path", repoRootForTest(t), "--report-dir", outDir, dir)
+	stdout, _, err := run(t, "scan", "--path", repoRootForTest(t), "--report-dir", outDir, dir)
 	if err != nil {
 		t.Fatalf("run: %v", err)
 	}
 	if !strings.Contains(stdout, "Reports written") {
 		t.Errorf("expected confirmation line, got:\n%s", stdout)
 	}
-	body, err := os.ReadFile(filepath.Join(outDir, "scan-dependencies-report.html"))
+	body, err := os.ReadFile(filepath.Join(outDir, "scan-report.html"))
 	if err != nil {
 		t.Fatalf("read report: %v", err)
 	}
 	html := string(body)
-	if !strings.Contains(html, "scan-dependencies report") {
+	if !strings.Contains(html, "scan report") {
 		t.Errorf("report missing title:\n%s", html)
 	}
 	if !strings.Contains(html, "go.sum") {

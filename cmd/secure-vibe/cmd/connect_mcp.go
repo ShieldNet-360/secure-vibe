@@ -26,20 +26,20 @@ func connectMCPCmd() *cobra.Command {
 	var scope, pathFlag, binary string
 	var printOnly bool
 	c := &cobra.Command{
-		Use:   "connect-mcp [name] [-- command args...]",
+		Use:   "connect [name] [-- command args...]",
 		Short: "Register the SecureVibe MCP server (`secure-vibe mcp`) with Claude Code (wraps `claude mcp add`)",
-		Long: `connect-mcp wires the SecureVibe MCP server into Claude Code.
+		Long: `mcp connect wires the SecureVibe MCP server into Claude Code.
 
 With no arguments it registers this binary running its "mcp" subcommand
 (secure-vibe mcp), pointed at the resolved library root:
 
-    secure-vibe connect-mcp
+    secure-vibe mcp connect
     # → claude mcp add -s local secure-vibe -- secure-vibe mcp --path <root>
 
 To register an arbitrary MCP server instead, pass a name and a command
 after "--":
 
-    secure-vibe connect-mcp my-server -- npx -y @scope/some-mcp
+    secure-vibe mcp connect my-server -- npx -y @scope/some-mcp
 
 It shells out to the Claude Code CLI ("claude mcp add"), mirroring how the
 "scheduler" command drives OS tools. If the claude CLI is not on PATH (or

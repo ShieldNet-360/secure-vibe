@@ -9,13 +9,9 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 	"path"
-	"runtime"
 	"strings"
 	"time"
-
-	"github.com/spf13/cobra"
 
 	"github.com/shieldnet-360/secure-vibe/cmd/secure-vibe/internal/manifest"
 )
@@ -25,53 +21,8 @@ import (
 // checksum files.
 const DefaultSelfUpdateBaseURL = "https://github.com/shieldnet-360/secure-vibe/releases/latest/download"
 
-func selfUpdateCmd() *cobra.Command {
-	var baseURL string
-	var dryRun bool
-	var requireSig bool
-	c := &cobra.Command{
-		Use:   "self-update",
-		Short: "Download the latest secure-vibe binary and atomically replace this one",
-		Long: "Downloads the binary that matches the running GOOS/GOARCH from " +
-			"GitHub Releases, verifies its SHA-256 against the published " +
-			"checksums-<goos>-<goarch>.txt file, verifies that checksum file's " +
-			"Ed25519 signature against the embedded release key when one is " +
-			"published, and atomically replaces the running binary on disk. " +
-			"--require-signature makes a missing signature a hard failure; " +
-			"--dry-run reports what would happen without writing anything.",
-		RunE: func(c *cobra.Command, args []string) error {
-			if baseURL == "" {
-				baseURL = DefaultSelfUpdateBaseURL
-			}
-			exe, err := os.Executable()
-			if err != nil {
-				return fmt.Errorf("resolve current binary: %w", err)
-			}
-			result, err := runSelfUpdate(c.OutOrStdout(), baseURL, runtime.GOOS, runtime.GOARCH, exe, dryRun, requireSig)
-			if err != nil {
-				return err
-			}
-			out := c.OutOrStdout()
-			sigNote := "unsigned"
-			if result.SignatureVerified {
-				sigNote = "signature verified"
-			}
-			fmt.Fprintf(out, "verified %s (sha256 %s, %s)\n", result.BinaryName, result.SHA256, sigNote)
-			if dryRun {
-				fmt.Fprintln(out, "dry-run: not replacing on-disk binary")
-				return nil
-			}
-			fmt.Fprintf(out, "replaced %s\n", exe)
-			return nil
-		},
-	}
-	c.Flags().StringVar(&baseURL, "base-url", DefaultSelfUpdateBaseURL,
-		"override the base URL the binary and checksum file are fetched from")
-	c.Flags().BoolVar(&dryRun, "dry-run", false, "verify the download without replacing the on-disk binary")
-	c.Flags().BoolVar(&requireSig, "require-signature", false,
-		"fail unless the checksum file carries a valid Ed25519 signature (strict mode)")
-	return c
-}
+// The former `self-update` command is now `secure-vibe update --self`; the
+// runSelfUpdate flow below is shared by that flag (see update.go).
 
 type selfUpdateResult struct {
 	BinaryName        string

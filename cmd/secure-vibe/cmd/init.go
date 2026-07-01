@@ -37,6 +37,9 @@ func initCmd() *cobra.Command {
 				tier = skill.Tier(budget)
 			}
 
+			renderBanner(c.OutOrStdout())
+			fmt.Fprintln(c.OutOrStdout())
+
 			// Resolve like the scanners: an explicit --library wins, else
 			// $SECURE_VIBE_LIBRARY_PATH (so `npx @shieldnet360/secure-vibe init` and
 			// any installed binary find the bundled/checked-out data tree

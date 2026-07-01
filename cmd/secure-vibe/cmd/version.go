@@ -17,6 +17,8 @@ func versionCmd() *cobra.Command {
 		Short: "Print CLI, library, embedded signing key, and Go version",
 		RunE: func(c *cobra.Command, args []string) error {
 			out := c.OutOrStdout()
+			renderLogo(out)
+			fmt.Fprintln(out)
 			fmt.Fprintf(out, "secure-vibe %s\n", CLIVersion)
 			libVersion := "unknown"
 			manifestKey := ""

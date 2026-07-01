@@ -3,7 +3,9 @@ package cmd
 import (
 	"crypto/ed25519"
 	"fmt"
+	"os"
 	"path/filepath"
+	"runtime"
 
 	"github.com/spf13/cobra"
 
@@ -36,16 +38,47 @@ func updateCmd() *cobra.Command {
 		quiet         bool
 		fullInline    bool
 		legacy        bool
+		self          bool
+		selfBaseURL   string
+		selfDryRun    bool
+		selfRequire   bool
 	)
 	c := &cobra.Command{
 		Use:   "update",
-		Short: "Pull the latest signed skills and vulnerability data from a release channel",
+		Short: "Pull the latest signed skills and vulnerability data (or, with --self, the binary itself)",
 		Long: "Verifies the signed manifest published at --source, downloads only the files " +
 			"whose SHA-256 differs from the local copy, and atomically writes them into the " +
 			"library root. --check-only reports without applying; --rollback restores the " +
 			"previous applied update.",
 		RunE: func(c *cobra.Command, args []string) error {
 			out := c.OutOrStdout()
+
+			// --self replaces the running binary (formerly `self-update`).
+			if self {
+				if selfBaseURL == "" {
+					selfBaseURL = DefaultSelfUpdateBaseURL
+				}
+				exe, err := os.Executable()
+				if err != nil {
+					return fmt.Errorf("resolve current binary: %w", err)
+				}
+				res, err := runSelfUpdate(out, selfBaseURL, runtime.GOOS, runtime.GOARCH, exe, selfDryRun, selfRequire)
+				if err != nil {
+					return err
+				}
+				sigNote := "unsigned"
+				if res.SignatureVerified {
+					sigNote = "signature verified"
+				}
+				fmt.Fprintf(out, "verified %s (sha256 %s, %s)\n", res.BinaryName, res.SHA256, sigNote)
+				if selfDryRun {
+					fmt.Fprintln(out, "dry-run: not replacing on-disk binary")
+					return nil
+				}
+				fmt.Fprintf(out, "replaced %s\n", exe)
+				return nil
+			}
+
 			root, err := filepath.Abs(path)
 			if err != nil {
 				return err
@@ -123,6 +156,11 @@ func updateCmd() *cobra.Command {
 	c.Flags().BoolVar(&quiet, "quiet", false, "suppress non-essential output")
 	c.Flags().BoolVar(&fullInline, "full-inline", false, "with --regenerate, keep the legacy AGENTS.md output that inlines every skill body (default is the minimal pointer file)")
 	c.Flags().BoolVar(&legacy, "legacy", false, "alias for --full-inline")
+	// Binary self-update (formerly the `self-update` command).
+	c.Flags().BoolVar(&self, "self", false, "update the secure-vibe binary itself instead of the library data")
+	c.Flags().StringVar(&selfBaseURL, "self-base-url", DefaultSelfUpdateBaseURL, "with --self: override the base URL the binary and checksum file are fetched from")
+	c.Flags().BoolVar(&selfDryRun, "self-dry-run", false, "with --self: verify the download without replacing the on-disk binary")
+	c.Flags().BoolVar(&selfRequire, "self-require-signature", false, "with --self: fail unless the checksum file carries a valid Ed25519 signature")
 	return c
 }
 

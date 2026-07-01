@@ -15,7 +15,7 @@ func runConnectMCP(t *testing.T, args ...string) (string, error) {
 	var buf bytes.Buffer
 	root.SetOut(&buf)
 	root.SetErr(&buf)
-	root.SetArgs(append([]string{"connect-mcp"}, args...))
+	root.SetArgs(append([]string{"mcp", "connect"}, args...))
 	err := root.Execute()
 	return buf.String(), err
 }
