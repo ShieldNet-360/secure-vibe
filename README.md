@@ -43,9 +43,11 @@ secure-vibe gate . --severity-floor high --format sarif
 # 4 · vet one package before adding it
 secure-vibe check event-stream@3.3.6 -e npm
 
-# 5 · run the MCP server (17 tools over stdio) and wire it into Claude Code
+# 5 · the MCP server (17 tools over stdio) — this is the command clients spawn:
+secure-vibe mcp                                    # or: npx -y @shieldnet360/secure-vibe mcp
+#    register it with Claude Code in one line:
 claude mcp add SecureVibe -- npx -y @shieldnet360/secure-vibe mcp
-# Cursor · Windsurf · VS Code · Cline · Zed → docs/reference/mcp-clients.md
+#    Cursor · Windsurf · VS Code · Cline · Zed → docs/reference/mcp-clients.md
 ```
 
 ## See it catch something
