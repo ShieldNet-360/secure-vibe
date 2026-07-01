@@ -1,0 +1,592 @@
+{
+  "schema_version": "1.0",
+  "ecosystem": "crates",
+  "last_updated": "2026-06-21T12:00:00Z",
+  "entries": [
+    {
+      "name": "actix_web_extras",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "typosquat",
+      "severity": "medium",
+      "discovered": "2024-02-14",
+      "description": "Squat of actix-web with `_extras` suffix. AI coding assistants must not suggest this name; the canonical extension is `actix-web-extras` (hyphen, not underscore) and that namespace is currently empty.",
+      "references": [
+        "https://blog.phylum.io/cargo-typosquat-roundup-q1-2024/"
+      ],
+      "indicators": [
+        "underscore where canonical name uses hyphen",
+        "extras namespace claimed without permission"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "amzn-codewhisperer-streaming-client",
+      "versions_affected": [
+        "99.0.1"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2026-04-27",
+      "description": "Malicious code in amzn_codewhisperer_streaming_client (crates.io)",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2026-3103"
+      ],
+      "indicators": [],
+      "attack_type": "embedded_malicious_code",
+      "source": "ossf-malicious-packages",
+      "osv_id": "MAL-2026-3103"
+    },
+    {
+      "name": "amzn-consolas-client",
+      "versions_affected": [
+        "99.0.1"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2026-04-27",
+      "description": "Malicious code in amzn_consolas_client (crates.io)",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2026-3101"
+      ],
+      "indicators": [],
+      "attack_type": "embedded_malicious_code",
+      "source": "ossf-malicious-packages",
+      "osv_id": "MAL-2026-3101"
+    },
+    {
+      "name": "anyhow_ext",
+      "versions_affected": [
+        "0.1.0"
+      ],
+      "type": "typosquat",
+      "severity": "high",
+      "discovered": "2023-07-19",
+      "description": "Typosquat of the popular anyhow crate. The package contained no legitimate functionality and was published in an attempt to lure developers into a malicious dependency tree.",
+      "references": [
+        "https://blog.phylum.io/rust-cargo-supply-chain-attack-research-summer-2023/"
+      ],
+      "indicators": [
+        "name superficially extends anyhow",
+        "empty or trivial src/lib.rs",
+        "publisher has no other reputable crates"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "async_println",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "typosquat",
+      "severity": "critical",
+      "discovered": "2025-09-24",
+      "description": "Second malicious crate in the September 2025 fast_log impersonation campaign (with faster_log), published by 'rustguruman' / 'dumbnbased' on 2025-05-25. Embedded the same wallet-key stealer: it scanned local Rust source for Solana and Ethereum private keys and exfiltrated them to a hardcoded Cloudflare Workers C2 endpoint behind legitimate-looking logging functionality.",
+      "references": [
+        "https://blog.rust-lang.org/2025/09/24/crates.io-malicious-crates-fasterlog-and-asyncprintln",
+        "https://thehackernews.com/2025/09/malicious-rust-crates-steal-solana-and.html"
+      ],
+      "indicators": [
+        "impersonates fast_log logging API",
+        "scans .rs source files for wallet private keys",
+        "Cloudflare Workers exfiltration endpoint",
+        "same actors as faster_log"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "fast_log_async",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "typosquat",
+      "severity": "medium",
+      "discovered": "2024-02-14",
+      "description": "Suffix-style typosquat of fast_log. Squatters used the package to test crates.io's takedown response time.",
+      "references": [
+        "https://blog.phylum.io/cargo-typosquat-roundup-q1-2024/"
+      ],
+      "indicators": [
+        "name suffix `_async` on popular crate",
+        "build.rs writes outside OUT_DIR"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "faster_log",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "typosquat",
+      "severity": "critical",
+      "discovered": "2025-09-24",
+      "description": "Typosquat of the popular fast_log logging crate. Published 2025-05-25 by the accounts 'rustguruman' and 'dumbnbased', it shipped working logging code as cover while a hidden routine scanned local Rust source files for Solana and Ethereum private keys and exfiltrated matches via HTTP POST to a hardcoded Cloudflare Workers C2 endpoint. About 8,424 downloads across this crate and async_println before crates.io removed them.",
+      "references": [
+        "https://blog.rust-lang.org/2025/09/24/crates.io-malicious-crates-fasterlog-and-asyncprintln",
+        "https://thehackernews.com/2025/09/malicious-rust-crates-steal-solana-and.html"
+      ],
+      "indicators": [
+        "name typosquats fast_log",
+        "scans .rs source files for Solana/Ethereum private keys",
+        "exfiltrates to a Cloudflare Workers endpoint",
+        "published by accounts rustguruman / dumbnbased"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "littest",
+      "versions_affected": [
+        "0.3.1"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2023-11-03",
+      "description": "Malicious crate (v0.3.1) flagged by the OpenSSF Package Analysis project (OSV MAL-2023-8429, 2023-11-03): the package communicates with a domain associated with malicious activity.",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2023-8429"
+      ],
+      "indicators": [],
+      "attack_type": "embedded_malicious_code",
+      "source": "ossf-malicious-packages",
+      "osv_id": "MAL-2023-8429"
+    },
+    {
+      "name": "lsh",
+      "versions_affected": [
+        "99.0.1",
+        "99.1.0"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2026-04-28",
+      "description": "Malicious crate (v99.0.1, v99.1.0) flagged by the OpenSSF Package Analysis project (OSV MAL-2026-3126): it communicates with a domain associated with malicious activity and executes one or more commands associated with malicious behavior. The 99.x version numbers are a typical marker of automated typosquat / dependency-confusion uploads.",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2026-3126"
+      ],
+      "indicators": [],
+      "attack_type": "embedded_malicious_code",
+      "source": "ossf-malicious-packages",
+      "osv_id": "MAL-2026-3126"
+    },
+    {
+      "name": "mysten-metrics",
+      "versions_affected": [
+        "9.0.3"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2026-04-20",
+      "description": "Malicious code in mysten_metrics (crates.io)",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2026-2958"
+      ],
+      "indicators": [],
+      "attack_type": "embedded_malicious_code",
+      "source": "ossf-malicious-packages",
+      "osv_id": "MAL-2026-2958"
+    },
+    {
+      "name": "openssh-key-parser",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2023-09-13",
+      "description": "Crate name suggesting SSH key handling. Removed by crates.io security team after being identified as part of a credential-harvesting campaign.",
+      "references": [
+        "https://blog.phylum.io/rust-cargo-supply-chain-attack-research-summer-2023/"
+      ],
+      "indicators": [
+        "claims to parse SSH keys",
+        "reads files outside crate working directory",
+        "network call during build"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "postgress",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "typosquat",
+      "severity": "high",
+      "discovered": "2023-07-19",
+      "description": "Double-s typosquat of the postgres crate. Used in a coordinated campaign of squat crates published in mid-2023.",
+      "references": [
+        "https://blog.phylum.io/rust-cargo-supply-chain-attack-research-summer-2023/"
+      ],
+      "indicators": [
+        "name differs from postgres by one duplicated character",
+        "published by short-lived account",
+        "no meaningful source"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "replit_ruspty",
+      "versions_affected": [
+        "1.0.0"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2025-11-04",
+      "description": "Malicious code in replit_ruspty (crates.io)",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2025-49350"
+      ],
+      "indicators": [],
+      "attack_type": "embedded_malicious_code",
+      "source": "ossf-malicious-packages",
+      "osv_id": "MAL-2025-49350"
+    },
+    {
+      "name": "rustdecimal",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "typosquat",
+      "severity": "critical",
+      "discovered": "2022-05-10",
+      "description": "Typosquat of the legitimate rust_decimal crate. The malicious version contained code that downloaded and executed a binary payload designed to steal credentials and target Linux systems.",
+      "references": [
+        "https://blog.rust-lang.org/2022/05/10/cve-2022-36315.html",
+        "https://blog.phylum.io/typosquatting-malware-found-in-rust-crate"
+      ],
+      "indicators": [
+        "name differs from rust_decimal by a single character",
+        "build.rs invokes external command",
+        "downloads payload from attacker-controlled URL"
+      ],
+      "cve": "CVE-2022-36315",
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "semantic-search-client",
+      "versions_affected": [
+        "99.0.1"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2026-04-27",
+      "description": "Malicious code in semantic_search_client (crates.io)",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2026-3102"
+      ],
+      "indicators": [],
+      "attack_type": "embedded_malicious_code",
+      "source": "ossf-malicious-packages",
+      "osv_id": "MAL-2026-3102"
+    },
+    {
+      "name": "serde_derive_internals_typo",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "typosquat",
+      "severity": "medium",
+      "discovered": "2023-08-22",
+      "description": "Squat of the internal serde_derive_internals crate. Removed from crates.io after disclosure; recorded here so coding assistants flag any reappearance.",
+      "references": [
+        "https://blog.phylum.io/rust-cargo-supply-chain-attack-research-summer-2023/"
+      ],
+      "indicators": [
+        "name appends `_typo` to legitimate crate",
+        "publishes faster than legitimate maintainers"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "supertag",
+      "versions_affected": [
+        "99.1.1"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2026-04-28",
+      "description": "Malicious crate (v99.1.1) flagged by the OpenSSF Package Analysis project (OSV MAL-2026-3129): it executes one or more commands associated with malicious behavior and communicates with a domain associated with malicious activity.",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2026-3129"
+      ],
+      "indicators": [],
+      "attack_type": "embedded_malicious_code",
+      "source": "ossf-malicious-packages",
+      "osv_id": "MAL-2026-3129"
+    },
+    {
+      "name": "tokei-pretty",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "typosquat",
+      "severity": "medium",
+      "discovered": "2023-08-22",
+      "description": "Variation on the popular tokei crate name. Part of the Phylum-disclosed cargo typosquat wave of 2023. Did not contain a live payload but established a foothold name.",
+      "references": [
+        "https://blog.phylum.io/rust-cargo-supply-chain-attack-research-summer-2023/"
+      ],
+      "indicators": [
+        "name suffix `-pretty` on popular crate",
+        "metadata mimics legitimate package description"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "finch-rust",
+      "versions_affected": [
+        "0.6.2"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "high",
+      "discovered": "2025-12-05",
+      "description": "Socket disclosed a malicious crate 'finch-rust' (v0.6.2) by threat actor 'faceless' (GitHub face-lessssss) impersonating the legitimate bioinformatics tool 'finch' (60k+ downloads). It acts as a loader via an unpinned dependency on the credential-stealing crate 'sha-rust' (sha-rust = \"0.1\"), so it auto-resolves to whatever malicious version is latest. The payload reads .env, config.toml and id.json files for API keys, database URLs, auth tokens and crypto keys and POSTs them (with username + IP gathered via a UDP-socket trick) to rust-docs-build[.]vercel[.]app/api/v1.",
+      "references": [
+        "https://socket.dev/blog/malicious-crate-mimicking-finch-exfiltrates-credentials",
+        "https://advisories.gitlab.com/pkg/cargo/finch_cli_rust"
+      ],
+      "indicators": [
+        "unpinned dependency 'sha-rust = \"0.1\"' in Cargo.toml",
+        "reads .env, config.toml, id.json for secrets",
+        "exfiltrates to rust-docs-build[.]vercel[.]app/api/v1",
+        "typosquat/impersonation of the 'finch' crate",
+        "published by crates.io alias 'faceless'"
+      ],
+      "attack_type": "embedded_malicious_code"
+    },
+    {
+      "name": "sha-rust",
+      "versions_affected": [
+        "0.1.0",
+        "0.1.1",
+        "0.1.2",
+        "0.1.3",
+        "0.1.4",
+        "0.1.5",
+        "0.1.6",
+        "0.1.7"
+      ],
+      "type": "data_exfiltration",
+      "severity": "high",
+      "discovered": "2025-12-05",
+      "description": "Credential-stealing crate pulled in as an unpinned transitive dependency by the malicious loader 'finch-rust' (Socket, Dec 2025; threat actor 'faceless'). Across 8 rapid versions (0.1.0-0.1.7 in ~2 weeks) it scanned for .env / config.toml / id.json secrets (API keys, DB URLs, auth tokens, crypto keys) and exfiltrated them with host metadata to rust-docs-build[.]vercel[.]app/api/v1. The unpinned 'sha-rust = \"0.1\"' constraint let the attacker push evolved payloads to existing victims without any change to finch-rust.",
+      "references": [
+        "https://socket.dev/blog/malicious-crate-mimicking-finch-exfiltrates-credentials"
+      ],
+      "indicators": [
+        "8 versions published in ~2 weeks",
+        "reads .env, config.toml, id.json",
+        "exfiltrates to rust-docs-build[.]vercel[.]app",
+        "delivered via an unpinned dependency from finch-rust"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "chrono_anchor",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "critical",
+      "discovered": "2026-03-01",
+      "description": "Rust crate in a single-actor campaign (Socket, Feb-Mar 2026) of five time-utility impersonators of timeapi.io. Although it poses as a local time utility, its core behavior is secret theft: it collects developer secrets \u2014 notably .env files \u2014 and POSTs them to the threat-actor lookalike domain timeapis.io. crates.io yanked four of the five shortly after publication.; chrono_anchor went further with obfuscation and operational changes to evade detection, and stayed live until reported.",
+      "references": [
+        "https://socket.dev/blog/5-malicious-rust-crates-posed-as-time-utilities-to-exfiltrate-env-files"
+      ],
+      "indicators": [
+        "impersonates timeapi.io (poses as a local time utility)",
+        "collects and exfiltrates .env / developer secrets",
+        "POST to lookalike domain timeapis.io",
+        "heavier obfuscation to evade detection"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "dnp3times",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "high",
+      "discovered": "2026-03-01",
+      "description": "Rust crate in a single-actor campaign (Socket, Feb-Mar 2026) of five time-utility impersonators of timeapi.io. Although it poses as a local time utility, its core behavior is secret theft: it collects developer secrets \u2014 notably .env files \u2014 and POSTs them to the threat-actor lookalike domain timeapis.io. crates.io yanked four of the five shortly after publication..",
+      "references": [
+        "https://socket.dev/blog/5-malicious-rust-crates-posed-as-time-utilities-to-exfiltrate-env-files"
+      ],
+      "indicators": [
+        "impersonates timeapi.io (poses as a local time utility)",
+        "collects and exfiltrates .env / developer secrets",
+        "POST to lookalike domain timeapis.io"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "time_calibrator",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "high",
+      "discovered": "2026-03-01",
+      "description": "Rust crate in a single-actor campaign (Socket, Feb-Mar 2026) of five time-utility impersonators of timeapi.io. Although it poses as a local time utility, its core behavior is secret theft: it collects developer secrets \u2014 notably .env files \u2014 and POSTs them to the threat-actor lookalike domain timeapis.io. crates.io yanked four of the five shortly after publication..",
+      "references": [
+        "https://socket.dev/blog/5-malicious-rust-crates-posed-as-time-utilities-to-exfiltrate-env-files"
+      ],
+      "indicators": [
+        "impersonates timeapi.io (poses as a local time utility)",
+        "collects and exfiltrates .env / developer secrets",
+        "POST to lookalike domain timeapis.io"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "time_calibrators",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "high",
+      "discovered": "2026-03-01",
+      "description": "Rust crate in a single-actor campaign (Socket, Feb-Mar 2026) of five time-utility impersonators of timeapi.io. Although it poses as a local time utility, its core behavior is secret theft: it collects developer secrets \u2014 notably .env files \u2014 and POSTs them to the threat-actor lookalike domain timeapis.io. crates.io yanked four of the five shortly after publication..",
+      "references": [
+        "https://socket.dev/blog/5-malicious-rust-crates-posed-as-time-utilities-to-exfiltrate-env-files"
+      ],
+      "indicators": [
+        "impersonates timeapi.io (poses as a local time utility)",
+        "collects and exfiltrates .env / developer secrets",
+        "POST to lookalike domain timeapis.io"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "time-sync",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "high",
+      "discovered": "2026-03-01",
+      "description": "Rust crate in a single-actor campaign (Socket, Feb-Mar 2026) of five time-utility impersonators of timeapi.io. Although it poses as a local time utility, its core behavior is secret theft: it collects developer secrets \u2014 notably .env files \u2014 and POSTs them to the threat-actor lookalike domain timeapis.io. crates.io yanked four of the five shortly after publication..",
+      "references": [
+        "https://socket.dev/blog/5-malicious-rust-crates-posed-as-time-utilities-to-exfiltrate-env-files"
+      ],
+      "indicators": [
+        "impersonates timeapi.io (poses as a local time utility)",
+        "collects and exfiltrates .env / developer secrets",
+        "POST to lookalike domain timeapis.io"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "polymarket-clients-sdk",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "high",
+      "discovered": "2026-02-06",
+      "description": "Typosquat of the polymarket-client-sdk crate (RUSTSEC-2026-0010, Socket). Impersonates the Polymarket Web3 client SDK to exfiltrate developer credentials; flagged 2026-02-06 and removed from crates.io.",
+      "references": [
+        "https://rustsec.org/advisories/RUSTSEC-2026-0010.html",
+        "https://devops.com/crates-io-removes-malicious-rust-package-targeting-web3-developers/"
+      ],
+      "indicators": [
+        "typosquat of polymarket-client-sdk",
+        "targets Web3 developer credentials",
+        "advisory RUSTSEC-2026-0010"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "polymarket-client-sdks",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "high",
+      "discovered": "2026-02-13",
+      "description": "Typosquat of the polymarket-client-sdk crate (RUSTSEC-2026-0011, Socket). Impersonates the Polymarket Web3 client SDK to exfiltrate developer credentials; flagged 2026-02-13 and removed from crates.io.",
+      "references": [
+        "https://rustsec.org/advisories/RUSTSEC-2026-0011.html",
+        "https://devops.com/crates-io-removes-malicious-rust-package-targeting-web3-developers/"
+      ],
+      "indicators": [
+        "typosquat of polymarket-client-sdk",
+        "targets Web3 developer credentials",
+        "advisory RUSTSEC-2026-0011"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "move-analyzer-build",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "critical",
+      "discovered": "2026-05-22",
+      "description": "Part of the 'TrapDoor' supply-chain campaign (Socket, from 2026-05-22) \u2014 the first to weaponize npm, PyPI and crates.io simultaneously, disguising a crypto-focused credential stealer as developer/security tools aimed at crypto/DeFi/Solana/AI developers. Steals SSH keys, Sui/Solana/Aptos wallet keystores, AWS credentials, GitHub tokens, browser profile + wallet-extension data, env vars and API keys. crates execution path: a malicious build.rs script at build time.",
+      "references": [
+        "https://socket.dev/blog/trapdoor-crypto-stealer-npm-pypi-crates",
+        "https://thehackernews.com/2026/05/trapdoor-supply-chain-attack-spreads.html"
+      ],
+      "indicators": [
+        "part of the multi-ecosystem 'TrapDoor' campaign (npm+PyPI+crates, from 2026-05-22)",
+        "disguised as a crypto/DeFi/web3 security or dev tool",
+        "malicious build.rs script",
+        "exfiltrates SSH keys, crypto wallet keystores, AWS/GitHub creds, browser data"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "sui-framework-helpers",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "critical",
+      "discovered": "2026-05-22",
+      "description": "Part of the 'TrapDoor' supply-chain campaign (Socket, from 2026-05-22) \u2014 the first to weaponize npm, PyPI and crates.io simultaneously, disguising a crypto-focused credential stealer as developer/security tools aimed at crypto/DeFi/Solana/AI developers. Steals SSH keys, Sui/Solana/Aptos wallet keystores, AWS credentials, GitHub tokens, browser profile + wallet-extension data, env vars and API keys. crates execution path: a malicious build.rs script at build time.",
+      "references": [
+        "https://socket.dev/blog/trapdoor-crypto-stealer-npm-pypi-crates",
+        "https://thehackernews.com/2026/05/trapdoor-supply-chain-attack-spreads.html"
+      ],
+      "indicators": [
+        "part of the multi-ecosystem 'TrapDoor' campaign (npm+PyPI+crates, from 2026-05-22)",
+        "disguised as a crypto/DeFi/web3 security or dev tool",
+        "malicious build.rs script",
+        "exfiltrates SSH keys, crypto wallet keystores, AWS/GitHub creds, browser data"
+      ],
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "name": "sui-sdk-build-utils",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "embedded_malicious_code",
+      "severity": "critical",
+      "discovered": "2026-05-22",
+      "description": "Part of the 'TrapDoor' supply-chain campaign (Socket, from 2026-05-22) \u2014 the first to weaponize npm, PyPI and crates.io simultaneously, disguising a crypto-focused credential stealer as developer/security tools aimed at crypto/DeFi/Solana/AI developers. Steals SSH keys, Sui/Solana/Aptos wallet keystores, AWS credentials, GitHub tokens, browser profile + wallet-extension data, env vars and API keys. crates execution path: a malicious build.rs script at build time.",
+      "references": [
+        "https://socket.dev/blog/trapdoor-crypto-stealer-npm-pypi-crates",
+        "https://thehackernews.com/2026/05/trapdoor-supply-chain-attack-spreads.html"
+      ],
+      "indicators": [
+        "part of the multi-ecosystem 'TrapDoor' campaign (npm+PyPI+crates, from 2026-05-22)",
+        "disguised as a crypto/DeFi/web3 security or dev tool",
+        "malicious build.rs script",
+        "exfiltrates SSH keys, crypto wallet keystores, AWS/GitHub creds, browser data"
+      ],
+      "attack_type": "data_exfiltration"
+    }
+  ],
+  "sources": {
+    "ossf-malicious-packages": {
+      "url": "https://github.com/ossf/malicious-packages",
+      "commit": "aa66cb2d5ed2b95be1e33d08777b34264b5e0354",
+      "ingested_at": "2026-05-14T16:01:45Z",
+      "entries_from_source": 8
+    }
+  }
+}

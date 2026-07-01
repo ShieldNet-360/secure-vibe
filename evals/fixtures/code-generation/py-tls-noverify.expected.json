@@ -1,0 +1,15 @@
+{
+  "ground_truth": "generation",
+  "skill": "protocol-security",
+  "language": "python",
+  "insecure_signals": [
+    "verify\\s*=\\s*False"
+  ],
+  "secure_signals": [
+    "verify\\s*=\\s*['\\\"/]",
+    "verify\\s*=\\s*True",
+    "REQUESTS_CA_BUNDLE"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-295"
+}

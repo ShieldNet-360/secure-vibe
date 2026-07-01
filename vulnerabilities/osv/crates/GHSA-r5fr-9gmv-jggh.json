@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-r5fr-9gmv-jggh",
+  "published": "2026-05-06T23:38:49Z",
+  "modified": "2026-05-06T23:49:35.828892Z",
+  "summary": "scim_proton and kanidm_proto have an authenticated process abort via SCIM filter stack exhaustion",
+  "affected": [
+    {
+      "package": {
+        "name": "scim_proto",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/scim_proto"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 1.9.2",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-r5fr-9gmv-jggh/GHSA-r5fr-9gmv-jggh.json"
+      }
+    },
+    {
+      "package": {
+        "name": "kanidm_proto",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/kanidm_proto"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 1.9.2",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-r5fr-9gmv-jggh/GHSA-r5fr-9gmv-jggh.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/kanidm/kanidm/security/advisories/GHSA-r5fr-9gmv-jggh"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/kanidm/kanidm"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-248",
+      "CWE-400",
+      "CWE-674"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-06T23:38:49Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-05-06"
+}

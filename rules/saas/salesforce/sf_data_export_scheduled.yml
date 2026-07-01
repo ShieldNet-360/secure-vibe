@@ -1,0 +1,25 @@
+schema_version: "1.0"
+title: Salesforce weekly / monthly Data Export job scheduled
+id: 4065e06c-2d6c-4ba5-9a96-0d59d30994bd
+status: stable
+level: high
+description: |
+  Detects scheduling of a tenant-wide Salesforce Data Export job from
+  Setup. The Data Export feature produces a full dump of org data and
+  should only be scheduled by named IT administrators.
+references:
+  - https://help.salesforce.com/s/articleView?id=sf.admin_exportdata.htm
+  - https://attack.mitre.org/techniques/T1530/
+tags:
+  - attack.t1530
+  - attack.collection
+logsource:
+  product: salesforce
+  service: setup_audit_trail
+detection:
+  selection:
+    Action: Schedule Data Export
+  condition: selection
+falsepositives:
+  - Documented backup or compliance-driven data export cadence
+    configured by an IT administrator.

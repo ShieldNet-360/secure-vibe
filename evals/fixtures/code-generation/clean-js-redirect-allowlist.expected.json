@@ -1,0 +1,13 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "frontend-security",
+  "language": "javascript",
+  "insecure_signals": [
+    "redirect\\(\\s*req\\.query\\.next\\s*\\)"
+  ],
+  "secure_signals": [
+    "startsWith\\(\\s*['\\\"]/",
+    "allowlist"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

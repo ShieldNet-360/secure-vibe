@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Google Chat",
+  "description": "Google Chat webhook URLs, app/bot credentials, and chat-specific admin red flags. Bot OAuth is shared with the broader GWS skill \u2014 see google_workspace.json for that.",
+  "token_patterns": [
+    {
+      "name": "Google Chat Incoming Webhook URL",
+      "regex": "https://chat\\.googleapis\\.com/v1/spaces/[A-Za-z0-9_\\-]+/messages\\?key=[A-Za-z0-9_\\-]+(&token=[A-Za-z0-9%_\\-]+)?",
+      "severity": "high",
+      "hotwords": [
+        "chat.googleapis.com",
+        "webhook",
+        "google",
+        "chat"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "notes": "The `key=` query parameter is the secret. Anyone who fetches this URL can post into the target space \u2014 treat as a credential, not a config value."
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "gchat-webhook-in-source",
+      "severity": "critical",
+      "title": "Google Chat incoming webhook URL committed to a repo / CI variable",
+      "rationale": "Webhook URLs are bearer-equivalent. Public-repo leaks lead to immediate channel-spam abuse.",
+      "fix": "Store in a secrets manager. If leaked, regenerate the webhook from the space settings \u2014 old URL is permanently revoked.",
+      "pattern": "chat\\.googleapis\\.com/v1/spaces/.*key="
+    },
+    {
+      "id": "gchat-bot-no-domain-restriction",
+      "severity": "medium",
+      "title": "Google Chat app installable by external users (not domain-restricted)",
+      "rationale": "Cross-domain Chat apps can be social-engineered into exfiltrating data via DM to a bot.",
+      "fix": "Admin Console > Apps > Google Workspace > Google Chat > Chat apps \u2014 restrict to internal apps unless there is an explicit business case."
+    },
+    {
+      "id": "gchat-external-rooms-allowed",
+      "severity": "medium",
+      "title": "External users allowed in spaces by default",
+      "rationale": "External-user-in-space is a documented exfiltration channel for confidential data.",
+      "fix": "Admin Console > Apps > Google Workspace > Google Chat > External chat settings \u2014 default to 'Off' and require admin approval per space."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "gchat-bot-message-volume",
+      "severity": "medium",
+      "title": "Chat app message volume spike to a single space",
+      "rationale": "Compromised webhooks are often used for crypto/scam spam.",
+      "signal": "Reports > Chat: messages per (space, app) > 10\u00d7 30-day baseline."
+    },
+    {
+      "id": "gchat-external-user-join",
+      "severity": "high",
+      "title": "External user added to an internal-only space",
+      "rationale": "Misclick or social-engineering vector for data exfiltration.",
+      "signal": "Audit log: `ADD_MEMBER_TO_SPACE` where added member email domain \u2209 org domains."
+    }
+  ],
+  "references": [
+    "https://developers.google.com/chat/api/guides/quickstart/incoming-bots-python",
+    "https://developers.google.com/chat/concepts/auth",
+    "https://support.google.com/a/answer/9540647"
+  ]
+}

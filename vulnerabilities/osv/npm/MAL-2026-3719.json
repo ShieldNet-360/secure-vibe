@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.7.5",
+  "id": "MAL-2026-3719",
+  "published": "2026-05-13T11:51:32Z",
+  "modified": "2026-05-15T07:51:48.715022Z",
+  "summary": "Malicious code in web3-core-js (npm)",
+  "affected": [
+    {
+      "package": {
+        "name": "web3-core-js",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/web3-core-js"
+      },
+      "versions": [
+        "2.0.0",
+        "1.0.0"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "package.json",
+              "sha256": "98eb7c4c2c264f51ed009e166ac42759ba3f12ae963a217346de9d542cacb24f",
+              "tlsh": "faf0dc14bf105ab328c19e660a179ace5277c90b40647c58b29fa05c43dcbab14fba5a"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "web3-core-js-1.0.0.tgz",
+              "hashes": {
+                "sha1": "9b708127c55085dcceecd0b74d78b0fca4e3de1c",
+                "sha512_sri": "sha512-LKgvmDuz75CrI7g7kNhQnYFEjVqXUoeEm7nNUeRxjsnBozTBJFsVOeZKTrNb7Zz2VTkTcD8QPkPNK30LODPEVg=="
+              }
+            }
+          ]
+        },
+        "source": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/npm/web3-core-js/MAL-2026-3719.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/web3-core-js/v/1.0.0"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "import_time": "2026-05-13T21:58:23.286634175Z",
+        "modified_time": "2026-05-13T12:10:45Z",
+        "sha256": "44e1f40536600c94540b0fd722439856b2f118f6090709db7461f5aa06fc2fb4",
+        "source": "ossf-package-analysis",
+        "versions": [
+          "2.0.0"
+        ]
+      },
+      {
+        "import_time": "2026-05-13T21:58:23.870373359Z",
+        "modified_time": "2026-05-13T11:51:32Z",
+        "sha256": "c0a95589cd0b99b71ac59651cbd59198745377c7812ab23b040f6cb5d8e57710",
+        "source": "ossf-package-analysis",
+        "versions": [
+          "1.0.0"
+        ]
+      },
+      {
+        "id": "IN-MAL-2026-002722",
+        "import_time": "2026-05-15T07:37:18.083758968Z",
+        "modified_time": "2026-05-14T19:25:25Z",
+        "sha256": "46f9612aaab12b9656a1f1b5fbd7684fdcd57833bbf76d14b2a243f679cb0977",
+        "source": "amazon-inspector",
+        "versions": [
+          "1.0.0"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "actran@amazon.com"
+      ],
+      "type": "FINDER"
+    },
+    {
+      "name": "OpenSSF: Package Analysis",
+      "contact": [
+        "https://github.com/ossf/package-analysis",
+        "https://openssf.slack.com/channels/package_analysis"
+      ],
+      "type": "FINDER"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

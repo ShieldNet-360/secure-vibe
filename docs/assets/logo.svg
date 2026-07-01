@@ -1,0 +1,21 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SecureVibe">
+  <defs>
+    <linearGradient id="sv-shield" x1="8" y1="3" x2="40" y2="45" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4d82ec"/>
+      <stop offset="1" stop-color="#255FE5"/>
+    </linearGradient>
+    <linearGradient id="sv-gloss" x1="24" y1="3" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- shield body -->
+  <path d="M24 3.5 41 9.5v11.2c0 11.2-7.1 18.9-17 23.3-9.9-4.4-17-12.1-17-23.3V9.5L24 3.5Z"
+        fill="url(#sv-shield)"/>
+  <path d="M24 3.5 41 9.5v11.2c0 11.2-7.1 18.9-17 23.3-9.9-4.4-17-12.1-17-23.3V9.5L24 3.5Z"
+        fill="url(#sv-gloss)"/>
+  <!-- terminal prompt mark: >_ over a check, signalling secure code -->
+  <path d="M16.5 18.5 21 23l-4.5 4.5" stroke="#ffffff" stroke-width="2.6"
+        stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M24.5 29.5h7" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+</svg>

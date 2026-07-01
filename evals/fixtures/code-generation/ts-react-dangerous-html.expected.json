@@ -1,0 +1,15 @@
+{
+  "ground_truth": "generation",
+  "skill": "frontend-security",
+  "language": "typescript",
+  "insecure_signals": [
+    "dangerouslySetInnerHTML"
+  ],
+  "secure_signals": [
+    "DOMPurify\\.sanitize\\(",
+    "return\\s*<div>\\{html\\}",
+    "sanitizeHtml\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-79"
+}

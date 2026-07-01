@@ -1,0 +1,1479 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-06-20T00:00:00Z",
+  "description": "Maps CVEs to code-level detection patterns. Unlike SCA tooling, this database is keyed off code shape so that even patched or re-introduced patterns can be caught at generation time. Coverage spans 2014-2025 landmark CVEs across major language ecosystems and infrastructure.",
+  "references": [
+    "https://nvd.nist.gov/",
+    "https://github.com/advisories",
+    "https://logging.apache.org/log4j/2.x/security.html",
+    "https://spring.io/security/cve-2022-22965",
+    "https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-356a"
+  ],
+  "entries": [
+    {
+      "cve": "CVE-2021-44228",
+      "name": "Log4Shell",
+      "severity": "critical",
+      "discovered": "2021-12-09",
+      "description": "Apache Log4j 2.x JNDI lookup substitution. Any string passed through Logger.info / Logger.error etc. that contains ${jndi:...} triggers remote class loading. The pattern is detectable in code, not only by version range.",
+      "references": [
+        "https://logging.apache.org/log4j/2.x/security.html",
+        "https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-356a",
+        "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"
+      ],
+      "languages": [
+        "java",
+        "kotlin",
+        "scala"
+      ],
+      "code_patterns": [
+        "\\$\\{jndi:(ldap|rmi|dns|iiop|corba|nis|nds|http)://",
+        "log4j2\\.formatMsgNoLookups\\s*=\\s*false",
+        "Logger\\.(info|warn|error|debug|trace)\\s*\\([^)]*user(name|Agent|Input)"
+      ],
+      "remediation": [
+        "upgrade Log4j to 2.17.1+",
+        "set system property log4j2.formatMsgNoLookups=true",
+        "never log untrusted strings without redaction"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2022-22965",
+      "name": "Spring4Shell",
+      "severity": "critical",
+      "discovered": "2022-03-30",
+      "description": "Spring Framework / Spring Boot data binding allows attacker-controlled class manipulation through specially-crafted query parameters that walk to class.module.classLoader. AI-generated controllers using @ModelAttribute on raw POJOs are vulnerable on JDK9+.",
+      "references": [
+        "https://spring.io/security/cve-2022-22965",
+        "https://nvd.nist.gov/vuln/detail/CVE-2022-22965"
+      ],
+      "languages": [
+        "java",
+        "kotlin"
+      ],
+      "code_patterns": [
+        "@(ModelAttribute|RequestParam)[^)]*\\)\\s+\\w+\\s+\\w+",
+        "DataBinder\\s*\\([^)]*\\)\\s*;",
+        "(class|Class)\\.module\\.classLoader"
+      ],
+      "remediation": [
+        "upgrade Spring Framework to 5.3.18+ / 5.2.20+",
+        "add allowed-fields allowlist on DataBinder",
+        "deploy with allowlisted whitelist of bindable properties"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2017-5638",
+      "name": "Apache Struts2 OGNL injection",
+      "severity": "critical",
+      "discovered": "2017-03-06",
+      "description": "Apache Struts2 Jakarta Multipart parser evaluates OGNL expressions in the Content-Type header. AI-generated handlers that touch ServletRequest.getContentType() and pass it to OGNL evaluators are vulnerable.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2017-5638",
+        "https://cwiki.apache.org/confluence/display/WW/S2-045"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "OgnlUtil\\.getValue\\s*\\(",
+        "JakartaMultiPartRequest",
+        "ServletRequest\\s*\\.getContentType\\s*\\(\\s*\\)\\s*\\.contains"
+      ],
+      "remediation": [
+        "upgrade Apache Struts2 to 2.3.32+ / 2.5.10.1+",
+        "validate Content-Type header against a strict allowlist",
+        "do not pass user input into OGNL.evaluate"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2019-19781",
+      "name": "Citrix ADC path traversal",
+      "severity": "critical",
+      "discovered": "2019-12-17",
+      "description": "Path-traversal pattern '/../vpns/' in code that constructs URLs to Citrix ADC / NetScaler endpoints. Devin-generated reverse proxies sometimes recreate this exact path-resolution flaw.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2019-19781",
+        "https://support.citrix.com/article/CTX267027/"
+      ],
+      "languages": [
+        "appliance"
+      ],
+      "code_patterns": [
+        "/../vpns/",
+        "url\\s*\\.replace\\s*\\(\\s*['\\\"]\\.\\.['\\\"]\\s*,\\s*['\\\"]['\\\"]\\s*\\)",
+        "path\\s*\\.normalize\\s*\\([^)]*\\.\\.[^)]*\\)"
+      ],
+      "remediation": [
+        "reject any request URI containing '..' segments",
+        "canonicalize paths before authorization checks",
+        "apply Citrix ADC security advisory CTX267027"
+      ],
+      "attack_type": "directory_traversal"
+    },
+    {
+      "cve": "CVE-2014-6271",
+      "name": "Shellshock",
+      "severity": "critical",
+      "discovered": "2014-09-24",
+      "description": "Bash environment variable function definition pattern '() { :;};' executed by CGI scripts. AI-generated wrapper scripts that pass user-controlled headers into env variables for bash subshells reintroduce Shellshock-like exposure.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2014-6271",
+        "https://www.cisa.gov/news-events/alerts/2014/09/25/bash-shellshock-vulnerability"
+      ],
+      "languages": [
+        "shell",
+        "perl",
+        "python"
+      ],
+      "code_patterns": [
+        "\\(\\s*\\)\\s*\\{\\s*:\\s*;\\s*\\}\\s*;",
+        "env\\s+[A-Z_][A-Z0-9_]*='\\(\\) \\{",
+        "os\\.environ\\[[^\\]]+\\]\\s*=\\s*['\\\"]\\(\\)\\s*\\{"
+      ],
+      "remediation": [
+        "upgrade bash to patched version",
+        "never set env variables from untrusted HTTP headers",
+        "use exec form for subprocess calls"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2018-1273",
+      "name": "Spring Data Commons SpEL injection",
+      "severity": "critical",
+      "discovered": "2018-04-10",
+      "description": "Spring Data REST property-binding allowed SpEL evaluation, leading to arbitrary code execution via crafted property paths. AI-generated repositories exposing PagedResources without binding restrictions reintroduce the pattern.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2018-1273",
+        "https://pivotal.io/security/cve-2018-1273"
+      ],
+      "languages": [
+        "java",
+        "kotlin"
+      ],
+      "code_patterns": [
+        "SpelExpressionParser\\s*\\(\\s*\\)",
+        "@RepositoryRestResource[^)]*\\)\\s*public\\s+interface",
+        "PropertyPath\\.from\\s*\\("
+      ],
+      "remediation": [
+        "upgrade Spring Data Commons to 1.13.11+ / 2.0.6+",
+        "use a SimpleEvaluationContext, never StandardEvaluationContext, with untrusted input",
+        "restrict @RepositoryRestResource exported properties"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2023-22518",
+      "name": "Confluence Data Center improper authorization",
+      "severity": "critical",
+      "discovered": "2023-10-31",
+      "description": "Improper authorization in Atlassian Confluence DC permits remote attackers to reset or restore the instance. AI-generated admin endpoints that forget to call AuthorizationService.checkUserCanAccess match this code shape.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-22518",
+        "https://confluence.atlassian.com/security/cve-2023-22518-improper-authorization-vulnerability-in-confluence-data-center-and-server-1311473907.html"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "@(POST|PUT|DELETE)[^)]*\\)\\s+public\\s+\\w+\\s+(reset|restore|wipe)",
+        "AuthorizationService\\s*\\.\\s*checkUser",
+        "DataIntegrationApi"
+      ],
+      "remediation": [
+        "apply Atlassian patch per CVE-2023-22518",
+        "wrap admin endpoints with explicit authorization checks",
+        "require SUDO / re-auth for destructive actions"
+      ],
+      "attack_type": "improper_authorization"
+    },
+    {
+      "cve": "CVE-2023-46604",
+      "name": "Apache ActiveMQ OpenWire RCE",
+      "severity": "critical",
+      "discovered": "2023-10-25",
+      "description": "Apache ActiveMQ OpenWire protocol deserialization allows remote code execution. AI-generated message brokers that bind OpenWire to a non-localhost interface without TLS or authentication reintroduce the exposure.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-46604",
+        "https://activemq.apache.org/security-advisories.data/CVE-2023-46604-announcement.txt"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "tcp://0\\.0\\.0\\.0:61616",
+        "OpenWireFormat",
+        "BrokerService\\s*\\(\\s*\\)\\s*;\\s*\\w+\\.addConnector\\s*\\("
+      ],
+      "remediation": [
+        "upgrade Apache ActiveMQ to 5.18.3+ / 5.17.6+",
+        "bind OpenWire to localhost or VPN-only addresses",
+        "require TLS and authentication on OpenWire connectors"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2024-3094",
+      "name": "xz-utils backdoor",
+      "severity": "critical",
+      "discovered": "2024-03-29",
+      "description": "Multi-year social-engineering campaign that planted an obfuscated backdoor in the upstream xz-utils 5.6.0 / 5.6.1 release tarballs. The malicious m4/build-to-host.m4 hook patched liblzma at build time so OpenSSH (when linked to systemd / libsystemd / liblzma) could be remotely unlocked by an attacker holding a private key. Detection at the code level is by build-system shape, not by version alone, because the payload is hidden in autotools macros.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-3094",
+        "https://www.openwall.com/lists/oss-security/2024/03/29/4",
+        "https://research.swtch.com/xz-timeline",
+        "https://tukaani.org/xz-backdoor/"
+      ],
+      "languages": [
+        "c",
+        "shell"
+      ],
+      "code_patterns": [
+        "m4/build-to-host\\.m4",
+        "liblzma\\.so\\.5",
+        "RSA_public_decrypt\\s*\\(",
+        "tests/files/(bad-3-corrupt_lzma2|good-large_compressed)\\.lzma"
+      ],
+      "remediation": [
+        "pin xz-utils to <= 5.4.6 or >= 5.6.2 (5.6.0/5.6.1 are backdoored)",
+        "rebuild any container/base image that pulled xz between 2024-02-24 and 2024-03-29",
+        "audit autotools m4 macros for shell payloads in tarballs not present in the upstream git tree"
+      ],
+      "attack_type": "build_system_backdoor"
+    },
+    {
+      "cve": "CVE-2021-32699",
+      "name": "codecov bash uploader compromise",
+      "severity": "high",
+      "discovered": "2021-04-15",
+      "description": "Codecov's bash uploader script, fetched by CI pipelines via curl | bash, was modified on its CDN to exfiltrate environment variables to an attacker-controlled host. Any pipeline running `bash <(curl -s https://codecov.io/bash)` between Jan 31 and Apr 1, 2021 had its env (and any secrets in env) sent to the attacker. The lesson is general: never pipe a remote script directly into a shell.",
+      "references": [
+        "https://about.codecov.io/security-update/",
+        "https://nvd.nist.gov/vuln/detail/CVE-2021-32699",
+        "https://www.cisa.gov/news-events/alerts/2021/04/30/codecov-bash-uploader-compromise"
+      ],
+      "languages": [
+        "shell",
+        "yaml"
+      ],
+      "code_patterns": [
+        "curl\\s+[^|]*\\|\\s*(ba)?sh",
+        "bash\\s+<\\(curl\\s+[^)]+\\)",
+        "codecov\\.io/bash",
+        "wget\\s+-O-\\s+[^|]*\\|\\s*(ba)?sh"
+      ],
+      "remediation": [
+        "use codecov uploader binary with pinned SHA-256 checksum instead of bash uploader",
+        "never pipe a remote script directly into a shell in CI; download, checksum, then execute",
+        "rotate every secret that may have been exposed in CI env between Jan 31 and Apr 1, 2021"
+      ],
+      "attack_type": "supply_chain_curl_pipe_bash"
+    },
+    {
+      "cve": "CVE-2015-1427",
+      "name": "Elasticsearch Groovy sandbox escape",
+      "severity": "critical",
+      "discovered": "2015-02-17",
+      "description": "Elasticsearch < 1.3.8 / < 1.4.3 evaluated Groovy scripts in _search source / mvel scripting bypassing the sandbox, permitting remote code execution. AI-generated services that pass user input straight into _search?source=... or accept inline scripts reintroduce the pattern.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2015-1427",
+        "https://www.elastic.co/community/security"
+      ],
+      "languages": [
+        "java",
+        "groovy"
+      ],
+      "code_patterns": [
+        "_search\\?source=",
+        "java\\.lang\\.Runtime\\.getRuntime\\(\\)\\.exec",
+        "\\\"script\\\"\\s*:\\s*\\{\\s*\\\"inline\\\""
+      ],
+      "remediation": [
+        "upgrade Elasticsearch to 1.3.8+ / 1.4.3+ and disable dynamic scripting (script.disable_dynamic: true)",
+        "never expose _search with inline scripting to untrusted clients",
+        "use Painless and parametrized stored scripts only"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2015-5477",
+      "name": "BIND TKEY query denial-of-service",
+      "severity": "high",
+      "discovered": "2015-07-28",
+      "description": "ISC BIND 9.x mishandled TKEY queries, allowing a single specially-crafted query to abort the named process (REQUIRE assertion failure). Authoritative and recursive resolvers were both affected — a major DNS-infrastructure-wide outage trigger.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2015-5477",
+        "https://kb.isc.org/docs/aa-01272"
+      ],
+      "languages": [
+        "c"
+      ],
+      "code_patterns": [
+        "dns_message_findname",
+        "TKEY",
+        "REQUIRE\\(msg->state\\s*==\\s*"
+      ],
+      "remediation": [
+        "upgrade ISC BIND to 9.9.7-P2 / 9.10.2-P3 or later",
+        "use RPZ / firewall rules to block TKEY queries from untrusted networks if patching is delayed"
+      ],
+      "attack_type": "denial_of_service"
+    },
+    {
+      "cve": "CVE-2016-3714",
+      "name": "ImageTragick ImageMagick command injection",
+      "severity": "critical",
+      "discovered": "2016-05-03",
+      "description": "ImageMagick's delegate handling parsed pseudo-protocols (mvg:, ephemeral:, msl:, https:, etc.) from filenames and image contents, executing user-controlled shell commands via the delegates.xml configuration. Any AI-generated upload handler that hands user-supplied filenames or magic bytes to `convert` / `identify` recreates the exposure.",
+      "references": [
+        "https://imagetragick.com/",
+        "https://nvd.nist.gov/vuln/detail/CVE-2016-3714"
+      ],
+      "languages": [
+        "shell",
+        "php",
+        "ruby",
+        "python"
+      ],
+      "code_patterns": [
+        "(convert|identify|mogrify)\\s+[^|]*\\$\\{?\\w*USER",
+        "\\.(mvg|msl|ephemeral|https?):",
+        "image\\.read|Magick::Image\\.read|Image::open"
+      ],
+      "remediation": [
+        "upgrade ImageMagick to 6.9.3-10 / 7.0.1-1 or later and tighten policy.xml (disable MVG/EPHEMERAL/MSL/HTTPS/URL/FTP/TEXT/SHOW/WIN/PLT)",
+        "validate uploaded filenames against an allowlist; never pass raw user-controlled paths to convert/identify",
+        "sniff and verify magic bytes before invoking ImageMagick, and run it under a sandboxed user"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2016-5195",
+      "name": "Dirty COW kernel privilege escalation",
+      "severity": "high",
+      "discovered": "2016-10-19",
+      "description": "Race condition in Linux kernel mm/gup.c copy-on-write handling allowed local users to gain write access to read-only memory mappings (including /proc/self/mem of setuid binaries). A reliable LPE primitive exploited in the wild against Android and Linux servers.",
+      "references": [
+        "https://dirtycow.ninja/",
+        "https://nvd.nist.gov/vuln/detail/CVE-2016-5195"
+      ],
+      "languages": [
+        "c"
+      ],
+      "code_patterns": [
+        "madvise\\s*\\(\\s*[^,]+,\\s*[^,]+,\\s*MADV_DONTNEED\\s*\\)",
+        "/proc/self/mem",
+        "mmap\\s*\\([^)]*MAP_PRIVATE"
+      ],
+      "remediation": [
+        "upgrade kernel to 4.8.3 / 4.7.9 / 4.4.26 or distro-equivalent",
+        "do not rely on read-only mappings of sensitive files as an authorization boundary"
+      ],
+      "attack_type": "privilege_escalation"
+    },
+    {
+      "cve": "CVE-2016-4437",
+      "name": "Apache Shiro RememberMe deserialization",
+      "severity": "critical",
+      "discovered": "2016-06-07",
+      "description": "Apache Shiro < 1.2.5 shipped with a hard-coded default AES key (kPH+bIxk5D2deZiIxcaaaA==) used to encrypt the RememberMe cookie. An attacker who knew or recovered the key could forge a serialized Java payload and trigger RCE via ObjectInputStream. AI-generated Shiro configurations that leave the default key in place stay vulnerable.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2016-4437",
+        "https://shiro.apache.org/security-reports.html"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "kPH\\+bIxk5D2deZiIxcaaaA==",
+        "CookieRememberMeManager",
+        "setCipherKey\\s*\\(\\s*Base64\\.decode",
+        "ObjectInputStream\\s*\\("
+      ],
+      "remediation": [
+        "upgrade Apache Shiro to 1.2.5+ and rotate the RememberMe cipher key to a unique random 128-bit value",
+        "use ShiroFilterFactoryBean.setRememberMeManager(null) if RememberMe is not required",
+        "never deserialize Java objects from cookies; switch to JWT or signed opaque tokens"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2016-0728",
+      "name": "Linux kernel keyring refcount overflow",
+      "severity": "high",
+      "discovered": "2016-01-19",
+      "description": "A reference count overflow in the keyring facility (keyctl KEYCTL_JOIN_SESSION_KEYRING) allowed a local user to free a keyring still in use, leading to a use-after-free and local privilege escalation on kernels 3.8 - 4.4.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2016-0728",
+        "https://access.redhat.com/security/cve/CVE-2016-0728"
+      ],
+      "languages": [
+        "c"
+      ],
+      "code_patterns": [
+        "keyctl\\s*\\(\\s*KEYCTL_JOIN_SESSION_KEYRING",
+        "join_session_keyring",
+        "key_put\\s*\\("
+      ],
+      "remediation": [
+        "upgrade kernel to 3.10.x / 4.4.1 or later (distro patches available)",
+        "restrict access to keyctl on multi-tenant systems via seccomp"
+      ],
+      "attack_type": "privilege_escalation"
+    },
+    {
+      "cve": "CVE-2017-0144",
+      "name": "EternalBlue (MS17-010) SMBv1 RCE",
+      "severity": "critical",
+      "discovered": "2017-03-14",
+      "description": "Microsoft SMBv1 server mishandled specially-crafted Trans2 packets, producing a buffer overflow exploitable for remote code execution against the SYSTEM account. Weaponized by WannaCry (May 2017) and NotPetya (Jun 2017) as worm propagation. Any code path that binds SMBv1 (port 445) to a non-trusted network recreates the exposure.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2017-0144",
+        "https://docs.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-010"
+      ],
+      "languages": [
+        "c",
+        "python"
+      ],
+      "code_patterns": [
+        "SMB_COM_TRANSACTION2|Trans2",
+        "port[^=]*=\\s*445",
+        "MS17[_-]?010",
+        "smbclient\\s+-L\\s+//"
+      ],
+      "remediation": [
+        "disable SMBv1 (Set-SmbServerConfiguration -EnableSMB1Protocol $false) and require SMBv3 with signing",
+        "block port 445 at the network edge and segment internal SMB traffic",
+        "apply MS17-010 patches on every Windows host"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2017-9805",
+      "name": "Apache Struts2 REST plugin XStream deserialization",
+      "severity": "critical",
+      "discovered": "2017-09-05",
+      "description": "Apache Struts2 REST plugin used XStream for XML deserialization without type allowlisting, leading to unauthenticated RCE. Famously used in the 2017 Equifax breach. AI-generated services that mount the REST plugin and accept @Result(type=\"xstream\") or application/xml without a type filter remain vulnerable.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2017-9805",
+        "https://cwiki.apache.org/confluence/display/WW/S2-052"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "ContentTypeHandler",
+        "XStream\\s*\\(\\s*\\)\\s*\\.\\s*fromXML",
+        "@Result\\([^)]*type\\s*=\\s*\\\"xstream\\\""
+      ],
+      "remediation": [
+        "upgrade Struts2 to 2.5.13+ / 2.3.34+ and remove unused content-type handlers",
+        "configure XStream with a strict type allowlist (no Runtime / ProcessBuilder / Lazy classes)",
+        "do not accept XML payloads on endpoints that only need JSON"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2017-5753",
+      "name": "Spectre v1 bounds-check bypass",
+      "severity": "high",
+      "discovered": "2018-01-03",
+      "description": "Speculative execution leak (Spectre Variant 1) lets an attacker train the branch predictor to speculate past a bounds check and read otherwise-inaccessible memory through a cache side channel. Detectable in code as bounds-checked array indexing immediately followed by an attacker-influenced array dereference, with no speculation barrier in between.",
+      "references": [
+        "https://spectreattack.com/",
+        "https://nvd.nist.gov/vuln/detail/CVE-2017-5753"
+      ],
+      "languages": [
+        "c",
+        "c++"
+      ],
+      "code_patterns": [
+        "if\\s*\\(\\s*\\w+\\s*<\\s*\\w+_size\\s*\\)\\s*\\{\\s*\\w+\\s*=\\s*\\w+\\s*\\[\\s*\\w+\\s*\\]",
+        "__builtin_ia32_lfence|asm\\s+volatile\\s*\\(\\s*\\\"lfence\\\"",
+        "array1\\s*\\[\\s*array2\\s*\\[\\s*[^]]+\\]\\s*\\*\\s*\\d+\\s*\\]"
+      ],
+      "remediation": [
+        "insert a speculation barrier (lfence on x86; csdb on ARM) after every untrusted bounds check on a hot data path",
+        "use array_index_nospec() / READ_ONCE() helpers in kernel code; compile with -mspeculative-load-hardening on supported toolchains",
+        "rely on JIT mitigations (Index Masking, Site Isolation) for sandboxes such as V8"
+      ],
+      "attack_type": "information_disclosure"
+    },
+    {
+      "cve": "CVE-2017-12617",
+      "name": "Apache Tomcat PUT method JSP upload RCE",
+      "severity": "critical",
+      "discovered": "2017-10-03",
+      "description": "Apache Tomcat with the default servlet's `readonly` parameter set to false allowed HTTP PUT to upload arbitrary JSP files, which would then be executed when requested. AI-generated Tomcat configurations that override readonly to enable a 'simple file upload' reintroduce the bug.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2017-12617",
+        "https://tomcat.apache.org/security-9.html"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "<servlet>\\s*<servlet-name>\\s*default\\s*</servlet-name>[\\s\\S]*<param-name>\\s*readonly\\s*</param-name>\\s*<param-value>\\s*false",
+        "readOnly\\s*=\\s*\\\"false\\\"",
+        "\\.jsp\\s*[\\\"']\\s*,\\s*\\\"PUT\\\""
+      ],
+      "remediation": [
+        "upgrade Tomcat to 7.0.82+ / 8.0.47+ / 8.5.23+ / 9.0.1+ and keep DefaultServlet readonly=true",
+        "never use HTTP PUT against application servers for file upload; route uploads through a controlled endpoint with validation"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2018-7600",
+      "name": "Drupalgeddon 2 Drupal Form API RCE",
+      "severity": "critical",
+      "discovered": "2018-03-28",
+      "description": "Drupal 7.x / 8.x Form API rendering allowed nested # property keys (e.g. #post_render, #lazy_builder, #pre_render) to be supplied in request data, evaluating arbitrary PHP callables at render time. AI-generated Drupal modules that accept user-controlled form structure recreate the exposure.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2018-7600",
+        "https://www.drupal.org/sa-core-2018-002"
+      ],
+      "languages": [
+        "php"
+      ],
+      "code_patterns": [
+        "#(post_render|lazy_builder|pre_render|access_callback)",
+        "drupal_render\\s*\\(",
+        "\\\\Drupal::formBuilder\\(\\)->buildForm\\s*\\("
+      ],
+      "remediation": [
+        "upgrade Drupal core to 7.58+ / 8.3.9+ / 8.4.6+ / 8.5.1+ and apply SA-CORE-2018-002",
+        "never accept arbitrary render-array structure from user input; whitelist allowed # keys"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2018-13379",
+      "name": "Fortinet FortiOS SSL VPN path traversal",
+      "severity": "critical",
+      "discovered": "2019-05-24",
+      "description": "FortiOS 5.6 / 6.0 SSL VPN web portal exposed a path-traversal flaw on the /remote/fgt_lang endpoint (lang parameter), allowing unauthenticated download of session files including /dev/cmdb/sslvpn_websession that contain cleartext credentials. AI-generated reverse proxies that path-rewrite ../../ into Fortinet paths reintroduce the exposure.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2018-13379",
+        "https://www.fortiguard.com/psirt/FG-IR-18-384"
+      ],
+      "languages": [
+        "appliance"
+      ],
+      "code_patterns": [
+        "/remote/fgt_lang\\?lang=[^\\s\\\"']*\\.\\./",
+        "/dev/cmdb/sslvpn_websession",
+        "\\.\\./\\.\\./\\.\\./\\.\\./"
+      ],
+      "remediation": [
+        "upgrade FortiOS to 5.6.13+ / 6.0.5+ / 6.2.0+ and rotate every credential that ever hit the appliance",
+        "block direct internet exposure of SSL VPN portals; require an upstream MFA proxy"
+      ],
+      "attack_type": "directory_traversal"
+    },
+    {
+      "cve": "CVE-2018-11776",
+      "name": "Apache Struts2 namespace OGNL injection",
+      "severity": "critical",
+      "discovered": "2018-08-22",
+      "description": "Apache Struts2 evaluated OGNL expressions in the namespace / action-name / redirect result when no explicit namespace was set on a result, producing pre-auth RCE. AI-generated mappings that omit `namespace` on `<action>` or `<result>` recreate the pattern.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2018-11776",
+        "https://cwiki.apache.org/confluence/display/WW/S2-057"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "<action[^>]*name=\\\"[^\\\"]*\\$\\{",
+        "ActionProxy\\.getNamespace",
+        "redirect[\\s\\S]*\\$\\{#"
+      ],
+      "remediation": [
+        "upgrade Struts2 to 2.3.35+ / 2.5.17+ and apply S2-057",
+        "always declare an explicit namespace on actions; set struts.mapper.alwaysSelectFullNamespace=false",
+        "validate namespace / action-name against a strict allowlist"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2018-11235",
+      "name": "git submodule arbitrary code execution on clone",
+      "severity": "high",
+      "discovered": "2018-05-29",
+      "description": "git allowed .gitmodules submodule paths to contain ../ traversal and the submodule directory to be a symlink into .git/, so cloning a malicious repository could place a post-checkout hook that runs on the next `git submodule update`. AI-generated CI scripts that recursively clone untrusted repositories without sandboxing recreate the exposure.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2018-11235",
+        "https://git-scm.com/docs/git-config#Documentation/git-config.txt-protocolallow"
+      ],
+      "languages": [
+        "c",
+        "shell",
+        "yaml"
+      ],
+      "code_patterns": [
+        "git\\s+clone\\s+--recurse-submodules",
+        "path\\s*=\\s*\\.\\./",
+        "submodule\\s+update\\s+--init"
+      ],
+      "remediation": [
+        "upgrade git to 2.17.1+ / 2.13.7+ / 2.14.4+ / 2.15.2+ / 2.16.4+",
+        "never clone untrusted repositories with --recurse-submodules outside an ephemeral sandbox",
+        "set protocol.allow=user and protocol.ext.allow=never in CI"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2019-0708",
+      "name": "BlueKeep RDP RCE",
+      "severity": "critical",
+      "discovered": "2019-05-14",
+      "description": "Microsoft RDP pre-authentication use-after-free in the MS_T120 virtual channel allowed remote code execution against Windows XP/7/Server 2003/2008 without Network Level Authentication. AI-generated firewall rules that expose 3389/tcp without enforcing NLA recreate the exposure.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2019-0708",
+        "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2019-0708"
+      ],
+      "languages": [
+        "c",
+        "python"
+      ],
+      "code_patterns": [
+        "MS_T120",
+        "port[^=]*=\\s*3389\\b",
+        "rdp_negotiate|SEC_INFO_PKT|TPKT"
+      ],
+      "remediation": [
+        "patch every supported Windows host with the MS-CVE-2019-0708 update; isolate end-of-life systems",
+        "require Network Level Authentication on every RDP listener (`fSingleSessionPerUser` + `UserAuthentication=1`)",
+        "never expose 3389/tcp directly to the internet; front RDP with a TLS-terminating gateway"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2019-11510",
+      "name": "Pulse Connect Secure VPN arbitrary file read",
+      "severity": "critical",
+      "discovered": "2019-04-24",
+      "description": "Pulse Connect Secure SSL VPN gateways exposed an unauthenticated directory-traversal flaw on /dana-na/ endpoints (?fileurl=/etc/passwd) that leaked cleartext admin credentials and active session cookies. Heavily exploited 2019 - 2021 (REvil, APT5).",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2019-11510",
+        "https://kb.pulsesecure.net/articles/Pulse_Security_Advisories/SA44101"
+      ],
+      "languages": [
+        "appliance"
+      ],
+      "code_patterns": [
+        "/dana-na/[^\\\"\\s]*\\?fileurl=",
+        "\\.\\./\\.\\./\\.\\./\\.\\./etc/passwd",
+        "/dana/html5acc/guacamole/"
+      ],
+      "remediation": [
+        "upgrade Pulse Connect Secure to 9.0R3.4 / 9.1R1+ and rotate every secret on the appliance",
+        "do not expose SSL VPN gateways directly to the internet without an MFA front door",
+        "monitor for /dana-na/auth/url_default access from non-browser user agents"
+      ],
+      "attack_type": "directory_traversal"
+    },
+    {
+      "cve": "CVE-2019-5736",
+      "name": "runc container escape via /proc/self/exe overwrite",
+      "severity": "critical",
+      "discovered": "2019-02-11",
+      "description": "runc <= 1.0-rc6 let a malicious container overwrite /proc/self/exe (the host runc binary) during exec, achieving host root on next `docker exec`. AI-generated container runtimes that share the host runc and run untrusted images reproduce the exposure.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2019-5736",
+        "https://blog.dragonsector.pl/2019/02/cve-2019-5736-escape-from-docker-and.html"
+      ],
+      "languages": [
+        "go",
+        "c"
+      ],
+      "code_patterns": [
+        "/proc/self/exe",
+        "runc\\s+(exec|run)",
+        "openat\\s*\\([^,]+,\\s*\\\"/proc/self/exe\\\""
+      ],
+      "remediation": [
+        "upgrade runc to 1.0-rc7+ and rebuild every container runtime that links it",
+        "run untrusted containers with read-only / pivot_root protected host runc, or use gVisor/Kata for true isolation"
+      ],
+      "attack_type": "container_escape"
+    },
+    {
+      "cve": "CVE-2019-2725",
+      "name": "Oracle WebLogic AsyncResponseService deserialization",
+      "severity": "critical",
+      "discovered": "2019-04-26",
+      "description": "Oracle WebLogic 10.3.6 / 12.1.3 mishandled XML SOAP deserialization on /_async/AsyncResponseService and /wls-wsat/, allowing unauthenticated RCE via XMLDecoder gadgets.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2019-2725",
+        "https://www.oracle.com/security-alerts/alert-cve-2019-2725.html"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "/_async/AsyncResponseService",
+        "/wls-wsat/CoordinatorPortType",
+        "XMLDecoder\\s*\\(",
+        "java\\.beans\\.XMLDecoder"
+      ],
+      "remediation": [
+        "apply Oracle CPU April 2019 / July 2019 patches and disable wls9_async_response.war / wls-wsat.war if unused",
+        "front WebLogic with a WAF that drops SOAP traffic to AsyncResponseService"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2020-1472",
+      "name": "Zerologon Netlogon AES-CFB8 zero-IV",
+      "severity": "critical",
+      "discovered": "2020-08-11",
+      "description": "Microsoft Netlogon's ComputeNetlogonCredential used AES-CFB8 with an all-zero IV; about 1-in-256 brute-force attempts would zero the Domain Controller's machine account password via NetrServerAuthenticate3 + NetrServerPasswordSet2, granting Domain Admin from any unauth client on the DC's network.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2020-1472",
+        "https://www.secura.com/uploads/whitepapers/Zerologon.pdf"
+      ],
+      "languages": [
+        "c",
+        "python"
+      ],
+      "code_patterns": [
+        "NetrServerAuthenticate3|NetrServerPasswordSet2",
+        "AES[_-]?CFB8",
+        "ComputeNetlogonCredential"
+      ],
+      "remediation": [
+        "apply Microsoft August 2020 security update and set FullSecureChannelProtection=1; complete enforcement-phase update",
+        "audit Domain Controller authentication logs for Event IDs 5829/5830/5831"
+      ],
+      "attack_type": "privilege_escalation"
+    },
+    {
+      "cve": "CVE-2020-0688",
+      "name": "Microsoft Exchange ECP static validation key RCE",
+      "severity": "critical",
+      "discovered": "2020-02-11",
+      "description": "Microsoft Exchange Server 2010-2019 shipped with a static, hard-coded ASP.NET validationKey / decryptionKey in web.config for the ECP application, allowing any authenticated user to forge a __VIEWSTATE payload that deserialized to arbitrary code. AI-generated Exchange hardening that fails to rotate machineKey post-install stays vulnerable.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2020-0688",
+        "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2020-0688"
+      ],
+      "languages": [
+        "csharp"
+      ],
+      "code_patterns": [
+        "<machineKey[^>]*validationKey\\s*=\\s*\\\"",
+        "__VIEWSTATE\\s*=\\s*",
+        "ASP\\.NET_SessionId"
+      ],
+      "remediation": [
+        "apply Exchange Cumulative Update / Security Update for CVE-2020-0688 and rotate machineKey on every Exchange role",
+        "rotate every credential ever stored in Exchange after exposure"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2020-14882",
+      "name": "Oracle WebLogic admin console encoded path traversal",
+      "severity": "critical",
+      "discovered": "2020-10-20",
+      "description": "Oracle WebLogic 10.3.6 - 14.1.1 admin console accepted double-URL-encoded `..` (e.g. `/console/css/%252e%252e%252f`) in paths, bypassing authentication on `/console/console.portal` and reaching ServerRuntime MBeans for unauthenticated RCE.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2020-14882",
+        "https://www.oracle.com/security-alerts/cpuoct2020.html"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "/console/css/%252e%252e%252f",
+        "/console/console\\.portal",
+        "AdminServer"
+      ],
+      "remediation": [
+        "apply Oracle CPU October 2020 patches; isolate the AdminServer behind a VPN",
+        "block double-encoded path segments at an upstream proxy"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2020-17530",
+      "name": "Apache Struts2 OGNL forced double evaluation",
+      "severity": "critical",
+      "discovered": "2020-12-08",
+      "description": "Apache Struts2 2.0.0 - 2.5.25 evaluated `%{...}` tag attributes twice when forced OGNL evaluation was used, allowing OGNL injection through any tag attribute that took user input (e.g. id, value). AI-generated Struts2 tag libraries that interpolate user input into id attributes stay vulnerable.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2020-17530",
+        "https://cwiki.apache.org/confluence/display/WW/S2-061"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "%\\{.*?\\}",
+        "%\\{#parameters",
+        "@(s|sj):(textfield|hidden|select)[^>]*id\\s*=\\s*\\\"%\\{"
+      ],
+      "remediation": [
+        "upgrade Struts2 to 2.5.26+ and audit every tag attribute that takes user input",
+        "never wrap user input in %{...}; pass it through OGNL-safe attribute helpers only"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2021-26855",
+      "name": "ProxyLogon Exchange SSRF to RCE chain",
+      "severity": "critical",
+      "discovered": "2021-03-02",
+      "description": "Microsoft Exchange 2013-2019 mishandled the X-BEResource cookie on /owa/auth/x.js and forwarded the request server-side to /ecp/, bypassing authentication. Chained with CVE-2021-26857 / 26858 / 27065 for RCE. Heavily exploited in the wild by HAFNIUM and at least 10 other groups starting Feb 2021.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2021-26855",
+        "https://www.microsoft.com/security/blog/2021/03/02/hafnium-targeting-exchange-servers/"
+      ],
+      "languages": [
+        "csharp"
+      ],
+      "code_patterns": [
+        "/owa/auth/x\\.js",
+        "X-BEResource",
+        "/ecp/[A-Za-z0-9_]+\\.js\\?"
+      ],
+      "remediation": [
+        "apply Exchange Security Update (March 2021) and run the Microsoft Safety Scanner",
+        "do not expose Exchange ECP/OWA directly to the internet without an upstream MFA reverse proxy"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2021-34527",
+      "name": "PrintNightmare Windows Print Spooler RCE",
+      "severity": "critical",
+      "discovered": "2021-07-01",
+      "description": "Windows Print Spooler service (RpcAddPrinterDriverEx / AddPrinterDriverEx) allowed a domain user to load an arbitrary DLL into SYSTEM context, giving Domain Admin from any authenticated user. AI-generated PowerShell scripts that automate printer driver installation expose the same RPC.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2021-34527",
+        "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-34527"
+      ],
+      "languages": [
+        "c",
+        "csharp"
+      ],
+      "code_patterns": [
+        "AddPrinterDriverEx|RpcAddPrinterDriver",
+        "Print Spooler|spoolsv\\.exe",
+        "Add-PrinterDriver"
+      ],
+      "remediation": [
+        "apply Microsoft July/August 2021 patches and set Point and Print restrictions to require admin",
+        "disable the Print Spooler service on Domain Controllers (Set-Service spooler -StartupType Disabled)"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2021-21972",
+      "name": "VMware vCenter vSphere Client RCE",
+      "severity": "critical",
+      "discovered": "2021-02-23",
+      "description": "VMware vCenter Server 6.5 / 6.7 / 7.0 exposed an unauthenticated file upload at /ui/vropspluginui/rest/services/uploadova that accepted an OVA and wrote arbitrary files into the Tomcat webroot, yielding RCE.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
+        "https://www.vmware.com/security/advisories/VMSA-2021-0002.html"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "/ui/vropspluginui/rest/services/uploadova",
+        "vsphere-ui",
+        "\\.tar\\?endpoint="
+      ],
+      "remediation": [
+        "apply VMware VMSA-2021-0002 and disable the vRealize Operations plugin if not used",
+        "front vCenter with a network ACL so the management plane is reachable only from administrative subnets"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2021-22205",
+      "name": "GitLab ExifTool DjVu RCE",
+      "severity": "critical",
+      "discovered": "2021-04-14",
+      "description": "GitLab CE/EE 11.9 - 13.10 passed user-uploaded images to ExifTool, which mishandled embedded DjVu annotation chunks (DjVuAnno) and evaluated Perl-like substitution sequences, achieving unauthenticated RCE. AI-generated services that re-derive thumbnails from arbitrary uploads via ExifTool inherit the bug.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2021-22205",
+        "https://about.gitlab.com/releases/2021/04/14/security-release-gitlab-13-10-3-released/"
+      ],
+      "languages": [
+        "perl",
+        "ruby"
+      ],
+      "code_patterns": [
+        "DjVuAnno|DjVuPalette|DjVm",
+        "exiftool\\b",
+        "ImageUploadsController"
+      ],
+      "remediation": [
+        "upgrade GitLab to 13.10.3 / 13.9.6 / 13.8.8 or later",
+        "do not run exiftool against untrusted DjVu inputs; pin ExifTool to >= 12.24"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2021-3156",
+      "name": "sudo Baron Samedit heap buffer overflow",
+      "severity": "critical",
+      "discovered": "2021-01-26",
+      "description": "sudo's parse_args() set_cmnd() routine miscounted the size of command arguments when invoked via `sudoedit -s \\` (trailing backslash), causing a heap-based buffer overflow exploitable for local root. Present in sudo 1.8.2 - 1.8.31p2 / 1.9.0 - 1.9.5p1.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2021-3156",
+        "https://www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt"
+      ],
+      "languages": [
+        "c"
+      ],
+      "code_patterns": [
+        "sudoedit\\s+-s\\s+",
+        "set_cmnd\\s*\\(",
+        "parse_args\\s*\\("
+      ],
+      "remediation": [
+        "upgrade sudo to 1.9.5p2+ on every host",
+        "monitor for unusual sudoedit invocations in audit logs"
+      ],
+      "attack_type": "privilege_escalation"
+    },
+    {
+      "cve": "CVE-2022-42889",
+      "name": "Text4Shell Apache Commons Text StringSubstitutor",
+      "severity": "critical",
+      "discovered": "2022-10-13",
+      "description": "Apache Commons Text 1.5 - 1.9 StringSubstitutor.replace() resolved ${script:...}, ${url:...}, ${dns:...} lookup prefixes by default, enabling RCE / SSRF / DNS-exfiltration if user input flowed through StringLookupFactory.INSTANCE.interpolatorStringLookup().",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2022-42889",
+        "https://lists.apache.org/thread/n2bd4vdsgkqh2tm14l1grccnntl3x0o5"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "StringSubstitutor\\s*\\.\\s*createInterpolator",
+        "\\$\\{script:|\\$\\{url:|\\$\\{dns:",
+        "StringLookupFactory\\.INSTANCE\\.interpolatorStringLookup"
+      ],
+      "remediation": [
+        "upgrade Apache Commons Text to 1.10.0+",
+        "construct StringSubstitutor with a restricted StringLookup map, never the default interpolator",
+        "never pass untrusted strings to StringSubstitutor.replace()"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2022-22963",
+      "name": "Spring Cloud Function routing-expression SpEL injection",
+      "severity": "critical",
+      "discovered": "2022-03-29",
+      "description": "Spring Cloud Function < 3.1.7 / < 3.2.3 evaluated the `spring.cloud.function.routing-expression` HTTP header as a SpEL expression using StandardEvaluationContext, allowing unauthenticated RCE on any deployed function endpoint.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2022-22963",
+        "https://tanzu.vmware.com/security/cve-2022-22963"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "spring\\.cloud\\.function\\.routing-expression",
+        "StandardEvaluationContext",
+        "functionRouter"
+      ],
+      "remediation": [
+        "upgrade Spring Cloud Function to 3.1.7+ / 3.2.3+",
+        "strip the routing-expression header at the edge if not used",
+        "use SimpleEvaluationContext when SpEL must run on user input"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2022-26134",
+      "name": "Atlassian Confluence OGNL injection in URL path",
+      "severity": "critical",
+      "discovered": "2022-06-02",
+      "description": "Atlassian Confluence Server / Data Center 1.3.0 - 7.18.0 evaluated OGNL expressions in the URL path component (e.g. `${@java.lang.Runtime@getRuntime().exec(...)}` between path segments), allowing unauthenticated RCE.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2022-26134",
+        "https://confluence.atlassian.com/doc/confluence-security-advisory-2022-06-02-1130377146.html"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "\\$\\{.*?@java\\.lang\\.Runtime@getRuntime",
+        "OgnlValueStack",
+        "/confluence/\\$\\{"
+      ],
+      "remediation": [
+        "upgrade Confluence to 7.18.1+ and rotate any secret on the host",
+        "front Confluence with a WAF that drops `${` in URI path segments"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2022-27925",
+      "name": "Zimbra mboximport path traversal RCE",
+      "severity": "critical",
+      "discovered": "2022-04-14",
+      "description": "Zimbra Collaboration Suite 8.8.15 / 9.0.0 mboximport servlet allowed authenticated users (or chained with CVE-2022-37042 auth bypass, unauthenticated) to upload arbitrary files via path traversal into the web root, achieving RCE.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2022-27925",
+        "https://wiki.zimbra.com/wiki/Security_Center"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "/service/extension/backup/mboximport",
+        "account-name=&account-status=",
+        "\\.\\./\\.\\./jetty/webapps/zimbra"
+      ],
+      "remediation": [
+        "upgrade Zimbra to 9.0.0 Patch 25 / 8.8.15 Patch 32 or later",
+        "front Zimbra admin endpoints with an MFA reverse proxy and IP allowlist"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2023-34362",
+      "name": "MOVEit Transfer SQL injection RCE chain",
+      "severity": "critical",
+      "discovered": "2023-05-31",
+      "description": "Progress MOVEit Transfer pre-auth SQL injection on /api/v1/folders allowed deserialization gadget chain leading to RCE. Used by Cl0p ransomware in mass exploitation against thousands of organizations (May - June 2023).",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-34362",
+        "https://community.progress.com/s/article/MOVEit-Transfer-Critical-Vulnerability-31May2023"
+      ],
+      "languages": [
+        "sql",
+        "csharp"
+      ],
+      "code_patterns": [
+        "/api/v1/folders",
+        "moveitisapi/moveitisapi\\.dll",
+        "GuestAccess\\.aspx"
+      ],
+      "remediation": [
+        "apply Progress MOVEit security patch series (May 31 / June 9 / June 15 / June 23, 2023)",
+        "rotate every credential and key ever stored in MOVEit; assume data exfiltration"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2023-4966",
+      "name": "Citrix Bleed NetScaler ADC session token leak",
+      "severity": "critical",
+      "discovered": "2023-10-10",
+      "description": "NetScaler ADC / NetScaler Gateway 13.1 / 14.1 leaked memory via a buffer over-read on the /oauth/idp/login endpoint, revealing post-auth session tokens that bypassed MFA. Exploited in the wild by LockBit and Medusa starting Aug 2023.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-4966",
+        "https://support.citrix.com/article/CTX579459"
+      ],
+      "languages": [
+        "appliance"
+      ],
+      "code_patterns": [
+        "/oauth/idp/login",
+        "NSC_AAAC|NSC_NONCE",
+        "NetScaler Gateway"
+      ],
+      "remediation": [
+        "apply Citrix bulletin CTX579459 builds (13.1-49.15 / 14.1-8.50 or later) and terminate every active session on patched gateways",
+        "monitor for anomalous session reuse across IP addresses post-patch"
+      ],
+      "attack_type": "information_disclosure"
+    },
+    {
+      "cve": "CVE-2023-44487",
+      "name": "HTTP/2 Rapid Reset DDoS",
+      "severity": "high",
+      "discovered": "2023-10-10",
+      "description": "HTTP/2 RST_STREAM handling let a client open and immediately reset thousands of streams per connection per second, exhausting CPU on every major HTTP/2 server implementation (nghttp2, Go net/http2, Envoy, NGINX, h2o). The largest known DDoS in history at disclosure (398M rps).",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-44487",
+        "https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/"
+      ],
+      "languages": [
+        "go",
+        "python",
+        "java",
+        "c"
+      ],
+      "code_patterns": [
+        "RST_STREAM",
+        "http2\\.Server",
+        "SETTINGS_MAX_CONCURRENT_STREAMS"
+      ],
+      "remediation": [
+        "upgrade Go to 1.21.3+ / 1.20.10+, nghttp2 to 1.57.0+, Envoy to 1.27.1+ / 1.26.5+, NGINX to 1.25.3+",
+        "set a strict rate of accepted stream resets per connection (e.g. MaxRSTStreamRate in Go)"
+      ],
+      "attack_type": "denial_of_service"
+    },
+    {
+      "cve": "CVE-2023-38545",
+      "name": "curl SOCKS5 heap buffer overflow",
+      "severity": "high",
+      "discovered": "2023-10-11",
+      "description": "libcurl 7.69.0 - 8.3.0 mis-sized the SOCKS5 hostname-resolution buffer during the slow-resolve handshake fallback, copying an attacker-controlled hostname of arbitrary length into a 256-byte stack buffer when a redirect chained through a SOCKS5 proxy.",
+      "references": [
+        "https://curl.se/docs/CVE-2023-38545.html",
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-38545"
+      ],
+      "languages": [
+        "c"
+      ],
+      "code_patterns": [
+        "CURLOPT_PROXYTYPE.*CURLPROXY_SOCKS5_HOSTNAME",
+        "socks5_resolve",
+        "curl_easy_setopt.*SOCKS5"
+      ],
+      "remediation": [
+        "upgrade curl / libcurl to 8.4.0+",
+        "do not route untrusted redirects through SOCKS5 proxies; drop CURLOPT_FOLLOWLOCATION on guarded endpoints"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2023-42793",
+      "name": "JetBrains TeamCity authentication bypass to RCE",
+      "severity": "critical",
+      "discovered": "2023-09-19",
+      "description": "JetBrains TeamCity < 2023.05.4 exposed a pre-auth admin token-issuance flaw on /app/rest/users/id:1/tokens that produced an admin REST token, allowing arbitrary build configurations and code execution.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-42793",
+        "https://blog.jetbrains.com/teamcity/2023/09/critical-security-issue-affecting-teamcity-on-premises-update-to-2023-05-4-now/"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "/app/rest/users/id:1/tokens",
+        "TeamCity",
+        "perProjectPermissions"
+      ],
+      "remediation": [
+        "upgrade TeamCity to 2023.05.4+ and rotate every project token / agent credential",
+        "do not expose TeamCity directly to the internet; require an upstream MFA reverse proxy"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2023-46805",
+      "name": "Ivanti Connect Secure authentication bypass (chained with CVE-2024-21887)",
+      "severity": "critical",
+      "discovered": "2024-01-10",
+      "description": "Ivanti Connect Secure / Policy Secure 9.x / 22.x exposed an authentication bypass on /api/v1/ paths chained with CVE-2024-21887 command injection in /license/keys-status/, producing unauthenticated RCE. Mass-exploited by UNC5221.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-46805",
+        "https://forums.ivanti.com/s/article/CVE-2023-46805-Authentication-Bypass-CVE-2024-21887-Command-Injection-for-Ivanti-Connect-Secure-and-Ivanti-Policy-Secure-Gateways"
+      ],
+      "languages": [
+        "appliance"
+      ],
+      "code_patterns": [
+        "/api/v1/totp/user-backup-code",
+        "/license/keys-status/",
+        "DSAuth\\.dll"
+      ],
+      "remediation": [
+        "apply Ivanti CVE-2023-46805 / CVE-2024-21887 patches and run the Integrity Checker Tool; assume compromise on every appliance touched before patch",
+        "factory-reset and rotate every secret on affected appliances"
+      ],
+      "attack_type": "authentication_bypass"
+    },
+    {
+      "cve": "CVE-2023-7028",
+      "name": "GitLab account takeover via password-reset email injection",
+      "severity": "critical",
+      "discovered": "2024-01-11",
+      "description": "GitLab CE/EE 16.1 - 16.7.1 allowed an attacker to add an arbitrary second `user[email]` parameter to the password-reset POST, sending the reset link to an attacker-controlled mailbox while still resetting the targeted account. Mass-exploited within days of disclosure.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-7028",
+        "https://about.gitlab.com/releases/2024/01/11/security-release-gitlab-16-7-2-released/"
+      ],
+      "languages": [
+        "ruby"
+      ],
+      "code_patterns": [
+        "users/password",
+        "reset_password_token",
+        "user\\[email\\]\\[\\]"
+      ],
+      "remediation": [
+        "upgrade GitLab to 16.7.2 / 16.6.4 / 16.5.6 or later",
+        "enforce 2FA on every GitLab account and audit account_activity / password_reset logs"
+      ],
+      "attack_type": "authentication_bypass"
+    },
+    {
+      "cve": "CVE-2023-22527",
+      "name": "Atlassian Confluence template injection RCE",
+      "severity": "critical",
+      "discovered": "2024-01-16",
+      "description": "Atlassian Confluence Data Center / Server 8.0.x - 8.5.3 mis-validated parameter encoding in legacy Velocity templates (e.g. /template/aui/text-inline.vm), allowing OGNL/Velocity template injection for unauthenticated RCE.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-22527",
+        "https://confluence.atlassian.com/security/cve-2023-22527-rce-vulnerability-in-confluence-data-center-and-confluence-server-1333990257.html"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "/template/aui/text-inline\\.vm",
+        "\\$\\{Math",
+        "VelocityContext"
+      ],
+      "remediation": [
+        "upgrade Confluence to 8.5.4 LTS / 8.6.0+ / 8.7.1+ and rotate every secret",
+        "block legacy /template/ endpoints at the proxy if patching is delayed"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2024-6387",
+      "name": "regreSSHion OpenSSH signal handler race",
+      "severity": "high",
+      "discovered": "2024-07-01",
+      "description": "OpenSSH server (sshd 8.5p1 - 9.7p1) on glibc Linux had a race condition in the SIGALRM-driven LoginGraceTime handler where syslog() could be called from inside the signal handler, leading to a heap memory corruption exploitable for unauthenticated root RCE.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-6387",
+        "https://www.qualys.com/2024/07/01/cve-2024-6387/regresshion.txt"
+      ],
+      "languages": [
+        "c"
+      ],
+      "code_patterns": [
+        "sigdie\\(|fatal_cleanup",
+        "LoginGraceTime",
+        "sshd_log_id|do_authentication2"
+      ],
+      "remediation": [
+        "upgrade OpenSSH to 9.8p1+ (or distro backports)",
+        "set LoginGraceTime 0 as a temporary mitigation if patching is delayed",
+        "restrict sshd reachable IPs and rate-limit unauthenticated connection attempts"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2024-3400",
+      "name": "Palo Alto PAN-OS GlobalProtect command injection",
+      "severity": "critical",
+      "discovered": "2024-04-12",
+      "description": "Palo Alto PAN-OS 10.2 / 11.0 / 11.1 GlobalProtect feature allowed an unauthenticated remote attacker to inject shell metacharacters into the SESSID cookie that were later written to a file path, achieving root RCE on the firewall. Exploited in the wild (Operation MidnightEclipse) prior to public disclosure.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-3400",
+        "https://security.paloaltonetworks.com/CVE-2024-3400"
+      ],
+      "languages": [
+        "appliance"
+      ],
+      "code_patterns": [
+        "GlobalProtect\\b",
+        "SESSID\\s*=",
+        "/api/\\?type=op&cmd=<show>"
+      ],
+      "remediation": [
+        "apply PAN-OS 10.2.9-h1+ / 11.0.4-h1+ / 11.1.2-h3+ hotfixes and assume compromise on every device left unpatched after 2024-04-10",
+        "rotate every credential and certificate on impacted firewalls"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2024-23897",
+      "name": "Jenkins CLI args4j arbitrary file read",
+      "severity": "high",
+      "discovered": "2024-01-24",
+      "description": "Jenkins 2.441 / LTS 2.426.2 and earlier passed CLI arguments through args4j's `@<filename>` expansion, allowing an unauthenticated remote attacker to read arbitrary files (including secret.key / credentials.xml). With master key + agent token, can be chained into RCE.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-23897",
+        "https://www.jenkins.io/security/advisory/2024-01-24/"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "@/",
+        "hudson\\.cli\\.CLI",
+        "args4j\\.Args4jCmdLineParser"
+      ],
+      "remediation": [
+        "upgrade Jenkins to 2.442+ / LTS 2.426.3+ and rotate every secret stored on the controller",
+        "disable the CLI over HTTP if not used (jenkins.CLI.disabled=true)"
+      ],
+      "attack_type": "information_disclosure"
+    },
+    {
+      "cve": "CVE-2024-47176",
+      "name": "CUPS cups-browsed chained RCE",
+      "severity": "critical",
+      "discovered": "2024-09-26",
+      "description": "CUPS cups-browsed (UDP 631) accepted IPP `Get-Printer-Attributes` responses from any source on the local network, allowing an attacker to register a malicious printer whose foomatic-rip filter executed shell metacharacters at print time. Chained with CVE-2024-47076 / 47175 / 47177 for unauthenticated RCE.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-47176",
+        "https://www.evilsocket.net/2024/09/26/Attacking-UNIX-systems-via-CUPS-Part-I/"
+      ],
+      "languages": [
+        "c"
+      ],
+      "code_patterns": [
+        "cups-browsed",
+        "foomatic-rip",
+        "port\\s*=\\s*631\\b"
+      ],
+      "remediation": [
+        "stop and disable cups-browsed on every host that doesn't actively need network printer discovery",
+        "block UDP 631 ingress at the host firewall and on the WAN",
+        "apply distro CUPS patches for CVE-2024-47076 / 47175 / 47176 / 47177"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2024-4985",
+      "name": "GitHub Enterprise Server SAML SSO authentication bypass",
+      "severity": "critical",
+      "discovered": "2024-05-20",
+      "description": "GitHub Enterprise Server 3.9.x - 3.12.x with encrypted SAML assertions enabled allowed an attacker that could forge or replay a SAML response to authenticate as any user without verifying the response signature.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-4985",
+        "https://docs.github.com/en/enterprise-server@3.12/admin/release-notes"
+      ],
+      "languages": [
+        "ruby"
+      ],
+      "code_patterns": [
+        "SAMLResponse",
+        "SigningCertificate",
+        "encrypted_assertions"
+      ],
+      "remediation": [
+        "upgrade GitHub Enterprise Server to 3.12.4 / 3.11.10 / 3.10.12 / 3.9.15 or later and rotate user sessions",
+        "audit recovery codes and personal access tokens for any account on the appliance"
+      ],
+      "attack_type": "authentication_bypass"
+    },
+    {
+      "cve": "CVE-2024-21626",
+      "name": "runc Leaky Vessels container escape",
+      "severity": "high",
+      "discovered": "2024-01-31",
+      "description": "runc < 1.1.12 leaked open file descriptors to /proc/self/fd/ that pointed at host directories from the runtime's initialization code, letting a malicious container WORKDIR or symlink hop out of the rootfs and write into host filesystem paths.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-21626",
+        "https://github.com/opencontainers/runc/security/advisories/GHSA-xr7r-f8xq-vfvv"
+      ],
+      "languages": [
+        "go"
+      ],
+      "code_patterns": [
+        "/proc/self/fd/\\d+",
+        "setcwd\\b",
+        "runc\\.init"
+      ],
+      "remediation": [
+        "upgrade runc to 1.1.12+ (and Docker 25.0.2+, containerd 1.6.28+ / 1.7.13+, BuildKit 0.12.5+)",
+        "do not run unverified images with privileged WORKDIR or build-time symlinks"
+      ],
+      "attack_type": "container_escape"
+    },
+    {
+      "cve": "CVE-2025-29927",
+      "name": "Next.js middleware authorization bypass",
+      "severity": "critical",
+      "discovered": "2025-03-21",
+      "description": "Next.js 11.x - 15.x mishandled the internal `x-middleware-subrequest` header in self-hosted deployments, allowing an attacker to send a forged header that skipped middleware execution entirely and bypassed authentication / authorization checks implemented there.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-29927",
+        "https://nextjs.org/blog/cve-2025-29927"
+      ],
+      "languages": [
+        "javascript",
+        "typescript"
+      ],
+      "code_patterns": [
+        "x-middleware-subrequest",
+        "export\\s+(default\\s+)?function\\s+middleware",
+        "NextResponse"
+      ],
+      "remediation": [
+        "upgrade Next.js to 15.2.3 / 14.2.25 / 13.5.9 / 12.3.5 or later",
+        "strip the x-middleware-subrequest header at the upstream proxy as a defense-in-depth fix",
+        "do not rely solely on middleware for authorization; re-check in route handlers"
+      ],
+      "attack_type": "authentication_bypass",
+      "affected": [
+        {
+          "package": "next",
+          "ecosystem": "npm",
+          "versions_affected": [
+            ">=11.0.0 <12.3.5",
+            ">=13.0.0 <13.5.9",
+            ">=14.0.0 <14.2.25",
+            ">=15.0.0 <15.2.3"
+          ]
+        }
+      ]
+    },
+    {
+      "cve": "CVE-2025-1974",
+      "name": "Kubernetes IngressNightmare NGINX ingress-controller RCE",
+      "severity": "critical",
+      "discovered": "2025-03-24",
+      "description": "ingress-nginx admission controller 1.11.x / 1.12.x rendered Ingress AnnotationValue strings into the NGINX config using a Lua-eval template path without escaping, letting any user with `create ingressclass` permission inject arbitrary NGINX directives and achieve cluster-internal RCE.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-1974",
+        "https://github.com/kubernetes/ingress-nginx/security/advisories/GHSA-g65h-9qvg-9p65"
+      ],
+      "languages": [
+        "go",
+        "yaml"
+      ],
+      "code_patterns": [
+        "kubernetes\\.io/ingress\\.class:\\s*nginx",
+        "nginx\\.ingress\\.kubernetes\\.io/.*\\$\\{",
+        "admission-controller-webhook"
+      ],
+      "remediation": [
+        "upgrade ingress-nginx to 1.12.1+ / 1.11.5+",
+        "tighten cluster RBAC: deny `ingresses` create from untrusted namespaces; require ValidatingAdmissionPolicy on annotation values"
+      ],
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "cve": "CVE-2025-24813",
+      "name": "Apache Tomcat partial PUT RCE",
+      "severity": "critical",
+      "discovered": "2025-03-10",
+      "description": "Apache Tomcat 9.0.0.M1 - 9.0.98 / 10.1.0-M1 - 10.1.34 / 11.0.0-M1 - 11.0.2 with the default servlet writable and FileStore-backed session persistence enabled accepted a partial PUT whose body, combined with a session-deserialization gadget chain, allowed unauthenticated RCE.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-24813",
+        "https://lists.apache.org/thread/j5fkjv2k477os90nczf2v9l61fb0kkgq"
+      ],
+      "languages": [
+        "java"
+      ],
+      "code_patterns": [
+        "<Manager\\s+pathname=\\\"\\\"\\s*/>",
+        "persistSession|FileStore",
+        "Range:\\s*bytes="
+      ],
+      "remediation": [
+        "upgrade Tomcat to 9.0.99 / 10.1.35 / 11.0.3 or later",
+        "keep DefaultServlet readonly=true and disable FileStore session persistence in production"
+      ],
+      "attack_type": "remote_code_execution"
+    }
+  ]
+}

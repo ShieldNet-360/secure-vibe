@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "cors-security",
+  "language": "javascript",
+  "insecure_signals": [
+    "Allow-Origin['\\\"]?\\s*,\\s*['\\\"]\\*['\\\"]",
+    "origin\\s*:\\s*['\\\"]\\*['\\\"]"
+  ],
+  "secure_signals": [
+    "app\\.example\\.com",
+    "allowlist|allowedOrigins|origin\\s*:\\s*\\[",
+    "includes\\(\\s*origin"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-942"
+}

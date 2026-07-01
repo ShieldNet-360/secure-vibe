@@ -1,0 +1,11 @@
+{
+  "name": "eval-fixture-npm-alias-malicious",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Fixture: a package.json that hides the historically-malicious event-stream@3.3.6 behind an npm: alias (a innocuous-looking dependency name pointing at npm:event-stream@3.3.6). The manifest parser must resolve the alias to its real registry target so the malicious-package check still fires; a clean lodash range and a normal react are present as expected_clean.",
+  "dependencies": {
+    "harmless-helper": "npm:event-stream@3.3.6",
+    "lodash": "^4.17.21",
+    "react": "18.2.0"
+  }
+}

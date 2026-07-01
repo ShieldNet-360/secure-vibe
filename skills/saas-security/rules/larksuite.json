@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Lark / Larksuite / Feishu",
+  "description": "Lark (international: open.larksuite.com) and Feishu (China: open.feishu.cn) bot webhook URLs, app credentials, tenant access tokens, and tenant red flags.",
+  "token_patterns": [
+    {
+      "name": "Lark / Feishu Bot Webhook URL",
+      "regex": "https://open\\.(?:larksuite\\.com|feishu\\.cn)/open-apis/bot/v2/hook/[a-f0-9\\-]{16,}",
+      "severity": "high",
+      "hotwords": [
+        "larksuite",
+        "feishu",
+        "bot",
+        "webhook"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false
+    },
+    {
+      "name": "Lark / Feishu App ID",
+      "regex": "cli_[a-z0-9]{16}",
+      "severity": "medium",
+      "hotwords": [
+        "larksuite",
+        "feishu",
+        "app_id"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "cli_",
+      "notes": "App IDs are not strictly secret but pair-match with the App Secret."
+    },
+    {
+      "name": "Lark / Feishu App Secret in code",
+      "regex": "(?i)(lark|feishu)[_\\-]?(app)?[_\\-]?secret[\\\"'\\s:=]+[A-Za-z0-9]{32}",
+      "severity": "critical",
+      "hotwords": [
+        "larksuite",
+        "feishu",
+        "app_secret"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Lark / Feishu Tenant Access Token in code",
+      "regex": "(?i)(tenant|app)_access_token[\\\"'\\s:=]+t-[A-Za-z0-9_\\-]{20,}",
+      "severity": "high",
+      "hotwords": [
+        "larksuite",
+        "feishu",
+        "tenant_access_token"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    },
+    {
+      "name": "Lark / Feishu User Access Token in code",
+      "regex": "(?i)user_access_token[\\\"'\\s:=]+u-[A-Za-z0-9_\\-]{20,}",
+      "severity": "high",
+      "hotwords": [
+        "larksuite",
+        "feishu",
+        "user_access_token"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "lark-webhook-no-signature",
+      "severity": "high",
+      "title": "Lark bot webhook configured without signature verification (`secret`)",
+      "rationale": "Bot webhook URLs can be enriched with a `secret` so the receiver verifies the `sign` field; without it any internet host can post.",
+      "fix": "In the bot setup, enable 'Signature verification' and verify `hmac_sha256(timestamp + '\\n' + secret, '')` against the inbound `sign`."
+    },
+    {
+      "id": "lark-app-permission-overscoped",
+      "severity": "medium",
+      "title": "Custom app granted `im:message`, `contact:user.email:readonly`, and `docx.document:readonly` at once",
+      "rationale": "Combination is the exfil-bot shape on Lark/Feishu.",
+      "fix": "Open Platform > App > Permissions \u2014 request only what you call."
+    },
+    {
+      "id": "lark-external-tenant-collaboration-unrestricted",
+      "severity": "medium",
+      "title": "Cross-tenant collaboration permitted by default",
+      "rationale": "Cross-tenant DMs / shared docs are exfil channels.",
+      "fix": "Admin Console > Security > Cross-tenant \u2014 restrict to allowlisted external tenants."
+    },
+    {
+      "id": "lark-2fa-not-enforced",
+      "severity": "high",
+      "title": "Two-step verification not required for admins",
+      "rationale": "Admin compromise \u2192 app install \u2192 exfil.",
+      "fix": "Admin Console > Security > require two-step verification for admin groups."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "lark-bulk-doc-export",
+      "severity": "high",
+      "title": "Bulk export from Lark Docs / Sheets / Base by a non-admin",
+      "rationale": "Document mass-export is a recurring exfil shape.",
+      "signal": "Audit log: docs.export events with count > 50 in 1h."
+    },
+    {
+      "id": "lark-new-app-broad-permissions",
+      "severity": "high",
+      "title": "New custom app added with `im:resource` + `contact:user.*` + `vc:meeting`",
+      "rationale": "Exfil bot template.",
+      "signal": "Audit log: app installed/upgraded with permission set matching watchlist."
+    },
+    {
+      "id": "lark-admin-role-grant",
+      "severity": "critical",
+      "title": "Admin role granted to a non-IT account",
+      "rationale": "Privilege-escalation step inside the workspace.",
+      "signal": "Audit log: `admin_role_granted` outside the IT admin group."
+    }
+  ],
+  "references": [
+    "https://open.larksuite.com/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token",
+    "https://open.feishu.cn/document/server-docs/im-v1/message-card/send-messages-using-webhooks",
+    "https://www.larksuite.com/hc/en-us/categories/360000146496-Security"
+  ]
+}

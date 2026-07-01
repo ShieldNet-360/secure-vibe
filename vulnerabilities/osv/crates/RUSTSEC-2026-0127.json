@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.7.5",
+  "id": "RUSTSEC-2026-0127",
+  "published": "2026-05-02T12:00:00Z",
+  "modified": "2026-05-13T12:30:54.055270Z",
+  "summary": "Integer overflow in `array::ReadWrite::new()` leading to potential memory corruption",
+  "affected": [
+    {
+      "package": {
+        "name": "accessor",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/accessor"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.0-0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "affected_functions": null,
+        "affects": {
+          "arch": [],
+          "functions": [],
+          "os": []
+        }
+      },
+      "database_specific": {
+        "categories": [
+          "memory-corruption"
+        ],
+        "cvss": null,
+        "informational": "unsound",
+        "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2026-0127.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://crates.io/crates/accessor"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://rustsec.org/advisories/RUSTSEC-2026-0127.html"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/toku-sa-n/accessor/issues/49"
+    }
+  ],
+  "database_specific": {
+    "license": "CC0-1.0"
+  },
+  "last_updated": "2026-05-13"
+}

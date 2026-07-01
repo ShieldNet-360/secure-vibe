@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "database-security",
+  "language": "go",
+  "insecure_signals": [
+    "Query(Row)?\\(\\s*fmt\\.Sprintf\\(",
+    "Query(Row)?\\([^)]*\\+\\s*status"
+  ],
+  "secure_signals": [
+    "Query(Row)?\\(\\s*[`\\\"][^`\\\"]*\\$\\d",
+    ",\\s*status\\s*\\)"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

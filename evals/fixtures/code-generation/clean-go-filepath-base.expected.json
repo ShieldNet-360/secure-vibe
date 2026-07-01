@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "file-upload-security",
+  "language": "go",
+  "insecure_signals": [
+    "ServeFile\\([^)]*\\+\\s*r\\.URL",
+    "\"assets/\"\\s*\\+"
+  ],
+  "secure_signals": [
+    "ServeFile\\([^)]*filepath\\.Join\\(\\s*\"assets\"",
+    "ServeFile\\([^)]*\"assets/logo\\.png\""
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

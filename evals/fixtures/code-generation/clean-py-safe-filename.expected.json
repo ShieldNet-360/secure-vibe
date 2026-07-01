@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "file-upload-security",
+  "language": "python",
+  "insecure_signals": [
+    "send_file\\([^)]*request\\.",
+    "\\+\\s*request\\.args"
+  ],
+  "secure_signals": [
+    "send_from_directory\\(",
+    "send_file\\(\\s*['\\\"]reports/report\\.pdf"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

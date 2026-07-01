@@ -1,0 +1,19 @@
+# Fixture: expression-injection.yml
+#
+# Reproduces the classic script-injection sink: a `run:` block that
+# interpolates an attacker-controllable github.event.* expression
+# directly into a shell command. This is the canonical pattern called
+# out in github's "Security hardening for GitHub Actions" guide and
+# OpenSSF Scorecard's Dangerous-Workflow check.
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - name: log title
+        run: |
+          echo "New issue: ${{ github.event.issue.title }}"

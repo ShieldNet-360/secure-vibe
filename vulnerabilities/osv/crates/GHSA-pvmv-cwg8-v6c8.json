@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-pvmv-cwg8-v6c8",
+  "published": "2026-05-08T18:27:26Z",
+  "modified": "2026-05-08T18:50:53.003797Z",
+  "summary": "Zebra v4.4.0 still accepts V5 SIGHASH_SINGLE without a corresponding output",
+  "affected": [
+    {
+      "package": {
+        "name": "zebrad",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebrad"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.4.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-pvmv-cwg8-v6c8/GHSA-pvmv-cwg8-v6c8.json"
+      }
+    },
+    {
+      "package": {
+        "name": "zebra-script",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebra-script"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.0.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-pvmv-cwg8-v6c8/GHSA-pvmv-cwg8-v6c8.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/ZcashFoundation/zebra/security/advisories/GHSA-pvmv-cwg8-v6c8"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/ZcashFoundation/zebra"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-573",
+      "CWE-354"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-08T18:27:26Z",
+    "nvd_published_at": null,
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:H/SC:N/SI:H/SA:H"
+    }
+  ],
+  "last_updated": "2026-05-08"
+}

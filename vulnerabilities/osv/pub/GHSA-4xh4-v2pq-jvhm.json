@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.7.3",
+  "id": "GHSA-4xh4-v2pq-jvhm",
+  "published": "2022-09-19T22:47:29Z",
+  "modified": "2026-02-04T03:39:59.713731Z",
+  "aliases": [
+    "CVE-2023-22963"
+  ],
+  "related": [
+    "CVE-2023-22963"
+  ],
+  "summary": "personnummer/dart vulnerable to Improper Input Validation",
+  "affected": [
+    {
+      "package": {
+        "name": "personnummer",
+        "ecosystem": "Pub",
+        "purl": "pkg:pub/personnummer"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.0.3"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.0.0",
+        "1.0.1",
+        "1.0.2",
+        "2.0.0",
+        "2.1.0",
+        "3.0.0",
+        "3.0.1",
+        "3.0.2"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2022/09/GHSA-4xh4-v2pq-jvhm/GHSA-4xh4-v2pq-jvhm.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/personnummer/dart/security/advisories/GHSA-4xh4-v2pq-jvhm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-22963"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/personnummer/dart"
+    },
+    {
+      "type": "WEB",
+      "url": "https://pub.dev/packages/personnummer"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-20"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2022-09-19T22:47:29Z",
+    "nvd_published_at": null,
+    "severity": "LOW"
+  },
+  "last_updated": "2026-02-04"
+}

@@ -1,0 +1,285 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-16T05:44:33Z",
+  "generated_at": "2026-05-16T05:44:33Z",
+  "by_package": {
+    "shared_preferences_android": [
+      {
+        "id": "GHSA-3hpf-ff72-j67p",
+        "file": "GHSA-3hpf-ff72-j67p.json",
+        "summary": "shared_preferences_android vulnerability",
+        "aliases": [],
+        "severity": "low"
+      }
+    ],
+    "http": [
+      {
+        "id": "GHSA-4rgh-jx4f-qfcq",
+        "file": "GHSA-4rgh-jx4f-qfcq.json",
+        "summary": "http before 0.13.3 vulnerable to header injection",
+        "aliases": [
+          "CVE-2020-35669"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "personnummer": [
+      {
+        "id": "GHSA-4xh4-v2pq-jvhm",
+        "file": "GHSA-4xh4-v2pq-jvhm.json",
+        "summary": "personnummer/dart vulnerable to Improper Input Validation",
+        "aliases": [
+          "CVE-2023-22963"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-9f2c-xxfm-32mj",
+        "file": "GHSA-9f2c-xxfm-32mj.json",
+        "summary": "Duplicate of GHSA-4xh4-v2pq-jvhm",
+        "aliases": [],
+        "severity": "low"
+      }
+    ],
+    "pubnub": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.pubnub:pubnub-kotlin": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.pubnub:pubnub": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/pubnub/go/v7": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/pubnub/go": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/pubnub/go/v6": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/pubnub/go/v5": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/pubnub/swift": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "pubnub/pubnub": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "dio": [
+      {
+        "id": "GHSA-9324-jv53-9cc8",
+        "file": "GHSA-9324-jv53-9cc8.json",
+        "summary": "dio vulnerable to CRLF injection with HTTP method string",
+        "aliases": [
+          "CVE-2021-31402"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-jwpw-q68h-r678",
+        "file": "GHSA-jwpw-q68h-r678.json",
+        "summary": "Duplicate Advisory: Improper Neutralization of CRLF Sequences in dio",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "archive": [
+      {
+        "id": "GHSA-9v85-q87q-g4vg",
+        "file": "GHSA-9v85-q87q-g4vg.json",
+        "summary": "Path traversal in Archive",
+        "aliases": [
+          "CVE-2023-39139"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-r285-q736-9v95",
+        "file": "GHSA-r285-q736-9v95.json",
+        "summary": "Filename spoofing in archive",
+        "aliases": [
+          "CVE-2023-39137"
+        ],
+        "severity": "high"
+      }
+    ],
+    "agent_dart": [
+      {
+        "id": "GHSA-fmj7-7gfw-64pg",
+        "file": "GHSA-fmj7-7gfw-64pg.json",
+        "summary": "Agent Dart is missing certificate verification checks",
+        "aliases": [
+          "CVE-2024-48915"
+        ],
+        "severity": "high"
+      }
+    ],
+    "serverpod_client": [
+      {
+        "id": "GHSA-h6x7-r5rg-x5fw",
+        "file": "GHSA-h6x7-r5rg-x5fw.json",
+        "summary": "Serverpod client accepts any certificate",
+        "aliases": [
+          "CVE-2024-29887"
+        ],
+        "severity": "high"
+      }
+    ],
+    "serverpod_auth_server": [
+      {
+        "id": "GHSA-r75m-26cq-mjxc",
+        "file": "GHSA-r75m-26cq-mjxc.json",
+        "summary": "Serverpod improved security for stored password hashes",
+        "aliases": [
+          "CVE-2024-29886"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "jose": [
+      {
+        "id": "GHSA-vm9r-h74p-hg97",
+        "file": "GHSA-vm9r-h74p-hg97.json",
+        "summary": "jose vulnerable to untrusted JWK header key acceptance during signature verification",
+        "aliases": [
+          "CVE-2026-34240"
+        ],
+        "severity": "high"
+      }
+    ]
+  }
+}

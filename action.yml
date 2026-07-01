@@ -1,0 +1,99 @@
+name: SecureVibe gate
+description: Fail the build on secrets, vulnerable dependencies, and Dockerfile / GitHub Actions issues at or above a severity floor.
+branding:
+  icon: shield
+  color: orange
+
+inputs:
+  files:
+    description: Space-separated list of files to gate, e.g. "Dockerfile package-lock.json .github/workflows/ci.yml". gate scans exactly the files you name.
+    required: true
+  severity-floor:
+    description: "Lowest severity that fails the gate: critical | high | medium | low."
+    required: false
+    default: high
+  version:
+    description: npm version or dist-tag of @shieldnet360/secure-code-mcp to run (pin for reproducible CI).
+    required: false
+    default: latest
+  sarif-file:
+    description: >-
+      When set (e.g. "gate.sarif"), gate emits SARIF 2.1.0 to this path and the
+      action uploads it to GitHub Code Scanning — findings appear in the
+      Security tab and as PR annotations, and the job still fails when any
+      finding meets the severity floor. The calling workflow needs
+      `permissions: security-events: write` (and a package version whose gate
+      supports `--format sarif`). Leave empty for plain text output and no
+      upload.
+    required: false
+    default: ""
+  category:
+    description: Code Scanning category for the SARIF upload; change it when one workflow uploads several SARIF files.
+    required: false
+    default: secure-code-gate
+
+runs:
+  using: composite
+  steps:
+    - name: Run SecureVibe gate
+      id: gate
+      shell: bash
+      # Inputs flow through env: and are referenced as "$VARS" rather than
+      # interpolated as ${{ inputs.* }} inside the script. This forecloses the
+      # GitHub Actions shell-injection class: a caller that wires an input from
+      # untrusted data (e.g. files: ${{ github.event.pull_request.title }})
+      # cannot break out of the command, because the value never becomes part
+      # of the script text. FILES stays unquoted on the command line on purpose
+      # so the space-separated list word-splits into multiple path arguments.
+      env:
+        FILES: ${{ inputs.files }}
+        SEVERITY_FLOOR: ${{ inputs.severity-floor }}
+        VERSION: ${{ inputs.version }}
+        SARIF_FILE: ${{ inputs.sarif-file }}
+      run: |
+        set -uo pipefail
+        if [ -z "$FILES" ]; then
+          echo "secure-code-gate: no files supplied via the 'files' input; nothing to gate." >&2
+          exit 0
+        fi
+        # The published package bundles the secure-vibe CLI binary + the rule
+        # data; the secure-code-check launcher points it at that data via
+        # $SECURE_VIBE_LIBRARY_PATH, so no checkout or --path is needed here.
+        if [ -z "$SARIF_FILE" ]; then
+          npx -y -p "@shieldnet360/secure-code-mcp@${VERSION}" \
+            secure-code-check gate $FILES \
+            --severity-floor "$SEVERITY_FLOOR"
+        else
+          # SARIF mode: capture the exit code instead of failing here, so the
+          # upload step below always runs — a FAILING gate still publishes its
+          # findings to Code Scanning. The last step re-asserts the failure.
+          # --sarif-base defaults to the working directory, which is the
+          # checkout root in a standard job, so artifact URIs come out
+          # repo-relative and Code Scanning anchors alerts to the files.
+          set +e
+          npx -y -p "@shieldnet360/secure-code-mcp@${VERSION}" \
+            secure-code-check gate $FILES \
+            --severity-floor "$SEVERITY_FLOOR" \
+            --format sarif > "$SARIF_FILE"
+          code=$?
+          set -e
+          echo "exit-code=$code" >> "$GITHUB_OUTPUT"
+          echo "secure-code-gate: exit $code; SARIF written to $SARIF_FILE"
+        fi
+
+    - name: Upload SARIF to GitHub Code Scanning
+      if: ${{ inputs.sarif-file != '' }}
+      uses: github/codeql-action/upload-sarif@v4
+      with:
+        sarif_file: ${{ inputs.sarif-file }}
+        category: ${{ inputs.category }}
+
+    - name: Fail when the gate found issues
+      if: ${{ inputs.sarif-file != '' && steps.gate.outputs.exit-code != '0' }}
+      shell: bash
+      env:
+        SEVERITY_FLOOR: ${{ inputs.severity-floor }}
+        EXIT_CODE: ${{ steps.gate.outputs.exit-code }}
+      run: |
+        echo "SecureVibe gate: findings at or above '$SEVERITY_FLOOR' (exit $EXIT_CODE). See the Security tab / PR annotations." >&2
+        exit 1

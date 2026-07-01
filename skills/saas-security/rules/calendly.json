@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Calendly",
+  "description": "Calendly Personal Access Tokens (JWT-shaped), OAuth, V2 webhook signature, and calendar / external-invitee red flags.",
+  "token_patterns": [
+    {
+      "name": "Calendly Personal Access Token (JWT)",
+      "regex": "(?i)calendly[_\\-]?(api[_\\-]?key|token|pat)[\\\"'\\s:=]+eyJ[A-Za-z0-9_\\-]{20,}\\.[A-Za-z0-9_\\-]{20,}\\.[A-Za-z0-9_\\-]{20,}",
+      "severity": "critical",
+      "hotwords": [
+        "calendly",
+        "pat",
+        "personal_access_token"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Calendly OAuth Client Secret",
+      "regex": "(?i)calendly[_\\-]?(client|oauth)[_\\-]?secret[\\\"'\\s:=]+[A-Za-z0-9_\\-]{32,}",
+      "severity": "critical",
+      "hotwords": [
+        "calendly",
+        "client_secret"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    },
+    {
+      "name": "Calendly Webhook Signing Key",
+      "regex": "(?i)calendly[_\\-]?(webhook[_\\-]?signing[_\\-]?key|signing[_\\-]?secret)[\\\"'\\s:=]+[A-Za-z0-9_\\-]{20,}",
+      "severity": "high",
+      "hotwords": [
+        "calendly",
+        "webhook",
+        "signing_key"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "calendly-webhook-v2-no-signature",
+      "severity": "critical",
+      "title": "Calendly V2 webhook handler does not verify `Calendly-Webhook-Signature`",
+      "rationale": "V2 signs payload+timestamp with HMAC-SHA256 under the webhook signing key. Skipping verification lets attackers spoof booking events into your CRM/Slack.",
+      "fix": "Validate signature `t=...,v1=...` per the docs; reject if timestamp drift > 3 min."
+    },
+    {
+      "id": "calendly-personal-token-for-org-integration",
+      "severity": "high",
+      "title": "Personal Access Token used as the credential for an org-wide integration",
+      "rationale": "PATs are user-bound. When the user leaves or rotates their PAT, the integration breaks, and the PAT inherits the user's organization role.",
+      "fix": "Use OAuth 2.0 with a Calendly Connected App tied to the organization, not a PAT."
+    },
+    {
+      "id": "calendly-routing-form-public-pii",
+      "severity": "medium",
+      "title": "Routing form configured to collect non-essential PII (DOB, SSN, gov-ID) in 'Custom Questions'",
+      "rationale": "Calendly stores answers in the meeting record; PII collected this way bypasses your CRM PII controls.",
+      "fix": "Reduce custom questions to the minimum; collect any restricted PII inside the authenticated app flow instead."
+    },
+    {
+      "id": "calendly-sso-fallback-password",
+      "severity": "medium",
+      "title": "SSO configured but password-based login still allowed for admins",
+      "rationale": "Bypasses SSO security policy.",
+      "fix": "Admin Center > Security > require SSO for all users; disable password fallback for admins."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "calendly-mass-invitee-export",
+      "severity": "high",
+      "title": "Bulk invitee export via API by an unexpected principal",
+      "rationale": "Invitee lists include emails, names, optionally phone \u2014 phishing seed material.",
+      "signal": "API gateway / WAF log: `GET /scheduled_events/*/invitees` with paginated total > 5k by non-RevOps principal."
+    },
+    {
+      "id": "calendly-external-event-type-public",
+      "severity": "medium",
+      "title": "Internal event type made public-link",
+      "rationale": "Sales / interview links accidentally exposed for unauthenticated booking.",
+      "signal": "Audit log: event_type visibility changed to 'public' on URLs containing 'interview', 'security', 'finance'."
+    },
+    {
+      "id": "calendly-webhook-target-domain-change",
+      "severity": "high",
+      "title": "Webhook subscription target URL changed to an external domain",
+      "rationale": "ATO persistence \u2014 attacker re-points webhooks to their own server.",
+      "signal": "Audit log: `webhook_subscription.updated` with target host outside allowlist."
+    }
+  ],
+  "references": [
+    "https://developer.calendly.com/api-docs/2kgmebsui9oc1-webhook-signatures",
+    "https://developer.calendly.com/api-docs/r4LjEYTQjklRk-getting-started",
+    "https://help.calendly.com/hc/en-us/articles/360045366834-Security-overview"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-9hfr-gw99-8rhx",
+  "published": "2026-04-09T20:28:26Z",
+  "modified": "2026-05-13T16:38:50.531589Z",
+  "aliases": [
+    "CVE-2026-40069"
+  ],
+  "summary": "bsv-sdk ARC broadcaster treats INVALID/MALFORMED/ORPHAN responses as successful broadcasts",
+  "affected": [
+    {
+      "package": {
+        "name": "bsv-sdk",
+        "ecosystem": "RubyGems",
+        "purl": "pkg:gem/bsv-sdk"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0.1.0"
+            },
+            {
+              "fixed": "0.8.2"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.1.0",
+        "0.2.0",
+        "0.2.1",
+        "0.3.0",
+        "0.3.1",
+        "0.3.2",
+        "0.4.0",
+        "0.5.0",
+        "0.6.0",
+        "0.6.1",
+        "0.6.2",
+        "0.7.0",
+        "0.8.0",
+        "0.8.1"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-9hfr-gw99-8rhx/GHSA-9hfr-gw99-8rhx.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/sgbett/bsv-ruby-sdk/security/advisories/GHSA-9hfr-gw99-8rhx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40069"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sgbett/bsv-ruby-sdk/issues/305"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sgbett/bsv-ruby-sdk/pull/306"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sgbett/bsv-ruby-sdk/commit/4992e8a265fd914a7eeb0405c69d1ff0122a84cc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bsv-sdk/CVE-2026-40069.yml"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/sgbett/bsv-ruby-sdk"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sgbett/bsv-ruby-sdk/releases/tag/v0.8.2"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-754"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-09T20:28:26Z",
+    "nvd_published_at": "2026-04-09T18:17:03Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

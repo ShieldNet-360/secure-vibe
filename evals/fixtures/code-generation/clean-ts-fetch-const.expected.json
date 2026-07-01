@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "ssrf-prevention",
+  "language": "typescript",
+  "insecure_signals": [
+    "fetch\\(\\s*req\\.(query|body|params)",
+    "axios\\.get\\(\\s*req\\."
+  ],
+  "secure_signals": [
+    "fetch\\(\\s*['\\\"]http://config\\.internal",
+    "axios\\.get\\(\\s*['\\\"]http"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

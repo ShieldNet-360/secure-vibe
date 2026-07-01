@@ -1,0 +1,29 @@
+schema_version: "1.0"
+title: Kubernetes exec or attach to a running pod
+id: dd44ee55-ff66-4778-89ab-cdef01234567
+status: stable
+level: medium
+description: |
+  Detects `kubectl exec` / `kubectl attach` requests via the apiserver
+  audit log. Interactive shell access into a running pod bypasses image
+  immutability and is frequently used post-compromise to plant tooling.
+references:
+  - https://kubernetes.io/docs/reference/access-authn-authz/audit/
+  - https://attack.mitre.org/techniques/T1609/
+tags:
+  - attack.t1609
+  - attack.execution
+logsource:
+  product: k8s
+  service: audit
+detection:
+  selection:
+    objectRef.resource: pods
+    objectRef.subresource:
+      - exec
+      - attach
+    verb: create
+  condition: selection
+falsepositives:
+  - Debugging by platform engineers (compare against a known list of
+    `user.username` values).

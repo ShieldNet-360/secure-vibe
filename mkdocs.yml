@@ -1,0 +1,134 @@
+site_name: SecureVibe
+site_description: Prevention-first security for AI-written code — signed security skills, deterministic scanners, and a CI gate for AI coding assistants (Claude Code, Cursor, Copilot, Codex, Windsurf, Cline, Antigravity, Devin).
+site_url: https://shieldnet-360.github.io/secure-vibe/
+repo_url: https://github.com/shieldnet-360/secure-vibe
+repo_name: shieldnet-360/secure-vibe
+edit_uri: edit/main/docs/
+docs_dir: docs
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  logo: assets/logo.svg
+  favicon: assets/favicon.svg
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.path
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+    - content.action.view
+    - toc.follow
+    - navigation.footer
+    - header.autohide
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+plugins:
+  - search
+  - privacy
+  - social:
+      cards_layout_options:
+        background_color: "#0d1322"
+        color: "#ffffff"
+        font_family: Inter
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/shieldnet-360/secure-vibe
+  generator: false
+
+extra_css:
+  - stylesheets/custom.css
+
+extra_javascript:
+  - assets/js/home-stats.js
+  - assets/js/hero-anim.js
+
+nav:
+  - Home: index.md
+  - Playground: playground.md
+  - Explore:
+    - Threat Intel: threat-intel.md
+    - Skills Catalogue: skills.md
+    - Compliance Coverage: compliance.md
+    - Coverage Dashboard: coverage.md
+  - Get Started:
+    - Quick Start: quickstart.md
+    - Install on macOS: install-macos.md
+    - Install on Linux: install-linux.md
+    - Install on Windows: install-windows.md
+    - Air-gapped Install: air-gapped-install.md
+  - Guides:
+    - Choose your path: guides/index.md
+    - Evaluator / New: guides/evaluator.md
+    - Developer: guides/developer.md
+    - DevOps / Platform: guides/devops.md
+    - Security / AppSec: guides/security.md
+    - Contributor: guides/contributor.md
+    - Test with a model: guides/testing-with-models.md
+  - Concepts:
+    - Why SecureVibe: concepts/why.md
+    - What makes it different: concepts/features.md
+    - How it compares: concepts/comparison.md
+    - Benchmarks & methodology: concepts/benchmarks.md
+    - Architecture: concepts/architecture.md
+    - How detection works: concepts/detection.md
+    - Roadmap: concepts/roadmap.md
+  - Reference:
+    - CLI (secure-vibe): reference/cli.md
+    - MCP tools (secure-vibe mcp): reference/mcp-tools.md
+  - Project:
+    - Contribute a Finding: contribute.md
+    - Team Rollout: admin-team-rollout.md
+    - Changelog: changelog.md
+    - FAQ: faq.md

@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Salesforce",
+  "description": "Salesforce Connected Apps, OAuth tokens, session IDs, Apex/Flow red flags, and Lightning/Experience Cloud guest-user sharing patterns. Applies to Sales Cloud, Service Cloud, and Experience Cloud.",
+  "token_patterns": [
+    {
+      "name": "Salesforce Session ID",
+      "regex": "00D[A-Za-z0-9]{12,15}![A-Za-z0-9._\\-]{96,}",
+      "severity": "critical",
+      "hotwords": [
+        "salesforce",
+        "session",
+        "sid",
+        "00D"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "00D",
+      "notes": "00D = Salesforce org-ID prefix. Session IDs are bearer credentials."
+    },
+    {
+      "name": "Salesforce OAuth Refresh Token",
+      "regex": "(?i)salesforce[_\\-]?(oauth)?[_\\-]?refresh[_\\-]?token[\\\"'\\s:=]+[A-Za-z0-9._\\-]{60,}",
+      "severity": "critical",
+      "hotwords": [
+        "salesforce",
+        "refresh_token"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    },
+    {
+      "name": "Salesforce Connected App Consumer Secret",
+      "regex": "(?i)salesforce[_\\-]?(consumer|client)[_\\-]?secret[\\\"'\\s:=]+[A-Za-z0-9]{40,}",
+      "severity": "critical",
+      "hotwords": [
+        "salesforce",
+        "connected_app",
+        "consumer_secret",
+        "client_secret"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Salesforce Login URL with embedded session",
+      "regex": "https://[A-Za-z0-9.\\-]+\\.(my\\.salesforce|salesforce|force)\\.com/secur/frontdoor\\.jsp\\?sid=[A-Za-z0-9._\\-!]+",
+      "severity": "critical",
+      "hotwords": [
+        "salesforce",
+        "frontdoor",
+        "sid"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "sf-experience-cloud-guest-user-overshare",
+      "severity": "critical",
+      "title": "Experience Cloud guest user with sharing access to internal objects",
+      "rationale": "The 2021-2023 Salesforce 'Aura misconfiguration' incidents leaked PII via guest users that had org-wide-default read on Contacts, Cases, etc.",
+      "fix": "Setup > Digital Experiences > All Sites > [Site] > Administration > Preferences \u2014 enable 'Secure guest user record access'. Re-audit object-level guest sharing."
+    },
+    {
+      "id": "sf-modify-all-data-grant",
+      "severity": "critical",
+      "title": "Non-admin profile granted `Modify All Data` or `View All Data`",
+      "rationale": "MAD/VAD bypass record-level security entirely.",
+      "fix": "Setup > Profiles \u2014 remove these system permissions; use Permission Sets for the narrow use cases."
+    },
+    {
+      "id": "sf-api-only-license-without-ip-restriction",
+      "severity": "high",
+      "title": "API-only user without IP range / login-flow restriction",
+      "rationale": "API-only users with leaked passwords are silent ATO vectors.",
+      "fix": "Setup > Profiles > Login IP Ranges, plus Connected App > Permitted Users = 'Admin approved users'."
+    },
+    {
+      "id": "sf-connected-app-refresh-token-policy",
+      "severity": "high",
+      "title": "Connected App refresh-token policy set to 'Refresh token is valid until revoked'",
+      "rationale": "Indefinite refresh tokens convert any single token theft into permanent access.",
+      "fix": "Connected App > OAuth Policies > Refresh Token Policy = 'Expire after N days' or 'Revoke on logout'."
+    },
+    {
+      "id": "sf-mfa-not-enforced",
+      "severity": "critical",
+      "title": "MFA not enforced for direct UI logins",
+      "rationale": "Salesforce policy now mandates MFA; legacy orgs that haven't migrated are exposed.",
+      "fix": "Setup > Identity > Identity Verification > 'Require multi-factor authentication for all direct UI logins'."
+    },
+    {
+      "id": "sf-apex-without-sharing",
+      "severity": "high",
+      "title": "Apex class declared `without sharing` and exposed to external callers",
+      "rationale": "`without sharing` bypasses record-level security; external invocation = info leak.",
+      "fix": "Use `with sharing` by default; reserve `without sharing` for explicit elevated tasks called only by trusted internal flows.",
+      "pattern": "(?i)public\\s+(?:virtual\\s+)?(?:without\\s+sharing)\\s+class"
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "sf-data-export-scheduled",
+      "severity": "high",
+      "title": "Weekly/Monthly Data Export job scheduled by non-admin",
+      "rationale": "Setup > Data Export is a tenant-wide dump.",
+      "signal": "Setup Audit Trail: `Schedule Data Export` actor outside the IT admin group."
+    },
+    {
+      "id": "sf-mass-record-export",
+      "severity": "high",
+      "title": "Report run that returns > 50k rows exported to CSV",
+      "rationale": "Most legitimate reports run < 5k rows. Bulk CSV export is exfiltration shape.",
+      "signal": "Event Monitoring: `REPORT_EXPORT` event with `NUM_ROWS` > 50000."
+    },
+    {
+      "id": "sf-new-connected-app-install",
+      "severity": "high",
+      "title": "Connected App installed/uninstalled by non-admin",
+      "rationale": "OAuth-grant phish or AppExchange-supply-chain step.",
+      "signal": "Setup Audit Trail: `Install Package` / `Uninstall Package` actor outside the IT admin group."
+    },
+    {
+      "id": "sf-permission-set-modify-all",
+      "severity": "critical",
+      "title": "Permission Set granting `Modify All Data` assigned to a user",
+      "rationale": "Standard ATO escalation step.",
+      "signal": "Setup Audit Trail: `Permission set assignment changed` with target permset granting MAD/VAD."
+    }
+  ],
+  "references": [
+    "https://help.salesforce.com/s/articleView?id=sf.security_overview.htm",
+    "https://help.salesforce.com/s/articleView?id=sf.connected_app_create.htm",
+    "https://help.salesforce.com/s/articleView?id=sf.security_guest_user_sharing.htm",
+    "https://help.salesforce.com/s/articleView?id=sf.event_monitoring.htm"
+  ]
+}

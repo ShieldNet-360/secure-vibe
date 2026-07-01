@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-w4rc-p66m-x6qq",
+  "published": "2026-05-06T23:03:13Z",
+  "modified": "2026-05-13T14:16:34.399984Z",
+  "aliases": [
+    "CVE-2026-42845"
+  ],
+  "summary": "Grav Form Plugin has an Anonymous Page Content Overwrite via Form File Upload filename Override",
+  "affected": [
+    {
+      "package": {
+        "name": "getgrav/grav-plugin-form",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/getgrav/grav-plugin-form"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "9.1.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-w4rc-p66m-x6qq/GHSA-w4rc-p66m-x6qq.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/getgrav/grav/security/advisories/GHSA-w4rc-p66m-x6qq"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42845"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/getgrav/grav-plugin-form/commit/48bacc4187e1cff815000e526d5ca2878484867f"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/getgrav/grav"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-20",
+      "CWE-73"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-06T23:03:13Z",
+    "nvd_published_at": "2026-05-11T17:16:34Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:P"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

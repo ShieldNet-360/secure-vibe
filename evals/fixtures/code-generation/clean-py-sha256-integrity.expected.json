@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "crypto-misuse",
+  "language": "python",
+  "insecure_signals": [
+    "\\bmd5\\(.*password",
+    "verify\\s*=\\s*False"
+  ],
+  "secure_signals": [
+    "hashlib\\.sha256\\(",
+    "hashlib\\.sha512\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

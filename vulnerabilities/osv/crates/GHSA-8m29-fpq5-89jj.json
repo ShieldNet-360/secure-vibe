@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-8m29-fpq5-89jj",
+  "published": "2026-04-18T01:15:24Z",
+  "modified": "2026-05-12T17:16:16.171961Z",
+  "aliases": [
+    "CVE-2026-41583"
+  ],
+  "summary": "Zebra Vulnerable to Consensus Divergence in Transparent Sighash Hash-Type Handling",
+  "affected": [
+    {
+      "package": {
+        "name": "zebrad",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebrad"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.3.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-8m29-fpq5-89jj/GHSA-8m29-fpq5-89jj.json"
+      }
+    },
+    {
+      "package": {
+        "name": "zebra-script",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebra-script"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.0.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-8m29-fpq5-89jj/GHSA-8m29-fpq5-89jj.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/ZcashFoundation/zebra/security/advisories/GHSA-8m29-fpq5-89jj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41583"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ZcashFoundation/zebra/commit/1f605eca5c55e3b65229fa01a97d9aa84fd37447"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/ZcashFoundation/zebra"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-573"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-18T01:15:24Z",
+    "nvd_published_at": "2026-05-08T15:16:41Z",
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H"
+    },
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:H/SC:N/SI:H/SA:H"
+    }
+  ],
+  "last_updated": "2026-05-12"
+}

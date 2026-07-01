@@ -1,0 +1,32 @@
+schema_version: "1.0"
+title: GCP VPC firewall rule allows 0.0.0.0/0 ingress
+id: 9b8a7c6d-5e4f-4a3b-2c1d-0e9f8a7b6c5d
+status: stable
+level: high
+description: |
+  Detects creation or modification of a VPC firewall rule that allows
+  ingress from the public internet (0.0.0.0/0) to a non-HTTP port. This
+  is one of the most common cloud misconfigurations behind compromised
+  GCP workloads.
+references:
+  - https://cloud.google.com/vpc/docs/firewalls
+  - https://attack.mitre.org/techniques/T1133/
+tags:
+  - attack.t1133
+  - attack.initial_access
+logsource:
+  product: gcp
+  service: cloudaudit
+detection:
+  selection:
+    protoPayload.methodName:
+      - v1.compute.firewalls.insert
+      - v1.compute.firewalls.patch
+    protoPayload.request.sourceRanges|contains: "0.0.0.0/0"
+  filter_http:
+    protoPayload.request.allowed.ports:
+      - "80"
+      - "443"
+  condition: selection and not filter_http
+falsepositives:
+  - Intentional public web tier exposure on ports 80/443.

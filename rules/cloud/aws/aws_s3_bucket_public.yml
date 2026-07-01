@@ -1,0 +1,30 @@
+schema_version: "1.0"
+title: AWS S3 bucket exposed to public access
+id: 6f1e0c9e-7e3d-4f7f-9f1e-2c3d4e5f6a78
+status: stable
+level: high
+description: |
+  Detects API calls that grant anonymous or "AllUsers" read or write
+  permissions to an S3 bucket. Public buckets are a common source of
+  large-scale data leaks.
+references:
+  - https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
+  - https://attack.mitre.org/techniques/T1530/
+tags:
+  - attack.t1530
+  - attack.collection
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection_acl:
+    eventName: PutBucketAcl
+    requestParameters.AccessControlPolicy.AccessControlList.Grant.Grantee.URI|contains:
+      - "AllUsers"
+      - "AuthenticatedUsers"
+  selection_policy:
+    eventName: PutBucketPolicy
+    requestParameters.bucketPolicy|contains: '"Principal":"*"'
+  condition: 1 of selection_*
+falsepositives:
+  - Static-site hosting buckets that are intentionally public.

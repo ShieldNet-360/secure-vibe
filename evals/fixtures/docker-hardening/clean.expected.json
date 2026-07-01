@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "clean.Dockerfile",
+  "expected_findings": []
+}

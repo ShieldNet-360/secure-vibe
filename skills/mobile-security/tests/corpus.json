@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the mobile-security skill. Fixtures are schema-driven Android/iOS snippets; 'detect' marks code that hardcodes secrets, stores sensitive data in plaintext, or disables TLS validation (violates a NEVER), and 'ignore' marks code using Keystore/Keychain and certificate pinning (follows ALWAYS).",
+  "fixtures": [
+    {
+      "id": "android-trust-all-x509",
+      "text": "val trustAll = object : X509TrustManager {\n    override fun checkClientTrusted(c: Array<X509Certificate>, a: String) {}\n    override fun checkServerTrusted(c: Array<X509Certificate>, a: String) {}  // empty: trusts everything\n    override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()\n}\nval ctx = SSLContext.getInstance(\"TLS\")\nctx.init(null, arrayOf(trustAll), SecureRandom())",
+      "expected": "detect",
+      "reason": "An empty checkServerTrusted disables all TLS certificate validation, enabling MITM. CWE-295 Improper Certificate Validation; violates NEVER (custom TLS handling that returns 'trust all')."
+    },
+    {
+      "id": "android-secret-in-plain-sharedprefs",
+      "text": "val prefs = getSharedPreferences(\"auth\", Context.MODE_PRIVATE)\nprefs.edit()\n    .putString(\"api_key\", \"AIzaSyD-9fA2bQ7xR3kL8mN0pZ4tWvYuC1eHjGd\")\n    .putString(\"refresh_token\", token)\n    .apply()",
+      "expected": "detect",
+      "reason": "Hard-codes an API key and stores a refresh token in plaintext SharedPreferences (readable on rooted/backed-up devices). CWE-312 Cleartext Storage of Sensitive Information / CWE-798; violates NEVER (ship API keys in source; store secrets in plain SharedPreferences)."
+    },
+    {
+      "id": "ios-token-in-userdefaults",
+      "text": "func saveSession(_ token: String) {\n    UserDefaults.standard.set(token, forKey: \"authToken\")\n    UserDefaults.standard.set(\"sk_live_51HxQ2pR3kL8mN0pZ4tWvYu\", forKey: \"stripeSecret\")\n}",
+      "expected": "detect",
+      "reason": "Stores an auth token and a hardcoded secret key in UserDefaults, which is an unencrypted plist readable from backups. CWE-312 Cleartext Storage; violates NEVER/ALWAYS (don't store secrets in UserDefaults; use the Keychain)."
+    },
+    {
+      "id": "android-certificate-pinning",
+      "text": "val pinner = CertificatePinner.Builder()\n    .add(\"api.example.com\", \"sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\")\n    .build()\nval client = OkHttpClient.Builder()\n    .certificatePinner(pinner)\n    .build()",
+      "expected": "ignore",
+      "reason": "Uses OkHttp CertificatePinner to pin the backend's public key, validating the server cert. Follows ALWAYS (certificate pinning via OkHttp.CertificatePinner); safe per CWE-295."
+    },
+    {
+      "id": "android-encrypted-sharedprefs-keystore",
+      "text": "val masterKey = MasterKey.Builder(context)\n    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)\n    .build()\nval prefs = EncryptedSharedPreferences.create(\n    context, \"secure_auth\", masterKey,\n    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,\n    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM\n)\nprefs.edit().putString(\"refresh_token\", token).apply()",
+      "expected": "ignore",
+      "reason": "Stores the refresh token in EncryptedSharedPreferences backed by an Android Keystore MasterKey (AES-256-GCM), not plaintext. Follows ALWAYS (store secrets in Android Keystore); safe per CWE-312."
+    },
+    {
+      "id": "ios-keychain-storage",
+      "text": "func saveSession(_ token: String) {\n    let query: [String: Any] = [\n        kSecClass as String: kSecClassGenericPassword,\n        kSecAttrAccount as String: \"authToken\",\n        kSecValueData as String: token.data(using: .utf8)!,\n        kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly\n    ]\n    SecItemAdd(query as CFDictionary, nil)\n}",
+      "expected": "ignore",
+      "reason": "Stores the auth token in the iOS Keychain with kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly, the recommended secure store. Follows ALWAYS (store secrets in Keychain); safe per CWE-312."
+    }
+  ]
+}

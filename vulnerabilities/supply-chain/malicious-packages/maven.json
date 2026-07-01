@@ -1,0 +1,281 @@
+{
+  "schema_version": "1.0",
+  "ecosystem": "maven",
+  "last_updated": "2026-06-21T12:00:00Z",
+  "description": "Documented malicious or vulnerable Maven Central packages and namespace incidents. Maven Central enforces GPG signing and namespace verification, which historically kept it cleaner than npm/PyPI, but 2022-2024 saw a surge in dependency-confusion and squatted-artifactId attacks.",
+  "entries": [
+    {
+      "name": "sonatype-maven-2023-742-malicious-wave",
+      "versions_affected": [
+        "multiple"
+      ],
+      "type": "malicious_code",
+      "severity": "critical",
+      "discovered": "2023-09-26",
+      "description": "Campaign summary (not a single installable coordinate): Sonatype found 742 malicious Maven packages in one week (Sep 2023), most using Gradle build() hooks or the Maven plugin lifecycle to drop Java info-stealers into ~/.m2 caches. Tracked here as a cluster; individual coordinates were short-lived.",
+      "references": [
+        "https://blog.sonatype.com/npm-and-maven-see-wave-of-malicious-packages",
+        "https://www.sonatype.com/blog/sonatype-discovers-742-malicious-packages-on-maven-central"
+      ],
+      "indicators": [
+        "build() hook",
+        "info-stealer"
+      ],
+      "attack_type": "malicious_code"
+    },
+    {
+      "name": "com.google.inject:guice-assistedinject-typosquat",
+      "versions_affected": [
+        "all"
+      ],
+      "type": "typosquat",
+      "severity": "high",
+      "discovered": "2023-11-15",
+      "description": "ArtifactId-squat against Guice's assisted-injection module. Published in a non-Google groupId but copying the artifactId; pulled by IDE auto-import suggestions for years.",
+      "references": [
+        "https://blog.sonatype.com/maven-central-and-dependency-confusion"
+      ],
+      "indicators": [
+        "artifactId squat"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "io.confluent:kafka-streams-malicious",
+      "versions_affected": [
+        "all"
+      ],
+      "type": "dependency_confusion",
+      "severity": "high",
+      "discovered": "2024-05-08",
+      "description": "Dependency-confusion attempt against Confluent's internal Kafka Streams artifacts. Published to a public Maven mirror with a higher version than the real internal one to win local resolution.",
+      "references": [
+        "https://blog.phylum.io/dependency-confusion-confluent-kafka"
+      ],
+      "indicators": [
+        "Confluent internal squat"
+      ],
+      "attack_type": "dependency_confusion"
+    },
+    {
+      "name": "io.github.leetcrunch:scribejava-core",
+      "versions_affected": [
+        "8.3.5"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2025-03-19",
+      "description": "Malicious code in io.github.leetcrunch:scribejava-core (Maven)",
+      "references": [
+        "https://socket.dev/blog/malicious-maven-package-exfiltrates-oauth-credentials"
+      ],
+      "indicators": [],
+      "attack_type": "embedded_malicious_code",
+      "source": "ossf-malicious-packages",
+      "osv_id": "MAL-2025-2552"
+    },
+    {
+      "name": "io.grpc:grpc-typosquat-set",
+      "versions_affected": [
+        "all"
+      ],
+      "type": "typosquat",
+      "severity": "high",
+      "discovered": "2024-02-29",
+      "description": "Phylum 2024 disclosure: a cluster of Maven artifacts squatting on gRPC artifactIds in attacker-controlled groupIds. Payload dropped a Cobalt Strike beacon during Gradle resolution.",
+      "references": [
+        "https://blog.phylum.io/malicious-maven-packages-cobalt-strike"
+      ],
+      "indicators": [
+        "Cobalt Strike beacon",
+        "Gradle hook"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "io.spring.gradle:dependency-management-plugin",
+      "versions_affected": [
+        "1.0.0.SNAPSHOT-internal"
+      ],
+      "type": "dependency_confusion",
+      "severity": "high",
+      "discovered": "2023-04-12",
+      "description": "Sonatype dependency-confusion research example: attackers pushed pre-release artifacts to Maven Central that collided with internal SNAPSHOT artifactIds at large enterprises, hoping internal builds would resolve the public one.",
+      "references": [
+        "https://blog.sonatype.com/maven-central-and-dependency-confusion",
+        "https://snyk.io/blog/dependency-confusion-attacks-pypi-npm-maven-central/"
+      ],
+      "indicators": [
+        "SNAPSHOT collision"
+      ],
+      "attack_type": "dependency_confusion"
+    },
+    {
+      "name": "org.apache.commons:commons-text",
+      "versions_affected": [
+        "1.5",
+        "1.6",
+        "1.7",
+        "1.8",
+        "1.9"
+      ],
+      "type": "vulnerable_library",
+      "severity": "critical",
+      "discovered": "2022-10-13",
+      "description": "Text4Shell (CVE-2022-42889). StringSubstitutor.replace() resolved ${script:}, ${url:}, ${dns:} prefixes from untrusted input, leading to RCE. Awareness entry because the library is a transitive of many Spring projects.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2022-42889",
+        "https://lists.apache.org/thread/n2bd4vdsgkqh2tm14l1grccnntl3x0o5"
+      ],
+      "indicators": [
+        "${script:}, ${url:}, ${dns:}",
+        "StringSubstitutor"
+      ],
+      "cve": "CVE-2022-42889",
+      "attack_type": "remote_code_execution"
+    },
+    {
+      "name": "org.apache.logging.log4j:log4j-core-patched",
+      "versions_affected": [
+        "2.17.x-fake"
+      ],
+      "type": "typosquat",
+      "severity": "critical",
+      "discovered": "2021-12-15",
+      "description": "Multiple fake 'patched' Log4j repackages uploaded to Maven Central / shaded into JAR proxies during the Log4Shell panic, carrying second-stage payloads or simply being old vulnerable versions repackaged.",
+      "references": [
+        "https://blog.sonatype.com/log4shell-related-malicious-maven-packages",
+        "https://logging.apache.org/log4j/2.x/security.html"
+      ],
+      "indicators": [
+        "Log4Shell panic",
+        "fake patch"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "org.fasterxml.jackson.core:jackson-databind",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "typosquat",
+      "severity": "critical",
+      "discovered": "2025-12-25",
+      "description": "Typosquat of the ubiquitous Jackson JSON library (legitimate groupId com.fasterxml.jackson.core) using a namespace-prefix swap to org.fasterxml.jackson.core \u2014 mirroring a lookalike domain fasterxml.org (vs the real fasterxml.com) registered 2025-12-17. The package acted as a trojan downloader: it contacted a C2 server, fetched OS-specific executables, ran them with suppressed output, and established persistence; the delivered payload was a Cobalt Strike beacon. Removed from Maven Central within ~1.5 hours of reporting (Aikido Security, 2025-12-25).",
+      "references": [
+        "https://www.aikido.dev/blog/maven-central-jackson-typosquatting-malware",
+        "https://www.esecurityplanet.com/threats/malicious-jackson-lookalike-library-slips-into-maven-central/"
+      ],
+      "indicators": [
+        "groupId org.fasterxml.jackson.core swaps the legitimate com.fasterxml namespace",
+        "references lookalike domain fasterxml.org",
+        "trojan downloader fetches OS-specific executable from C2",
+        "delivers a Cobalt Strike beacon"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "org.mvnpm:posthog-node",
+      "versions_affected": [
+        "4.18.1"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2025-11-26",
+      "description": "Malicious code in org.mvnpm:posthog-node (Maven)",
+      "references": [
+        "https://www.aikido.dev/blog/shai-hulud-strikes-again-hitting-zapier-ensdomains",
+        "https://www.wiz.io/blog/shai-hulud-2-0-ongoing-supply-chain-attack",
+        "https://www.stepsecurity.io/blog/sha1-hulud-the-second-coming-zapier-ens-domains-and-other-prominent-npm-packages-compromised"
+      ],
+      "indicators": [],
+      "attack_type": "embedded_malicious_code",
+      "source": "ossf-malicious-packages",
+      "osv_id": "MAL-2025-191470"
+    },
+    {
+      "name": "org.springframework.cloud:spring-cloud-function-malicious",
+      "versions_affected": [
+        "3.x"
+      ],
+      "type": "typosquat",
+      "severity": "high",
+      "discovered": "2022-04-04",
+      "description": "Malicious forks targeting Spring Cloud Function users post-CVE-2022-22963. Published under similar groupIds with a SpEL backdoor still present.",
+      "references": [
+        "https://blog.phylum.io/spring-cloud-function-malicious-forks"
+      ],
+      "indicators": [
+        "SpEL backdoor",
+        "Spring4Shell era"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "com.github.codingandcoding:maven-compiler-plugin",
+      "versions_affected": [
+        "3.9.0"
+      ],
+      "type": "backdoor",
+      "severity": "critical",
+      "discovered": "2021-01-07",
+      "description": "Brandjacking typosquat of the legitimate Apache maven-compiler-plugin. Sonatype (sonatype-2021-0012, removed 2021-01-07) found a backdoor in the CompilerMojo class: a Java class loader that executes arbitrary code downloaded from a C2 server every time a project is COMPILED. The com.github.codingandcoding cluster (also mail-watcher-plugin, servlet-api) drew 846 downloads in 10 days.",
+      "references": [
+        "https://www.sonatype.com/blog/malware-removed-from-maven-central"
+      ],
+      "indicators": [
+        "groupId com.github.codingandcoding (brandjacking, not the real vendor namespace)",
+        "backdoor activates at build/compile or request time",
+        "fetches/executes code from a C2 server"
+      ],
+      "attack_type": "backdoor"
+    },
+    {
+      "name": "com.github.codingandcoding:mail-watcher-plugin",
+      "versions_affected": [
+        "1.16",
+        "1.17"
+      ],
+      "type": "backdoor",
+      "severity": "critical",
+      "discovered": "2021-01-07",
+      "description": "Brandjacking typosquat of a Jenkins mail-watcher plugin (sonatype-2021-0013, Sonatype 2021-01-07). The backdoor downloads an arbitrary Groovy script that is evaluated on the infected Jenkins server every time a user receives a mail notification.",
+      "references": [
+        "https://www.sonatype.com/blog/malware-removed-from-maven-central"
+      ],
+      "indicators": [
+        "groupId com.github.codingandcoding (brandjacking, not the real vendor namespace)",
+        "backdoor activates at build/compile or request time",
+        "fetches/executes code from a C2 server"
+      ],
+      "attack_type": "backdoor"
+    },
+    {
+      "name": "com.github.codingandcoding:servlet-api",
+      "versions_affected": [
+        "3.2.0"
+      ],
+      "type": "backdoor",
+      "severity": "critical",
+      "discovered": "2021-01-07",
+      "description": "Brandjacking typosquat of the javax servlet-api (sonatype-2021-0014, Sonatype 2021-01-07). The library opens an interactive shell by creating a reverse TCP connection to a C2 server on each HTTP GET request.",
+      "references": [
+        "https://www.sonatype.com/blog/malware-removed-from-maven-central"
+      ],
+      "indicators": [
+        "groupId com.github.codingandcoding (brandjacking, not the real vendor namespace)",
+        "backdoor activates at build/compile or request time",
+        "fetches/executes code from a C2 server"
+      ],
+      "attack_type": "backdoor"
+    }
+  ],
+  "sources": {
+    "ossf-malicious-packages": {
+      "url": "https://github.com/ossf/malicious-packages",
+      "commit": "aa66cb2d5ed2b95be1e33d08777b34264b5e0354",
+      "ingested_at": "2026-05-14T16:01:45Z",
+      "entries_from_source": 2
+    }
+  }
+}

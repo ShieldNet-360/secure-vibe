@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "description": "Expected typosquat finding for the npm-typosquat fixture. The 'lodahs' -> 'lodash' mapping is from vulnerabilities/supply-chain/typosquat-db/known_typosquats.json, cited to Snyk's 2023 state-of-open-source-security report.",
+  "expected_findings": [
+    {
+      "ecosystem": "npm",
+      "package": "lodahs",
+      "kind": "typosquat",
+      "target": "lodash",
+      "source": "vulnerabilities/supply-chain/typosquat-db/known_typosquats.json"
+    }
+  ],
+  "expected_clean": ["express"]
+}

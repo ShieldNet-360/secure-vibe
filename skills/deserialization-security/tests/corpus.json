@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the deserialization-security skill. The CWE-502 RCE primitive lives in a native-deserializer call no deterministic gate scanner flags, so this is a schema-driven corpus: the runner smoke-validates fixture shape, and the detect/ignore pairs double as ground truth for the LLM eval harness. detect = an untrusted byte stream handed to a native deserializer; ignore = the schema-validated / safe-loader alternative the skill mandates.",
+  "fixtures": [
+    {
+      "id": "python-pickle-loads",
+      "text": "import pickle\n@app.route('/restore', methods=['POST'])\ndef restore():\n    session = pickle.loads(request.get_data())\n    return jsonify(session)",
+      "expected": "detect",
+      "reason": "pickle.loads on request bytes is arbitrary-code-execution (CWE-502)"
+    },
+    {
+      "id": "python-json-schema",
+      "text": "import json\nfrom jsonschema import validate\n@app.route('/restore', methods=['POST'])\ndef restore():\n    data = json.loads(request.get_data())\n    validate(data, SESSION_SCHEMA)\n    return jsonify(data)",
+      "expected": "ignore",
+      "reason": "structural JSON parse + schema validation, no native deserializer"
+    },
+    {
+      "id": "node-serialize-unserialize",
+      "text": "const serialize = require('node-serialize'); app.get('/me', (req, res) => { const session = serialize.unserialize(req.cookies.session); res.json(session); });",
+      "expected": "detect",
+      "reason": "node-serialize unserialize() executes embedded function payloads (RCE)"
+    },
+    {
+      "id": "node-json-parse",
+      "text": "app.get('/me', (req, res) => { const session = JSON.parse(req.cookies.session); res.json(session); });",
+      "expected": "ignore",
+      "reason": "JSON.parse cannot instantiate objects or run code"
+    },
+    {
+      "id": "python-yaml-unsafe-loader",
+      "text": "import yaml\n@app.route('/config', methods=['POST'])\ndef load_config():\n    cfg = yaml.load(request.get_data(), Loader=yaml.Loader)\n    return jsonify(cfg)",
+      "expected": "detect",
+      "reason": "yaml.Loader constructs arbitrary Python objects from untrusted YAML"
+    },
+    {
+      "id": "python-yaml-safe-load",
+      "text": "import yaml\n@app.route('/config', methods=['POST'])\ndef load_config():\n    cfg = yaml.safe_load(request.get_data())\n    return jsonify(cfg)",
+      "expected": "ignore",
+      "reason": "safe_load restricts construction to plain scalars/collections"
+    }
+  ]
+}

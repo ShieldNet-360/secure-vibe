@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the ssrf-prevention skill. SSRF is a code-level dataflow no deterministic gate scanner traces, so this is a schema-driven corpus: the runner smoke-validates fixture shape, and the detect/ignore pairs double as ground truth for the LLM eval harness. detect = an HTTP client called directly on a request value; ignore = the same fetch behind the allowlist guard the skill mandates.",
+  "fixtures": [
+    {
+      "id": "image-proxy-raw-fetch",
+      "text": "app.get('/proxy', async (req, res) => { const resp = await fetch(req.query.url); res.type(resp.headers.get('content-type')).send(Buffer.from(await resp.arrayBuffer())); });",
+      "expected": "detect",
+      "reason": "client-supplied URL fetched server-side with no validation (CWE-918)"
+    },
+    {
+      "id": "image-proxy-guarded",
+      "text": "const { assertAllowedUrl } = require('./ssrf-guard'); app.get('/proxy', async (req, res) => { const target = await assertAllowedUrl(req.query.url); const resp = await fetch(target); res.type(resp.headers.get('content-type')).send(Buffer.from(await resp.arrayBuffer())); });",
+      "expected": "ignore",
+      "reason": "URL validated against an allowlist before the fetch"
+    },
+    {
+      "id": "webhook-raw-axios",
+      "text": "app.post('/webhook-test', async (req, res) => { const result = await axios.get(req.body.callbackUrl); res.json({ status: result.status }); });",
+      "expected": "detect",
+      "reason": "customer-supplied callback URL fetched without allowlisting"
+    },
+    {
+      "id": "webhook-guarded",
+      "text": "const { assertAllowedUrl } = require('./ssrf-guard'); app.post('/webhook-test', async (req, res) => { const url = await assertAllowedUrl(req.body.callbackUrl); const result = await axios.get(url); res.json({ status: result.status }); });",
+      "expected": "ignore",
+      "reason": "callback URL validated before delivery"
+    },
+    {
+      "id": "link-preview-raw-fetch",
+      "text": "app.get('/preview', async (req, res) => { const resp = await fetch(req.query.target); res.json({ title: extractTitle(await resp.text()) }); });",
+      "expected": "detect",
+      "reason": "remote page fetched from a raw request parameter"
+    },
+    {
+      "id": "link-preview-guarded",
+      "text": "const { assertAllowedUrl } = require('./ssrf-guard'); app.get('/preview', async (req, res) => { const target = await assertAllowedUrl(req.query.target); const resp = await fetch(target); res.json({ title: extractTitle(await resp.text()) }); });",
+      "expected": "ignore",
+      "reason": "target validated against the allowlist"
+    }
+  ]
+}

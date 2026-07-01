@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-29x4-r6jv-ff4w",
+  "published": "2026-04-18T01:15:10Z",
+  "modified": "2026-05-12T17:08:40.677583Z",
+  "aliases": [
+    "CVE-2026-41585"
+  ],
+  "summary": "Zebra Vulnerable to Denial of Service via Interrupted JSON-RPC Requests from Authenticated Clients",
+  "affected": [
+    {
+      "package": {
+        "name": "zebra-rpc",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebra-rpc"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0-beta.45"
+            },
+            {
+              "fixed": "6.0.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-29x4-r6jv-ff4w/GHSA-29x4-r6jv-ff4w.json"
+      }
+    },
+    {
+      "package": {
+        "name": "zebrad",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebrad"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "4.3.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-29x4-r6jv-ff4w/GHSA-29x4-r6jv-ff4w.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/ZcashFoundation/zebra/security/advisories/GHSA-29x4-r6jv-ff4w"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41585"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/ZcashFoundation/zebra"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-248",
+      "CWE-617"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-18T01:15:10Z",
+    "nvd_published_at": "2026-05-08T15:16:41Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+    },
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:H/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:H"
+    }
+  ],
+  "last_updated": "2026-05-12"
+}

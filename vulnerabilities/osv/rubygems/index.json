@@ -1,0 +1,1682 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-16T05:44:32Z",
+  "generated_at": "2026-05-16T05:44:32Z",
+  "by_package": {
+    "loofah": [
+      {
+        "id": "GHSA-2j22-pr5w-6gq8",
+        "file": "GHSA-2j22-pr5w-6gq8.json",
+        "summary": "Loofah has improper detection of disallowed URIs via `allowed_uri?`",
+        "aliases": [],
+        "severity": "low"
+      }
+    ],
+    "activesupport": [
+      {
+        "id": "GHSA-2j26-frm8-cmj9",
+        "file": "GHSA-2j26-frm8-cmj9.json",
+        "summary": "Rails Active Support has a possible DoS vulnerability in its number helpers",
+        "aliases": [
+          "CVE-2026-33176"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-2j26-frm8-cmj9",
+        "file": "GHSA-2j26-frm8-cmj9.json",
+        "summary": "Rails Active Support has a possible DoS vulnerability in its number helpers",
+        "aliases": [
+          "CVE-2026-33176"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-2j26-frm8-cmj9",
+        "file": "GHSA-2j26-frm8-cmj9.json",
+        "summary": "Rails Active Support has a possible DoS vulnerability in its number helpers",
+        "aliases": [
+          "CVE-2026-33176"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-89vf-4333-qx8v",
+        "file": "GHSA-89vf-4333-qx8v.json",
+        "summary": "Rails Active Support has a possible XSS vulnerability in SafeBuffer#%",
+        "aliases": [
+          "CVE-2026-33170"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-89vf-4333-qx8v",
+        "file": "GHSA-89vf-4333-qx8v.json",
+        "summary": "Rails Active Support has a possible XSS vulnerability in SafeBuffer#%",
+        "aliases": [
+          "CVE-2026-33170"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-89vf-4333-qx8v",
+        "file": "GHSA-89vf-4333-qx8v.json",
+        "summary": "Rails Active Support has a possible XSS vulnerability in SafeBuffer#%",
+        "aliases": [
+          "CVE-2026-33170"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-cg4j-q9v8-6v38",
+        "file": "GHSA-cg4j-q9v8-6v38.json",
+        "summary": "Rails Active Support has a possible ReDoS vulnerability in number_to_delimited",
+        "aliases": [
+          "CVE-2026-33169"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-cg4j-q9v8-6v38",
+        "file": "GHSA-cg4j-q9v8-6v38.json",
+        "summary": "Rails Active Support has a possible ReDoS vulnerability in number_to_delimited",
+        "aliases": [
+          "CVE-2026-33169"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-cg4j-q9v8-6v38",
+        "file": "GHSA-cg4j-q9v8-6v38.json",
+        "summary": "Rails Active Support has a possible ReDoS vulnerability in number_to_delimited",
+        "aliases": [
+          "CVE-2026-33169"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "foreman_kubevirt": [
+      {
+        "id": "GHSA-2qxw-7fmx-gqfm",
+        "file": "GHSA-2qxw-7fmx-gqfm.json",
+        "summary": "foreman_kubevirt disables SSL verification if a Certificate Authority (CA) certificate is not explicitly set",
+        "aliases": [
+          "CVE-2026-1531"
+        ],
+        "severity": "high"
+      }
+    ],
+    "openc3": [
+      {
+        "id": "GHSA-2wvh-87g2-89hr",
+        "file": "GHSA-2wvh-87g2-89hr.json",
+        "summary": "OpenC3 COSMOS: Permissions Bypass Provides User Access to Unassigned Administrative Actions via Script Runner Tool",
+        "aliases": [],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-4jvx-93h3-f45h",
+        "file": "GHSA-4jvx-93h3-f45h.json",
+        "summary": "OpenC3 COSMOS allows arbitrary writes to plugins directory via path-traversed config filenames",
+        "aliases": [
+          "CVE-2026-42085"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-4jvx-93h3-f45h",
+        "file": "GHSA-4jvx-93h3-f45h.json",
+        "summary": "OpenC3 COSMOS allows arbitrary writes to plugins directory via path-traversed config filenames",
+        "aliases": [
+          "CVE-2026-42085"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-ffq5-qpvf-xq7x",
+        "file": "GHSA-ffq5-qpvf-xq7x.json",
+        "summary": "OpenC3 COSMOS is Vulnerable to Self-XSS Through the Command Sender",
+        "aliases": [
+          "CVE-2026-42086"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-v529-vhwc-wfc5",
+        "file": "GHSA-v529-vhwc-wfc5.json",
+        "summary": "OpenC3 COSMOS has SQL Injection in QuestDB Time-Series Database",
+        "aliases": [
+          "CVE-2026-42087"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-wgx6-g857-jjf7",
+        "file": "GHSA-wgx6-g857-jjf7.json",
+        "summary": "OpenC3 COSMOS: Hijacked session token can be used to reset password for persistence",
+        "aliases": [
+          "CVE-2026-42084"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wgx6-g857-jjf7",
+        "file": "GHSA-wgx6-g857-jjf7.json",
+        "summary": "OpenC3 COSMOS: Hijacked session token can be used to reset password for persistence",
+        "aliases": [
+          "CVE-2026-42084"
+        ],
+        "severity": "high"
+      }
+    ],
+    "iodine": [
+      {
+        "id": "GHSA-2x79-gwq3-vxxm",
+        "file": "GHSA-2x79-gwq3-vxxm.json",
+        "summary": "Uncontrolled resource consumption and loop with unreachable exit condition in facil.io and downstream iodine ruby gem",
+        "aliases": [
+          "CVE-2026-41146"
+        ],
+        "severity": "high"
+      }
+    ],
+    "rack-session": [
+      {
+        "id": "GHSA-33qg-7wpp-89cq",
+        "file": "GHSA-33qg-7wpp-89cq.json",
+        "summary": "Rack::Session::Cookie secrets: decrypt failure fallback enables secretless session forgery and Marshal deserialization",
+        "aliases": [
+          "CVE-2026-39324"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "graphql": [
+      {
+        "id": "GHSA-3h96-34p3-xm76",
+        "file": "GHSA-3h96-34p3-xm76.json",
+        "summary": "GraphQL-Ruby's Ruby lexer does not count comment tokens for the purposes of max_query_string_tokens",
+        "aliases": [],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3h96-34p3-xm76",
+        "file": "GHSA-3h96-34p3-xm76.json",
+        "summary": "GraphQL-Ruby's Ruby lexer does not count comment tokens for the purposes of max_query_string_tokens",
+        "aliases": [],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3h96-34p3-xm76",
+        "file": "GHSA-3h96-34p3-xm76.json",
+        "summary": "GraphQL-Ruby's Ruby lexer does not count comment tokens for the purposes of max_query_string_tokens",
+        "aliases": [],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3h96-34p3-xm76",
+        "file": "GHSA-3h96-34p3-xm76.json",
+        "summary": "GraphQL-Ruby's Ruby lexer does not count comment tokens for the purposes of max_query_string_tokens",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "activerecord": [
+      {
+        "id": "GHSA-3hhc-qp5v-9p2j",
+        "file": "GHSA-3hhc-qp5v-9p2j.json",
+        "summary": "Active Record RCE bug with Serialized Columns",
+        "aliases": [
+          "CVE-2022-32224"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-3hhc-qp5v-9p2j",
+        "file": "GHSA-3hhc-qp5v-9p2j.json",
+        "summary": "Active Record RCE bug with Serialized Columns",
+        "aliases": [
+          "CVE-2022-32224"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-3hhc-qp5v-9p2j",
+        "file": "GHSA-3hhc-qp5v-9p2j.json",
+        "summary": "Active Record RCE bug with Serialized Columns",
+        "aliases": [
+          "CVE-2022-32224"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-3hhc-qp5v-9p2j",
+        "file": "GHSA-3hhc-qp5v-9p2j.json",
+        "summary": "Active Record RCE bug with Serialized Columns",
+        "aliases": [
+          "CVE-2022-32224"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "yard": [
+      {
+        "id": "GHSA-3jfp-46x4-xgfj",
+        "file": "GHSA-3jfp-46x4-xgfj.json",
+        "summary": "yard: Possible arbitrary path traversal and file access via yard server",
+        "aliases": [
+          "CVE-2026-41493"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "graphiti": [
+      {
+        "id": "GHSA-3m5v-4xp5-gjg2",
+        "file": "GHSA-3m5v-4xp5-gjg2.json",
+        "summary": "Graphiti Affected by Arbitrary Method Execution via Unvalidated Relationship Names",
+        "aliases": [
+          "CVE-2026-33286"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "katalyst-koi": [
+      {
+        "id": "GHSA-4cx3-3c38-j9vv",
+        "file": "GHSA-4cx3-3c38-j9vv.json",
+        "summary": "katalyst-koi: Session cookies can be replayed after user logout",
+        "aliases": [
+          "CVE-2026-44511"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-4cx3-3c38-j9vv",
+        "file": "GHSA-4cx3-3c38-j9vv.json",
+        "summary": "katalyst-koi: Session cookies can be replayed after user logout",
+        "aliases": [
+          "CVE-2026-44511"
+        ],
+        "severity": "high"
+      }
+    ],
+    "trix": [
+      {
+        "id": "GHSA-53p3-c7vp-4mcc",
+        "file": "GHSA-53p3-c7vp-4mcc.json",
+        "summary": "Trix is vulnerable to XSS through JSON deserialization bypass in drag-and-drop (Level0InputController)",
+        "aliases": [],
+        "severity": "low"
+      }
+    ],
+    "action_text-trix": [
+      {
+        "id": "GHSA-53p3-c7vp-4mcc",
+        "file": "GHSA-53p3-c7vp-4mcc.json",
+        "summary": "Trix is vulnerable to XSS through JSON deserialization bypass in drag-and-drop (Level0InputController)",
+        "aliases": [],
+        "severity": "low"
+      }
+    ],
+    "devise": [
+      {
+        "id": "GHSA-57hq-95w6-v4fc",
+        "file": "GHSA-57hq-95w6-v4fc.json",
+        "summary": "Devise has a confirmable \"change email\" race condition permits user to confirm email they have no access to",
+        "aliases": [
+          "CVE-2026-32700"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-jp94-3292-c3xv",
+        "file": "GHSA-jp94-3292-c3xv.json",
+        "summary": "Devise has an Open Redirect via Unvalidated `request.referrer` in Timeoutable Session Timeout Handler",
+        "aliases": [
+          "CVE-2026-40295"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "rack": [
+      {
+        "id": "GHSA-625h-95r8-8xpm",
+        "file": "GHSA-625h-95r8-8xpm.json",
+        "summary": "Rack has an unsafe default in Rack::QueryParser allows params_limit bypass via semicolon-separated parameters",
+        "aliases": [
+          "CVE-2025-59830"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-7mqq-6cf9-v2qp",
+        "file": "GHSA-7mqq-6cf9-v2qp.json",
+        "summary": "Rack has a root directory disclosure via unescaped regex interpolation in Rack::Directory",
+        "aliases": [
+          "CVE-2026-34763"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-7mqq-6cf9-v2qp",
+        "file": "GHSA-7mqq-6cf9-v2qp.json",
+        "summary": "Rack has a root directory disclosure via unescaped regex interpolation in Rack::Directory",
+        "aliases": [
+          "CVE-2026-34763"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-7mqq-6cf9-v2qp",
+        "file": "GHSA-7mqq-6cf9-v2qp.json",
+        "summary": "Rack has a root directory disclosure via unescaped regex interpolation in Rack::Directory",
+        "aliases": [
+          "CVE-2026-34763"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-8vqr-qjwx-82mw",
+        "file": "GHSA-8vqr-qjwx-82mw.json",
+        "summary": "Rack's multipart parsing without Content-Length header allows unbounded chunked file uploads",
+        "aliases": [
+          "CVE-2026-34829"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-8vqr-qjwx-82mw",
+        "file": "GHSA-8vqr-qjwx-82mw.json",
+        "summary": "Rack's multipart parsing without Content-Length header allows unbounded chunked file uploads",
+        "aliases": [
+          "CVE-2026-34829"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-8vqr-qjwx-82mw",
+        "file": "GHSA-8vqr-qjwx-82mw.json",
+        "summary": "Rack's multipart parsing without Content-Length header allows unbounded chunked file uploads",
+        "aliases": [
+          "CVE-2026-34829"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-g2pf-xv49-m2h5",
+        "file": "GHSA-g2pf-xv49-m2h5.json",
+        "summary": "Rack::Request accepts invalid Host characters, enabling host allowlist bypass",
+        "aliases": [
+          "CVE-2026-34835"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-g2pf-xv49-m2h5",
+        "file": "GHSA-g2pf-xv49-m2h5.json",
+        "summary": "Rack::Request accepts invalid Host characters, enabling host allowlist bypass",
+        "aliases": [
+          "CVE-2026-34835"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-h2jq-g4cq-5ppq",
+        "file": "GHSA-h2jq-g4cq-5ppq.json",
+        "summary": "Rack::Static prefix matching can expose unintended files under the static root",
+        "aliases": [
+          "CVE-2026-34785"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-h2jq-g4cq-5ppq",
+        "file": "GHSA-h2jq-g4cq-5ppq.json",
+        "summary": "Rack::Static prefix matching can expose unintended files under the static root",
+        "aliases": [
+          "CVE-2026-34785"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-h2jq-g4cq-5ppq",
+        "file": "GHSA-h2jq-g4cq-5ppq.json",
+        "summary": "Rack::Static prefix matching can expose unintended files under the static root",
+        "aliases": [
+          "CVE-2026-34785"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-q2ww-5357-x388",
+        "file": "GHSA-q2ww-5357-x388.json",
+        "summary": "Rack has Content-Length mismatch in Rack::Files error responses",
+        "aliases": [
+          "CVE-2026-34831"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-q2ww-5357-x388",
+        "file": "GHSA-q2ww-5357-x388.json",
+        "summary": "Rack has Content-Length mismatch in Rack::Files error responses",
+        "aliases": [
+          "CVE-2026-34831"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-q2ww-5357-x388",
+        "file": "GHSA-q2ww-5357-x388.json",
+        "summary": "Rack has Content-Length mismatch in Rack::Files error responses",
+        "aliases": [
+          "CVE-2026-34831"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-q4qf-9j86-f5mh",
+        "file": "GHSA-q4qf-9j86-f5mh.json",
+        "summary": "Rack:: Static header_rules bypass via URL-encoded paths",
+        "aliases": [
+          "CVE-2026-34786"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-q4qf-9j86-f5mh",
+        "file": "GHSA-q4qf-9j86-f5mh.json",
+        "summary": "Rack:: Static header_rules bypass via URL-encoded paths",
+        "aliases": [
+          "CVE-2026-34786"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-q4qf-9j86-f5mh",
+        "file": "GHSA-q4qf-9j86-f5mh.json",
+        "summary": "Rack:: Static header_rules bypass via URL-encoded paths",
+        "aliases": [
+          "CVE-2026-34786"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qfgr-crr9-7r49",
+        "file": "GHSA-qfgr-crr9-7r49.json",
+        "summary": "Rack: Forwarded Header semicolon injection enables Host and Scheme spoofing",
+        "aliases": [
+          "CVE-2026-32762"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qfgr-crr9-7r49",
+        "file": "GHSA-qfgr-crr9-7r49.json",
+        "summary": "Rack: Forwarded Header semicolon injection enables Host and Scheme spoofing",
+        "aliases": [
+          "CVE-2026-32762"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qv7j-4883-hwh7",
+        "file": "GHSA-qv7j-4883-hwh7.json",
+        "summary": "Rack::Sendfile header-based X-Accel-Mapping regex injection enables unauthorized X-Accel-Redirect",
+        "aliases": [
+          "CVE-2026-34830"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qv7j-4883-hwh7",
+        "file": "GHSA-qv7j-4883-hwh7.json",
+        "summary": "Rack::Sendfile header-based X-Accel-Mapping regex injection enables unauthorized X-Accel-Redirect",
+        "aliases": [
+          "CVE-2026-34830"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qv7j-4883-hwh7",
+        "file": "GHSA-qv7j-4883-hwh7.json",
+        "summary": "Rack::Sendfile header-based X-Accel-Mapping regex injection enables unauthorized X-Accel-Redirect",
+        "aliases": [
+          "CVE-2026-34830"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-rx22-g9mx-qrhv",
+        "file": "GHSA-rx22-g9mx-qrhv.json",
+        "summary": "Rack's improper unfolding of folded multipart headers preserves CRLF in parsed parameter values",
+        "aliases": [
+          "CVE-2026-26962"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-v569-hp3g-36wr",
+        "file": "GHSA-v569-hp3g-36wr.json",
+        "summary": "Rack has quadratic complexity in Rack::Utils.select_best_encoding via wildcard Accept-Encoding header",
+        "aliases": [
+          "CVE-2026-34230"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v569-hp3g-36wr",
+        "file": "GHSA-v569-hp3g-36wr.json",
+        "summary": "Rack has quadratic complexity in Rack::Utils.select_best_encoding via wildcard Accept-Encoding header",
+        "aliases": [
+          "CVE-2026-34230"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v569-hp3g-36wr",
+        "file": "GHSA-v569-hp3g-36wr.json",
+        "summary": "Rack has quadratic complexity in Rack::Utils.select_best_encoding via wildcard Accept-Encoding header",
+        "aliases": [
+          "CVE-2026-34230"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v6x5-cg8r-vv6x",
+        "file": "GHSA-v6x5-cg8r-vv6x.json",
+        "summary": "Rack's multipart header parsing allows Denial of Service via escape-heavy quoted parameters",
+        "aliases": [
+          "CVE-2026-34827"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v6x5-cg8r-vv6x",
+        "file": "GHSA-v6x5-cg8r-vv6x.json",
+        "summary": "Rack's multipart header parsing allows Denial of Service via escape-heavy quoted parameters",
+        "aliases": [
+          "CVE-2026-34827"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-vgpv-f759-9wx3",
+        "file": "GHSA-vgpv-f759-9wx3.json",
+        "summary": "Rack's greedy multipart boundary parsing can cause parser differentials and WAF bypass.",
+        "aliases": [
+          "CVE-2026-26961"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vgpv-f759-9wx3",
+        "file": "GHSA-vgpv-f759-9wx3.json",
+        "summary": "Rack's greedy multipart boundary parsing can cause parser differentials and WAF bypass.",
+        "aliases": [
+          "CVE-2026-26961"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vgpv-f759-9wx3",
+        "file": "GHSA-vgpv-f759-9wx3.json",
+        "summary": "Rack's greedy multipart boundary parsing can cause parser differentials and WAF bypass.",
+        "aliases": [
+          "CVE-2026-26961"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vpfw-47h7-xj4g",
+        "file": "GHSA-vpfw-47h7-xj4g.json",
+        "summary": "Rack session gets restored after deletion",
+        "aliases": [
+          "CVE-2025-32441"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-x8cg-fq8g-mxfx",
+        "file": "GHSA-x8cg-fq8g-mxfx.json",
+        "summary": "Rack's multipart byte range processing allows denial of service via excessive overlapping ranges",
+        "aliases": [
+          "CVE-2026-34826"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-x8cg-fq8g-mxfx",
+        "file": "GHSA-x8cg-fq8g-mxfx.json",
+        "summary": "Rack's multipart byte range processing allows denial of service via excessive overlapping ranges",
+        "aliases": [
+          "CVE-2026-34826"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-x8cg-fq8g-mxfx",
+        "file": "GHSA-x8cg-fq8g-mxfx.json",
+        "summary": "Rack's multipart byte range processing allows denial of service via excessive overlapping ranges",
+        "aliases": [
+          "CVE-2026-34826"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "rdiscount": [
+      {
+        "id": "GHSA-6r34-94wq-jhrc",
+        "file": "GHSA-6r34-94wq-jhrc.json",
+        "summary": "rdiscount has an Out-of-bounds Read",
+        "aliases": [
+          "CVE-2026-35201"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "http": [
+      {
+        "id": "GHSA-6wpv-cj6x-v3jw",
+        "file": "GHSA-6wpv-cj6x-v3jw.json",
+        "summary": "http vulnerable to Exposure of Sensitive Information to an Unauthorized Actor",
+        "aliases": [
+          "CVE-2015-1828"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6wpv-cj6x-v3jw",
+        "file": "GHSA-6wpv-cj6x-v3jw.json",
+        "summary": "http vulnerable to Exposure of Sensitive Information to an Unauthorized Actor",
+        "aliases": [
+          "CVE-2015-1828"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "activestorage": [
+      {
+        "id": "GHSA-73f9-jhhh-hr5m",
+        "file": "GHSA-73f9-jhhh-hr5m.json",
+        "summary": "Rails Active Storage has possible glob injection in its DiskService",
+        "aliases": [
+          "CVE-2026-33202"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-73f9-jhhh-hr5m",
+        "file": "GHSA-73f9-jhhh-hr5m.json",
+        "summary": "Rails Active Storage has possible glob injection in its DiskService",
+        "aliases": [
+          "CVE-2026-33202"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-73f9-jhhh-hr5m",
+        "file": "GHSA-73f9-jhhh-hr5m.json",
+        "summary": "Rails Active Storage has possible glob injection in its DiskService",
+        "aliases": [
+          "CVE-2026-33202"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-9xrj-h377-fr87",
+        "file": "GHSA-9xrj-h377-fr87.json",
+        "summary": "Rails Active Storage has possible Path Traversal in DiskService",
+        "aliases": [
+          "CVE-2026-33195"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-9xrj-h377-fr87",
+        "file": "GHSA-9xrj-h377-fr87.json",
+        "summary": "Rails Active Storage has possible Path Traversal in DiskService",
+        "aliases": [
+          "CVE-2026-33195"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-9xrj-h377-fr87",
+        "file": "GHSA-9xrj-h377-fr87.json",
+        "summary": "Rails Active Storage has possible Path Traversal in DiskService",
+        "aliases": [
+          "CVE-2026-33195"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-p9fm-f462-ggrg",
+        "file": "GHSA-p9fm-f462-ggrg.json",
+        "summary": "Rails Active Storage has a possible DoS vulnerability in proxy mode via multi-range requests",
+        "aliases": [
+          "CVE-2026-33658"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-p9fm-f462-ggrg",
+        "file": "GHSA-p9fm-f462-ggrg.json",
+        "summary": "Rails Active Storage has a possible DoS vulnerability in proxy mode via multi-range requests",
+        "aliases": [
+          "CVE-2026-33658"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-p9fm-f462-ggrg",
+        "file": "GHSA-p9fm-f462-ggrg.json",
+        "summary": "Rails Active Storage has a possible DoS vulnerability in proxy mode via multi-range requests",
+        "aliases": [
+          "CVE-2026-33658"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qcfx-2mfw-w4cg",
+        "file": "GHSA-qcfx-2mfw-w4cg.json",
+        "summary": "Rails Active Storage has possible content type bypass via metadata in direct uploads",
+        "aliases": [
+          "CVE-2026-33173"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qcfx-2mfw-w4cg",
+        "file": "GHSA-qcfx-2mfw-w4cg.json",
+        "summary": "Rails Active Storage has possible content type bypass via metadata in direct uploads",
+        "aliases": [
+          "CVE-2026-33173"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qcfx-2mfw-w4cg",
+        "file": "GHSA-qcfx-2mfw-w4cg.json",
+        "summary": "Rails Active Storage has possible content type bypass via metadata in direct uploads",
+        "aliases": [
+          "CVE-2026-33173"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-r46p-8f7g-vvvg",
+        "file": "GHSA-r46p-8f7g-vvvg.json",
+        "summary": "Rails Active Storage has a possible DoS vulnerability when in proxy mode via Range requests",
+        "aliases": [
+          "CVE-2026-33174"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-r46p-8f7g-vvvg",
+        "file": "GHSA-r46p-8f7g-vvvg.json",
+        "summary": "Rails Active Storage has a possible DoS vulnerability when in proxy mode via Range requests",
+        "aliases": [
+          "CVE-2026-33174"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-r46p-8f7g-vvvg",
+        "file": "GHSA-r46p-8f7g-vvvg.json",
+        "summary": "Rails Active Storage has a possible DoS vulnerability when in proxy mode via Range requests",
+        "aliases": [
+          "CVE-2026-33174"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "net-imap": [
+      {
+        "id": "GHSA-75xq-5h9v-w6px",
+        "file": "GHSA-75xq-5h9v-w6px.json",
+        "summary": "net-imap vulnerable to command Injection via unvalidated Symbol inputs",
+        "aliases": [
+          "CVE-2026-42258"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-75xq-5h9v-w6px",
+        "file": "GHSA-75xq-5h9v-w6px.json",
+        "summary": "net-imap vulnerable to command Injection via unvalidated Symbol inputs",
+        "aliases": [
+          "CVE-2026-42258"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-75xq-5h9v-w6px",
+        "file": "GHSA-75xq-5h9v-w6px.json",
+        "summary": "net-imap vulnerable to command Injection via unvalidated Symbol inputs",
+        "aliases": [
+          "CVE-2026-42258"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-87pf-fpwv-p7m7",
+        "file": "GHSA-87pf-fpwv-p7m7.json",
+        "summary": "net-imap vulnerable to denial of service via high iteration count for `SCRAM-*` authentication",
+        "aliases": [
+          "CVE-2026-42256"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-87pf-fpwv-p7m7",
+        "file": "GHSA-87pf-fpwv-p7m7.json",
+        "summary": "net-imap vulnerable to denial of service via high iteration count for `SCRAM-*` authentication",
+        "aliases": [
+          "CVE-2026-42256"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-87pf-fpwv-p7m7",
+        "file": "GHSA-87pf-fpwv-p7m7.json",
+        "summary": "net-imap vulnerable to denial of service via high iteration count for `SCRAM-*` authentication",
+        "aliases": [
+          "CVE-2026-42256"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-hm49-wcqc-g2xg",
+        "file": "GHSA-hm49-wcqc-g2xg.json",
+        "summary": "net-imap vulnerable to command Injection via \"raw\" arguments to multiple commands",
+        "aliases": [
+          "CVE-2026-42257"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-hm49-wcqc-g2xg",
+        "file": "GHSA-hm49-wcqc-g2xg.json",
+        "summary": "net-imap vulnerable to command Injection via \"raw\" arguments to multiple commands",
+        "aliases": [
+          "CVE-2026-42257"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-hm49-wcqc-g2xg",
+        "file": "GHSA-hm49-wcqc-g2xg.json",
+        "summary": "net-imap vulnerable to command Injection via \"raw\" arguments to multiple commands",
+        "aliases": [
+          "CVE-2026-42257"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-q2mw-fvj9-vvcw",
+        "file": "GHSA-q2mw-fvj9-vvcw.json",
+        "summary": "net-imap has quadratic complexity when reading response literals",
+        "aliases": [
+          "CVE-2026-42245"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-q2mw-fvj9-vvcw",
+        "file": "GHSA-q2mw-fvj9-vvcw.json",
+        "summary": "net-imap has quadratic complexity when reading response literals",
+        "aliases": [
+          "CVE-2026-42245"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-q2mw-fvj9-vvcw",
+        "file": "GHSA-q2mw-fvj9-vvcw.json",
+        "summary": "net-imap has quadratic complexity when reading response literals",
+        "aliases": [
+          "CVE-2026-42245"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vcgp-9326-pqcp",
+        "file": "GHSA-vcgp-9326-pqcp.json",
+        "summary": "net-imap vulnerable to STARTTLS stripping via invalid response timing",
+        "aliases": [
+          "CVE-2026-42246"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-vcgp-9326-pqcp",
+        "file": "GHSA-vcgp-9326-pqcp.json",
+        "summary": "net-imap vulnerable to STARTTLS stripping via invalid response timing",
+        "aliases": [
+          "CVE-2026-42246"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-vcgp-9326-pqcp",
+        "file": "GHSA-vcgp-9326-pqcp.json",
+        "summary": "net-imap vulnerable to STARTTLS stripping via invalid response timing",
+        "aliases": [
+          "CVE-2026-42246"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-vcgp-9326-pqcp",
+        "file": "GHSA-vcgp-9326-pqcp.json",
+        "summary": "net-imap vulnerable to STARTTLS stripping via invalid response timing",
+        "aliases": [
+          "CVE-2026-42246"
+        ],
+        "severity": "high"
+      }
+    ],
+    "avo": [
+      {
+        "id": "GHSA-762r-27w2-q22j",
+        "file": "GHSA-762r-27w2-q22j.json",
+        "summary": "Avo has a XSS vulnerability on `return_to` param",
+        "aliases": [
+          "CVE-2026-33209"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qc5p-3mg5-9fh8",
+        "file": "GHSA-qc5p-3mg5-9fh8.json",
+        "summary": "Avo: Broken Access Control Through Unauthorized Execution of Arbitrary Action Classes Across Resources",
+        "aliases": [
+          "CVE-2026-42205"
+        ],
+        "severity": "high"
+      }
+    ],
+    "view_component": [
+      {
+        "id": "GHSA-7f3r-gwc9-2995",
+        "file": "GHSA-7f3r-gwc9-2995.json",
+        "summary": "view_component: Preview Route Can Dispatch Inherited Helper Methods",
+        "aliases": [
+          "CVE-2026-44836"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-hg3h-g7xc-f7vp",
+        "file": "GHSA-hg3h-g7xc-f7vp.json",
+        "summary": "view_component: System Test Entry Point Path Check Allows Sibling Directory Escape",
+        "aliases": [
+          "CVE-2026-44837"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "bsv-sdk": [
+      {
+        "id": "GHSA-9hfr-gw99-8rhx",
+        "file": "GHSA-9hfr-gw99-8rhx.json",
+        "summary": "bsv-sdk ARC broadcaster treats INVALID/MALFORMED/ORPHAN responses as successful broadcasts",
+        "aliases": [
+          "CVE-2026-40069"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-hc36-c89j-5f4j",
+        "file": "GHSA-hc36-c89j-5f4j.json",
+        "summary": "bsv-sdk and bsv-wallet persist unverified certifier signatures in acquire_certificate (direct and issuance paths)",
+        "aliases": [
+          "CVE-2026-40070"
+        ],
+        "severity": "high"
+      }
+    ],
+    "fat_free_crm": [
+      {
+        "id": "GHSA-9pm8-vwc5-w2hm",
+        "file": "GHSA-9pm8-vwc5-w2hm.json",
+        "summary": "Fat Free CRM has BOLA in DELETE /emails/:id - Any authenticated user can hit this endpoint and delete emails by ID",
+        "aliases": [],
+        "severity": "low"
+      }
+    ],
+    "ruby-lsp": [
+      {
+        "id": "GHSA-c4r5-fxqw-vh93",
+        "file": "GHSA-c4r5-fxqw-vh93.json",
+        "summary": "Ruby LSP has arbitrary code execution through branch setting",
+        "aliases": [
+          "CVE-2026-34060"
+        ],
+        "severity": "high"
+      }
+    ],
+    "nokogiri": [
+      {
+        "id": "GHSA-c4rq-3m3g-8wgx",
+        "file": "GHSA-c4rq-3m3g-8wgx.json",
+        "summary": "Nokogiri CSS selector tokenizer has regular expression backtracking",
+        "aliases": [],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v2fc-qm4h-8hqv",
+        "file": "GHSA-v2fc-qm4h-8hqv.json",
+        "summary": "Nokogiri XSLT transform has a memory leak",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "bcrypt": [
+      {
+        "id": "GHSA-f27w-vcwj-c954",
+        "file": "GHSA-f27w-vcwj-c954.json",
+        "summary": "bcrypt-ruby has an Integer Overflow that Causes Zero Key-Strengthening Iterations at Cost=31 on JRuby",
+        "aliases": [
+          "CVE-2026-33306"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "decidim-core": [
+      {
+        "id": "GHSA-fc46-r95f-hq7g",
+        "file": "GHSA-fc46-r95f-hq7g.json",
+        "summary": "Decidim has a cross-site scripting (XSS) in user name",
+        "aliases": [
+          "CVE-2026-23891"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-fc46-r95f-hq7g",
+        "file": "GHSA-fc46-r95f-hq7g.json",
+        "summary": "Decidim has a cross-site scripting (XSS) in user name",
+        "aliases": [
+          "CVE-2026-23891"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-w5xj-99cg-rccm",
+        "file": "GHSA-w5xj-99cg-rccm.json",
+        "summary": "Decidim amendments can be accepted or rejected by anyone",
+        "aliases": [
+          "CVE-2026-40869"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-w5xj-99cg-rccm",
+        "file": "GHSA-w5xj-99cg-rccm.json",
+        "summary": "Decidim amendments can be accepted or rejected by anyone",
+        "aliases": [
+          "CVE-2026-40869"
+        ],
+        "severity": "high"
+      }
+    ],
+    "css_parser": [
+      {
+        "id": "GHSA-ff6c-w6qf-7xqc",
+        "file": "GHSA-ff6c-w6qf-7xqc.json",
+        "summary": "CSS Parser: Improper Certificate Validation allows MITM injection of remote CSS content",
+        "aliases": [
+          "CVE-2026-44312"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-ff6c-w6qf-7xqc",
+        "file": "GHSA-ff6c-w6qf-7xqc.json",
+        "summary": "CSS Parser: Improper Certificate Validation allows MITM injection of remote CSS content",
+        "aliases": [
+          "CVE-2026-44312"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "commonmarker": [
+      {
+        "id": "GHSA-fmx4-26r3-wxpf",
+        "file": "GHSA-fmx4-26r3-wxpf.json",
+        "summary": "Integer overflow in cmark-gfm table parsing extension leads to heap memory corruption",
+        "aliases": [
+          "CVE-2024-22051"
+        ],
+        "severity": "high"
+      }
+    ],
+    "katello": [
+      {
+        "id": "GHSA-fwj4-6wgp-mpxm",
+        "file": "GHSA-fwj4-6wgp-mpxm.json",
+        "summary": "Katello: Denial of Service and potential information disclosure via SQL injection",
+        "aliases": [
+          "CVE-2026-4324"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "zlib": [
+      {
+        "id": "GHSA-g857-hhfv-j68w",
+        "file": "GHSA-g857-hhfv-j68w.json",
+        "summary": "Buffer Overflow in Zlib::GzipReader ungetc via large input leads to memory corruption",
+        "aliases": [
+          "CVE-2026-27820"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-g857-hhfv-j68w",
+        "file": "GHSA-g857-hhfv-j68w.json",
+        "summary": "Buffer Overflow in Zlib::GzipReader ungetc via large input leads to memory corruption",
+        "aliases": [
+          "CVE-2026-27820"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-g857-hhfv-j68w",
+        "file": "GHSA-g857-hhfv-j68w.json",
+        "summary": "Buffer Overflow in Zlib::GzipReader ungetc via large input leads to memory corruption",
+        "aliases": [
+          "CVE-2026-27820"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "jquery": [
+      {
+        "id": "GHSA-gxr4-xjj5-5px2",
+        "file": "GHSA-gxr4-xjj5-5px2.json",
+        "summary": "Potential XSS vulnerability in jQuery",
+        "aliases": [
+          "BIT-drupal-2020-11022",
+          "CVE-2020-11022"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-gxr4-xjj5-5px2",
+        "file": "GHSA-gxr4-xjj5-5px2.json",
+        "summary": "Potential XSS vulnerability in jQuery",
+        "aliases": [
+          "BIT-drupal-2020-11022",
+          "CVE-2020-11022"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "jquery-rails": [
+      {
+        "id": "GHSA-gxr4-xjj5-5px2",
+        "file": "GHSA-gxr4-xjj5-5px2.json",
+        "summary": "Potential XSS vulnerability in jQuery",
+        "aliases": [
+          "BIT-drupal-2020-11022",
+          "CVE-2020-11022"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.webjars.npm:jquery": [
+      {
+        "id": "GHSA-gxr4-xjj5-5px2",
+        "file": "GHSA-gxr4-xjj5-5px2.json",
+        "summary": "Potential XSS vulnerability in jQuery",
+        "aliases": [
+          "BIT-drupal-2020-11022",
+          "CVE-2020-11022"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "maximebf/debugbar": [
+      {
+        "id": "GHSA-gxr4-xjj5-5px2",
+        "file": "GHSA-gxr4-xjj5-5px2.json",
+        "summary": "Potential XSS vulnerability in jQuery",
+        "aliases": [
+          "BIT-drupal-2020-11022",
+          "CVE-2020-11022"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "athlon1600/youtube-downloader": [
+      {
+        "id": "GHSA-gxr4-xjj5-5px2",
+        "file": "GHSA-gxr4-xjj5-5px2.json",
+        "summary": "Potential XSS vulnerability in jQuery",
+        "aliases": [
+          "BIT-drupal-2020-11022",
+          "CVE-2020-11022"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "components/jquery": [
+      {
+        "id": "GHSA-gxr4-xjj5-5px2",
+        "file": "GHSA-gxr4-xjj5-5px2.json",
+        "summary": "Potential XSS vulnerability in jQuery",
+        "aliases": [
+          "BIT-drupal-2020-11022",
+          "CVE-2020-11022"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "addressable": [
+      {
+        "id": "GHSA-h27x-rffw-24p4",
+        "file": "GHSA-h27x-rffw-24p4.json",
+        "summary": "Addressable has a Regular Expression Denial of Service in Addressable templates",
+        "aliases": [
+          "CVE-2026-35611"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-jxhc-q857-3j6g",
+        "file": "GHSA-jxhc-q857-3j6g.json",
+        "summary": "Regular Expression Denial of Service in Addressable templates",
+        "aliases": [
+          "CVE-2021-32740"
+        ],
+        "severity": "high"
+      }
+    ],
+    "bsv-wallet": [
+      {
+        "id": "GHSA-hc36-c89j-5f4j",
+        "file": "GHSA-hc36-c89j-5f4j.json",
+        "summary": "bsv-sdk and bsv-wallet persist unverified certifier signatures in acquire_certificate (direct and issuance paths)",
+        "aliases": [
+          "CVE-2026-40070"
+        ],
+        "severity": "high"
+      }
+    ],
+    "rubyipmi": [
+      {
+        "id": "GHSA-hfcp-477w-3wjw",
+        "file": "GHSA-hfcp-477w-3wjw.json",
+        "summary": "rubyipmi is vulnerable to OS Command Injection through malicious usernames",
+        "aliases": [
+          "CVE-2026-0980"
+        ],
+        "severity": "high"
+      }
+    ],
+    "httparty": [
+      {
+        "id": "GHSA-hm5p-x4rq-38w4",
+        "file": "GHSA-hm5p-x4rq-38w4.json",
+        "summary": "httparty Has Potential SSRF Vulnerability That Leads to API Key Leakage",
+        "aliases": [
+          "CVE-2025-68696"
+        ],
+        "severity": "high"
+      }
+    ],
+    "uri": [
+      {
+        "id": "GHSA-j4pr-3wm6-xx2r",
+        "file": "GHSA-j4pr-3wm6-xx2r.json",
+        "summary": "URI Credential Leakage Bypass over CVE-2025-27221",
+        "aliases": [
+          "CVE-2025-61594"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-j4pr-3wm6-xx2r",
+        "file": "GHSA-j4pr-3wm6-xx2r.json",
+        "summary": "URI Credential Leakage Bypass over CVE-2025-27221",
+        "aliases": [
+          "CVE-2025-61594"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-j4pr-3wm6-xx2r",
+        "file": "GHSA-j4pr-3wm6-xx2r.json",
+        "summary": "URI Credential Leakage Bypass over CVE-2025-27221",
+        "aliases": [
+          "CVE-2025-61594"
+        ],
+        "severity": "low"
+      }
+    ],
+    "actionpack": [
+      {
+        "id": "GHSA-jp5v-5gx4-jmj9",
+        "file": "GHSA-jp5v-5gx4-jmj9.json",
+        "summary": "Ability to forge per-form CSRF tokens in Rails",
+        "aliases": [
+          "CVE-2020-8166"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-jp5v-5gx4-jmj9",
+        "file": "GHSA-jp5v-5gx4-jmj9.json",
+        "summary": "Ability to forge per-form CSRF tokens in Rails",
+        "aliases": [
+          "CVE-2020-8166"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-pgm4-439c-5jp6",
+        "file": "GHSA-pgm4-439c-5jp6.json",
+        "summary": "Rails has a possible XSS vulnerability in its Action Pack debug exceptions",
+        "aliases": [
+          "CVE-2026-33167"
+        ],
+        "severity": "low"
+      }
+    ],
+    "camaleon_cms": [
+      {
+        "id": "GHSA-jw5g-f64p-6x78",
+        "file": "GHSA-jw5g-f64p-6x78.json",
+        "summary": "Camaleon CMS vulnerable to Path Traversal through AWS S3 uploader implementation",
+        "aliases": [
+          "CVE-2026-1776"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "fog-kubevirt": [
+      {
+        "id": "GHSA-m3hq-3qj8-c5fm",
+        "file": "GHSA-m3hq-3qj8-c5fm.json",
+        "summary": "fog-kubevirt allows remote attacker to perform MITM attack due to disabled certificate validation",
+        "aliases": [
+          "CVE-2026-1530"
+        ],
+        "severity": "high"
+      }
+    ],
+    "icalendar": [
+      {
+        "id": "GHSA-pv9c-9mfh-hvxq",
+        "file": "GHSA-pv9c-9mfh-hvxq.json",
+        "summary": "iCalendar has ICS injection via unsanitized URI property values",
+        "aliases": [
+          "CVE-2026-33635"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "erb": [
+      {
+        "id": "GHSA-q339-8rmv-2mhv",
+        "file": "GHSA-q339-8rmv-2mhv.json",
+        "summary": "ERB has an @_init deserialization guard bypass via def_module / def_method / def_class",
+        "aliases": [
+          "CVE-2026-41316"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-q339-8rmv-2mhv",
+        "file": "GHSA-q339-8rmv-2mhv.json",
+        "summary": "ERB has an @_init deserialization guard bypass via def_module / def_method / def_class",
+        "aliases": [
+          "CVE-2026-41316"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-q339-8rmv-2mhv",
+        "file": "GHSA-q339-8rmv-2mhv.json",
+        "summary": "ERB has an @_init deserialization guard bypass via def_module / def_method / def_class",
+        "aliases": [
+          "CVE-2026-41316"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-q339-8rmv-2mhv",
+        "file": "GHSA-q339-8rmv-2mhv.json",
+        "summary": "ERB has an @_init deserialization guard bypass via def_module / def_method / def_class",
+        "aliases": [
+          "CVE-2026-41316"
+        ],
+        "severity": "high"
+      }
+    ],
+    "mcp": [
+      {
+        "id": "GHSA-qvqr-5cv7-wh35",
+        "file": "GHSA-qvqr-5cv7-wh35.json",
+        "summary": "MCP Ruby SDK: Insufficient Session Binding Allows SSE Stream Hijacking via Session ID Replay",
+        "aliases": [
+          "CVE-2026-33946"
+        ],
+        "severity": "high"
+      }
+    ],
+    "actionview": [
+      {
+        "id": "GHSA-v55j-83pf-r9cq",
+        "file": "GHSA-v55j-83pf-r9cq.json",
+        "summary": "Rails has a possible XSS vulnerability in its Action View tag helpers",
+        "aliases": [
+          "CVE-2026-33168"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-v55j-83pf-r9cq",
+        "file": "GHSA-v55j-83pf-r9cq.json",
+        "summary": "Rails has a possible XSS vulnerability in its Action View tag helpers",
+        "aliases": [
+          "CVE-2026-33168"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-v55j-83pf-r9cq",
+        "file": "GHSA-v55j-83pf-r9cq.json",
+        "summary": "Rails has a possible XSS vulnerability in its Action View tag helpers",
+        "aliases": [
+          "CVE-2026-33168"
+        ],
+        "severity": "low"
+      }
+    ],
+    "sidekiq-cron": [
+      {
+        "id": "GHSA-xv9c-mjw8-79gf",
+        "file": "GHSA-xv9c-mjw8-79gf.json",
+        "summary": "Sidekiq-cron is vulnerable to a cross-site scripting (xss) vulnerability via crafted URL",
+        "aliases": [
+          "CVE-2025-67202"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "queenbee-plugin": [
+      {
+        "id": "MAL-2025-192914",
+        "file": "MAL-2025-192914.json",
+        "summary": "Malicious code in queenbee-plugin (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-loops-core": [
+      {
+        "id": "MAL-2026-2259",
+        "file": "MAL-2026-2259.json",
+        "summary": "Malicious code in monolith-twirp-loops-core (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-pullsd-pullrequestinfo": [
+      {
+        "id": "MAL-2026-2260",
+        "file": "MAL-2026-2260.json",
+        "summary": "Malicious code in monolith-twirp-pullsd-pullrequestinfo (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-pullsd-repositories": [
+      {
+        "id": "MAL-2026-2261",
+        "file": "MAL-2026-2261.json",
+        "summary": "Malicious code in monolith-twirp-pullsd-repositories (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-pullsd-teams": [
+      {
+        "id": "MAL-2026-2262",
+        "file": "MAL-2026-2262.json",
+        "summary": "Malicious code in monolith-twirp-pullsd-teams (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-reposinsights-reposinsights": [
+      {
+        "id": "MAL-2026-2263",
+        "file": "MAL-2026-2263.json",
+        "summary": "Malicious code in monolith-twirp-reposinsights-reposinsights (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-scribe-scribe": [
+      {
+        "id": "MAL-2026-2264",
+        "file": "MAL-2026-2264.json",
+        "summary": "Malicious code in monolith-twirp-scribe-scribe (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-codingagentintegrations-codingagentintegrations": [
+      {
+        "id": "MAL-2026-2265",
+        "file": "MAL-2026-2265.json",
+        "summary": "Malicious code in monolith-twirp-codingagentintegrations-codingagentintegrations (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-copilot-registry": [
+      {
+        "id": "MAL-2026-2266",
+        "file": "MAL-2026-2266.json",
+        "summary": "Malicious code in monolith-twirp-copilot-registry (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-partitioning-pull_requests": [
+      {
+        "id": "MAL-2026-2267",
+        "file": "MAL-2026-2267.json",
+        "summary": "Malicious code in monolith-twirp-partitioning-pull_requests (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "plugin-gem-example": [
+      {
+        "id": "MAL-2026-2402",
+        "file": "MAL-2026-2402.json",
+        "summary": "Malicious code in plugin-gem-example (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "gitlab-orchestrator": [
+      {
+        "id": "MAL-2026-2814",
+        "file": "MAL-2026-2814.json",
+        "summary": "Malicious code in gitlab-orchestrator (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-pullsd-authorization": [
+      {
+        "id": "MAL-2026-2815",
+        "file": "MAL-2026-2815.json",
+        "summary": "Malicious code in monolith-twirp-pullsd-authorization (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "monolith-twirp-pullsd-users": [
+      {
+        "id": "MAL-2026-2816",
+        "file": "MAL-2026-2816.json",
+        "summary": "Malicious code in monolith-twirp-pullsd-users (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "knot-activesupport-logger": [
+      {
+        "id": "MAL-2026-3630",
+        "file": "MAL-2026-3630.json",
+        "summary": "Malicious code in knot-activesupport-logger (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "knot-date-utils-rb": [
+      {
+        "id": "MAL-2026-3631",
+        "file": "MAL-2026-3631.json",
+        "summary": "Malicious code in knot-date-utils-rb (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "knot-devise-jwt-helper": [
+      {
+        "id": "MAL-2026-3632",
+        "file": "MAL-2026-3632.json",
+        "summary": "Malicious code in knot-devise-jwt-helper (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "knot-rack-session-store": [
+      {
+        "id": "MAL-2026-3633",
+        "file": "MAL-2026-3633.json",
+        "summary": "Malicious code in knot-rack-session-store (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "knot-rails-assets-pipeline": [
+      {
+        "id": "MAL-2026-3634",
+        "file": "MAL-2026-3634.json",
+        "summary": "Malicious code in knot-rails-assets-pipeline (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "knot-rspec-formatter-json": [
+      {
+        "id": "MAL-2026-3635",
+        "file": "MAL-2026-3635.json",
+        "summary": "Malicious code in knot-rspec-formatter-json (RubyGems)",
+        "aliases": []
+      }
+    ],
+    "knot-simple-formatter": [
+      {
+        "id": "MAL-2026-3636",
+        "file": "MAL-2026-3636.json",
+        "summary": "Malicious code in knot-simple-formatter (RubyGems)",
+        "aliases": []
+      }
+    ]
+  }
+}

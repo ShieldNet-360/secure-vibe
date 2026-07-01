@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Per-language patterns that disable TLS certificate validation. Flag these unless they are guarded by a localhost-only / test-only annotation.",
+  "sinks": [
+    {"id": "go-InsecureSkipVerify", "language": "go", "patterns": ["tls\\.Config\\s*\\{[^}]*InsecureSkipVerify\\s*:\\s*true"], "severity": "critical", "cwe": 295},
+    {"id": "python-requests-verify-false", "language": "python", "patterns": ["requests\\.\\w+\\([^)]*verify\\s*=\\s*False"], "severity": "critical", "cwe": 295},
+    {"id": "python-urllib3-disable-warnings", "language": "python", "patterns": ["urllib3\\.disable_warnings\\("], "severity": "high", "cwe": 295},
+    {"id": "python-ssl-CERT_NONE", "language": "python", "patterns": ["ssl\\.CERT_NONE", "check_hostname\\s*=\\s*False"], "severity": "critical", "cwe": 295},
+    {"id": "node-rejectUnauthorized-false", "language": "javascript", "patterns": ["rejectUnauthorized\\s*:\\s*false", "NODE_TLS_REJECT_UNAUTHORIZED\\s*=\\s*['\\\"]?0"], "severity": "critical", "cwe": 295},
+    {"id": "java-trust-all-X509TrustManager", "language": "java", "patterns": ["X509TrustManager\\s*\\(\\s*\\)\\s*\\{[^}]*checkServerTrusted[^}]*\\}\\s*\\}"], "severity": "critical", "cwe": 295},
+    {"id": "java-hostnamevierfier-allow-all", "language": "java", "patterns": ["HostnameVerifier\\s*\\(\\s*\\)\\s*\\{[^}]*return\\s+true"], "severity": "critical", "cwe": 295},
+    {"id": "curl-k-flag", "language": "shell", "patterns": ["curl\\s+(-[^\\s]*k|--insecure)\\b"], "severity": "high", "cwe": 295},
+    {"id": "wget-no-check-certificate", "language": "shell", "patterns": ["wget\\s+(--no-check-certificate)"], "severity": "high", "cwe": 295},
+    {"id": "dotnet-ServerCertificateValidationCallback-true", "language": "csharp", "patterns": ["ServerCertificateValidationCallback\\s*\\+=\\s*\\([^)]*\\)\\s*=>\\s*true"], "severity": "critical", "cwe": 295},
+    {"id": "ruby-OpenSSL-VERIFY_NONE", "language": "ruby", "patterns": ["OpenSSL::SSL::VERIFY_NONE"], "severity": "critical", "cwe": 295},
+    {"id": "grpc-insecure-channel", "language": "*", "patterns": ["grpc\\.insecure_channel\\(", "grpc\\.WithTransportCredentials\\s*\\(\\s*insecure\\.NewCredentials\\s*\\(\\)\\s*\\)"], "severity": "critical", "cwe": 319}
+  ]
+}

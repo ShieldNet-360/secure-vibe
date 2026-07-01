@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "all-bad.Dockerfile",
+  "description": "Every Dockerfile-hardening rule should fire at least once. dkr-pinned-base-digest and dkr-explicit-latest-tag both legitimately match `FROM ubuntu:latest` (no digest pin AND an explicit :latest tag).",
+  "expected_findings": [
+    {"rule": "dkr-pinned-base-digest", "ecosystem": "docker"},
+    {"rule": "dkr-explicit-latest-tag", "ecosystem": "docker"},
+    {"rule": "dkr-non-root-user", "ecosystem": "docker"},
+    {"rule": "dkr-no-secrets-in-env", "ecosystem": "docker"},
+    {"rule": "dkr-no-add-remote", "ecosystem": "docker"},
+    {"rule": "dkr-no-curl-pipe-sh", "ecosystem": "docker"},
+    {"rule": "dkr-apt-version-pin", "ecosystem": "docker"}
+  ]
+}

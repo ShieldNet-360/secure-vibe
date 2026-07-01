@@ -1,0 +1,49 @@
+# Build artifacts
+/secure-vibe
+/secure-vibe.exe
+/dist-bin/
+/build/
+*.test
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Local agent context (not published)
+/CLAUDE.md
+/TARGET-STATE.md
+/V2-CRUCIBLE-PLAN.md
+
+# Local config (private-repo)
+.secure-vibe.yaml
+
+# Editor scratch
+.vscode/
+.idea/
+*.swp
+
+# Python build/test
+__pycache__/
+*.pyc
+.pytest_cache/
+sdk/python/*.egg-info/
+sdk/python/build/
+sdk/python/dist/
+
+# TypeScript build
+sdk/typescript/node_modules/
+sdk/typescript/dist/
+/.osv-tmp/
+
+# Local tooling / build outputs (never committed)
+/.venv/
+/_site/
+/site/
+/.cache/
+/wasm/embed/
+/.branchguard/
+/graphify-out/
+
+# Local launch-prep: git-history email scrub (never committed)
+/.history-scrub/
+/HISTORY-SCRUB-PLAN.md

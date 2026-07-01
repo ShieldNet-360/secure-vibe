@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Deserialization sinks that execute arbitrary code when loading attacker-controlled artifacts.",
+  "sinks": [
+    {"name": "pickle.loads / pickle.load", "languages": ["python"], "patterns": ["pickle\\.loads?\\s*\\(", "cPickle\\.loads?\\s*\\("], "severity": "critical", "cwe": 502, "replacement": "JSON, msgpack, protobuf, or safetensors"},
+    {"name": "joblib.load", "languages": ["python"], "patterns": ["joblib\\.load\\s*\\("], "severity": "critical", "cwe": 502, "replacement": "joblib with security review of source; or safetensors for tensors"},
+    {"name": "dill.loads / dill.load", "languages": ["python"], "patterns": ["dill\\.loads?\\s*\\("], "severity": "critical", "cwe": 502},
+    {"name": "torch.load without weights_only", "languages": ["python"], "patterns": ["torch\\.load\\s*\\([^)]*\\)"], "severity": "critical", "cwe": 502, "replacement": "Use weights_only=True (PyTorch 2.4+) or load .safetensors"},
+    {"name": "yaml.load without SafeLoader", "languages": ["python"], "patterns": ["yaml\\.load\\s*\\([^)]*\\)(?!\\s*,\\s*Loader\\s*=\\s*yaml\\.SafeLoader)"], "severity": "high", "cwe": 502, "replacement": "yaml.safe_load"},
+    {"name": "numpy.load with allow_pickle=True", "languages": ["python"], "patterns": ["np\\.load\\s*\\([^)]*allow_pickle\\s*=\\s*True"], "severity": "high", "cwe": 502},
+    {"name": "marshal.loads", "languages": ["python"], "patterns": ["marshal\\.loads?\\s*\\("], "severity": "high", "cwe": 502},
+    {"name": "shelve.open with untrusted file", "languages": ["python"], "patterns": ["shelve\\.open\\s*\\("], "severity": "medium", "cwe": 502},
+    {"name": "Java ObjectInputStream.readObject", "languages": ["java", "kotlin"], "patterns": ["new\\s+ObjectInputStream\\s*\\(", "\\.readObject\\s*\\("], "severity": "critical", "cwe": 502},
+    {"name": "Node child_process / vm with model output", "languages": ["javascript", "typescript"], "patterns": ["child_process\\.exec\\s*\\(", "vm\\.runInNewContext\\s*\\("], "severity": "critical", "cwe": 78}
+  ],
+  "safe_formats": {
+    "tensors": ["safetensors", "ONNX", "GGUF"],
+    "general": ["JSON", "msgpack", "protobuf"]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Safe defaults for CORS configuration. Encode the allowlist in code or config, never derived from a database.",
+  "defaults": {
+    "access_control_allow_origin_mode": "allowlist",
+    "access_control_allow_origin_wildcard_allowed_only_without_credentials": true,
+    "access_control_allow_credentials_default": false,
+    "access_control_allow_methods_default": ["GET", "POST"],
+    "access_control_allow_headers_default": ["Content-Type", "Authorization", "X-Requested-With"],
+    "access_control_expose_headers_default": [],
+    "access_control_max_age_default_seconds": 600,
+    "access_control_max_age_max_seconds": 86400,
+    "vary_origin_required": true,
+    "null_origin_allowed": false,
+    "reject_unknown_origin_silently": false
+  },
+  "anti_patterns": [
+    {"id": "cors-wildcard-with-credentials", "severity": "critical", "cwe": 942, "rule": "Access-Control-Allow-Origin=* combined with Access-Control-Allow-Credentials=true is forbidden"},
+    {"id": "cors-reflect-origin-no-allowlist", "severity": "critical", "cwe": 942, "rule": "Origin reflected without allowlist check is equivalent to *"},
+    {"id": "cors-null-origin", "severity": "high", "cwe": 942, "rule": "Origin=null grants access to sandboxed iframes, data URIs, file URLs"},
+    {"id": "cors-broad-subdomain-regex", "severity": "high", "cwe": 942, "rule": "*.example.com regex requires subdomain takeover controls and explicit ownership"},
+    {"id": "cors-expose-internal-headers", "severity": "medium", "cwe": 200, "rule": "Access-Control-Expose-Headers leaks internal headers (X-Internal-User, X-Trace, etc.)"},
+    {"id": "cors-as-authz", "severity": "critical", "cwe": 284, "rule": "CORS is browser-side; authentication is the actual gate. Don't rely on CORS to refuse server-to-server callers"}
+  ]
+}

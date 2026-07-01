@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-chwh-f6gm-r836",
+  "published": "2026-05-11T13:51:09Z",
+  "modified": "2026-05-14T21:02:40.881756Z",
+  "aliases": [
+    "CVE-2026-42595"
+  ],
+  "summary": "Gotenberg: Server-Side Request Forgery via Chromium URL Endpoint with Redirect-Based Deny-List Bypass",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gotenberg/gotenberg/v8",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/gotenberg/gotenberg/v8"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.32.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-chwh-f6gm-r836/GHSA-chwh-f6gm-r836.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/gotenberg/gotenberg/security/advisories/GHSA-chwh-f6gm-r836"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42595"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/gotenberg/gotenberg"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-918"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-11T13:51:09Z",
+    "nvd_published_at": "2026-05-14T16:16:22Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

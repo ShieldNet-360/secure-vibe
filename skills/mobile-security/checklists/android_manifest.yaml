@@ -1,0 +1,42 @@
+schema_version: "1.0"
+framework: "OWASP MASVS-PLATFORM (v2.0)"
+last_updated: "2026-05-13"
+patterns:
+  - id: and-exported-explicit
+    severity: critical
+    rule: "Every activity/service/receiver/provider with an intent-filter has android:exported set explicitly (Android 12+ requires this)"
+    cwe: 926
+  - id: and-no-allow-backup
+    severity: high
+    rule: "android:allowBackup=false OR android:fullBackupContent excludes credential / token / database paths"
+    cwe: 200
+  - id: and-no-debuggable-release
+    severity: critical
+    rule: "android:debuggable is not true in release builds"
+    cwe: 489
+  - id: and-network-security-config
+    severity: high
+    rule: "A network_security_config.xml exists; cleartextTrafficPermitted=false; trust-anchors restricted; pin-set declared for prod hosts"
+    cwe: 295
+  - id: and-keystore-for-secrets
+    severity: critical
+    rule: "Secrets stored in AndroidKeyStore or EncryptedSharedPreferences; never in plain SharedPreferences / files / BuildConfig"
+    cwe: 312
+  - id: and-no-trust-all-tm
+    severity: critical
+    rule: "No custom X509TrustManager with empty checkServerTrusted; no HostnameVerifier returning true"
+    cwe: 295
+  - id: and-webview-no-file-access
+    severity: high
+    rule: "WebView does not enable setAllowFileAccessFromFileURLs / setUniversalAccessFromFileURLs"
+    cwe: 200
+  - id: and-r8-enabled
+    severity: medium
+    rule: "release buildType enables minifyEnabled=true and useProguard / R8 with reasonable rules"
+  - id: and-play-integrity
+    severity: medium
+    rule: "Sensitive flows attest via Play Integrity API before allowing the action"
+  - id: and-deeplink-verified
+    severity: high
+    rule: "App Links use autoVerify=true and digital asset links; non-verified deep links don't grant elevated trust"
+    cwe: 939

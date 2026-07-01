@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "description": "go.sum fixture with one known-malicious module. `github.com/jfrog/go-tools` is a typosquat repo disclosed by JFrog in 2023 (see vulnerabilities/supply-chain/malicious-packages/go.json). The other modules are stdlib-adjacent helpers used as controls.",
+  "expected_findings": [
+    {
+      "ecosystem": "go",
+      "package": "github.com/jfrog/go-tools",
+      "version": "v0.1.0",
+      "kind": "malicious",
+      "source": "vulnerabilities/supply-chain/malicious-packages/go.json"
+    }
+  ],
+  "expected_clean": [
+    "github.com/davecgh/go-spew",
+    "github.com/stretchr/testify",
+    "gopkg.in/yaml.v3"
+  ]
+}

@@ -1,0 +1,34 @@
+schema_version: "1.0"
+title: Mimikatz process or command-line indicators
+id: aa11bb22-cc33-4dd4-5ee5-6ff67890abcd
+status: stable
+level: critical
+description: |
+  Detects classic Mimikatz indicators in process command lines on
+  Windows endpoints. Catches the standalone mimikatz.exe binary, the
+  Mimikatz "Invoke-Mimikatz" PowerShell loader, and "sekurlsa::"
+  module strings.
+references:
+  - https://github.com/gentilkiwi/mimikatz
+  - https://attack.mitre.org/software/S0002/
+tags:
+  - attack.s0002
+  - attack.t1003.001
+  - attack.credential_access
+logsource:
+  product: windows
+  service: sysmon
+detection:
+  selection_name:
+    EventID: 1
+    Image|endswith: "\\mimikatz.exe"
+  selection_cli:
+    EventID: 1
+    CommandLine|contains:
+      - "sekurlsa::"
+      - "Invoke-Mimikatz"
+      - "kerberos::list"
+      - "lsadump::"
+  condition: 1 of selection_*
+falsepositives:
+  - Red-team tooling explicitly authorized by the SOC.

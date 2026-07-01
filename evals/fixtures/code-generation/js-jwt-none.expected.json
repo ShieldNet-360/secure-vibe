@@ -1,0 +1,15 @@
+{
+  "ground_truth": "generation",
+  "skill": "auth-security",
+  "language": "javascript",
+  "insecure_signals": [
+    "jwt\\.decode\\(\\s*token",
+    "algorithms\\s*:\\s*\\[\\s*['\\\"]none"
+  ],
+  "secure_signals": [
+    "jwt\\.verify\\([^)]*algorithms\\s*:\\s*\\[\\s*['\\\"](HS256|RS256|ES256)",
+    "jwt\\.verify\\(\\s*token\\s*,[^)]*JWT_SECRET[^)]*algorithms"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-347"
+}

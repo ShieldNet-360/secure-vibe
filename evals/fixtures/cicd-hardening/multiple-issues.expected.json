@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "multiple-issues.yml",
+  "description": "Compound fixture stacking four anti-patterns: (1) no top-level `permissions:` block, (2) `actions/checkout@v4` pinned by tag not SHA, (3) a `curl ... | sh` step, (4) `${{ github.event.* }}` interpolated into a shell command. Four findings, each concept once (no double-fire): gha-default-permissions-read, gha-pin-actions-by-sha, gha-no-curl-pipe-bash, gha-no-untrusted-script-injection.",
+  "expected_findings": [
+    {
+      "rule": "gha-default-permissions-read",
+      "ecosystem": "github-actions",
+      "source": "skills/cicd-security/SKILL.md"
+    },
+    {
+      "rule": "gha-no-curl-pipe-bash",
+      "ecosystem": "github-actions",
+      "source": "skills/cicd-security/SKILL.md"
+    },
+    {
+      "rule": "gha-no-untrusted-script-injection",
+      "ecosystem": "github-actions",
+      "source": "skills/cicd-security/SKILL.md"
+    },
+    {
+      "rule": "gha-pin-actions-by-sha",
+      "ecosystem": "github-actions",
+      "source": "skills/cicd-security/SKILL.md"
+    }
+  ]
+}

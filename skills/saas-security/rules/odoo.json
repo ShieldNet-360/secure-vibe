@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Odoo",
+  "description": "Odoo Community / Enterprise / SaaS security patterns: XML-RPC / JSON-RPC credentials, per-user API keys, master password, and module-install red flags.",
+  "token_patterns": [
+    {
+      "name": "Odoo Master Password (admin_passwd)",
+      "regex": "(?i)admin_passwd\\s*=\\s*[^\\s#]{6,}",
+      "severity": "critical",
+      "hotwords": [
+        "odoo",
+        "admin_passwd",
+        "master_password",
+        "odoo.conf"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "notes": "admin_passwd in odoo.conf gates the database-manager \u2014 create / drop / restore. Leak = full DB control."
+    },
+    {
+      "name": "Odoo Per-User API Key",
+      "regex": "(?i)odoo[_\\-]?api[_\\-]?key[\\\"'\\s:=]+[A-Za-z0-9]{40,}",
+      "severity": "high",
+      "hotwords": [
+        "odoo",
+        "api_key",
+        "developer_mode"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Odoo XML-RPC URL with credentials in code",
+      "regex": "models\\.execute_kw\\(\\s*[\\\"'][^\\\"']+[\\\"']\\s*,\\s*\\d+\\s*,\\s*[\\\"'][^\\\"']+[\\\"']\\s*,\\s*[\\\"'][^\\\"']{6,}[\\\"']",
+      "severity": "medium",
+      "hotwords": [
+        "execute_kw",
+        "xmlrpc",
+        "odoo"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "notes": "Detects an inline call passing db, uid, username, password to execute_kw \u2014 hard-coded creds shape."
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "odoo-master-password-default",
+      "severity": "critical",
+      "title": "admin_passwd left at default `admin` or empty",
+      "rationale": "Default master password is the canonical Odoo internet-exposure incident.",
+      "fix": "Set `admin_passwd = <long-random>` in odoo.conf; disable the DB manager in prod via `list_db = False` and a proxy block on `/web/database/*`."
+    },
+    {
+      "id": "odoo-db-manager-public",
+      "severity": "critical",
+      "title": "/web/database/manager reachable from the internet",
+      "rationale": "Allows arbitrary database creation/restore and effectively a privileged backdoor.",
+      "fix": "Reverse-proxy: deny /web/database/* and /web/database/manager. Set `list_db = False`."
+    },
+    {
+      "id": "odoo-2fa-not-enforced",
+      "severity": "high",
+      "title": "TOTP/2FA not enforced for admin users",
+      "rationale": "Odoo admin compromise leads to data theft and module backdoor install.",
+      "fix": "Settings > Users & Companies > Users > require 2FA on the admin group via auth_totp_mail_enforce or the Enterprise enforcement module."
+    },
+    {
+      "id": "odoo-third-party-module-unaudited",
+      "severity": "high",
+      "title": "Installing third-party modules from outside the official store without review",
+      "rationale": "Odoo modules execute Python on the server with DB-level access \u2014 supply-chain risk.",
+      "fix": "Pin module versions in addons_path via Git submodules; require code review before install."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "odoo-developer-mode-prod",
+      "severity": "high",
+      "title": "Developer mode enabled on production",
+      "rationale": "Exposes /web/login redirect tricks, eval-style fields, and direct ORM editor.",
+      "signal": "Web server log: `/web?debug=1` or `/web?debug=assets` on prod URL."
+    },
+    {
+      "id": "odoo-module-install-non-admin",
+      "severity": "high",
+      "title": "Module installation event by a non-IT principal",
+      "rationale": "Module install = arbitrary Python execution.",
+      "signal": "ir.module.module write events outside the IT admin group."
+    },
+    {
+      "id": "odoo-database-backup-restore",
+      "severity": "critical",
+      "title": "Database backup or restore via /web/database/manager",
+      "rationale": "Backup = full data exfil; restore = pivot tenant content.",
+      "signal": "Web server log: POST to /web/database/backup or /web/database/restore."
+    },
+    {
+      "id": "odoo-mass-data-export",
+      "severity": "high",
+      "title": "List-view export of > 5k records by unusual principal",
+      "rationale": "Built-in export icon is the easiest exfil path.",
+      "signal": "Audit: `web/export` calls with payload size > 5MB."
+    }
+  ],
+  "references": [
+    "https://www.odoo.com/documentation/master/administration/on_premise/deploy.html",
+    "https://www.odoo.com/documentation/master/developer/reference/external_api.html",
+    "https://www.odoo.com/security"
+  ]
+}

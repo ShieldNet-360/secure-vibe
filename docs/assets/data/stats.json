@@ -1,0 +1,10 @@
+{
+  "cve_patterns": 58,
+  "secret_patterns": 83,
+  "assistant_integrations": 8,
+  "freshness": {
+    "curated_last_updated": "2026-06-23",
+    "ossf_commit": "8c093db5",
+    "ossf_ingested_at": "2026-06-23"
+  }
+}

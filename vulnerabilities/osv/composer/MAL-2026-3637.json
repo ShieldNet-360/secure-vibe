@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.7.5",
+  "id": "MAL-2026-3637",
+  "published": "2026-05-13T03:14:00Z",
+  "modified": "2026-05-13T04:22:03.993496Z",
+  "summary": "Malicious code in intercom-php (Packagist)",
+  "affected": [
+    {
+      "package": {
+        "name": "intercom-php",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/intercom-php"
+      },
+      "versions": [
+        "5.0.2"
+      ],
+      "database_specific": {
+        "source": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/packagist/intercom-php/MAL-2026-3637.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ARTICLE",
+      "url": "https://socket.dev/blog/mini-shai-hulud-packagist-malicious-intercom-php-package-compromise"
+    },
+    {
+      "type": "ARTICLE",
+      "url": "https://semgrep.dev/blog/2026/malicious-intercom-php-package-spreads-mini-shai-hulud-attack-to-packagist-via-composer-plugin/"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-gr3r-crp5-qrrm"
+    }
+  ],
+  "database_specific": {
+    "iocs": {
+      "domains": [
+        "zero.masscan.cloud"
+      ]
+    },
+    "malicious-packages-origins": [
+      {
+        "import_time": "2026-05-13T03:26:12.284906Z",
+        "modified_time": "2026-05-13T03:14:00Z",
+        "sha256": "0bd33abd6fda35e856f8346fda5e85913ce2cad6b4d6c315a2e7138b867760aa",
+        "source": "google-open-source-security",
+        "versions": [
+          "5.0.2"
+        ]
+      }
+    ]
+  },
+  "last_updated": "2026-05-13"
+}

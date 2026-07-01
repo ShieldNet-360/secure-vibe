@@ -1,0 +1,18 @@
+{
+  "ground_truth": "generation",
+  "skill": "frontend-security",
+  "language": "javascript",
+  "insecure_signals": [
+    "\\.innerHTML\\s*=",
+    "insertAdjacentHTML\\(",
+    "document\\.write\\("
+  ],
+  "secure_signals": [
+    "\\.textContent\\s*=",
+    "\\.innerText\\s*=",
+    "createTextNode\\(",
+    "DOMPurify\\.sanitize\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-79"
+}

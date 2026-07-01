@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Field-name and pattern-based redaction rules that run on log records before they leave the process.",
+  "fields_blocked": [
+    "password", "passwd", "pwd",
+    "token", "access_token", "refresh_token", "id_token", "session_token",
+    "secret", "client_secret", "api_key", "apikey",
+    "private_key", "privateKey",
+    "ssn", "social_security_number",
+    "credit_card", "card_number", "cvv", "cvc",
+    "authorization", "cookie", "set_cookie",
+    "otp", "mfa_code", "recovery_code"
+  ],
+  "patterns": [
+    {"name": "AWS access key", "regex": "AKIA[0-9A-Z]{16}"},
+    {"name": "AWS secret key with hotword", "regex": "(?i)aws_secret_access_key[^\"']*[\"']?[A-Za-z0-9/+=]{40}"},
+    {"name": "GitHub PAT", "regex": "gh[oprsu]_[A-Za-z0-9]{36,251}"},
+    {"name": "GitHub fine-grained PAT", "regex": "github_pat_[A-Za-z0-9_]{82}"},
+    {"name": "OpenAI key", "regex": "sk-[A-Za-z0-9]{20,64}"},
+    {"name": "Anthropic key", "regex": "sk-ant-api03-[A-Za-z0-9_-]{90,}"},
+    {"name": "Slack token", "regex": "xox[baprs]-[A-Za-z0-9-]{10,}"},
+    {"name": "JWT", "regex": "eyJ[A-Za-z0-9_-]{10,}\\.eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}"},
+    {"name": "Bearer header", "regex": "(?i)bearer\\s+[A-Za-z0-9._~+/-]+"},
+    {"name": "PEM block", "regex": "(?s)-----BEGIN [A-Z ]+-----.*?-----END [A-Z ]+-----"},
+    {"name": "Email", "regex": "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"},
+    {"name": "Phone E.164", "regex": "\\+?[1-9]\\d{7,14}"},
+    {"name": "Newline injection", "regex": "[\\r\\n]+"}
+  ],
+  "replacement_token": "<redacted>",
+  "policy": {
+    "redact_value": true,
+    "preserve_key": true,
+    "max_value_length_before_truncate": 256
+  }
+}

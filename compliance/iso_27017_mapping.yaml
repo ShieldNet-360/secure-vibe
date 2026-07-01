@@ -1,0 +1,39 @@
+schema_version: "1.0"
+framework: "ISO/IEC 27017 (Cloud)"
+version: "ISO/IEC 27017:2015 — cloud-configuration controls (partial)"
+last_updated: "2026-06-23"
+# Mapping scope: ISO/IEC 27017 gives cloud-specific implementation guidance on
+# top of ISO/IEC 27002, plus seven cloud-only (CLD.*) controls. SecureVibe is a
+# secure-code/config layer, not a cloud-posture or contractual-governance tool,
+# so only the controls that map to code and infrastructure-as-code practices are
+# claimed here. This is an honest partial mapping, not full 27017 coverage.
+controls:
+  - id: "CLD.6.3.1"
+    title: "Shared roles and responsibilities within a cloud computing environment"
+    description: "The split of security responsibilities between cloud provider and customer is understood and the customer-side controls are implemented."
+    skills: ["saas-security", "iac-security"]
+    references: ["https://www.iso.org/standard/43757.html"]
+  - id: "CLD.9.5.1"
+    title: "Segregation in virtual computing environments"
+    description: "A cloud customer's virtual environment is segregated from other tenants and from the provider's internal environment."
+    skills: ["container-security", "serverless-security"]
+  - id: "CLD.9.5.2"
+    title: "Virtual machine hardening"
+    description: "Virtual machines and container images are hardened to meet business and security needs."
+    skills: ["container-security", "iac-security"]
+  - id: "CLD.12.1.5"
+    title: "Administrator's operational security"
+    description: "Procedures for administrative operations of a cloud environment are defined and secured."
+    skills: ["iam-best-practices", "iac-security"]
+  - id: "CLD.12.4.5"
+    title: "Monitoring of cloud services"
+    description: "The cloud customer monitors use of its cloud services and reviews relevant logs and events."
+    skills: ["logging-security"]
+  - id: "CLD.13.1.4"
+    title: "Alignment of security management for virtual and physical networks"
+    description: "Consistent security management is applied across virtual and physical cloud networks."
+    skills: ["protocol-security", "iac-security"]
+  - id: "27002.8.24-cloud"
+    title: "Use of cryptography and key management in cloud services"
+    description: "Cryptography and secret/key material are managed correctly for data stored and transmitted in cloud services."
+    skills: ["crypto-misuse", "secret-detection"]

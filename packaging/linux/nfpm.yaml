@@ -1,0 +1,32 @@
+# nfpm configuration for the secure-vibe Linux .deb and .rpm packages.
+#
+# Build:
+#   make BINARY=../../dist-build/secure-vibe-linux-amd64 VERSION=2026.05.13
+#
+# nfpm reference: https://nfpm.goreleaser.com/configuration/
+name: secure-vibe
+arch: amd64
+platform: linux
+version: ${VERSION}
+section: utils
+priority: optional
+maintainer: Skills Library <ken@uney.com>
+description: |
+  Open-source security skills, rules, and vulnerability intelligence for
+  AI-assisted coding tools. The secure-vibe binary validates skill manifests,
+  generates IDE-specific configuration files, and pulls signed updates of
+  vulnerability data and detection rules.
+vendor: Skills Library
+homepage: https://github.com/shieldnet-360/secure-vibe
+license: MIT
+contents:
+  - src: ${BINARY}
+    dst: /usr/local/bin/secure-vibe
+    file_info:
+      mode: 0755
+deb:
+  fields:
+    Bugs: https://github.com/shieldnet-360/secure-vibe/issues
+rpm:
+  group: Applications/System
+  summary: Skills Library CLI

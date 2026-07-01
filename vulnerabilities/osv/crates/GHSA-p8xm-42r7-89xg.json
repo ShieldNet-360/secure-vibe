@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-p8xm-42r7-89xg",
+  "published": "2026-05-07T00:08:59Z",
+  "modified": "2026-05-14T21:03:43.952636Z",
+  "aliases": [
+    "CVE-2026-44216",
+    "RUSTSEC-2026-0114"
+  ],
+  "related": [
+    "CGA-4w3c-qcxm-v5gj"
+  ],
+  "summary": "wasmtime has a panic when allocating a table exceeding the size of the host's address space",
+  "affected": [
+    {
+      "package": {
+        "name": "wasmtime",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/wasmtime"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "30.0.0"
+            },
+            {
+              "fixed": "36.0.8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-p8xm-42r7-89xg/GHSA-p8xm-42r7-89xg.json"
+      }
+    },
+    {
+      "package": {
+        "name": "wasmtime",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/wasmtime"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "37.0.0"
+            },
+            {
+              "fixed": "43.0.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-p8xm-42r7-89xg/GHSA-p8xm-42r7-89xg.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/bytecodealliance/wasmtime/security/advisories/GHSA-p8xm-42r7-89xg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44216"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/bytecodealliance/wasmtime"
+    },
+    {
+      "type": "WEB",
+      "url": "https://rustsec.org/advisories/RUSTSEC-2026-0114.html"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-770"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T00:08:59Z",
+    "nvd_published_at": "2026-05-14T15:16:47Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

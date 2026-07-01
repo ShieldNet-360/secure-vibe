@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-r945-h4vm-h736",
+  "published": "2026-05-05T21:20:03Z",
+  "modified": "2026-05-13T14:18:41.394989Z",
+  "aliases": [
+    "CVE-2026-42843"
+  ],
+  "summary": "Grav API Privilege Escalation to Super Admin",
+  "affected": [
+    {
+      "package": {
+        "name": "getgrav/grav-plugin-api",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/getgrav/grav-plugin-api"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.0.0-beta.15"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-r945-h4vm-h736/GHSA-r945-h4vm-h736.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/getgrav/grav/security/advisories/GHSA-r945-h4vm-h736"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42843"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/getgrav/grav-plugin-api/commit/26f529c7d438c73343e82311fb095caeaf1a6116"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/getgrav/grav"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-863"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-05T21:20:03Z",
+    "nvd_published_at": "2026-05-11T17:16:34Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

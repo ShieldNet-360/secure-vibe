@@ -1,0 +1,40 @@
+{
+  "id": "frontend-security",
+  "version": "1.0.0",
+  "title": "Frontend Security",
+  "description": "Browser-side hardening: XSS, CSP, CORS, SRI, DOM clobbering, iframe sandboxing, Trusted Types",
+  "category": "prevention",
+  "severity": "high",
+  "applies_to": [
+    "when generating HTML / JSX / Vue / Svelte templates",
+    "when wiring up response headers in a web app",
+    "when adding third-party script tags or CDN resources"
+  ],
+  "languages": [
+    "html",
+    "javascript",
+    "typescript",
+    "tsx",
+    "jsx",
+    "vue",
+    "svelte"
+  ],
+  "token_budget": {
+    "minimal": 1000,
+    "compact": 1200,
+    "full": 2800
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "cors-security",
+    "auth-security",
+    "logging-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP XSS Prevention Cheat Sheet",
+    "OWASP Content Security Policy Cheat Sheet",
+    "CWE-79: Improper Neutralization of Input During Web Page Generation",
+    "MDN Trusted Types"
+  ]
+}

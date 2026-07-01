@@ -1,0 +1,33 @@
+{
+  "id": "dependency-audit",
+  "version": "1.0.0",
+  "title": "Dependency Audit",
+  "description": "Audit project dependencies for known vulnerabilities, malicious packages, and supply chain risks",
+  "category": "supply-chain",
+  "severity": "high",
+  "applies_to": [
+    "when adding a new dependency",
+    "when upgrading dependencies",
+    "when reviewing package manifests (package.json, requirements.txt, go.mod, Cargo.toml)",
+    "before merging a PR that modifies dependency files"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 400,
+    "compact": 750,
+    "full": 1900
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "secret-detection",
+    "supply-chain-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP Top 10 2021 — A06: Vulnerable and Outdated Components",
+    "CWE-1104: Use of Unmaintained Third Party Components",
+    "CISA Software Bill of Materials guidance"
+  ]
+}

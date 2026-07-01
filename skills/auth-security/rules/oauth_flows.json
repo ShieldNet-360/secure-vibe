@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Per-client-type OAuth 2.0 / OIDC flow selection per RFC 9700.",
+  "flows": [
+    {"client_type": "spa", "use": "authorization_code_pkce_s256", "avoid": ["implicit", "ropc", "device_code_for_first_party_browser"], "notes": "PKCE is required even with client_secret; secret is not safe in a browser"},
+    {"client_type": "mobile_native", "use": "authorization_code_pkce_s256", "avoid": ["implicit", "ropc"], "notes": "Use system browser tab (Custom Tab / SFSafariViewController), not WebView"},
+    {"client_type": "cli", "use": "authorization_code_pkce_s256_localhost", "avoid": ["device_code_without_user_visible_url", "ropc"], "notes": "Bind to a random loopback port"},
+    {"client_type": "iot_or_tv", "use": "device_code", "avoid": ["ropc"], "notes": "User completes auth on a separate device"},
+    {"client_type": "confidential_server", "use": "authorization_code_with_client_secret", "avoid": ["ropc", "implicit"], "notes": "Client secret lives in a server-side secret manager"},
+    {"client_type": "service_to_service", "use": "client_credentials", "avoid": ["service_account_password"], "notes": "Bind to workload identity (SPIFFE / OIDC trust)"}
+  ],
+  "pkce_required_for_all_public_clients": true,
+  "state_parameter_required": true,
+  "nonce_required_for_oidc": true,
+  "rotation": {
+    "refresh_token_rotation": true,
+    "rotation_window_seconds": 60,
+    "reuse_detection": true
+  },
+  "anti_patterns": [
+    {"id": "oauth-implicit-flow", "severity": "critical", "rule": "Implicit flow is forbidden by RFC 9700 §2.1.2"},
+    {"id": "oauth-ropc-flow", "severity": "critical", "rule": "ROPC flow is forbidden by RFC 9700 §2.4"},
+    {"id": "oauth-no-pkce", "severity": "critical", "rule": "PKCE S256 is required for all public clients"},
+    {"id": "oauth-no-state", "severity": "high", "rule": "Missing state parameter allows CSRF on the authorization callback"},
+    {"id": "oauth-redirect-uri-wildcard", "severity": "critical", "rule": "redirect_uri must be an exact match; never use wildcard, prefix, or open redirect"}
+  ]
+}

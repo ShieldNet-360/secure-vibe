@@ -1,0 +1,31 @@
+schema_version: "1.0"
+title: Google Workspace admin role assigned to a user
+id: 36574b92-1678-4a73-9018-0b974c91695c
+status: stable
+level: high
+description: |
+  Detects assignment of a privileged Google Workspace administrator
+  role (Super Admin, User Management Admin, Groups Admin) via the
+  Admin SDK. Role grants outside of an HR-initiated workflow are a
+  recurring post-compromise persistence pattern in Workspace tenants.
+references:
+  - https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-security
+  - https://attack.mitre.org/techniques/T1098/003/
+tags:
+  - attack.t1098.003
+  - attack.persistence
+logsource:
+  product: google_workspace
+  service: admin
+detection:
+  selection:
+    eventName: ASSIGN_ROLE
+    parameters.ROLE_NAME:
+      - Super Admin
+      - User Management Admin
+      - Groups Admin
+  condition: selection
+falsepositives:
+  - Initial tenant onboarding or a documented IT-administrator
+    rotation in which multiple admin roles are granted in a single
+    change window.

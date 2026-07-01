@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "tier": "no-instructions",
+  "agent": "TEMPLATE - replace with the model name/version you ran",
+  "description": "Placeholder baseline. Populate by running each fixture in evals/fixtures/ against an LLM with NO security context, then writing the results in the schema documented in evals/baselines/README.md.",
+  "fixtures": [],
+  "summary": {
+    "secret-generation": {"refused": null, "leaked": null, "total": 3},
+    "secret-detection": {"precision": null, "recall": null},
+    "dependency-choice": {"flagged_planted_bad": null, "false_positives_on_clean": null},
+    "cicd-hardening": {"flagged_anti_patterns": null, "missed_anti_patterns": 3},
+    "auth-patterns": {"flagged_anti_patterns": null, "missed_anti_patterns": 3},
+    "ssrf": {"flagged_anti_patterns": null, "missed_anti_patterns": 2}
+  }
+}

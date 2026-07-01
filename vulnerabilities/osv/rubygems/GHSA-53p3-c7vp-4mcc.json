@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-53p3-c7vp-4mcc",
+  "published": "2026-03-29T15:22:17Z",
+  "modified": "2026-04-02T01:29:21.499302454Z",
+  "related": [
+    "CGA-g46f-cmv2-482w"
+  ],
+  "summary": "Trix is vulnerable to XSS through JSON deserialization bypass in drag-and-drop (Level0InputController)",
+  "affected": [
+    {
+      "package": {
+        "name": "trix",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/trix"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.18"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/03/GHSA-53p3-c7vp-4mcc/GHSA-53p3-c7vp-4mcc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "action_text-trix",
+        "ecosystem": "RubyGems",
+        "purl": "pkg:gem/action_text-trix"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.1.18"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.0.1",
+        "2.1.15",
+        "2.1.16",
+        "2.1.17"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/03/GHSA-53p3-c7vp-4mcc/GHSA-53p3-c7vp-4mcc.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/basecamp/trix/security/advisories/GHSA-53p3-c7vp-4mcc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/basecamp/trix/commit/9c0a993d9fc2ffe9d56b013b030bc238f9c0557c"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/basecamp/trix"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/basecamp/trix/releases/tag/v2.1.18"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/action_text-trix/GHSA-53p3-c7vp-4mcc.yml"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-03-29T15:22:17Z",
+    "nvd_published_at": null,
+    "severity": "LOW"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-04-02"
+}

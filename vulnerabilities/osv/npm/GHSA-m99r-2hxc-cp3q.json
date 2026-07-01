@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-m99r-2hxc-cp3q",
+  "published": "2026-05-14T14:57:30Z",
+  "modified": "2026-05-16T00:10:49.154245Z",
+  "summary": "Flowise has an MCP Security Bypass that Enables RCE",
+  "affected": [
+    {
+      "package": {
+        "name": "flowise",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/flowise"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.1.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 3.1.1",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-m99r-2hxc-cp3q/GHSA-m99r-2hxc-cp3q.json"
+      }
+    },
+    {
+      "package": {
+        "name": "flowise-components",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/flowise-components"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.1.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 3.1.1",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-m99r-2hxc-cp3q/GHSA-m99r-2hxc-cp3q.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-m99r-2hxc-cp3q"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/FlowiseAI/Flowise"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/FlowiseAI/Flowise/releases/tag/flowise%403.1.2"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-184"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-14T14:57:30Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-05-16"
+}

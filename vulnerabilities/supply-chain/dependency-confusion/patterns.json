@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-12T10:00:00Z",
+  "description": "Patterns and heuristics for detecting dependency-confusion attacks across npm, PyPI, Maven, NuGet, and Go. AI coding assistants should treat any unscoped public package that matches these namespace patterns as suspicious and prefer the scoped or internal-registry equivalent.",
+  "references": [
+    "https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610",
+    "https://github.com/visma-prodsec/confused",
+    "https://snyk.io/blog/detect-prevent-dependency-confusion-attacks-npm-supply-chain-security/"
+  ],
+  "namespace_patterns": [
+    {
+      "ecosystem": "npm",
+      "pattern": "^@[a-z0-9][a-z0-9-]*/",
+      "description": "Scoped npm packages. If a project imports an unscoped name where a scoped private version of the same package exists, the AI must flag it as a possible dependency-confusion target.",
+      "examples": ["@yourco/billing-client", "@acme-internal/auth"]
+    },
+    {
+      "ecosystem": "maven",
+      "pattern": "^com\\.(yourco|acme|internal)\\.",
+      "description": "Internal-looking Maven group IDs. Public packages published under a corporate-looking group ID are a strong dependency-confusion indicator.",
+      "examples": ["com.yourco.payments", "com.acme-internal.security-utils"]
+    },
+    {
+      "ecosystem": "pypi",
+      "pattern": "^(yourco|acme|internal)[-_]",
+      "description": "PyPI does not support scopes. Private packages typically prefix an org name. Any public package using that prefix without org control is suspicious.",
+      "examples": ["yourco-cli", "acme_internal_sdk"]
+    },
+    {
+      "ecosystem": "go",
+      "pattern": "^(github\\.com|gitlab\\.com)/(yourco|acme-internal)/",
+      "description": "Go module paths under a corporate-looking GitHub or GitLab org. Verify the org actually belongs to the company.",
+      "examples": ["github.com/yourco/billing", "gitlab.com/acme-internal/auth"]
+    },
+    {
+      "ecosystem": "nuget",
+      "pattern": "^(YourCo|Acme)\\.",
+      "description": "NuGet packages with a company-name prefix. Confusion happens when an attacker publishes the same name with a higher version on nuget.org.",
+      "examples": ["YourCo.Sdk", "Acme.Internal.Auth"]
+    }
+  ],
+  "private_registry_indicators": [
+    {
+      "ecosystem": "npm",
+      "indicator": "presence of .npmrc with @yourco:registry=https://npm.yourco.com",
+      "action": "ensure @yourco/* never resolves to public registry"
+    },
+    {
+      "ecosystem": "pypi",
+      "indicator": "presence of pip.conf with extra-index-url",
+      "action": "use --index-url not --extra-index-url; otherwise public registry wins for the same name + higher version"
+    },
+    {
+      "ecosystem": "maven",
+      "indicator": "presence of settings.xml with internal mirror",
+      "action": "use mirrorOf=*; lock down which group IDs can be fetched from public Maven Central"
+    },
+    {
+      "ecosystem": "go",
+      "indicator": "presence of GOPRIVATE environment variable",
+      "action": "GOPRIVATE=*.yourco.com prevents Go proxy from fetching private paths from public proxy.golang.org"
+    }
+  ],
+  "heuristics": [
+    {
+      "id": "version-jump",
+      "description": "A public package whose first published version is unusually high (e.g. 99.x.x) is a classic dependency-confusion attack pattern designed to override semver resolution.",
+      "severity": "high",
+      "references": [
+        "https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610"
+      ]
+    },
+    {
+      "id": "first-publish-old-name",
+      "description": "A public package that appears for the first time but uses an org-prefixed name suggests the attacker is registering a name they expect a private build to also use.",
+      "severity": "high",
+      "references": [
+        "https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610"
+      ]
+    },
+    {
+      "id": "internal-name-in-package-json",
+      "description": "If a project's package.json references a non-scoped dependency whose name matches the internal-registry namespace, an AI coding assistant must propose converting it to a scoped @org/ form.",
+      "severity": "high",
+      "references": [
+        "https://snyk.io/blog/detect-prevent-dependency-confusion-attacks-npm-supply-chain-security/"
+      ]
+    },
+    {
+      "id": "no-public-source-for-corporate-name",
+      "description": "When a public registry hosts a package whose name implies internal corporate use but the corporate org has no public OSS presence, treat as suspicious.",
+      "severity": "medium",
+      "references": [
+        "https://github.com/visma-prodsec/confused"
+      ]
+    }
+  ]
+}

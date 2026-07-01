@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-jj54-r8gm-2fcf",
+  "published": "2026-05-14T18:25:13Z",
+  "modified": "2026-05-14T18:34:19.766176Z",
+  "aliases": [
+    "CVE-2026-44970"
+  ],
+  "summary": "dbt MCP Server Transmits All MCP Tool Arguments Including Raw SQL and --vars Credentials to dbt Labs Telemetry by Default Without Redaction",
+  "affected": [
+    {
+      "package": {
+        "name": "dbt-mcp",
+        "ecosystem": "PyPI",
+        "purl": "pkg:pypi/dbt-mcp"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.17.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.0.1a1",
+        "0.1.0",
+        "0.1.1",
+        "0.1.2",
+        "0.1.2rc1",
+        "0.1.2rc2",
+        "0.1.3",
+        "0.10.0",
+        "0.10.1",
+        "0.10.2",
+        "0.10.3",
+        "0.2.1",
+        "0.2.10",
+        "0.2.11",
+        "0.2.12",
+        "0.2.13",
+        "0.2.14",
+        "0.2.15",
+        "0.2.16",
+        "0.2.17",
+        "0.2.18",
+        "0.2.19",
+        "0.2.20",
+        "0.2.3",
+        "0.2.4",
+        "0.2.5",
+        "0.2.6",
+        "0.2.7",
+        "0.2.8",
+        "0.2.9",
+        "0.3.0",
+        "0.4.0",
+        "0.4.1",
+        "0.4.2",
+        "0.5.0",
+        "0.6.0",
+        "0.6.1",
+        "0.7.0",
+        "0.8.0",
+        "0.8.1",
+        "0.8.2",
+        "0.8.3",
+        "0.8.4",
+        "0.9.0",
+        "0.9.1",
+        "1.0.0",
+        "1.1.0",
+        "1.10.0",
+        "1.11.0",
+        "1.12.0",
+        "1.13.0",
+        "1.14.0",
+        "1.15.0",
+        "1.17.0",
+        "1.2.0",
+        "1.3.0",
+        "1.4.0",
+        "1.5.0",
+        "1.5.1",
+        "1.5.2",
+        "1.6.0",
+        "1.6.2",
+        "1.7.0",
+        "1.8.0",
+        "1.8.1",
+        "1.9.0",
+        "1.9.1",
+        "1.9.2",
+        "1.9.3"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 1.17.0",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-jj54-r8gm-2fcf/GHSA-jj54-r8gm-2fcf.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/dbt-labs/dbt-mcp/security/advisories/GHSA-jj54-r8gm-2fcf"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/dbt-labs/dbt-mcp"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dbt-labs/dbt-mcp/releases/tag/v1.17.1"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-201"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-14T18:25:13Z",
+    "nvd_published_at": null,
+    "severity": "LOW"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:N/A:N"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

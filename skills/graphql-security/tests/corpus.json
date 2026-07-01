@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Schema-driven corpus for graphql-security. No deterministic scanner captures depth/complexity/introspection/batching semantics, so the runner smoke-validates shape; fixtures double as ground truth for the LLM eval harness. detect = a GraphQL server config that violates a NEVER rule (missing cost limit, prod introspection, unbounded batching); ignore = the hardened equivalent following ALWAYS.",
+  "fixtures": [
+    {
+      "id": "no-depth-complexity-limit",
+      "text": "import { ApolloServer } from '@apollo/server';\n\nconst server = new ApolloServer({\n  typeDefs,\n  resolvers,\n  // no validation rules, no depth/cost analysis\n});\n\napp.use('/graphql', expressMiddleware(server));",
+      "expected": "detect",
+      "reason": "no maximum query depth or complexity/cost limit; a 5-level nested query against a many-to-many edge returns billions of nodes and exhausts the database (CWE-400 Uncontrolled Resource Consumption)"
+    },
+    {
+      "id": "depth-complexity-limit-enforced",
+      "text": "import { ApolloServer } from '@apollo/server';\nimport depthLimit from 'graphql-depth-limit';\nimport { createComplexityRule, simpleEstimator } from 'graphql-query-complexity';\n\nconst server = new ApolloServer({\n  typeDefs,\n  resolvers,\n  validationRules: [\n    depthLimit(8),\n    createComplexityRule({ maximumComplexity: 1000, estimators: [simpleEstimator({ defaultComplexity: 1 })] }),\n  ],\n});\n\napp.use('/graphql', expressMiddleware(server));",
+      "expected": "ignore",
+      "reason": "enforces a max query depth (8) and a complexity/cost ceiling (1000) at the server, bounding resource consumption (mitigates CWE-400)"
+    },
+    {
+      "id": "introspection-on-in-production",
+      "text": "const server = new ApolloServer({\n  typeDefs,\n  resolvers,\n  introspection: true,\n  plugins: [ApolloServerPluginLandingPageLocalDefault()], // GraphiQL exposed\n});\n\n// NODE_ENV === 'production'",
+      "expected": "detect",
+      "reason": "introspection and the GraphiQL playground are left enabled in production, handing attackers the full schema for reconnaissance (CWE-200 Information Exposure)"
+    },
+    {
+      "id": "introspection-disabled-in-production",
+      "text": "const isProd = process.env.NODE_ENV === 'production';\n\nconst server = new ApolloServer({\n  typeDefs,\n  resolvers,\n  introspection: !isProd,\n  plugins: [isProd ? ApolloServerPluginLandingPageDisabled() : ApolloServerPluginLandingPageLocalDefault()],\n});",
+      "expected": "ignore",
+      "reason": "introspection and the landing page playground are disabled when NODE_ENV is production; legitimate clients use schema codegen instead (follows ALWAYS: disable introspection in production)"
+    },
+    {
+      "id": "unbounded-query-batching",
+      "text": "import { ApolloServer } from '@apollo/server';\n\nconst server = new ApolloServer({\n  typeDefs,\n  resolvers,\n  allowBatchedHttpRequests: true,\n  // no cap on operations per batch, no alias limit\n});",
+      "expected": "detect",
+      "reason": "batched HTTP requests are allowed with no cap on operations-per-batch and no alias limit, giving an attacker an N-fold request-amplification / brute-force primitive (CWE-400, CWE-770 Allocation of Resources Without Limits)"
+    },
+    {
+      "id": "batching-and-alias-limits",
+      "text": "import { ApolloServer } from '@apollo/server';\nimport { maxAliasesPlugin } from '@escape.tech/graphql-armor-max-aliases';\nimport { maxBatchPlugin } from './plugins/maxBatch';\n\nconst server = new ApolloServer({\n  typeDefs,\n  resolvers,\n  allowBatchedHttpRequests: true,\n  plugins: [\n    maxAliasesPlugin({ n: 15 }),\n    maxBatchPlugin({ maxOperations: 5 }),\n  ],\n});",
+      "expected": "ignore",
+      "reason": "caps aliases per request (15) and operations per batch (5), removing the amplification primitive while still permitting legitimate batching (follows ALWAYS: limit aliases and batch operations)"
+    }
+  ]
+}

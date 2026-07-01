@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "description": "Gate-driven corpus for dependency-audit: each fixture is a lockfile run through the same PolicyCheck the CI gate uses, resolved against the bundled offline malicious-package / typosquat / CVE databases (no network).",
+  "scanner": "gate",
+  "severity_floor": "high",
+  "fixtures": [
+    {
+      "id": "event-stream-3.3.6-malicious",
+      "filename": "package-lock.json",
+      "text": "{\n  \"name\": \"fixture\",\n  \"lockfileVersion\": 3,\n  \"packages\": {\n    \"node_modules/event-stream\": { \"version\": \"3.3.6\" }\n  }\n}\n",
+      "expected": "detect",
+      "reason": "event-stream@3.3.6 is the canonical compromised-maintainer incident; it is in the bundled malicious-packages DB"
+    },
+    {
+      "id": "clean-pinned-lockfile",
+      "filename": "package-lock.json",
+      "text": "{\n  \"name\": \"fixture\",\n  \"lockfileVersion\": 3,\n  \"packages\": {\n    \"node_modules/express\": { \"version\": \"4.19.2\" }\n  }\n}\n",
+      "expected": "ignore",
+      "reason": "a current, healthy package must pass the gate"
+    }
+  ]
+}

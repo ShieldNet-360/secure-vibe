@@ -1,0 +1,26 @@
+schema_version: "1.0"
+title: GCP project IAM policy modified
+id: 2a3b4c5d-6e7f-4a8b-9c0d-1e2f3a4b5c6d
+status: stable
+level: medium
+description: |
+  Detects changes to project-level IAM policies, including bindings that
+  grant primitive roles (owner / editor / viewer) or that add a member
+  outside the customer organization.
+references:
+  - https://cloud.google.com/iam/docs/audit-logging
+  - https://attack.mitre.org/techniques/T1098/
+tags:
+  - attack.t1098
+  - attack.persistence
+logsource:
+  product: gcp
+  service: cloudaudit
+detection:
+  selection:
+    protoPayload.methodName:
+      - SetIamPolicy
+      - google.iam.admin.v1.SetIAMPolicy
+  condition: selection
+falsepositives:
+  - Terraform / Pulumi runs reconciling project IAM bindings.

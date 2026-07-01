@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.7.5",
+  "id": "RUSTSEC-2026-0108",
+  "published": "2026-04-23T12:00:00Z",
+  "modified": "2026-05-06T06:32:50Z",
+  "aliases": [
+    "GHSA-qprh-m6p3-hwxc"
+  ],
+  "summary": "`sui-execution-cut` was removed from crates.io for malicious code",
+  "affected": [
+    {
+      "package": {
+        "name": "sui-execution-cut",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/sui-execution-cut"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.0-0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "affected_functions": null,
+        "affects": {
+          "arch": [],
+          "functions": [],
+          "os": []
+        }
+      },
+      "database_specific": {
+        "categories": [
+          "malicious"
+        ],
+        "cvss": null,
+        "informational": null,
+        "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2026-0108.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://crates.io/crates/sui-execution-cut"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://rustsec.org/advisories/RUSTSEC-2026-0108.html"
+    }
+  ],
+  "database_specific": {
+    "license": "CC0-1.0"
+  },
+  "last_updated": "2026-05-06"
+}

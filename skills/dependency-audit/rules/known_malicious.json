@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13T18:00:00Z",
+  "description": "Pointer to the consolidated malicious-package lists. See vulnerabilities/supply-chain/malicious-packages/ for the source of truth.",
+  "sources": [
+    "../../../vulnerabilities/supply-chain/malicious-packages/npm.json",
+    "../../../vulnerabilities/supply-chain/malicious-packages/pypi.json",
+    "../../../vulnerabilities/supply-chain/malicious-packages/rubygems.json",
+    "../../../vulnerabilities/supply-chain/malicious-packages/maven.json",
+    "../../../vulnerabilities/supply-chain/malicious-packages/nuget.json",
+    "../../../vulnerabilities/supply-chain/malicious-packages/github-actions.json",
+    "../../../vulnerabilities/supply-chain/malicious-packages/docker.json",
+    "../../../vulnerabilities/supply-chain/malicious-packages/crates.json",
+    "../../../vulnerabilities/supply-chain/malicious-packages/go.json"
+  ]
+}

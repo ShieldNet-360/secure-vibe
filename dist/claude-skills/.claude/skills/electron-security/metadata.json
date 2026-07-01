@@ -1,0 +1,38 @@
+{
+  "id": "electron-security",
+  "version": "1.2.0",
+  "title": "Electron Desktop Security",
+  "description": "Harden Electron apps: renderer trust boundary (nodeIntegration, contextIsolation, sandbox), contextBridge/IPC allowlists, shell.openExternal, navigation guards, deep-link auth, safeStorage",
+  "category": "hardening",
+  "severity": "critical",
+  "applies_to": [
+    "when generating Electron main-process code (BrowserWindow, ipcMain, app events)",
+    "when generating a preload script or contextBridge surface",
+    "when wiring custom-protocol / deep-link handlers",
+    "when storing tokens or secrets in an Electron app",
+    "when reviewing Electron IPC, navigation, or window configuration"
+  ],
+  "languages": [
+    "javascript",
+    "typescript"
+  ],
+  "token_budget": {
+    "minimal": 1400,
+    "compact": 1900,
+    "full": 3300
+  },
+  "rules_path": "checklists/",
+  "related_skills": [
+    "frontend-security",
+    "secret-detection",
+    "auth-security",
+    "container-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "Electron Security Checklist (official docs)",
+    "OWASP — Electron / desktop application security",
+    "CWE-78, CWE-22, CWE-250, CWE-693, CWE-829, CWE-1188",
+    "Doyensec / Electronegativity research on Electron attack surface"
+  ]
+}

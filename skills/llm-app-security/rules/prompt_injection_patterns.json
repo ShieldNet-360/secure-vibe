@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Common prompt-injection signal patterns. Use as a layered defense, not a substitute for system-prompt isolation and output validation.",
+  "indicators": [
+    {"id": "instruction-override-direct", "regex": "(?i)ignore (the )?(previous|prior|all) (instructions|system prompt|rules)", "severity": "high"},
+    {"id": "role-takeover", "regex": "(?i)you are now (a |an )?[a-z ]+ (without|with no)? (filters|restrictions|rules|policies)", "severity": "high"},
+    {"id": "dump-system-prompt", "regex": "(?i)(repeat|print|show|reveal) (your |the )?(system|initial|original) (prompt|instructions)", "severity": "high"},
+    {"id": "leak-keys", "regex": "(?i)(print|output|reveal|repeat) (your |the )?(api[-_ ]?key|secret|password|token)", "severity": "critical"},
+    {"id": "out-of-band-action", "regex": "(?i)visit (this )?(url|link|page) (and|to)", "severity": "medium"},
+    {"id": "exfil-via-image", "regex": "(?i)(generate|render|emit) (a )?(markdown|html) image[^.]*\\$\\{", "severity": "high"},
+    {"id": "jailbreak-do-anything", "regex": "(?i)\\b(dan|developer mode|aim|do anything now|jailbreak|grandma exploit)\\b", "severity": "high"},
+    {"id": "indirect-via-retrieved", "regex": "(?i)the following document contains instructions for the (assistant|model)", "severity": "high"},
+    {"id": "tool-coercion", "regex": "(?i)(use|invoke|call) (the )?(shell|exec|bash|system|file_write|http)\\s", "severity": "high"},
+    {"id": "policy-bypass", "regex": "(?i)(this is|pretend) (a |an )?(fictional|hypothetical|roleplay) scenario where (the )?rules don't apply", "severity": "medium"}
+  ],
+  "defense_layers": [
+    "System / user / tool messages live in separate roles; user content never carries higher-trust instructions",
+    "Retrieved documents are wrapped in a 'untrusted_context' block with explicit anti-instruction guard",
+    "Output schema validation rejects anything that isn't well-formed for the next step",
+    "Tool-call allowlist enforced at the orchestrator, not the model",
+    "Per-user authorization re-checked on every tool call, not assumed from session"
+  ]
+}

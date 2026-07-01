@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Rotation cadence and inactivity-revocation thresholds for IAM credentials.",
+  "rotation_targets": [
+    {
+      "credential_type": "aws_iam_access_key",
+      "max_age_days": 90,
+      "inactivity_revoke_days": 90,
+      "rationale": "AWS Well-Architected Security pillar SEC02-BP01."
+    },
+    {
+      "credential_type": "gcp_service_account_key",
+      "max_age_days": 90,
+      "inactivity_revoke_days": 90,
+      "preferred_alternative": "Workload Identity Federation (no key material)."
+    },
+    {
+      "credential_type": "azure_ad_client_secret",
+      "max_age_days": 90,
+      "inactivity_revoke_days": 90,
+      "preferred_alternative": "Managed Identity or Workload Identity Federation."
+    },
+    {
+      "credential_type": "kubernetes_service_account_token",
+      "max_age_days": 1,
+      "inactivity_revoke_days": 30,
+      "rationale": "TokenRequest API with audience-bound, time-bounded tokens replaces legacy long-lived SA tokens."
+    },
+    {
+      "credential_type": "oidc_client_secret",
+      "max_age_days": 180,
+      "inactivity_revoke_days": 90
+    },
+    {
+      "credential_type": "ssh_user_key",
+      "max_age_days": 365,
+      "inactivity_revoke_days": 90,
+      "preferred_alternative": "Short-lived SSH certificates issued by an internal CA."
+    },
+    {
+      "credential_type": "tls_private_key",
+      "max_age_days": 397,
+      "rationale": "CA/Browser Forum baseline limit for publicly-trusted TLS certificates."
+    }
+  ],
+  "anti_patterns": [
+    {
+      "id": "iam-no-rotation-automation",
+      "severity": "high",
+      "rule": "If long-lived credentials exist, an automated rotation job exists (Lambda + scheduled event, GitHub Actions cron, etc.). Manual-only rotation reliably ages out."
+    },
+    {
+      "id": "iam-no-revocation-on-offboard",
+      "severity": "critical",
+      "rule": "Offboarding playbook revokes all credentials within 24 hours. Verify via an IAM credential report diff between before/after."
+    },
+    {
+      "id": "iam-shared-bastion-keys",
+      "severity": "high",
+      "cwe": 798,
+      "rule": "SSH keys to shared bastion hosts are per-human; do not deploy a shared private key to multiple operators."
+    },
+    {
+      "id": "iam-key-in-environment-variable-in-image",
+      "severity": "critical",
+      "cwe": 798,
+      "rule": "Container images / AMIs do not bake an access key into the image (env vars or otherwise). Inject at runtime via secret manager or workload identity."
+    }
+  ]
+}

@@ -1,0 +1,1491 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-vmwf-m9c5-3jvc",
+  "published": "2026-04-14T23:27:52Z",
+  "modified": "2026-05-13T12:44:24.484594839Z",
+  "aliases": [
+    "BIT-dotnet-2026-32178",
+    "BIT-dotnet-sdk-2026-32178",
+    "CVE-2026-32178"
+  ],
+  "related": [
+    "CGA-2rg2-h873-8r2w"
+  ],
+  "summary": "Microsoft Security Advisory CVE-2026-32178 \u2013 .NET Spoofing Vulnerability ",
+  "affected": [
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-arm",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-arm"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-musl-arm",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-musl-arm"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-musl-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-musl-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-musl-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-musl-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.osx-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.osx-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.osx-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.osx-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-arm",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-arm"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-x86",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-x86"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-arm",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-arm"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-musl-arm",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-musl-arm"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-musl-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-musl-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-musl-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-musl-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.osx-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.osx-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.osx-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.osx-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-arm",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-arm"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-x86",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-x86"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-arm",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-arm"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-musl-arm",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-musl-arm"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-musl-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-musl-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-musl-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-musl-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.linux-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.linux-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.osx-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.osx-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.osx-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.osx-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-arm",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-arm"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-arm64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-arm64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-x64",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-x64"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Microsoft.NetCore.App.Runtime.win-x86",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.NetCore.App.Runtime.win-x86"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.26"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.10",
+        "8.0.11",
+        "8.0.12",
+        "8.0.13",
+        "8.0.14",
+        "8.0.15",
+        "8.0.16",
+        "8.0.17",
+        "8.0.18",
+        "8.0.19",
+        "8.0.2",
+        "8.0.20",
+        "8.0.21",
+        "8.0.22",
+        "8.0.23",
+        "8.0.24",
+        "8.0.25",
+        "8.0.3",
+        "8.0.4",
+        "8.0.5",
+        "8.0.6",
+        "8.0.7",
+        "8.0.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.25",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vmwf-m9c5-3jvc/GHSA-vmwf-m9c5-3jvc.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/dotnet/runtime/security/advisories/GHSA-vmwf-m9c5-3jvc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-32178"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dotnet/announcements/issues/12345"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/dotnet/runtime"
+    },
+    {
+      "type": "WEB",
+      "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-32178"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-138"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-14T23:27:52Z",
+    "nvd_published_at": "2026-04-14T18:17:20Z",
+    "severity": "LOW"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

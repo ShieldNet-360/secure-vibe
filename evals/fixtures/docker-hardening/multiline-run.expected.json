@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "multiline-run.Dockerfile",
+  "description": "curl ... \\ | sh \\ split across line continuations. The joined-line pass should still surface dkr-no-curl-pipe-sh.",
+  "expected_findings": [
+    {"rule": "dkr-no-curl-pipe-sh", "ecosystem": "docker"}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "deserialization-security",
+  "language": "python",
+  "insecure_signals": [
+    "yaml\\.load\\((?![^)]*Safe)",
+    "pickle\\.load"
+  ],
+  "secure_signals": [
+    "yaml\\.safe_load\\(",
+    "json\\.load\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

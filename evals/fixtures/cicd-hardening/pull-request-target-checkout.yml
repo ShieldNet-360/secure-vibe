@@ -1,0 +1,20 @@
+# Fixture: 'pull_request_target' runs in the context of the BASE repo
+# with read/write tokens, AND checks out the PR head (attacker-
+# controlled). This is the GHSA-mrrh-fwg8-r2c3 pattern. See
+# skills/cicd-security/checklists/github_actions_hardening.yaml rule
+# 'pull-request-target-checkout' and
+# https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+name: PR Comment
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - run: ./scripts/release.sh  # runs attacker code with secrets in scope

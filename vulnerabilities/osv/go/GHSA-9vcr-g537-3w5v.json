@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-9vcr-g537-3w5v",
+  "published": "2026-05-14T13:17:36Z",
+  "modified": "2026-05-16T00:06:04.189624Z",
+  "aliases": [
+    "CVE-2026-26191"
+  ],
+  "summary": "Fleet vulnerable to OS command injection in software packages",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/fleetdm/fleet/v4",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/fleetdm/fleet/v4"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.81.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-9vcr-g537-3w5v/GHSA-9vcr-g537-3w5v.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/fleetdm/fleet/security/advisories/GHSA-9vcr-g537-3w5v"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-26191"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/fleetdm/fleet"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/fleetdm/fleet/releases/tag/fleet-v4.81.1"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-78"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-14T13:17:36Z",
+    "nvd_published_at": "2026-05-14T20:17:02Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-05-16"
+}

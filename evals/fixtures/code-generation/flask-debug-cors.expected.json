@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "cors-security",
+  "language": "python",
+  "insecure_signals": [
+    "debug\\s*=\\s*True",
+    "origins\\s*=\\s*['\\\"]\\*"
+  ],
+  "secure_signals": [
+    "debug\\s*=\\s*False",
+    "origins\\s*=\\s*\\[",
+    "origins\\s*=\\s*['\\\"]https"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-489"
+}

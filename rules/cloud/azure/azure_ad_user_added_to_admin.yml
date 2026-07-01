@@ -1,0 +1,31 @@
+schema_version: "1.0"
+title: Azure AD user added to a privileged role
+id: 5e6f7a8b-9c0d-4a1b-2c3d-4e5f6a7b8c9d
+status: stable
+level: high
+description: |
+  Detects assignments to highly privileged Azure AD roles such as
+  Global Administrator, Privileged Role Administrator, and User Access
+  Administrator. Privileged role assignments are a hallmark of post-
+  compromise persistence in M365 tenants.
+references:
+  - https://learn.microsoft.com/azure/active-directory/roles/permissions-reference
+  - https://attack.mitre.org/techniques/T1098/003/
+tags:
+  - attack.t1098.003
+  - attack.persistence
+  - attack.privilege_escalation
+logsource:
+  product: azure
+  service: signinlogs
+detection:
+  selection:
+    OperationName: Add member to role
+    TargetResources.modifiedProperties.newValue|contains:
+      - "Global Administrator"
+      - "Privileged Role Administrator"
+      - "User Access Administrator"
+      - "Security Administrator"
+  condition: selection
+falsepositives:
+  - New IT admin onboarding processed through a documented ticket.

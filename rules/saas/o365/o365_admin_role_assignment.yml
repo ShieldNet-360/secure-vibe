@@ -1,0 +1,33 @@
+schema_version: "1.0"
+title: M365 administrative role assigned to a user
+id: ff667788-99aa-4bcd-ef01-23456789abcd
+status: stable
+level: high
+description: |
+  Detects assignment of an Azure AD / Microsoft 365 administrative role
+  to a user account. Privileged role grants outside of an HR-initiated
+  workflow are an indicator of post-compromise persistence.
+references:
+  - https://learn.microsoft.com/microsoft-365/admin/add-users/about-admin-roles
+  - https://attack.mitre.org/techniques/T1098/003/
+tags:
+  - attack.t1098.003
+  - attack.persistence
+logsource:
+  product: m365
+  service: azuread
+detection:
+  selection:
+    Operation:
+      - Add member to role.
+      - Add eligible member to role.
+    ModifiedProperties|contains:
+      - "Global Administrator"
+      - "Exchange Administrator"
+      - "SharePoint Administrator"
+      - "Security Administrator"
+      - "Privileged Role Administrator"
+  condition: selection
+falsepositives:
+  - Initial tenant setup or migration where multiple admins are added
+    in a single change window.

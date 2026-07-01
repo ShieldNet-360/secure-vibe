@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-h27x-rffw-24p4",
+  "published": "2026-04-08T00:05:27Z",
+  "modified": "2026-05-13T16:37:23.626309Z",
+  "aliases": [
+    "CVE-2026-35611"
+  ],
+  "related": [
+    "CGA-458x-w2ff-fpfm"
+  ],
+  "summary": "Addressable has a Regular Expression Denial of Service in Addressable templates",
+  "affected": [
+    {
+      "package": {
+        "name": "addressable",
+        "ecosystem": "RubyGems",
+        "purl": "pkg:gem/addressable"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.3.0"
+            },
+            {
+              "fixed": "2.9.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.3.2",
+        "2.3.3",
+        "2.3.4",
+        "2.3.5",
+        "2.3.6",
+        "2.3.7",
+        "2.3.8",
+        "2.4.0",
+        "2.5.0",
+        "2.5.1",
+        "2.5.2",
+        "2.6.0",
+        "2.7.0",
+        "2.8.0",
+        "2.8.1",
+        "2.8.10",
+        "2.8.2",
+        "2.8.3",
+        "2.8.4",
+        "2.8.5",
+        "2.8.6",
+        "2.8.7",
+        "2.8.8",
+        "2.8.9"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-h27x-rffw-24p4/GHSA-h27x-rffw-24p4.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/sporkmonger/addressable/security/advisories/GHSA-h27x-rffw-24p4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35611"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/addressable/CVE-2026-35611.yml"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/sporkmonger/addressable"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-1333"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-08T00:05:27Z",
+    "nvd_published_at": "2026-04-07T17:16:35Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

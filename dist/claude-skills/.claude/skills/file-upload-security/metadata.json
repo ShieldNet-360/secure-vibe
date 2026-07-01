@@ -1,0 +1,36 @@
+{
+  "id": "file-upload-security",
+  "version": "1.0.0",
+  "title": "File Upload Security",
+  "description": "Validate user uploads: MIME magic bytes, filename sanitization, size limits, separate serving domain, AV scanning, polyglot detection",
+  "category": "prevention",
+  "severity": "high",
+  "applies_to": [
+    "when generating an HTTP file-upload endpoint",
+    "when wiring presigned-URL upload to S3 / GCS / Azure Blob",
+    "when adding image/PDF/document processing of user uploads",
+    "when reviewing user-generated-content storage and serving"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 1200,
+    "compact": 1500,
+    "full": 2200
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "api-security",
+    "ssrf-prevention",
+    "container-security",
+    "cors-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP File Upload Cheat Sheet",
+    "CWE-434: Unrestricted Upload of File with Dangerous Type",
+    "CWE-22: Path Traversal",
+    "CVE-2018-15473 (libmagic), CVE-2016-3714 (ImageTragick)"
+  ]
+}

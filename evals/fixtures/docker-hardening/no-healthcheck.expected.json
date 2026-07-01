@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "no-healthcheck.Dockerfile",
+  "description": "Baseline fixture: skills/container-security/checklists/dockerfile_hardening.yaml lists dkr-healthcheck-defined as a required check, but the Go-side dockerfile scanner does not currently implement it. A hardened image with no HEALTHCHECK should therefore clear every existing scanner pass with zero findings. The fixture exists (a) as a control to confirm the scanner does not regress and (b) as a placeholder for the day the HEALTHCHECK rule is reviewed in.",
+  "expected_findings": []
+}

@@ -1,0 +1,60 @@
+schema_version: "1.0"
+framework: "CIS Kubernetes Benchmark v1.9 + Pod Security Standards (restricted)"
+last_updated: "2026-05-13"
+patterns:
+  - id: k8s-run-as-non-root
+    severity: critical
+    rule: "Pod / container sets runAsNonRoot=true and runAsUser >= 10000"
+    cwe: 250
+  - id: k8s-drop-all-capabilities
+    severity: high
+    rule: "securityContext.capabilities.drop=[ALL]; add back only required capabilities (NET_BIND_SERVICE etc.)"
+    cwe: 269
+  - id: k8s-seccomp-default
+    severity: high
+    rule: "securityContext.seccompProfile.type=RuntimeDefault on every container"
+  - id: k8s-read-only-root-fs
+    severity: high
+    rule: "readOnlyRootFilesystem=true; mount emptyDir for writable paths only"
+  - id: k8s-no-privileged
+    severity: critical
+    rule: "privileged=false; allowPrivilegeEscalation=false"
+    cwe: 269
+  - id: k8s-no-host-namespaces
+    severity: critical
+    rule: "hostNetwork, hostPID, hostIPC are unset or false"
+  - id: k8s-no-host-paths
+    severity: critical
+    rule: "No hostPath volume mounts on application pods"
+  - id: k8s-cpu-mem-limits
+    severity: high
+    rule: "resources.requests and resources.limits set on every container"
+  - id: k8s-probes-configured
+    severity: high
+    rule: "livenessProbe, readinessProbe, startupProbe defined for long-running pods"
+  - id: k8s-no-default-sa
+    severity: high
+    rule: "Pods use a dedicated ServiceAccount (not 'default'); automountServiceAccountToken=false when API access isn't needed"
+    cwe: 250
+  - id: k8s-network-policy-deny-all
+    severity: critical
+    rule: "Each namespace has a default-deny NetworkPolicy and explicit allow rules for required traffic"
+    cwe: 284
+  - id: k8s-pod-security-restricted
+    severity: critical
+    rule: "Namespace has pod-security.kubernetes.io/enforce=restricted (or equivalent OPA / Kyverno policy)"
+  - id: k8s-no-anonymous-auth
+    severity: critical
+    rule: "kube-apiserver flag --anonymous-auth=false"
+  - id: k8s-rbac-least-privilege
+    severity: high
+    rule: "No ClusterRoleBinding to cluster-admin for application service accounts"
+    cwe: 269
+  - id: k8s-image-pull-policy
+    severity: medium
+    rule: "imagePullPolicy=Always for digest-pinned images so updated image at same digest forces re-pull"
+  # Salvaged from the deprecated infrastructure-security skill (PR: deprecate-infrastructure-security).
+  - id: k8s-image-digest-pin
+    severity: medium
+    rule: "Production manifests reference container images by digest (image@sha256:...), not by floating tag, so a re-pushed tag cannot silently change the running workload"
+    cwe: 1357

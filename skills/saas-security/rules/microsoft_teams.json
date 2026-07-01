@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Microsoft Teams",
+  "description": "Microsoft Teams app / bot framework credentials, incoming webhook URLs, outgoing webhook HMAC, and tenant red flags. Largely overlaps with Entra ID for the OAuth side \u2014 see auth-security for that.",
+  "token_patterns": [
+    {
+      "name": "Microsoft Teams Incoming Webhook URL",
+      "regex": "https://[A-Za-z0-9\\-]+\\.webhook\\.office\\.com/webhookb2/[a-f0-9\\-]{36}@[a-f0-9\\-]{36}/IncomingWebhook/[a-f0-9]{32}/[a-f0-9\\-]{36}(?:/V2)?",
+      "severity": "high",
+      "hotwords": [
+        "webhook.office.com",
+        "teams",
+        "incomingwebhook"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false
+    },
+    {
+      "name": "Azure Bot Framework App Password",
+      "regex": "(?i)(bot|azure)[_\\-]?app[_\\-]?(password|secret)[\\\"'\\s:=]+[A-Za-z0-9~._\\-]{34,}",
+      "severity": "critical",
+      "hotwords": [
+        "bot",
+        "app_password",
+        "microsoftappid",
+        "teams"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Azure AD / Entra Client Secret (Teams app)",
+      "regex": "(?i)(microsoftappid|azure[_\\-]?client)[\\s\\S]{0,80}?(secret|client[_\\-]?secret)[\\\"'\\s:=]+[A-Za-z0-9~._\\-]{34,}",
+      "severity": "critical",
+      "hotwords": [
+        "azure",
+        "entra",
+        "client_secret",
+        "teams"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 4.0
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "teams-webhook-in-source",
+      "severity": "critical",
+      "title": "Teams Incoming Webhook URL committed to repo",
+      "rationale": "Bearer-equivalent: leaks lead to channel spam / phishing-from-inside-the-tenant.",
+      "fix": "Move to Workflows / Power Automate flow with auth, or use a Bot Framework app that requires a signed token; revoke the leaked webhook from the channel.",
+      "pattern": "webhook\\.office\\.com/webhookb2/"
+    },
+    {
+      "id": "teams-outgoing-webhook-no-hmac",
+      "severity": "high",
+      "title": "Outgoing webhook handler does not verify HMAC against the configured secret",
+      "rationale": "Without HMAC verification, anyone can POST commands to your bot endpoint.",
+      "fix": "Compute HMAC-SHA256 over the request body with the secret shown when the outgoing webhook was created; compare to `Authorization: HMAC <base64>` header."
+    },
+    {
+      "id": "teams-external-access-anonymous",
+      "severity": "high",
+      "title": "External access set to 'Allow all external domains' + anonymous meeting join",
+      "rationale": "Lets attackers send DMs to internal users from spoofed external tenants.",
+      "fix": "Teams Admin Center > Users > External access \u2014 restrict to specific allowed domains."
+    },
+    {
+      "id": "teams-app-permission-policy-everything",
+      "severity": "medium",
+      "title": "Global app permission policy 'Allow all apps' for users",
+      "rationale": "Lets users install third-party apps which can read meeting / chat content via Graph.",
+      "fix": "Teams Admin Center > Teams apps > Permission policies \u2014 restrict to vetted apps."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "teams-impersonation-display-name",
+      "severity": "high",
+      "title": "New Teams app installed with a display name impersonating an internal product",
+      "rationale": "Adversary-in-the-middle / phishing pattern via custom app side-loading.",
+      "signal": "Audit log: `App installed` where display_name matches one of a watch-list of brand strings outside the IT-managed app catalogue."
+    },
+    {
+      "id": "teams-mass-channel-creation",
+      "severity": "medium",
+      "title": "Mass channel creation across multiple teams in a short window",
+      "rationale": "Often signals worm/scam app activity.",
+      "signal": "Audit log: `Channel created` count per app > 20 in 1h."
+    },
+    {
+      "id": "teams-meeting-recording-export",
+      "severity": "high",
+      "title": "Bulk download of Teams meeting recordings from OneDrive/SharePoint",
+      "rationale": "Recordings contain confidential meeting content.",
+      "signal": "Microsoft 365 audit: FileDownloaded events with file extension .mp4 in the user's Recordings folder, count > 10 in 1h."
+    }
+  ],
+  "references": [
+    "https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook",
+    "https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-outgoing-webhook",
+    "https://learn.microsoft.com/en-us/microsoftteams/security-compliance-overview",
+    "https://learn.microsoft.com/en-us/azure/bot-service/bot-builder-authentication"
+  ]
+}

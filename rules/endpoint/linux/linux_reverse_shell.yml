@@ -1,0 +1,38 @@
+schema_version: "1.0"
+title: Linux reverse shell command line
+id: 4a5b6c7d-8e9f-4a0b-1c2d-3e4f5a6b7c8d
+status: stable
+level: high
+description: |
+  Detects common reverse-shell one-liners (bash /dev/tcp, ncat -e,
+  python pty.spawn, mkfifo pipe) on Linux endpoints.
+references:
+  - https://gtfobins.github.io/
+  - https://attack.mitre.org/techniques/T1059/004/
+tags:
+  - attack.t1059.004
+  - attack.execution
+logsource:
+  product: linux
+  service: auditd
+detection:
+  selection_bash_tcp:
+    type: EXECVE
+    a0|contains: "bash"
+    a1|contains: "/dev/tcp/"
+  selection_ncat:
+    type: EXECVE
+    a0|contains:
+      - "nc"
+      - "ncat"
+    a1|contains: "-e"
+  selection_python_pty:
+    type: EXECVE
+    a0|contains: "python"
+    a1|contains: "pty.spawn"
+  selection_mkfifo:
+    type: EXECVE
+    a0|contains: "mkfifo"
+  condition: 1 of selection_*
+falsepositives:
+  - Penetration test or red-team engagement explicitly scheduled.

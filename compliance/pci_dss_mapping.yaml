@@ -1,0 +1,66 @@
+schema_version: "1.0"
+framework: "PCI-DSS"
+version: "v4.0 (2022)"
+last_updated: "2026-05-13"
+controls:
+  - id: "1.4"
+    title: "Network Security Controls between Trusted and Untrusted Networks"
+    description: "Network security controls (NSCs) are implemented between trusted and untrusted networks."
+    skills: ["iac-security", "container-security"]
+    references: ["https://www.pcisecuritystandards.org/document_library"]
+  - id: "2.2"
+    title: "Secure Configuration Standards"
+    description: "System components are configured and managed securely."
+    skills: ["iac-security", "container-security"]
+  - id: "3.5.1"
+    title: "Cryptographic Keys are Protected"
+    description: "Cryptographic keys used to protect stored account data are protected against disclosure and misuse."
+    skills: ["crypto-misuse", "secret-detection"]
+  - id: "3.6.1"
+    title: "Procedures for Cryptographic Keys"
+    description: "Procedures and processes for protecting cryptographic keys used to secure stored account data."
+    skills: ["crypto-misuse", "secret-detection"]
+  - id: "4.2.1"
+    title: "Strong Cryptography for PAN over Open Networks"
+    description: "PAN is protected with strong cryptography during transmission over open, public networks."
+    skills: ["protocol-security", "crypto-misuse"]
+  - id: "6.2.4"
+    title: "Software Engineering Techniques to Prevent Common Software Attacks"
+    description: "Software engineering techniques or other methods are defined and in use by software development personnel to prevent or mitigate common software attacks."
+    skills: ["database-security", "frontend-security", "api-security", "error-handling-security"]
+  - id: "6.3.2"
+    title: "Inventory of Bespoke and Custom Software, Including Third-Party Components"
+    description: "An inventory of bespoke and custom software, including third-party components, is maintained."
+    skills: ["supply-chain-security"]
+  - id: "6.3.3"
+    title: "Security Vulnerabilities in Custom Software"
+    description: "Security vulnerabilities in custom software are identified and managed."
+    skills: ["supply-chain-security", "secret-detection"]
+  - id: "7.2"
+    title: "Access to System Components and Data"
+    description: "Access to system components and data is appropriately defined and assigned."
+    skills: ["iam-best-practices", "auth-security"]
+  - id: "8.3.6"
+    title: "Authentication Factors are Strong"
+    description: "Initial authentication factors meet minimum strength requirements; passwords are protected at rest and in transit."
+    skills: ["auth-security", "crypto-misuse"]
+  - id: "8.4.2"
+    title: "Multi-Factor Authentication for Administrative Access"
+    description: "MFA is implemented for all non-console access into the CDE for personnel with administrative access."
+    skills: ["auth-security"]
+  - id: "10.2"
+    title: "Audit Logs are Implemented"
+    description: "Audit logs are implemented to support the detection of anomalies and suspicious activity, and the forensic analysis of events."
+    skills: ["logging-security"]
+  - id: "10.3"
+    title: "Audit Logs are Protected"
+    description: "Audit logs are protected from destruction and unauthorized modifications."
+    skills: ["logging-security"]
+  - id: "11.3"
+    title: "External and Internal Vulnerabilities are Regularly Identified"
+    description: "Vulnerability identification and reporting is automated and routine."
+    skills: ["supply-chain-security"]
+  - id: "12.10"
+    title: "Suspected and Confirmed Security Incidents are Responded to Immediately"
+    description: "Incident response plan is in place to respond to suspected or confirmed security incidents."
+    skills: ["logging-security", "error-handling-security"]

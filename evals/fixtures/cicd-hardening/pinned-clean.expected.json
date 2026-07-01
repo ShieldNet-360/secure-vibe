@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "pinned-clean.yml",
+  "description": "Control fixture: every gha-* check defined in skills/cicd-security/SKILL.md should clear. Actions are pinned to 40-char SHAs, the workflow declares read-only top-level permissions, no remote-script execution step, no untrusted github.event interpolation, no pull_request_target trigger. scan_github_actions must return zero findings.",
+  "expected_findings": []
+}

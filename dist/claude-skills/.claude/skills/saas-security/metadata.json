@@ -1,0 +1,49 @@
+{
+  "id": "saas-security",
+  "version": "1.0.0",
+  "title": "SaaS Application Security",
+  "description": "Detect tokens, misconfigurations, and admin red flags for major SaaS platforms (GWS, Atlassian, Notion, HubSpot, Salesforce, BambooHR, Workday, Odoo, chat platforms, Zoom, Calendly, NetSuite)",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "when wiring a SaaS API key or OAuth token into code",
+    "when reviewing a SaaS connector / webhook / SCIM bridge",
+    "when triaging suspicious SaaS admin activity",
+    "when authoring infrastructure that proxies SaaS traffic",
+    "when answering a SaaS-related security question"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 1800,
+    "compact": 2500,
+    "full": 3600
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "secret-detection",
+    "iam-best-practices",
+    "auth-security",
+    "supply-chain-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "Google Workspace Admin SDK security guidance",
+    "Atlassian Cloud Security Best Practices",
+    "Salesforce Security Implementation Guide",
+    "HubSpot Private App authentication docs",
+    "Slack OAuth \u0026 token type reference",
+    "Microsoft Teams app permission model",
+    "Zoom App Marketplace security review",
+    "BambooHR API \u0026 Single Sign-On hardening",
+    "Workday Integration System Security framework",
+    "NetSuite Token-Based Authentication (TBA) guide",
+    "Notion API integration token model",
+    "Lark/Feishu Open Platform security guidelines",
+    "Calendly Webhook V2 signature spec",
+    "CWE-798: Use of Hard-coded Credentials",
+    "CWE-284: Improper Access Control",
+    "CWE-1392: Use of Default Credentials"
+  ]
+}

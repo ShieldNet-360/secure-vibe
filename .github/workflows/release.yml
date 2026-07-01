@@ -1,0 +1,442 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to publish (must already exist)"
+        required: true
+        type: string
+
+# Least privilege: default every job to read-only; only the `publish`
+# job that creates the GitHub Release is granted contents: write below.
+permissions:
+  contents: read
+
+jobs:
+  # Cross-compile every target on a single Linux runner. The resulting
+  # binaries are uploaded as `raw-<goos>-<goarch>` artifacts and handed
+  # off to platform-specific jobs below for signing + checksumming.
+  build:
+    name: Cross-compile secure-vibe ${{ matrix.goos }}/${{ matrix.goarch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - goos: linux
+            goarch: amd64
+          - goos: linux
+            goarch: arm64
+          - goos: darwin
+            goarch: amd64
+          - goos: darwin
+            goarch: arm64
+          - goos: windows
+            goarch: amd64
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+
+      - name: Set up Go
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
+        with:
+          go-version: "1.22"
+          cache: true
+
+      - name: Verify go.sum is intact
+        run: go mod verify
+
+      - name: Reproducible build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: "0"
+          SOURCE_DATE_EPOCH: "0"
+          SECURE_VIBE_LIBRARY_PUBKEY_B64: ${{ secrets.SECURE_VIBE_LIBRARY_PUBKEY_B64 }}
+          SECURE_VIBE_LIBRARY_PUBKEY_ID: ${{ secrets.SECURE_VIBE_LIBRARY_PUBKEY_ID }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ext=""
+          if [ "$GOOS" = "windows" ]; then
+            ext=".exe"
+          fi
+          mkdir -p dist-build
+          # secure-vibe: the single binary (CLI + `secure-vibe mcp` server).
+          # Carries the embedded public key + CLI version via -ldflags -X so
+          # `secure-vibe dev manifest verify` and `secure-vibe version` work on
+          # the shipped binary. This is the asset install.sh / Homebrew pull
+          # and the binary `go install .../cmd/secure-vibe@latest` produces.
+          go build \
+            -trimpath \
+            -ldflags "-s -w \
+              -X github.com/shieldnet-360/secure-vibe/cmd/secure-vibe/cmd.CLIVersion=${GITHUB_REF_NAME:-dev} \
+              -X github.com/shieldnet-360/secure-vibe/cmd/secure-vibe/internal/manifest.EmbeddedPublicKey=${SECURE_VIBE_LIBRARY_PUBKEY_B64:-} \
+              -X github.com/shieldnet-360/secure-vibe/cmd/secure-vibe/internal/manifest.EmbeddedPublicKeyID=${SECURE_VIBE_LIBRARY_PUBKEY_ID:-} \
+            " \
+            -o "dist-build/secure-vibe-${GOOS}-${GOARCH}${ext}" \
+            ./cmd/secure-vibe
+
+      - name: Upload unsigned binary
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: raw-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: dist-build/
+
+  # Linux binaries are not code-signed. This job just computes checksums
+  # and re-uploads the artifact under the canonical name that `publish`
+  # consumes.
+  finalize-linux:
+    name: Checksum Linux ${{ matrix.goarch }}
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        goarch: [amd64, arm64]
+    steps:
+      - name: Download unsigned binary
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: raw-linux-${{ matrix.goarch }}
+          path: dist-build/
+
+      - name: SHA-256 of binaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd dist-build
+          sha256sum \
+            secure-vibe-linux-${{ matrix.goarch }} \
+            > checksums-linux-${{ matrix.goarch }}.txt
+
+      - name: Upload final binary artifact
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: secure-vibe-linux-${{ matrix.goarch }}
+          path: dist-build/
+
+  # macOS Developer ID signing + notarization. Runs on `macos-latest`
+  # so the Apple toolchain (`security`, `codesign`, `ditto`,
+  # `xcrun notarytool`) is available. When `secrets.APPLE_DEVELOPER_ID`
+  # is not configured the binary is passed through unsigned and the
+  # release still succeeds (with a `shasum` step on the unsigned bytes).
+  sign-macos:
+    name: Sign macOS ${{ matrix.goarch }}
+    needs: build
+    runs-on: macos-latest
+    env:
+      APPLE_DEVELOPER_ID: ${{ secrets.APPLE_DEVELOPER_ID }}
+    strategy:
+      fail-fast: false
+      matrix:
+        goarch: [amd64, arm64]
+    steps:
+      - name: Download unsigned binary
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: raw-darwin-${{ matrix.goarch }}
+          path: dist-build/
+
+      - name: Sign and notarize (Developer ID + notarytool)
+        if: env.APPLE_DEVELOPER_ID != ''
+        env:
+          APPLE_DEVELOPER_ID: ${{ secrets.APPLE_DEVELOPER_ID }}
+          APPLE_DEVELOPER_ID_CERT_P12_BASE64: ${{ secrets.APPLE_DEVELOPER_ID_CERT_P12_BASE64 }}
+          APPLE_DEVELOPER_ID_CERT_PASSWORD: ${{ secrets.APPLE_DEVELOPER_ID_CERT_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_NOTARY_PASSWORD: ${{ secrets.APPLE_NOTARY_PASSWORD }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "$APPLE_DEVELOPER_ID_CERT_P12_BASE64" | base64 -d > /tmp/cert.p12
+          security create-keychain -p actions build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p actions build.keychain
+          security import /tmp/cert.p12 -k build.keychain -P "$APPLE_DEVELOPER_ID_CERT_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k actions build.keychain
+          # Sign + notarize the shipped binary.
+          for out in secure-vibe-darwin-${{ matrix.goarch }}; do
+            codesign --force --options runtime --timestamp \
+              --sign "$APPLE_DEVELOPER_ID" "dist-build/${out}"
+            ditto -c -k --keepParent "dist-build/${out}" "/tmp/${out}.zip"
+            xcrun notarytool submit "/tmp/${out}.zip" \
+              --apple-id "$APPLE_ID" \
+              --team-id "$APPLE_TEAM_ID" \
+              --password "$APPLE_NOTARY_PASSWORD" \
+              --wait
+            codesign --verify --strict --verbose=2 "dist-build/${out}"
+          done
+
+      # `shasum -a 256` is the macOS-native equivalent of `sha256sum`
+      # and produces identical output (lowercase hex + two spaces + name).
+      - name: SHA-256 of binaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd dist-build
+          shasum -a 256 \
+            secure-vibe-darwin-${{ matrix.goarch }} \
+            > checksums-darwin-${{ matrix.goarch }}.txt
+
+      - name: Upload final binary artifact
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: secure-vibe-darwin-${{ matrix.goarch }}
+          path: dist-build/
+
+  # Windows Authenticode signing. Runs on `windows-latest` so
+  # `signtool.exe` (shipped with the Windows SDK) is available. When
+  # `secrets.WINDOWS_CERT_PFX` is not configured the binary is passed
+  # through unsigned.
+  sign-windows:
+    name: Sign Windows amd64
+    needs: build
+    runs-on: windows-latest
+    env:
+      WINDOWS_CERT_PFX: ${{ secrets.WINDOWS_CERT_PFX }}
+    steps:
+      - name: Download unsigned binary
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: raw-windows-amd64
+          path: dist-build/
+
+      - name: Sign (Authenticode)
+        if: env.WINDOWS_CERT_PFX != ''
+        env:
+          WINDOWS_CERT_PFX: ${{ secrets.WINDOWS_CERT_PFX }}
+          WINDOWS_CERT_PFX_PASSWORD: ${{ secrets.WINDOWS_CERT_PFX_PASSWORD }}
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $pfxPath = Join-Path $env:RUNNER_TEMP 'cert.pfx'
+          [System.IO.File]::WriteAllBytes($pfxPath, [System.Convert]::FromBase64String($env:WINDOWS_CERT_PFX))
+          $signtool = (Get-ChildItem 'C:/Program Files (x86)/Windows Kits/10/bin' -Recurse -Filter signtool.exe `
+            | Where-Object { $_.FullName -match '\\x64\\' } `
+            | Sort-Object FullName -Descending `
+            | Select-Object -First 1).FullName
+          if (-not $signtool) { throw 'signtool.exe not found on runner' }
+          # Sign the shipped binary with the Authenticode cert.
+          foreach ($bin in @('dist-build/secure-vibe-windows-amd64.exe')) {
+            & $signtool sign `
+              /f $pfxPath `
+              /p $env:WINDOWS_CERT_PFX_PASSWORD `
+              /tr 'http://timestamp.digicert.com' `
+              /td sha256 `
+              /fd sha256 `
+              $bin
+            & $signtool verify /pa $bin
+          }
+
+      - name: SHA-256 of binaries
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Set-Location dist-build
+          # Match the `sha256sum` output format: "<hash>  <filename>\n".
+          # Use UTF-8 without BOM so the file reads cleanly on Unix tooling.
+          $lines = foreach ($name in @('secure-vibe-windows-amd64.exe')) {
+            $hash = (Get-FileHash $name -Algorithm SHA256).Hash.ToLower()
+            "$hash  $name"
+          }
+          [System.IO.File]::WriteAllText("checksums-windows-amd64.txt", ($lines -join "`n") + "`n", (New-Object System.Text.UTF8Encoding $false))
+
+      - name: Upload final binary artifact
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: secure-vibe-windows-amd64
+          path: dist-build/
+
+  publish:
+    name: Compute manifest and publish release assets
+    needs: [finalize-linux, sign-macos, sign-windows]
+    runs-on: ubuntu-latest
+    # The only job that writes a Release; the rest stay read-only.
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+
+      - name: Set up Go
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
+        with:
+          go-version: "1.22"
+          cache: true
+
+      - name: Build local secure-vibe (for manifest tooling)
+        run: go build -trimpath -ldflags "-s -w" -o /tmp/secure-vibe ./cmd/secure-vibe
+
+      - name: Compute manifest checksums
+        run: /tmp/secure-vibe dev manifest compute --path . --write
+
+      - name: Verify manifest checksums
+        run: /tmp/secure-vibe dev manifest verify --path . --checksums-only
+
+      - name: Compute delta against previous version (best effort)
+        shell: bash
+        run: |
+          set -e
+          mkdir -p deltas
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREV_TAG" ]; then
+            echo "no previous tag; skipping delta"
+            exit 0
+          fi
+          PREV_MANIFEST=$(mktemp)
+          if git show "$PREV_TAG:manifest.json" > "$PREV_MANIFEST" 2>/dev/null; then
+            /tmp/secure-vibe dev manifest delta --from "$PREV_MANIFEST" --to manifest.json --out deltas || true
+          fi
+
+      - name: Download every binary artifact
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          path: artifacts/
+          # Only pull the signed/finalized artifacts; the `raw-*`
+          # artifacts are intermediate and must not appear in the
+          # release.
+          pattern: secure-vibe-*
+
+      - name: Build full OSV cache from upstream
+        # The committed `vulnerabilities/osv/` tree is a small
+        # latest-first sample (see scripts/ingest-osv.py:DEFAULT_PER_ECO);
+        # the release additionally ships the full upstream archive as a
+        # standalone asset so `secure-vibe dev fetch-vulns --from-release`
+        # can populate the user cache without hitting osv.dev directly.
+        shell: bash
+        run: |
+          set -e
+          mkdir -p osv-full-build/osv
+          python3 scripts/ingest-osv.py \
+            --per-ecosystem 0 \
+            --ordering latest-first \
+            --severity-priority \
+            --output-dir osv-full-build/osv
+
+      - name: Stage release assets
+        shell: bash
+        run: |
+          set -e
+          mkdir -p release
+          # Flatten the per-platform secure-vibe binaries plus their checksum files.
+          find artifacts -type f \( -name 'secure-vibe-*' -o -name 'checksums-*.txt' \) -exec cp {} release/ \;
+          cp manifest.json release/
+          # Bundle the distributable library tree into a single tarball so
+          # `secure-vibe update` (default --source) can pull the whole
+          # library in one HTTP request. Individual files under skills/,
+          # vulnerabilities/, dictionaries/, and dist/ are NOT published
+          # as separate release assets — this bundle is the canonical
+          # channel for them. Include manifest.json inside the tarball so
+          # NewHTTPTarballSource → NewTarballSource → NewDirSource finds
+          # it after extraction.
+          tar -czf release/secure-vibe-data.tar.gz \
+            manifest.json \
+            skills \
+            vulnerabilities \
+            dictionaries \
+            dist \
+            rules \
+            compliance \
+            profiles
+          # Pack the full upstream OSV cache as a separate asset. The
+          # archive's top-level entry is `osv/`, so `fetch-vulns
+          # --from-release` can extract it directly into the user's
+          # cache root and end up with `<cache>/osv/<eco>/...` — the
+          # same layout the scanner consults.
+          tar -C osv-full-build -czf release/osv-cache.tar.gz osv
+          if [ -d deltas ]; then
+            tar -C deltas -czf release/deltas.tar.gz . || true
+          fi
+          (cd release && sha256sum * > SHA256SUMS.txt)
+
+      - name: Tag-resolved release name
+        id: tag
+        shell: bash
+        env:
+          TAG_INPUT: ${{ inputs.tag }}
+        run: |
+          if [ -n "$TAG_INPUT" ]; then
+            echo "tag=$TAG_INPUT" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Stamp Homebrew formula
+        # Make `brew install shieldnet-360/tap/secure-vibe` real: fill the
+        # formula template's version + per-arch SHA-256 from the binaries we
+        # just built, and publish the stamped formula as the `secure-vibe.rb`
+        # release asset. The formula's `url` lines interpolate `v#{version}`,
+        # so setting the version resolves them to this release's download URLs.
+        # The tap repo itself is updated by the release manager (or a
+        # tap-token-gated step) by copying this asset — see the formula header.
+        shell: bash
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          da=$(sha256sum release/secure-vibe-darwin-arm64 | awk '{print $1}')
+          dx=$(sha256sum release/secure-vibe-darwin-amd64 | awk '{print $1}')
+          la=$(sha256sum release/secure-vibe-linux-arm64  | awk '{print $1}')
+          lx=$(sha256sum release/secure-vibe-linux-amd64  | awk '{print $1}')
+          sed \
+            -e "s/^  version \"0.0.0\"/  version \"${version}\"/" \
+            -e "s/REPLACE_WITH_DARWIN_ARM64_SHA256/${da}/" \
+            -e "s/REPLACE_WITH_DARWIN_AMD64_SHA256/${dx}/" \
+            -e "s/REPLACE_WITH_LINUX_ARM64_SHA256/${la}/" \
+            -e "s/REPLACE_WITH_LINUX_AMD64_SHA256/${lx}/" \
+            packaging/homebrew/secure-vibe.rb > release/secure-vibe.rb
+          if grep -q "REPLACE_WITH\|0.0.0" release/secure-vibe.rb; then
+            echo "::error::Homebrew formula was not fully stamped (a placeholder or 0.0.0 remains)."
+            exit 1
+          fi
+          echo "Stamped Homebrew formula for ${version}:"
+          grep -E '  version|sha256' release/secure-vibe.rb
+
+      - name: Publish GitHub Release (draft)
+        # The release is created as a DRAFT so that consumers cannot
+        # download it via `secure-vibe update` (which follows the
+        # "latest" pointer) before the manifest has been signed
+        # offline and re-verified by `sign-and-publish.yml`. The
+        # draft → sign → verify → publish flow is documented in
+        # SIGNING.md. Running `sign-and-publish.yml` after the
+        # release manager re-uploads a signed manifest.json marks
+        # the release as non-draft.
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          files: |
+            release/*
+          fail_on_unmatched_files: true
+          draft: true
+          body: |
+            Automated Skills Library release for tag ${{ steps.tag.outputs.tag }}.
+
+            > ⚠️ This release is a **draft**. The bundled `manifest.json`
+            > still contains `"signature": "TBD"` and is not consumable by
+            > `secure-vibe update`. The release manager must sign the
+            > manifest offline per [SIGNING.md](../SIGNING.md), re-upload
+            > it to the draft, and then run the `Sign & publish` workflow
+            > (`.github/workflows/sign-and-publish.yml`) to mark this
+            > release as published.
+
+            **Assets:**
+            - `secure-vibe-<goos>-<goarch>[.exe]` — the single binary: CLI + MCP server (`secure-vibe mcp`), reproducible build. This is what `install.sh` and Homebrew download, and what `go install .../cmd/secure-vibe@latest` produces. Reads its library data from `--path` / `$SECURE_VIBE_LIBRARY_PATH` (it does not embed the data tree).
+            - `checksums-<goos>-<goarch>.txt` — SHA-256 of the binary for that platform.
+            - `manifest.json` — library manifest (signed out-of-band before publish).
+            - `secure-vibe-data.tar.gz` — library payload (skills, vulnerabilities, dictionaries, dist, rules, compliance, profiles, manifest.json). This is what `secure-vibe update` downloads by default. The bundled `vulnerabilities/osv/` tree is a small latest-first sample.
+            - `osv-cache.tar.gz` — full upstream OSV catalogue (`osv/<eco>/...`). Consumed by `secure-vibe dev fetch-vulns --from-release` to populate the user cache with complete coverage without hitting osv.dev.
+            - `deltas.tar.gz` — patch set against the previous release (best effort).
+            - `SHA256SUMS.txt` — checksum of every asset above.
+
+            **Verification (post-publish):**
+            - Verify the binary with the matching `checksums-<goos>-<goarch>.txt` file.
+            - Verify `manifest.json` with `secure-vibe dev manifest verify --path .`.
+            - The `Sign & publish` workflow runs the same verification in CI
+              before flipping the draft to public.

@@ -1,0 +1,33 @@
+schema_version: "1.0"
+title: PowerShell invoked with -EncodedCommand
+id: bb22cc33-dd44-4ee5-6ff6-7890abcdef12
+status: stable
+level: high
+description: |
+  Detects PowerShell processes started with the `-EncodedCommand` /
+  `-enc` flag, which is the most common way scripts are obfuscated to
+  bypass naive command-line inspection.
+references:
+  - https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_powershell_exe
+  - https://attack.mitre.org/techniques/T1027/
+tags:
+  - attack.t1027
+  - attack.defense_evasion
+  - attack.t1059.001
+logsource:
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 1
+    Image|endswith:
+      - "\\powershell.exe"
+      - "\\pwsh.exe"
+    CommandLine|contains:
+      - " -EncodedCommand "
+      - " -enc "
+      - " -ec "
+  condition: selection
+falsepositives:
+  - Endpoint management agents launching short-lived PowerShell helpers
+    with encoded arguments.

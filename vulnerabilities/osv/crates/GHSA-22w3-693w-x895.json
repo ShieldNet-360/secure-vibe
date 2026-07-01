@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-22w3-693w-x895",
+  "published": "2026-05-06T23:31:27Z",
+  "modified": "2026-05-10T08:14:17.037110321Z",
+  "summary": "webauthn-rs-core/webauthn-authenticator-rs: Origin validation mismatch possible when subdomains are allowed",
+  "affected": [
+    {
+      "package": {
+        "name": "webauthn-rs-core",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/webauthn-rs-core"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.5.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 0.5.4",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-22w3-693w-x895/GHSA-22w3-693w-x895.json"
+      }
+    },
+    {
+      "package": {
+        "name": "webauthn-authenticator-rs",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/webauthn-authenticator-rs"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.6.0-dev"
+            },
+            {
+              "fixed": "0.6.1-dev"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.6.0-dev"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-22w3-693w-x895/GHSA-22w3-693w-x895.json"
+      }
+    },
+    {
+      "package": {
+        "name": "webauthn-rs-core",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/webauthn-rs-core"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.6.0-dev"
+            },
+            {
+              "fixed": "0.6.1-dev"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.6.0-dev"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-22w3-693w-x895/GHSA-22w3-693w-x895.json"
+      }
+    },
+    {
+      "package": {
+        "name": "webauthn-authenticator-rs",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/webauthn-authenticator-rs"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.5.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 0.5.4",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-22w3-693w-x895/GHSA-22w3-693w-x895.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/kanidm/webauthn-rs/security/advisories/GHSA-22w3-693w-x895"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/kanidm/webauthn-rs"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-1289"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-06T23:31:27Z",
+    "nvd_published_at": null,
+    "severity": "LOW"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:P/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-05-10"
+}

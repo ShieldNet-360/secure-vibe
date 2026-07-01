@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Catalogue of deserialization primitives that constitute RCE when fed untrusted bytes, with per-language safe alternatives and references to historical CVEs they have appeared in.",
+  "references": [
+    "https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html",
+    "https://cwe.mitre.org/data/definitions/502.html"
+  ],
+  "primitives": [
+    {
+      "language": "java",
+      "sinks": [
+        "java.io.ObjectInputStream#readObject",
+        "com.fasterxml.jackson.databind.ObjectMapper#enableDefaultTyping",
+        "org.yaml.snakeyaml.Yaml#load (default Constructor)",
+        "com.thoughtworks.xstream.XStream#fromXML (no whitelist)",
+        "java.beans.XMLDecoder#readObject",
+        "javax.management.remote.rmi.RMIConnector",
+        "org.springframework.core.serializer.support.DeserializingConverter",
+        "org.apache.commons.collections.functors.InvokerTransformer"
+      ],
+      "safer": [
+        "Jackson with PolymorphicTypeValidator + activateDefaultTyping(LAMINAR_INTERNAL_DEFAULT, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY)",
+        "SnakeYAML new Yaml(new SafeConstructor(new LoaderOptions()))",
+        "XStream with XStream.setupDefaultSecurity + addPermission(NoTypePermission.NONE) + addPermission(new ExplicitTypePermission(allowList))",
+        "Use Protobuf / Avro with strict schemas, no polymorphism"
+      ],
+      "cves": ["CVE-2017-9805", "CVE-2016-4437", "CVE-2019-2725", "CVE-2017-12149"]
+    },
+    {
+      "language": "python",
+      "sinks": [
+        "pickle.load",
+        "pickle.loads",
+        "cPickle.loads",
+        "dill.loads",
+        "joblib.load",
+        "yaml.load (default Loader)",
+        "marshal.loads",
+        "shelve.open",
+        "numpy.load(... allow_pickle=True)",
+        "torch.load (weights_only=False, pre-2.6 default)"
+      ],
+      "safer": [
+        "json.loads with a Pydantic / dataclasses_json model and explicit allowlist of fields",
+        "yaml.safe_load (or yaml.load(data, Loader=yaml.SafeLoader))",
+        "torch.load(path, weights_only=True) — required for any downloaded checkpoint",
+        "msgpack with strict_types=True and a model layer on top"
+      ],
+      "cves": ["CVE-2017-18342 (PyYAML)"]
+    },
+    {
+      "language": "csharp",
+      "sinks": [
+        "System.Runtime.Serialization.Formatters.Binary.BinaryFormatter",
+        "System.Runtime.Serialization.NetDataContractSerializer",
+        "System.Web.UI.ObjectStateFormatter",
+        "System.Web.UI.LosFormatter",
+        "System.Resources.ResourceReader (when loading attacker-controlled .resx)",
+        "JavaScriptSerializer with SimpleTypeResolver"
+      ],
+      "safer": [
+        "System.Text.Json with strict allowlist + JsonConverter<T>",
+        "DataContractSerializer with KnownTypes pre-declared",
+        "Use protobuf-net or MessagePack-CSharp with explicit type maps"
+      ],
+      "cves": ["CVE-2020-0688 (Exchange ViewState)", "CVE-2017-8759"]
+    },
+    {
+      "language": "php",
+      "sinks": [
+        "unserialize",
+        "Yaml::parse (Symfony, with PARSE_OBJECT)",
+        "Phar metadata (file_exists / file_get_contents on phar:// URI)"
+      ],
+      "safer": [
+        "json_decode($input, true, $depth, JSON_THROW_ON_ERROR) + an explicit schema validator",
+        "If unserialize is unavoidable, pass `allowed_classes => false` (PHP 7.0+) or an explicit allowlist array"
+      ],
+      "cves": ["CVE-2019-12259 (Symfony)", "CVE-2018-15133 (Laravel)"]
+    },
+    {
+      "language": "ruby",
+      "sinks": [
+        "Marshal.load",
+        "Marshal.restore",
+        "YAML.load (Psych <= 3.0)",
+        "Psych.load (without permitted_classes)",
+        "ActiveSupport::MessageVerifier#verify (if attacker controls the secret_key_base)"
+      ],
+      "safer": [
+        "YAML.safe_load(data, permitted_classes: [Symbol, Time, Date])",
+        "JSON.parse + a contract gem (dry-validation, hash-validator)",
+        "Use Rails encrypted cookies (cookies.encrypted) not Marshal-signed ones"
+      ],
+      "cves": ["CVE-2022-29181 (nokogiri)", "CVE-2020-8165 (Rails cache)"]
+    },
+    {
+      "language": "javascript",
+      "sinks": [
+        "eval / Function constructor on JSON-like strings",
+        "node-serialize.unserialize",
+        "vm.runInNewContext / runInThisContext on untrusted strings",
+        "JSURL / serialize-javascript (with reviver allowing functions)"
+      ],
+      "safer": [
+        "JSON.parse with a reviver that rejects non-data types",
+        "Zod / io-ts schemas applied immediately after JSON.parse",
+        "msgpack-lite with strict typing"
+      ],
+      "cves": ["CVE-2017-5941 (node-serialize)"]
+    }
+  ],
+  "design_principles": [
+    {"id": "deser-no-polymorphic", "severity": "critical", "cwe": 502, "rule": "Prefer non-polymorphic schema-validated formats (JSON+Schema, Protobuf) over native polymorphic serializers"},
+    {"id": "deser-hmac-before-load", "severity": "critical", "cwe": 502, "rule": "If serialized data crosses a trust boundary, HMAC it with a fresh secret and verify before deserializing"},
+    {"id": "deser-type-allowlist", "severity": "critical", "cwe": 502, "rule": "When polymorphism is required, enforce a strict allowlist of permitted types at the framework level"},
+    {"id": "deser-no-pickle-untrusted", "severity": "critical", "cwe": 502, "rule": "pickle / Marshal / BinaryFormatter / ObjectInputStream are RCE primitives — never feed them untrusted bytes"},
+    {"id": "deser-yaml-safe-only", "severity": "high", "cwe": 502, "rule": "PyYAML SafeLoader, SnakeYAML SafeConstructor, Psych safe_load — explicit safe variants only"}
+  ]
+}

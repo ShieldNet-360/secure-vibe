@@ -1,0 +1,400 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Two consolidated jobs instead of one-job-per-check: a single runner +
+# toolchain setup per group cuts ~10 redundant runner spin-ups (and rebuilds
+# secure-vibe once instead of 4x). Each check is a named step, so a failure
+# still points at exactly which check broke. Steps are fail-fast within a job.
+jobs:
+  static-checks:
+    name: Static checks (json/yaml, frontmatter, schema, links, references, data-quality)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.12"
+
+      - name: Install PyYAML
+        run: python -m pip install --quiet pyyaml
+
+      - name: Validate JSON files
+        shell: bash
+        run: |
+          set -e
+          fail=0
+          while IFS= read -r f; do
+            if ! python -c "import json,sys; json.load(open(sys.argv[1]))" "$f"; then
+              echo "::error file=$f::Invalid JSON"
+              fail=1
+            fi
+          done < <(find . -name '*.json' -not -path './.git/*')
+          exit "$fail"
+
+      - name: Validate YAML files
+        shell: bash
+        run: |
+          set -e
+          fail=0
+          while IFS= read -r f; do
+            # mkdocs.yml legitimately uses MkDocs Material's Python-tag
+            # extension syntax (!!python/name:...), which only resolves inside
+            # the MkDocs build container. docs.yml runs a real mkdocs build.
+            if [ "$(basename "$f")" = "mkdocs.yml" ]; then
+              continue
+            fi
+            if ! python -c "import yaml,sys; yaml.safe_load(open(sys.argv[1]))" "$f"; then
+              echo "::error file=$f::Invalid YAML"
+              fail=1
+            fi
+          done < <(find . \( -name '*.yaml' -o -name '*.yml' \) -not -path './.git/*')
+          exit "$fail"
+
+      - name: SKILL.md frontmatter shape
+        shell: bash
+        run: |
+          set -e
+          python - <<'PY'
+          import re, sys, pathlib, yaml
+
+          required = {
+              "id", "version", "title", "description", "category",
+              "severity", "applies_to", "languages", "token_budget",
+              "last_updated", "sources",
+          }
+          allowed_categories = {"prevention", "detection", "compliance", "supply-chain", "hardening"}
+          allowed_severities = {"critical", "high", "medium", "low"}
+
+          frontmatter_re = re.compile(r"\A---\s*\n(.*?)\n---\s*(?:\n|\Z)", re.DOTALL)
+
+          fail = 0
+          for path in sorted(pathlib.Path("skills").rglob("SKILL.md")):
+              text = path.read_text(encoding="utf-8")
+              match = frontmatter_re.match(text)
+              if not match:
+                  print(f"::error file={path}::Missing or malformed YAML frontmatter")
+                  fail = 1
+                  continue
+              data = yaml.safe_load(match.group(1)) or {}
+              missing = required - data.keys()
+              if missing:
+                  print(f"::error file={path}::Missing fields: {sorted(missing)}")
+                  fail = 1
+              if data.get("category") not in allowed_categories:
+                  print(f"::error file={path}::Invalid category {data.get('category')!r}")
+                  fail = 1
+              if data.get("severity") not in allowed_severities:
+                  print(f"::error file={path}::Invalid severity {data.get('severity')!r}")
+                  fail = 1
+              tb = data.get("token_budget") or {}
+              for tier in ("minimal", "compact", "full"):
+                  if tier not in tb:
+                      print(f"::error file={path}::Missing token_budget.{tier}")
+                      fail = 1
+          sys.exit(fail)
+          PY
+
+      - name: dist/ SKILL.md frontmatter shape
+        # Compiled native bundles only need the cross-tool minimum (name +
+        # description). Catches a regenerate regression that ships a bundle
+        # missing the required keys.
+        shell: bash
+        run: |
+          set -e
+          python - <<'PY'
+          import re, sys, pathlib, yaml
+
+          required = {"name", "description"}
+          frontmatter_re = re.compile(r"\A---\s*\n(.*?)\n---\s*(?:\n|\Z)", re.DOTALL)
+
+          fail = 0
+          paths = sorted(pathlib.Path("dist").rglob("SKILL.md"))
+          if not paths:
+              print("::warning::no dist/**/SKILL.md files found; skipping")
+              sys.exit(0)
+          for path in paths:
+              text = path.read_text(encoding="utf-8")
+              match = frontmatter_re.match(text)
+              if not match:
+                  print(f"::error file={path}::Missing or malformed YAML frontmatter")
+                  fail = 1
+                  continue
+              try:
+                  data = yaml.safe_load(match.group(1)) or {}
+              except yaml.YAMLError as e:
+                  print(f"::error file={path}::Frontmatter is not valid YAML: {e}")
+                  fail = 1
+                  continue
+              if not isinstance(data, dict):
+                  print(f"::error file={path}::Frontmatter must be a YAML mapping")
+                  fail = 1
+                  continue
+              missing = required - data.keys()
+              if missing:
+                  print(f"::error file={path}::Missing fields: {sorted(missing)}")
+                  fail = 1
+              for field in required - missing:
+                  val = data.get(field)
+                  if not isinstance(val, str) or not val.strip():
+                      print(f"::error file={path}::Field {field!r} must be a non-empty string")
+                      fail = 1
+          sys.exit(fail)
+          PY
+
+      - name: Markdown link sanity
+        shell: bash
+        run: |
+          set -e
+          fail=0
+          while IFS= read -r md; do
+            while IFS= read -r link; do
+              target="${link#(}"
+              target="${target%)*}"
+              target="${target%%#*}"
+              case "$target" in
+                http*|mailto:*|"") continue ;;
+              esac
+              base_dir="$(dirname "$md")"
+              if [ ! -e "$base_dir/$target" ]; then
+                echo "::error file=$md::Broken relative link: $target"
+                fail=1
+              fi
+            done < <(grep -oE '\]\([^)]+\)' "$md" | grep -oE '\([^)]+\)' || true)
+          done < <(find . -name '*.md' -not -path './.git/*' -not -path './dist/*')
+          exit "$fail"
+
+      - name: Rule file schema (skills/**/{rules,checklists,frameworks,tests}/*)
+        shell: bash
+        run: |
+          set -e
+          python - <<'PY'
+          import json, sys, pathlib, yaml
+          fail = 0
+          roots = ["rules", "checklists", "frameworks", "tests"]
+          checked = []
+          for skill_dir in sorted(pathlib.Path("skills").iterdir()):
+              if not skill_dir.is_dir():
+                  continue
+              for sub in roots:
+                  d = skill_dir / sub
+                  if not d.exists():
+                      continue
+                  for p in sorted(d.rglob("*")):
+                      if p.suffix in {".json", ".yaml", ".yml"}:
+                          checked.append(p)
+          for p in sorted(pathlib.Path("vulnerabilities").rglob("*.json")):
+              if p.name == "manifest.json":
+                  continue
+              checked.append(p)
+          require_last_updated_root = pathlib.Path("vulnerabilities")
+          for p in checked:
+              text = p.read_text(encoding="utf-8")
+              try:
+                  data = json.loads(text) if p.suffix == ".json" else yaml.safe_load(text)
+              except Exception as e:
+                  print(f"::error file={p}::Parse error: {e}")
+                  fail = 1
+                  continue
+              if not isinstance(data, dict):
+                  continue
+              if "schema_version" not in data:
+                  print(f"::error file={p}::Missing required key 'schema_version'")
+                  fail = 1
+              if require_last_updated_root in p.parents and "last_updated" not in data:
+                  print(f"::error file={p}::Missing required key 'last_updated'")
+                  fail = 1
+          sys.exit(fail)
+          PY
+
+      - name: Every vulnerability entry has an external reference URL
+        shell: bash
+        run: |
+          set -e
+          python - <<'PY'
+          import json, sys, pathlib
+
+          fail = 0
+          for path in sorted(pathlib.Path("vulnerabilities").rglob("*.json")):
+              if path.name == "manifest.json":
+                  continue
+              try:
+                  data = json.loads(path.read_text(encoding="utf-8"))
+              except json.JSONDecodeError as e:
+                  print(f"::error file={path}::Invalid JSON: {e}")
+                  fail = 1
+                  continue
+              entries = []
+              if isinstance(data, dict):
+                  if isinstance(data.get("entries"), list):
+                      entries = data["entries"]
+                  if not entries and not data.get("references"):
+                      if any(k in data for k in ("cve", "name", "entries")):
+                          print(f"::error file={path}::Missing top-level 'references' URL")
+                          fail = 1
+              for ent in entries:
+                  if not isinstance(ent, dict):
+                      continue
+                  refs = ent.get("references") or []
+                  if not isinstance(refs, list) or not any(isinstance(r, str) and r.startswith("http") for r in refs):
+                      ident = ent.get("name") or ent.get("cve") or ent.get("typosquat") or "<unknown>"
+                      print(f"::error file={path}::Entry {ident!r} missing external reference URL")
+                      fail = 1
+          sys.exit(fail)
+          PY
+
+      - name: DATA_QUALITY.md is up to date
+        run: python3 scripts/generate-data-quality.py --check
+
+  go-checks:
+    name: Go (build, vet, test, validate, dist/manifest sync, scanner eval)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+
+      - name: Set up Go
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
+        with:
+          go-version: "1.22"
+          cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.12"
+
+      - name: Install PyYAML
+        # The secret-detection benchmark gate reads the YAML checklist (same
+        # as the static-checks job, which installs this too).
+        run: python -m pip install --quiet pyyaml
+
+      - name: Verify go.mod is tidy
+        run: |
+          go mod tidy
+          if ! git diff --quiet -- go.mod go.sum; then
+            echo "::error::go.mod / go.sum are not tidy. Run 'go mod tidy'."
+            git diff -- go.mod go.sum
+            exit 1
+          fi
+
+      - name: gofmt
+        run: |
+          unformatted=$(gofmt -l ./cmd ./internal ./sdk)
+          if [ -n "$unformatted" ]; then
+            echo "::error::Run gofmt -w on:"
+            echo "$unformatted"
+            exit 1
+          fi
+
+      - name: go vet
+        run: go vet ./...
+
+      - name: go test
+        run: go test ./...
+
+      - name: Build secure-vibe
+        run: |
+          go build -trimpath -ldflags "-s -w" -o /tmp/secure-vibe ./cmd/secure-vibe
+
+      - name: secure-vibe dev validate (enforces token budgets)
+        run: /tmp/secure-vibe dev validate --path .
+
+      - name: derive-checklists --check (SKILL.md ↔ checklists/*.yaml sync)
+        shell: bash
+        run: |
+          set -e
+          fail=0
+          for skill in skills/*/; do
+            skill_id=$(basename "$skill")
+            [ -f "$skill/SKILL.md" ] || continue
+            if ! /tmp/secure-vibe dev derive-checklists "$skill_id" --path . --check; then
+              fail=1
+            fi
+          done
+          if [ "$fail" -ne 0 ]; then
+            echo "::error::One or more checklists/*.yaml is out of sync with its SKILL.md. Run 'secure-vibe dev derive-checklists <skill-id>' and commit the result."
+            exit 1
+          fi
+
+      - name: manifest checksums match repo contents
+        run: /tmp/secure-vibe dev manifest verify --path . --checksums-only
+
+      - name: dist/ matches skills/
+        shell: bash
+        run: |
+          set -e
+          /tmp/secure-vibe dev regenerate --path .
+          if ! git diff --exit-code -- dist/; then
+            echo "::error::dist/ files are out of date. Run 'secure-vibe dev regenerate' and commit."
+            exit 1
+          fi
+
+      - name: Scanner eval (dependencies / cicd / dockerfile)
+        # secure-vibe resolves its library data from --path / $SECURE_VIBE_LIBRARY_PATH
+        # / the binary's own dir. The binary lives in /tmp here, so point it at
+        # the checkout explicitly. The eval drives `secure-vibe mcp`.
+        env:
+          SECURE_VIBE_LIBRARY_PATH: ${{ github.workspace }}
+        run: |
+          python3 evals/benchmarks/scanner-eval.py \
+            --secure-vibe mcp /tmp/secure-vibe \
+            --out evals/baselines/scanner-eval-static.md \
+            --verbose
+
+      - name: Generation-corpus oracle validation (keyless)
+        # Static gate on the generation fixtures: every code-generation fixture
+        # has a sibling expected.json with a valid ground_truth, compilable
+        # regex signals, a real declared skill, AND its own documented
+        # insecure/secure snippets score correctly under the deterministic
+        # classifier. Catches oracle drift before it can skew a real run.
+        run: python3 evals/benchmarks/llm-eval.py --validate-fixtures
+
+      - name: Live-model eval pipeline (keyless self-check)
+        # The LLM-tier prevention-lift baselines are bring-your-own-key and
+        # not run in CI, but the harness that produces them must stay green.
+        # --self-check drives all three tiers through the deterministic
+        # MockProvider (no API key, tempdir output) and fails if the
+        # synthetic prevention-lift regresses to <= 0. Guards fixture
+        # loading, tier execution, response classification, and lift math.
+        run: python3 evals/benchmarks/llm-eval.py --self-check
+
+      - name: Secret-detection benchmark harness (keyless gate)
+        # The Python precision/recall harness re-implements the secret-detection
+        # matcher to emit a confusion matrix gitleaks can be compared against.
+        # It reads the same YAML checklist as the engine, so it can silently
+        # drift (it crashed unnoticed for ~3 weeks after the secret-rules->YAML migration
+        # because run-evals.sh is not run in CI). --check gates the secure-vibe
+        # column at 0 FP / 0 FN — keyless, no gitleaks — so any drift from the
+        # engine's verdict fails loudly here.
+        run: python3 evals/benchmarks/secret-detection-vs-gitleaks.py --check
+
+      - name: Per-skill corpus tests (hard gate)
+        # Runs every skills/<id>/tests/corpus.json through `secure-vibe dev test`.
+        # Gate-driven corpora scan their fixtures with the same PolicyCheck the
+        # CI gate command uses, so this step is the quality floor for the gate
+        # itself. continue-on-error keeps it advisory while the corpora burn
+        # in (burned in: PR #37 run + main run, both green).
+        shell: bash
+        run: |
+          fail=0
+          for corpus in skills/*/tests/corpus.json; do
+            skill_id=$(basename "$(dirname "$(dirname "$corpus")")")
+            echo "::group::secure-vibe dev test $skill_id"
+            if ! /tmp/secure-vibe dev test "$skill_id" --library .; then
+              fail=1
+              echo "::warning::corpus failures in $skill_id"
+            fi
+            echo "::endgroup::"
+          done
+          exit $fail

@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Schema-driven corpus for iam-best-practices. Least-privilege intent (wildcard actions, long-lived keys, broad trust) is policy-semantic and not a single regex, so the runner smoke-validates shape; fixtures double as ground truth for the LLM eval harness. detect = an IAM policy/config that violates a NEVER rule; ignore = the least-privilege equivalent following ALWAYS.",
+  "fixtures": [
+    {
+      "id": "wildcard-action-resource-policy",
+      "text": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"AllowEverything\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"*\",\n      \"Resource\": \"*\"\n    }\n  ]\n}",
+      "expected": "detect",
+      "reason": "Action:\"*\" on Resource:\"*\" grants full administrative access to every service and resource, the antithesis of least privilege (CWE-269 Improper Privilege Management; NIST AC-6; NEVER: no Action:* with Resource:*)"
+    },
+    {
+      "id": "least-privilege-scoped-policy",
+      "text": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"ReadAppBucket\",\n      \"Effect\": \"Allow\",\n      \"Action\": [\"s3:GetObject\", \"s3:ListBucket\"],\n      \"Resource\": [\n        \"arn:aws:s3:::acme-app-assets\",\n        \"arn:aws:s3:::acme-app-assets/*\"\n      ]\n    }\n  ]\n}",
+      "expected": "ignore",
+      "reason": "grants only the two concrete S3 actions the workload needs against explicit bucket ARNs, deny-by-default for everything else (follows ALWAYS: minimum permissions with explicit Resource ARNs)"
+    },
+    {
+      "id": "long-lived-access-key-in-env",
+      "text": "resource \"aws_iam_access_key\" \"ci\" {\n  user = aws_iam_user.ci.name\n}\n\nresource \"github_actions_secret\" \"aws_key\" {\n  repository      = \"acme/app\"\n  secret_name     = \"AWS_ACCESS_KEY_ID\"\n  plaintext_value = aws_iam_access_key.ci.id\n}\n\nresource \"github_actions_secret\" \"aws_secret\" {\n  repository      = \"acme/app\"\n  secret_name     = \"AWS_SECRET_ACCESS_KEY\"\n  plaintext_value = aws_iam_access_key.ci.secret\n}",
+      "expected": "detect",
+      "reason": "creates a long-lived IAM user access key and stores it as a CI secret instead of using OIDC workload identity, a static credential that ages into a liability and can leak (CWE-798/CWE-522; NEVER: embed long-lived keys in CI when workload identity is available)"
+    },
+    {
+      "id": "ci-oidc-role-no-static-key",
+      "text": "data \"aws_iam_policy_document\" \"ci_trust\" {\n  statement {\n    actions = [\"sts:AssumeRoleWithWebIdentity\"]\n    principals {\n      type        = \"Federated\"\n      identifiers = [aws_iam_openid_connect_provider.github.arn]\n    }\n    condition {\n      test     = \"StringEquals\"\n      variable = \"token.actions.githubusercontent.com:sub\"\n      values   = [\"repo:acme/app:ref:refs/heads/main\"]\n    }\n  }\n}\n\nresource \"aws_iam_role\" \"ci_deploy\" {\n  name               = \"ci-deploy\"\n  assume_role_policy = data.aws_iam_policy_document.ci_trust.json\n  max_session_duration = 3600\n}",
+      "expected": "ignore",
+      "reason": "CI authenticates via GitHub OIDC federation to assume a short-lived (1h) role scoped to a specific repo and branch, with no static access key created (follows ALWAYS: prefer workload identity, session-scoped credentials)"
+    },
+    {
+      "id": "cross-account-trust-no-externalid",
+      "text": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Principal\": { \"AWS\": \"arn:aws:iam::999988887777:root\" },\n      \"Action\": \"sts:AssumeRole\"\n    }\n  ]\n}",
+      "expected": "detect",
+      "reason": "third-party cross-account trust grants AssumeRole to an entire external account root with no ExternalId condition, exposing the role to the Confused Deputy attack (CWE-441; AWS Security Bulletin 2021; NEVER: trust cross-account assume-role without ExternalId)"
+    },
+    {
+      "id": "cross-account-trust-with-externalid-mfa",
+      "text": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Principal\": { \"AWS\": \"arn:aws:iam::999988887777:role/vendor-integration\" },\n      \"Action\": \"sts:AssumeRole\",\n      \"Condition\": {\n        \"StringEquals\": { \"sts:ExternalId\": \"acme-7f3a2b71-unique-per-consumer\" },\n        \"Bool\": { \"aws:MultiFactorAuthPresent\": \"true\" }\n      }\n    }\n  ]\n}",
+      "expected": "ignore",
+      "reason": "cross-account trust is pinned to a specific vendor role ARN and gated by a unique per-consumer ExternalId plus an MFA-present condition, mitigating Confused Deputy (follows ALWAYS: ExternalId per consumer, MFA via policy condition)"
+    }
+  ]
+}

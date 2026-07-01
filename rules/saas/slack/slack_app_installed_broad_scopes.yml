@@ -1,0 +1,35 @@
+schema_version: "1.0"
+title: Slack app installed with broad data-access scopes
+id: faf22109-2889-48fd-a1bb-866008adf107
+status: stable
+level: high
+description: |
+  Detects installation of a Slack app whose granted OAuth scopes
+  include the combination `chat:write`, `files:read`, and
+  `users:read.email`. This scope superset is the canonical shape of
+  message/file exfiltration bots seen in OAuth-consent supply-chain
+  attacks against Slack workspaces.
+references:
+  - https://api.slack.com/admins/audit-logs
+  - https://api.slack.com/scopes
+  - https://attack.mitre.org/techniques/T1195/002/
+tags:
+  - attack.t1195.002
+  - attack.initial_access
+logsource:
+  product: slack
+  service: audit_log
+detection:
+  selection_action:
+    action: app_installed
+  selection_scope_chat:
+    scopes|contains: "chat:write"
+  selection_scope_files:
+    scopes|contains: "files:read"
+  selection_scope_email:
+    scopes|contains: "users:read.email"
+  condition: selection_action and selection_scope_chat and selection_scope_files and selection_scope_email
+falsepositives:
+  - Approved internal automation or vetted vendor app that legitimately
+    needs all three scopes (should be reviewed during the app-approval
+    workflow rather than silently allowed).

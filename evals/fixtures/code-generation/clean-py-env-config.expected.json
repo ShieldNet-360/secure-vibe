@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "secret-detection",
+  "language": "python",
+  "insecure_signals": [
+    "AKIA[0-9A-Z]{16}",
+    "=\\s*['\\\"][A-Za-z0-9/+]{30,}['\\\"]"
+  ],
+  "secure_signals": [
+    "os\\.environ(\\.get)?\\(",
+    "getenv\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

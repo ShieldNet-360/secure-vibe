@@ -1,0 +1,30 @@
+schema_version: "1.0"
+title: Salesforce permission set granting Modify All / View All Data assigned
+id: 0b7121b8-374b-4553-8085-9191b8846ec3
+status: stable
+level: critical
+description: |
+  Detects assignment of a permission set whose underlying permissions
+  grant `Modify All Data` or `View All Data`. These permissions
+  effectively bypass record-level sharing and are a standard
+  post-takeover escalation step in Salesforce compromises.
+references:
+  - https://help.salesforce.com/s/articleView?id=sf.users_profiles_perms_overview.htm
+  - https://attack.mitre.org/techniques/T1098/003/
+tags:
+  - attack.t1098.003
+  - attack.persistence
+logsource:
+  product: salesforce
+  service: setup_audit_trail
+detection:
+  selection:
+    Action: Permission set assignment changed
+    Section|contains:
+      - Modify All Data
+      - View All Data
+  condition: selection
+falsepositives:
+  - Onboarding of a new administrator or trusted integration user
+    where the elevated permission set is explicitly part of an
+    approved access request.

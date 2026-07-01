@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "BambooHR",
+  "description": "BambooHR API key, SSO/SAML, and HRIS-specific PII export red flags.",
+  "token_patterns": [
+    {
+      "name": "BambooHR API Key",
+      "regex": "(?i)bamboohr[_\\-]?api[_\\-]?key[\\\"'\\s:=]+[A-Za-z0-9]{40}",
+      "severity": "critical",
+      "hotwords": [
+        "bamboohr",
+        "api_key",
+        "hris"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 4.0,
+      "notes": "BambooHR API keys are 40-char and used as the Basic-Auth username with literal password 'x'. Leakage = full read on every employee record."
+    },
+    {
+      "name": "BambooHR API URL with embedded key",
+      "regex": "https://api\\.bamboohr\\.com/api/gateway\\.php/[A-Za-z0-9_\\-]+/[^\\\"' ]+:[a-zA-Z0-9]{20,}@",
+      "severity": "critical",
+      "hotwords": [
+        "bamboohr",
+        "api.bamboohr.com",
+        "basic_auth"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "bamboohr-api-key-shared",
+      "severity": "high",
+      "title": "Single API key used by multiple integrations",
+      "rationale": "API keys are user-bound; sharing makes leak attribution and rotation impossible.",
+      "fix": "Generate one API key per integration via a dedicated 'Bot' user; rotate \u2264 90 days."
+    },
+    {
+      "id": "bamboohr-2fa-optional",
+      "severity": "high",
+      "title": "Two-factor authentication not required for admin users",
+      "rationale": "BambooHR holds SSN, bank, salary \u2014 admin ATO is a major incident.",
+      "fix": "Settings > Account > Security > require 2FA for users with Full Admin / Custom-Admin roles."
+    },
+    {
+      "id": "bamboohr-sso-without-jit",
+      "severity": "medium",
+      "title": "SSO configured without Just-In-Time provisioning + deprovisioning",
+      "rationale": "Stale accounts after offboarding are an audit and access-control failure.",
+      "fix": "Settings > Apps > SSO > enable SCIM with the IdP for automatic deprovisioning."
+    },
+    {
+      "id": "bamboohr-webhook-no-signature",
+      "severity": "high",
+      "title": "BambooHR webhook handler does not verify webhook signature header",
+      "rationale": "Webhook signing was added for tenant-isolation; absence allows spoofed HRIS events.",
+      "fix": "Verify the configured webhook secret HMAC over the body for every inbound POST."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "bamboohr-bulk-employee-export",
+      "severity": "critical",
+      "title": "Custom Report export covering all employees by non-HR principal",
+      "rationale": "All-employee exports surface SSN, bank, comp \u2014 top HRIS-leak vector.",
+      "signal": "Audit log: `Custom Report exported` with row count = active employee count, actor not in HR admin group."
+    },
+    {
+      "id": "bamboohr-api-key-creation-burst",
+      "severity": "high",
+      "title": "Multiple API keys generated for one user in a short window",
+      "rationale": "Token replay / persistence step post-ATO.",
+      "signal": "Audit log: `api_key_generated` per user > 2 in 24h."
+    },
+    {
+      "id": "bamboohr-permission-grant-full-admin",
+      "severity": "critical",
+      "title": "User promoted to Full Admin role",
+      "rationale": "Admin role grant is the canonical privilege-escalation step.",
+      "signal": "Audit log: `Access Level changed to Full Admin` outside scheduled IT changes."
+    }
+  ],
+  "references": [
+    "https://documentation.bamboohr.com/docs/getting-started",
+    "https://www.bamboohr.com/security/",
+    "https://documentation.bamboohr.com/reference/webhooks"
+  ]
+}

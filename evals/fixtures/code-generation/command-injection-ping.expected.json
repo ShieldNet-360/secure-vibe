@@ -1,0 +1,17 @@
+{
+  "ground_truth": "generation",
+  "skill": "secure-code-review",
+  "language": "python",
+  "insecure_signals": [
+    "shell\\s*=\\s*True",
+    "check_output\\(\\s*f['\\\"]",
+    "os\\.system\\("
+  ],
+  "secure_signals": [
+    "subprocess\\.(run|check_output|Popen)\\(\\s*\\[",
+    "ipaddress\\.",
+    "shlex\\.quote"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-78"
+}

@@ -1,0 +1,31 @@
+schema_version: "1.0"
+last_updated: "2026-05-12"
+patterns:
+  - id: validate-schema-first
+    severity: high
+    rule: "Every request handler validates body/query/path params against a typed schema BEFORE any business logic runs"
+    tools: ["JSON Schema", "Pydantic", "Zod", "go-playground/validator", "Joi"]
+  - id: length-limits
+    severity: medium
+    rule: "All string fields have explicit max length; reject oversize early"
+  - id: numeric-range
+    severity: medium
+    rule: "Numeric fields have min/max bounds; reject negative or absurd values"
+  - id: enum-check
+    severity: medium
+    rule: "String fields with limited values are typed as enum, not free-form string"
+  - id: content-type-check
+    severity: high
+    rule: "Reject requests whose Content-Type doesn't match expected (defeats CSRF via cross-type)"
+  - id: reject-extra-fields
+    severity: medium
+    rule: "Schema validators reject (not silently ignore) unknown fields"
+  - id: utf-8-only
+    severity: low
+    rule: "Reject non-UTF-8 input on text fields; normalize Unicode (NFC) before string comparisons"
+  - id: file-upload-type
+    severity: high
+    rule: "Validate file uploads by MIME sniffing (magic bytes), not by file extension or client Content-Type"
+  - id: file-upload-size
+    severity: high
+    rule: "Hard size limit on file uploads; reject before reading into memory"

@@ -1,0 +1,59 @@
+schema_version: "1.0"
+name: "financial-services"
+description: "Profile for financial-services workloads: PCI-DSS v4.0 + SOC 2 Trust Services Criteria."
+last_updated: "2026-05-13"
+frameworks:
+  - "PCI-DSS v4.0"
+  - "SOC 2 (Common Criteria + Confidentiality)"
+  - "NIST SP 800-53 Rev. 5"
+skills:
+  - secret-detection
+  - supply-chain-security
+  - api-security
+  - auth-security
+  - crypto-misuse
+  - protocol-security
+  - database-security
+  - frontend-security
+  - cors-security
+  - logging-security
+  - error-handling-security
+  - container-security
+  - iac-security
+  - serverless-security
+  - compliance-awareness
+  - iam-best-practices
+controls:
+  - control_id: "PCI-DSS 3.5.1"
+    framework: "PCI-DSS v4.0"
+    skills: ["crypto-misuse", "secret-detection"]
+  - control_id: "PCI-DSS 4.2.1"
+    framework: "PCI-DSS v4.0"
+    skills: ["protocol-security"]
+  - control_id: "PCI-DSS 6.2.4"
+    framework: "PCI-DSS v4.0"
+    skills: ["database-security", "frontend-security", "api-security"]
+  - control_id: "PCI-DSS 6.3.2"
+    framework: "PCI-DSS v4.0"
+    skills: ["supply-chain-security"]
+  - control_id: "PCI-DSS 8.3.6"
+    framework: "PCI-DSS v4.0"
+    skills: ["auth-security"]
+  - control_id: "PCI-DSS 10.2"
+    framework: "PCI-DSS v4.0"
+    skills: ["logging-security"]
+  - control_id: "PCI-DSS 12.10"
+    framework: "PCI-DSS v4.0"
+    skills: ["error-handling-security", "logging-security"]
+  - control_id: "SOC2-CC6.1"
+    framework: "SOC 2"
+    skills: ["auth-security", "iam-best-practices"]
+  - control_id: "SOC2-CC6.7"
+    framework: "SOC 2"
+    skills: ["protocol-security", "crypto-misuse"]
+  - control_id: "SOC2-CC7.2"
+    framework: "SOC 2"
+    skills: ["logging-security"]
+  - control_id: "SOC2-CC7.4"
+    framework: "SOC 2"
+    skills: ["error-handling-security", "logging-security"]

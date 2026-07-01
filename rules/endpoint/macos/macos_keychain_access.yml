@@ -1,0 +1,29 @@
+schema_version: "1.0"
+title: macOS keychain unlocked from a non-interactive process
+id: f1e2d3c4-b5a6-4798-89a0-bcdef0123456
+status: stable
+level: high
+description: |
+  Detects use of the `security` binary to dump or unlock the user
+  keychain (`security find-generic-password -ga`, `security unlock-keychain`).
+  Adversaries use this to lift saved credentials from a logged-in user.
+references:
+  - https://ss64.com/osx/security.html
+  - https://attack.mitre.org/techniques/T1555/001/
+tags:
+  - attack.t1555.001
+  - attack.credential_access
+logsource:
+  product: macos
+  service: unifiedlog
+detection:
+  selection:
+    process: security
+    cmd|contains:
+      - "find-generic-password"
+      - "find-internet-password"
+      - "unlock-keychain"
+      - "dump-keychain"
+  condition: selection
+falsepositives:
+  - Apple's own /usr/libexec/security-checksystem maintenance task.

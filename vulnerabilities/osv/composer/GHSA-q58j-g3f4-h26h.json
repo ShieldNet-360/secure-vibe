@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-q58j-g3f4-h26h",
+  "published": "2026-05-14T13:18:16Z",
+  "modified": "2026-05-14T13:33:05.649693Z",
+  "aliases": [
+    "CVE-2026-41249"
+  ],
+  "summary": "CoreShop Vulnerable to Remote Code Execution (RCE) via Insecure `pull_request_target` Configuration",
+  "affected": [
+    {
+      "package": {
+        "name": "coreshop/core-shop",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/coreshop/core-shop"
+      },
+      "versions": [
+        "5.0.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-q58j-g3f4-h26h/GHSA-q58j-g3f4-h26h.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/coreshop/CoreShop/security/advisories/GHSA-q58j-g3f4-h26h"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/coreshop/CoreShop"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-94"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-14T13:18:16Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:N"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

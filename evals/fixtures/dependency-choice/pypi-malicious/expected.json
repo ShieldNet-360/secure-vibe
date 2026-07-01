@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "description": "Expected finding for the pypi-malicious fixture. 'ctx==0.2.2' is the version range the malicious 2022 release fell into; see vulnerabilities/supply-chain/malicious-packages/pypi.json for the upstream advisory. requests==2.31.0 is expected_clean: it is the FIXED version per GHSA-j8r2-6x86-q33q (vulnerable range [2.3.0, 2.31.0) exclusive, see vulnerabilities/osv/pypi/GHSA-j8r2-6x86-q33q.json). Two known scanner-side FPs on this fixture: (1) the OSV matcher fires on requests because it currently matches by package name only and does not apply version-range filtering (cmd/secure-vibe/internal/tools/library_scanners.go), and (2) the typosquat detector flags requests because the typosquat-db contains 'request' (Levenshtein 1) and does not exclude the canonical target. Both are real scanner bugs that depress dependency-scanner precision on this fixture; they are tracked here rather than masked in expected_findings.",
+  "expected_findings": [
+    {
+      "ecosystem": "pypi",
+      "package": "ctx",
+      "version": "0.2.2",
+      "kind": "malicious",
+      "source": "vulnerabilities/supply-chain/malicious-packages/pypi.json"
+    }
+  ],
+  "expected_clean": ["requests"]
+}

@@ -1,0 +1,13 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "auth-security",
+  "language": "javascript",
+  "insecure_signals": [
+    "algorithms\\s*:\\s*\\[\\s*['\\\"]none",
+    "jwt\\.decode\\(\\s*token\\s*\\)"
+  ],
+  "secure_signals": [
+    "algorithms\\s*:\\s*\\[\\s*['\\\"]RS256"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-cwfq-rfcr-8hmp",
+  "published": "2026-05-07T21:02:30Z",
+  "modified": "2026-05-07T21:18:55.245338Z",
+  "summary": "Zebra's Transparent SIGHASH_SINGLE Handling Diverges from zcashd for Corresponding Outputs",
+  "affected": [
+    {
+      "package": {
+        "name": "zebrad",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebrad"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.4.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-cwfq-rfcr-8hmp/GHSA-cwfq-rfcr-8hmp.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/ZcashFoundation/zebra/security/advisories/GHSA-cwfq-rfcr-8hmp"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/ZcashFoundation/zebra"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ZcashFoundation/zebra/releases/tag/v4.4.0"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-573",
+      "CWE-354"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T21:02:30Z",
+    "nvd_published_at": null,
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:H/SA:N"
+    }
+  ],
+  "last_updated": "2026-05-07"
+}

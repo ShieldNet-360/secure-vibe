@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "unpinned-action.yml",
+  "description": "`uses: actions/checkout@v4` (tag, not a 40-char SHA), plus no top-level `permissions:` block. Two findings: gha-pin-actions-by-sha (AST, which reliably distinguishes a SHA from a tag) and gha-default-permissions-read.",
+  "expected_findings": [
+    {
+      "rule": "gha-default-permissions-read",
+      "ecosystem": "github-actions",
+      "source": "skills/cicd-security/SKILL.md"
+    },
+    {
+      "rule": "gha-pin-actions-by-sha",
+      "ecosystem": "github-actions",
+      "source": "skills/cicd-security/SKILL.md"
+    }
+  ]
+}

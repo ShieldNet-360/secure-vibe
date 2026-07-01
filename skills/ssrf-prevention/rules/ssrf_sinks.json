@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Per-language HTTP / URL-fetching sinks that, when reached with user-controlled input, constitute SSRF. Group by language family; pair each sink with the wrapped, allowlist-enforcing alternative.",
+  "references": [
+    "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html",
+    "https://cwe.mitre.org/data/definitions/918.html"
+  ],
+  "sinks": [
+    {
+      "language": "python",
+      "examples": [
+        "requests.get(url)",
+        "urllib.request.urlopen(url)",
+        "httpx.get(url)",
+        "aiohttp.ClientSession().get(url)",
+        "Image.open(BytesIO(requests.get(url).content))",
+        "PyPDF2.PdfReader(io.BytesIO(requests.get(url).content))"
+      ],
+      "safer": "Wrap with a fetch_external(url) helper that calls socket.getaddrinfo, validates the resolved IP against a denylist (RFC1918, 169.254/16, ::/128, fc00::/7, IPv4-mapped IPv6), and connects to the pinned IP with `requests.get('https://' + pinned_ip, headers={'Host': hostname}, verify=hostname, allow_redirects=False)`."
+    },
+    {
+      "language": "javascript",
+      "examples": [
+        "fetch(url)",
+        "axios.get(url)",
+        "node-fetch(url)",
+        "got(url)",
+        "http.get(url)",
+        "request(url)"
+      ],
+      "safer": "Use undici with a custom `connect` that resolves once, checks against the deny list, and pins the IP. Set `redirect: 'manual'` and re-run the validator on each `location:` header."
+    },
+    {
+      "language": "java",
+      "examples": [
+        "new URL(url).openConnection()",
+        "HttpClient.newHttpClient().send(HttpRequest.newBuilder(URI.create(url)).build(), ...)",
+        "RestTemplate.getForObject(url, ...)",
+        "WebClient.create().get().uri(url).retrieve()"
+      ],
+      "safer": "Wrap in SsrfGuardedHttpClient that overrides ProxySelector / Resolver to enforce IP allowlist; set followRedirects(NEVER); reject schemes other than http/https."
+    },
+    {
+      "language": "go",
+      "examples": [
+        "http.Get(url)",
+        "http.DefaultClient.Do(req)",
+        "http.NewRequestWithContext(ctx, ...)"
+      ],
+      "safer": "Use a *http.Client with a custom DialContext that calls net.Resolver.LookupIPAddr, checks every IP against the deny list, then dials the first allowed one. Set CheckRedirect to re-run validation per hop and CheckRedirect = ErrUseLastResponse when redirects are not needed."
+    },
+    {
+      "language": "ruby",
+      "examples": [
+        "Net::HTTP.get(URI(url))",
+        "open(url)",
+        "URI.open(url)",
+        "RestClient.get(url)",
+        "HTTParty.get(url)"
+      ],
+      "safer": "Use http.rb or Faraday with a connection adapter that does the resolve-then-pin pattern. Disable URI.open / Kernel#open for URLs."
+    },
+    {
+      "language": "csharp",
+      "examples": [
+        "HttpClient.GetAsync(url)",
+        "WebRequest.Create(url)",
+        "WebClient.DownloadString(url)"
+      ],
+      "safer": "Construct HttpClient with SocketsHttpHandler.ConnectCallback that resolves and IP-filters; set AllowAutoRedirect = false."
+    },
+    {
+      "language": "php",
+      "examples": [
+        "file_get_contents($url)",
+        "curl_exec(curl_init($url))",
+        "fopen($url, 'r')",
+        "Guzzle\\Client::get($url)"
+      ],
+      "safer": "Disable allow_url_fopen / allow_url_include in php.ini. Use a wrapper that calls gethostbynamel + filter_var(FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)."
+    }
+  ],
+  "anti_patterns": [
+    {"id": "ssrf-userland-url-parsing", "severity": "critical", "cwe": 918, "rule": "Differential URL parsers (e.g. WHATWG URL vs RFC 3986) routinely cause allowlist bypass; pick one parser and stick with it"},
+    {"id": "ssrf-dns-rebinding-toctou", "severity": "critical", "cwe": 918, "rule": "Resolve once, validate, connect to pinned IP — otherwise the resolver can rebind between check and connect"},
+    {"id": "ssrf-redirect-follow", "severity": "critical", "cwe": 918, "rule": "Following redirects re-introduces SSRF on every hop; disable or re-validate on each hop"},
+    {"id": "ssrf-scheme-not-restricted", "severity": "high", "cwe": 918, "rule": "gopher://, dict://, file://, jar://, ldap://, netdoc:// are all SSRF amplifiers; restrict to http/https"},
+    {"id": "ssrf-cloud-metadata-not-blocked", "severity": "critical", "cwe": 918, "rule": "169.254.169.254 / [fd00:ec2::254] / metadata.google.internal must be blocked at network and app layer"},
+    {"id": "ssrf-imdsv1-allowed", "severity": "critical", "cwe": 918, "rule": "AWS EC2 must enforce IMDSv2 with hop-limit=1; IMDSv1 was the Capital One 2019 breach vector"},
+    {"id": "ssrf-url-reflection", "severity": "medium", "cwe": 918, "rule": "Reflecting the user URL in error responses can turn blind SSRF into data exfiltration; never echo the URL"}
+  ]
+}

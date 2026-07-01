@@ -1,0 +1,32 @@
+schema_version: "1.0"
+title: M365 mailbox forwarding rule created
+id: ee55ff66-7788-49ab-cdef-0123456789ab
+status: stable
+level: high
+description: |
+  Detects creation of an Inbox or mailbox forwarding rule that
+  redirects mail to an external address. This is a very common BEC
+  persistence technique used after credential phishing.
+references:
+  - https://learn.microsoft.com/microsoft-365/security/office-365-security/detect-and-remediate-outlook-rules-forms-attack
+  - https://attack.mitre.org/techniques/T1114/003/
+tags:
+  - attack.t1114.003
+  - attack.collection
+logsource:
+  product: m365
+  service: exchange
+detection:
+  selection:
+    Operation:
+      - New-InboxRule
+      - Set-InboxRule
+      - Set-Mailbox
+    Parameters|contains:
+      - "ForwardingSmtpAddress"
+      - "ForwardTo"
+      - "RedirectTo"
+      - "DeliverToMailboxAndForward"
+  condition: selection
+falsepositives:
+  - Documented out-of-office forwarding for shared mailboxes.

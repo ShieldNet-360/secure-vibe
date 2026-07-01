@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "logging-security",
+  "language": "python",
+  "insecure_signals": [
+    "password|secret|api[_-]?key"
+  ],
+  "secure_signals": [
+    "uuid\\.uuid4\\(",
+    "secrets\\.token",
+    "ulid"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "fixture": "weak-session-cookie.py",
+  "expected_findings": [
+    {
+      "rule": "session-cookie-flags",
+      "line_hint": "resp.set_cookie(\"session\", \"<server-issued>\")",
+      "missing_flags": ["httponly", "secure", "samesite"],
+      "source": "skills/auth-security/SKILL.md"
+    }
+  ],
+  "notes": "The 'login_safe' handler sets all three flags and must NOT be flagged."
+}

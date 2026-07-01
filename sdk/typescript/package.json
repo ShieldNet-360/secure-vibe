@@ -1,0 +1,40 @@
+{
+  "name": "@secure-vibe/skillslib",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for the Skills Library — load, parse, and validate SKILL.md files.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "src/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --import tsx --test tests/skill.test.ts"
+  },
+  "keywords": [
+    "security",
+    "skills",
+    "policy-as-code",
+    "llm",
+    "agent"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shieldnet-360/secure-vibe"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

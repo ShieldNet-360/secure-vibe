@@ -1,0 +1,1174 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-16T05:44:33Z",
+  "generated_at": "2026-05-16T05:44:33Z",
+  "by_package": {
+    "drupal/node_view_permissions": [
+      {
+        "id": "DRUPAL-CONTRIB-2026-034",
+        "file": "DRUPAL-CONTRIB-2026-034.json",
+        "summary": "",
+        "aliases": [
+          "CVE-2026-8491"
+        ]
+      }
+    ],
+    "drupal/gtranslate": [
+      {
+        "id": "DRUPAL-CONTRIB-2026-035",
+        "file": "DRUPAL-CONTRIB-2026-035.json",
+        "summary": "",
+        "aliases": [
+          "CVE-2026-8492"
+        ]
+      }
+    ],
+    "drupal/colorbox_inline": [
+      {
+        "id": "DRUPAL-CONTRIB-2026-036",
+        "file": "DRUPAL-CONTRIB-2026-036.json",
+        "summary": "",
+        "aliases": [
+          "CVE-2026-8493"
+        ]
+      }
+    ],
+    "drupal/date_ical": [
+      {
+        "id": "DRUPAL-CONTRIB-2026-037",
+        "file": "DRUPAL-CONTRIB-2026-037.json",
+        "summary": "",
+        "aliases": [
+          "CVE-2026-8495"
+        ]
+      }
+    ],
+    "openmage/magento-lts": [
+      {
+        "id": "GHSA-2cwr-gcf9-pvxr",
+        "file": "GHSA-2cwr-gcf9-pvxr.json",
+        "summary": "Magento LTS has Weak API Session ID \u2014 Predictable MD5 of Time-Derived Inputs",
+        "aliases": [
+          "CVE-2026-42155"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-qpgq-5g92-j5q8",
+        "file": "GHSA-qpgq-5g92-j5q8.json",
+        "summary": "Magento LTS Vulnerable to Open Redirect via Unvalidated `uenc` Parameter in `stockAction()`",
+        "aliases": [
+          "CVE-2026-42207"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-x8jv-q8j2-487c",
+        "file": "GHSA-x8jv-q8j2-487c.json",
+        "summary": "Magento LTS: Reflected XSS - Import -> Data Flow (profiles) ",
+        "aliases": [
+          "CVE-2026-42458"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "phpseclib/phpseclib": [
+      {
+        "id": "GHSA-2f25-pfq3-c7h8",
+        "file": "GHSA-2f25-pfq3-c7h8.json",
+        "summary": "Phpseclib needs guardrails on large binaryfield integers",
+        "aliases": [
+          "CVE-2023-49316"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-3qpq-r242-jqj7",
+        "file": "GHSA-3qpq-r242-jqj7.json",
+        "summary": "phpseclib has a CVE-2024-27355 mitigation bypass \u2014 OID amplification DoS in ASN1::decodeOID()",
+        "aliases": [
+          "CVE-2026-44167"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-3qpq-r242-jqj7",
+        "file": "GHSA-3qpq-r242-jqj7.json",
+        "summary": "phpseclib has a CVE-2024-27355 mitigation bypass \u2014 OID amplification DoS in ASN1::decodeOID()",
+        "aliases": [
+          "CVE-2026-44167"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-3qpq-r242-jqj7",
+        "file": "GHSA-3qpq-r242-jqj7.json",
+        "summary": "phpseclib has a CVE-2024-27355 mitigation bypass \u2014 OID amplification DoS in ASN1::decodeOID()",
+        "aliases": [
+          "CVE-2026-44167"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-jpr7-q523-hx25",
+        "file": "GHSA-jpr7-q523-hx25.json",
+        "summary": "Duplicate Advisory: phpseclib vulnerable to denial of service",
+        "aliases": [
+          "CVE-2023-49316"
+        ],
+        "severity": "high"
+      }
+    ],
+    "getkirby/cms": [
+      {
+        "id": "GHSA-2h7v-4372-f6x2",
+        "file": "GHSA-2h7v-4372-f6x2.json",
+        "summary": "Kirby CMS's read access to site, user and role information is not gated by permissions",
+        "aliases": [
+          "CVE-2026-42069"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-2h7v-4372-f6x2",
+        "file": "GHSA-2h7v-4372-f6x2.json",
+        "summary": "Kirby CMS's read access to site, user and role information is not gated by permissions",
+        "aliases": [
+          "CVE-2026-42069"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-39cp-6679-8xv2",
+        "file": "GHSA-39cp-6679-8xv2.json",
+        "summary": "Kirby CMS doesn't gate user avatar creation, replacement and deletion with user update permissions",
+        "aliases": [
+          "CVE-2026-42174"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-39cp-6679-8xv2",
+        "file": "GHSA-39cp-6679-8xv2.json",
+        "summary": "Kirby CMS doesn't gate user avatar creation, replacement and deletion with user update permissions",
+        "aliases": [
+          "CVE-2026-42174"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-x68m-c7jf-2572",
+        "file": "GHSA-x68m-c7jf-2572.json",
+        "summary": "Kirby CMS's system API endpoint leaks installed version and license data to authenticated users",
+        "aliases": [
+          "CVE-2026-42051"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-x68m-c7jf-2572",
+        "file": "GHSA-x68m-c7jf-2572.json",
+        "summary": "Kirby CMS's system API endpoint leaks installed version and license data to authenticated users",
+        "aliases": [
+          "CVE-2026-42051"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "wwbn/avideo": [
+      {
+        "id": "GHSA-2hch-c97c-g99x",
+        "file": "GHSA-2hch-c97c-g99x.json",
+        "summary": "AVideo has SSRF Protection Bypass via HTTP Redirect and DNS Rebinding in isSSRFSafeURL()",
+        "aliases": [
+          "CVE-2026-43884"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-5hgj-7gm9-cff5",
+        "file": "GHSA-5hgj-7gm9-cff5.json",
+        "summary": "AVideo: Unauthenticated Arbitrary Email Sending via sendEmail.json.php Enables Phishing from the Site\u2019s Legitimate From Address",
+        "aliases": [
+          "CVE-2026-43880"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5w8w-26ch-v5cw",
+        "file": "GHSA-5w8w-26ch-v5cw.json",
+        "summary": "AVideo: Password Hash Leak in MobileManager OAuth Redirect URL Enables Account Takeover",
+        "aliases": [
+          "CVE-2026-43875"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6rvw-7p8v-mjfq",
+        "file": "GHSA-6rvw-7p8v-mjfq.json",
+        "summary": "AVideo: Unauthenticated User Enumeration in objects/users.json.php via isCompany Parameter Allows Bypass of the Admin-Only Listing Restriction",
+        "aliases": [
+          "CVE-2026-43881"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-958h-qp3x-q4gj",
+        "file": "GHSA-958h-qp3x-q4gj.json",
+        "summary": "AVideo: IDOR in PayPalYPT Plugin Allows Any Authenticated User to Cancel Arbitrary PayPal Subscription Agreements",
+        "aliases": [
+          "CVE-2026-43883"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-g9cm-rxp7-6gv5",
+        "file": "GHSA-g9cm-rxp7-6gv5.json",
+        "summary": "AVideo: HTML Injection in notifySubscribers.json.php Allows Platform-Branded Phishing Emails to Channel Subscribers",
+        "aliases": [
+          "CVE-2026-43876"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-ghcv-22jf-vfxm",
+        "file": "GHSA-ghcv-22jf-vfxm.json",
+        "summary": "AVideo has an Incomplete Fix for YPTSocket autoEvalCodeOnHTML Strip: Unauthenticated Cross-User JavaScript Execution via `$msg['json']` Relay Bypass",
+        "aliases": [
+          "CVE-2026-43874"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-jw8g-5j46-44rp",
+        "file": "GHSA-jw8g-5j46-44rp.json",
+        "summary": "AVideo: CSRF in userSavePhoto.php Allows Cross-Origin Overwrite of Authenticated Users' Profile Photos with Arbitrary Content",
+        "aliases": [
+          "CVE-2026-43877"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-mm5f-8q57-4fc4",
+        "file": "GHSA-mm5f-8q57-4fc4.json",
+        "summary": "Video: Reflected XSS in plugin/Meet/iframe.php via Unescaped user and pass Parameters in JavaScript String Literal",
+        "aliases": [
+          "CVE-2026-43878"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-mwgh-92m2-wvhv",
+        "file": "GHSA-mwgh-92m2-wvhv.json",
+        "summary": "AVideo: Unauthenticated CRLF/ICS Injection in Scheduler downloadICS.php Allows Calendar Event Spoofing",
+        "aliases": [
+          "CVE-2026-43882"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qm9p-p5pw-jrx2",
+        "file": "GHSA-qm9p-p5pw-jrx2.json",
+        "summary": "AVideo: Unauthenticated Disclosure of CloneSite `myKey` via Error Echo in `cloneClient.json.php` Enables Cross-Site DB Dump of the Configured Clone Server",
+        "aliases": [
+          "CVE-2026-43873"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wp38-whx3-xffh",
+        "file": "GHSA-wp38-whx3-xffh.json",
+        "summary": "AVideo has Blind SSRF in YPTWallet Donation Webhook via Missing isSSRFSafeURL() Check and CURLOPT_FOLLOWLOCATION Redirect Bypass",
+        "aliases": [
+          "CVE-2026-43879"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-xr49-f4rh-qcjf",
+        "file": "GHSA-xr49-f4rh-qcjf.json",
+        "summary": "AVideo Vulnerable to Exposure of Sensitive Information to an Unauthorized Actor and Missing Authorization",
+        "aliases": [
+          "CVE-2026-43885"
+        ],
+        "severity": "high"
+      }
+    ],
+    "craftcms/cms": [
+      {
+        "id": "GHSA-33m5-hqp9-97pw",
+        "file": "GHSA-33m5-hqp9-97pw.json",
+        "summary": "Craft CMS's Missing Volume Permission Check in AssetsController::actionShowInFolder Allows Information Disclosure",
+        "aliases": [
+          "CVE-2026-44012"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gj2p-p9m4-c8gw",
+        "file": "GHSA-gj2p-p9m4-c8gw.json",
+        "summary": "Craft CMS's Missing Authorization in GraphQL Address Resolver Allows Cross-Scope PII Disclosure",
+        "aliases": [
+          "CVE-2026-44010"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gj2p-p9m4-c8gw",
+        "file": "GHSA-gj2p-p9m4-c8gw.json",
+        "summary": "Craft CMS's Missing Authorization in GraphQL Address Resolver Allows Cross-Scope PII Disclosure",
+        "aliases": [
+          "CVE-2026-44010"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-qrgm-p9w5-rrfw",
+        "file": "GHSA-qrgm-p9w5-rrfw.json",
+        "summary": "Craft CMS has Potential Authenticated Remote Code Execution via Malicious Attached Behavior",
+        "aliases": [
+          "CVE-2026-44011"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-qrgm-p9w5-rrfw",
+        "file": "GHSA-qrgm-p9w5-rrfw.json",
+        "summary": "Craft CMS has Potential Authenticated Remote Code Execution via Malicious Attached Behavior",
+        "aliases": [
+          "CVE-2026-44011"
+        ],
+        "severity": "high"
+      }
+    ],
+    "getgrav/grav": [
+      {
+        "id": "GHSA-3f29-pqwf-v4j4",
+        "file": "GHSA-3f29-pqwf-v4j4.json",
+        "summary": "Grav Vulnerable to Sensitive Information Disclosure via Accounts Service Bypass",
+        "aliases": [
+          "CVE-2026-42610"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6xx2-m8wv-756h",
+        "file": "GHSA-6xx2-m8wv-756h.json",
+        "summary": "Low-privileged Grav API users can create super-admin accounts via blueprint-upload",
+        "aliases": [
+          "CVE-2026-42844"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-9695-8fr9-hw5q",
+        "file": "GHSA-9695-8fr9-hw5q.json",
+        "summary": "Grav Vulnerable to Publisher-Level Stored XSS via Unquoted Event Attributes",
+        "aliases": [
+          "CVE-2026-42612"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-c2q3-p4jr-c55f",
+        "file": "GHSA-c2q3-p4jr-c55f.json",
+        "summary": "Grav Vulnerable to XSS via Taxonomy Field Values in Admin Panel",
+        "aliases": [
+          "CVE-2026-42842"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-fmg2-f5r9-24qc",
+        "file": "GHSA-fmg2-f5r9-24qc.json",
+        "summary": "Grav: Stored XSS via page title (data[header][title]) in admin panel",
+        "aliases": [
+          "CVE-2026-44737"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-hmcx-ch82-3fv2",
+        "file": "GHSA-hmcx-ch82-3fv2.json",
+        "summary": "Grav has Unauthenticated Path Traversal & Arbitrary File Write in its FormFlash component",
+        "aliases": [
+          "CVE-2026-42608"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-j274-39qw-32c9",
+        "file": "GHSA-j274-39qw-32c9.json",
+        "summary": "Grav: Twig sandbox allows editor-role users to exfiltrate all plugin secrets via Config::toArray()",
+        "aliases": [
+          "CVE-2026-44738"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-pxm6-mhxr-q4mj",
+        "file": "GHSA-pxm6-mhxr-q4mj.json",
+        "summary": "Grav Vulnerable to Privilege Escalation via Missing Server-Side Validation of groups/access",
+        "aliases": [
+          "CVE-2026-42613"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-r7fx-8g49-7hhr",
+        "file": "GHSA-r7fx-8g49-7hhr.json",
+        "summary": "Grav CMS vulnerable to stored XSS via Markdown media attribute() action",
+        "aliases": [
+          "CVE-2026-42841"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-rr73-568v-28f8",
+        "file": "GHSA-rr73-568v-28f8.json",
+        "summary": "Grav Vulnerable to Administrative Account Disruption and Privilege De-escalation via User Overwrite Logic",
+        "aliases": [
+          "CVE-2026-42609"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-w48r-jppp-rcfw",
+        "file": "GHSA-w48r-jppp-rcfw.json",
+        "summary": "Grav Vulnerable to Remote Code Execution (RCE) via Malicious Plugin ZIP Upload in Direct Install Feature",
+        "aliases": [
+          "CVE-2026-42607"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-w8cg-7jcj-4vv2",
+        "file": "GHSA-w8cg-7jcj-4vv2.json",
+        "summary": "Grav is Vulnerable to Stored XSS via Tag Injection",
+        "aliases": [
+          "CVE-2026-42611"
+        ],
+        "severity": "high"
+      }
+    ],
+    "roadiz/openid": [
+      {
+        "id": "GHSA-3gx8-q682-38mx",
+        "file": "GHSA-3gx8-q682-38mx.json",
+        "summary": "OpenID Connect nonce generated but never validated \u2014 ID token replay attack",
+        "aliases": [
+          "CVE-2026-42206"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3gx8-q682-38mx",
+        "file": "GHSA-3gx8-q682-38mx.json",
+        "summary": "OpenID Connect nonce generated but never validated \u2014 ID token replay attack",
+        "aliases": [
+          "CVE-2026-42206"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3gx8-q682-38mx",
+        "file": "GHSA-3gx8-q682-38mx.json",
+        "summary": "OpenID Connect nonce generated but never validated \u2014 ID token replay attack",
+        "aliases": [
+          "CVE-2026-42206"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3gx8-q682-38mx",
+        "file": "GHSA-3gx8-q682-38mx.json",
+        "summary": "OpenID Connect nonce generated but never validated \u2014 ID token replay attack",
+        "aliases": [
+          "CVE-2026-42206"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "kimai/kimai": [
+      {
+        "id": "GHSA-3xc2-h5r3-wv3r",
+        "file": "GHSA-3xc2-h5r3-wv3r.json",
+        "summary": "Kimai vulnerable to formula Injection via tag names in XLSX export",
+        "aliases": [
+          "CVE-2026-42267"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-h5fh-7hwr-97mw",
+        "file": "GHSA-h5fh-7hwr-97mw.json",
+        "summary": "Kimai has an arbitrary file read in its invoice PDF renderer (admin)",
+        "aliases": [
+          "CVE-2026-44298"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-jv9x-w4gm-hwcm",
+        "file": "GHSA-jv9x-w4gm-hwcm.json",
+        "summary": "Kimai has Missing Object-Level Authorization in the Team API",
+        "aliases": [
+          "CVE-2026-41498"
+        ],
+        "severity": "low"
+      }
+    ],
+    "flightphp/core": [
+      {
+        "id": "GHSA-3xjv-pmf2-gf2q",
+        "file": "GHSA-3xjv-pmf2-gf2q.json",
+        "summary": "Flight has path traversal in `make:controller` CLI that creates arbitrary directories outside project root",
+        "aliases": [
+          "CVE-2026-42549"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-fcx8-ph5r-mxr4",
+        "file": "GHSA-fcx8-ph5r-mxr4.json",
+        "summary": "Flight has reflected XSS through an unvalidated JSONP callback in Flight::jsonp() ",
+        "aliases": [
+          "CVE-2026-42548"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-qrch-52m5-vv85",
+        "file": "GHSA-qrch-52m5-vv85.json",
+        "summary": "Flight vulnerable to sensitive information disclosure via default error handler",
+        "aliases": [
+          "CVE-2026-42552"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-vxrr-w42w-w76g",
+        "file": "GHSA-vxrr-w42w-w76g.json",
+        "summary": "Flight: HTTP method override enabled by default, facilitating CSRF escalation and middleware bypass",
+        "aliases": [
+          "CVE-2026-42551"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-xwqr-rcqg-22mr",
+        "file": "GHSA-xwqr-rcqg-22mr.json",
+        "summary": "Flight vulnerable to SQL Injection via unvalidated identifiers in SimplePdo::insert / update / delete",
+        "aliases": [
+          "CVE-2026-42550"
+        ],
+        "severity": "high"
+      }
+    ],
+    "dedoc/scramble": [
+      {
+        "id": "GHSA-4rm2-28vj-fj39",
+        "file": "GHSA-4rm2-28vj-fj39.json",
+        "summary": "Scramble vulnerable to remote code execution via evaluation of user-controlled input in validation rules",
+        "aliases": [
+          "CVE-2026-44262"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "torrentpier/torrentpier": [
+      {
+        "id": "GHSA-4rwr-8c3m-55f6",
+        "file": "GHSA-4rwr-8c3m-55f6.json",
+        "summary": "TorrentPier is Vulnerable to Authenticated SQL Injection through Moderator Control Panel's topic_id parameter",
+        "aliases": [
+          "CVE-2025-64519"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-fg86-4c2r-7wxw",
+        "file": "GHSA-fg86-4c2r-7wxw.json",
+        "summary": "TorrentPier Deserialization of Untrusted Data vulnerability",
+        "aliases": [
+          "CVE-2024-40624"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-h29g-c9cx-c73q",
+        "file": "GHSA-h29g-c9cx-c73q.json",
+        "summary": "torrentpier has PHP Serialize Injections",
+        "aliases": [],
+        "severity": "critical"
+      }
+    ],
+    "ipl/web": [
+      {
+        "id": "GHSA-55wf-5m3q-6jjf",
+        "file": "GHSA-55wf-5m3q-6jjf.json",
+        "summary": "ipl/web is vulnerable to reflected XSS by malformed search requests",
+        "aliases": [
+          "CVE-2026-42224"
+        ],
+        "severity": "high"
+      }
+    ],
+    "yiisoft/yii2": [
+      {
+        "id": "GHSA-5vpg-rj7q-qpw2",
+        "file": "GHSA-5vpg-rj7q-qpw2.json",
+        "summary": "Yii 2: Local file inclusion via view parameter name collision",
+        "aliases": [
+          "CVE-2026-39850"
+        ],
+        "severity": "high"
+      }
+    ],
+    "nukeviet/nukeviet": [
+      {
+        "id": "GHSA-64rr-pp78-62ww",
+        "file": "GHSA-64rr-pp78-62ww.json",
+        "summary": "NukeViet CMS: Stored Cross-Site Scripting (XSS) via insufficient server-side input sanitization in Request class",
+        "aliases": [
+          "CVE-2026-41147"
+        ],
+        "severity": "high"
+      }
+    ],
+    "mantisbt/mantisbt": [
+      {
+        "id": "GHSA-68w5-w573-q2r8",
+        "file": "GHSA-68w5-w573-q2r8.json",
+        "summary": "MantisBT Has Authorization Bypass in Global Profile Creation",
+        "aliases": [
+          "CVE-2026-33052"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6jh4-47v2-4g37",
+        "file": "GHSA-6jh4-47v2-4g37.json",
+        "summary": "MantisBT has Potential Referer-Based Reflected HTML Injection / XSS in Tag Update Page",
+        "aliases": [
+          "CVE-2026-40598"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-7mqj-8gj2-cg59",
+        "file": "GHSA-7mqj-8gj2-cg59.json",
+        "summary": "MantisBT has Stored XSS on Move Attachments Admin Page",
+        "aliases": [
+          "CVE-2026-44655"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-9c3j-xm6v-j7j3",
+        "file": "GHSA-9c3j-xm6v-j7j3.json",
+        "summary": "MantisBT has a Content Security Policy bypass via attachments",
+        "aliases": [
+          "CVE-2026-40597"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-crmx-4p49-46m2",
+        "file": "GHSA-crmx-4p49-46m2.json",
+        "summary": "MantisBT: Bugnote Revision Page Leaks Private Issue Metadata After Issue Access Is Revoked",
+        "aliases": [
+          "CVE-2026-34970"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-f633-865q-2mhh",
+        "file": "GHSA-f633-865q-2mhh.json",
+        "summary": "MantisBT is Vulnerable to Stored XSS in Saved-Filter Owner Column",
+        "aliases": [
+          "CVE-2026-40607"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-frf7-jhp9-jxm6",
+        "file": "GHSA-frf7-jhp9-jxm6.json",
+        "summary": "MantisBT Vulnerable to Privilege Escalation from Manager to Administrator",
+        "aliases": [
+          "CVE-2026-34390"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-fvjf-68wh-rwp2",
+        "file": "GHSA-fvjf-68wh-rwp2.json",
+        "summary": "MantisBT is Vulnerable to Stored HTML Injection/XSS in Clone Issue Form",
+        "aliases": [
+          "CVE-2026-34463"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-ggw7-9675-6v4v",
+        "file": "GHSA-ggw7-9675-6v4v.json",
+        "summary": "MantisBT has an authorization bypass in private issue monitoring",
+        "aliases": [
+          "CVE-2026-34579"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-h4x5-gvx6-3rwc",
+        "file": "GHSA-h4x5-gvx6-3rwc.json",
+        "summary": "MantisBT has an Authorization Bypass that Allows Uploading Attachments to Private Issues via REST API",
+        "aliases": [
+          "CVE-2026-34754"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-j3v9-553h-x28j",
+        "file": "GHSA-j3v9-553h-x28j.json",
+        "summary": "MantisBT is Vulnerable to XSS leading to account takeover via updating a user's font family preference",
+        "aliases": [
+          "CVE-2026-40596"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-j7v9-f46r-2rp4",
+        "file": "GHSA-j7v9-f46r-2rp4.json",
+        "summary": "MantisBT is Vulnerable to Reflected XSS in Rendering Dynamic Custom Textarea Field",
+        "aliases": [
+          "CVE-2026-41897"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-p6fr-rxq7-xcg8",
+        "file": "GHSA-p6fr-rxq7-xcg8.json",
+        "summary": "MantisBT Vulnerable to Stored XSS in File Download",
+        "aliases": [
+          "CVE-2026-44657"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-pq86-j2c2-47f6",
+        "file": "GHSA-pq86-j2c2-47f6.json",
+        "summary": "MantisBT: Authorization Bypass in Bugnote Editing via Issue Update API",
+        "aliases": [
+          "CVE-2026-42070"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-pw5x-2mf9-3xc8",
+        "file": "GHSA-pw5x-2mf9-3xc8.json",
+        "summary": "MantisBT has a Private Bugnote Attachment Content Leak via REST API",
+        "aliases": [
+          "CVE-2026-42071"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-qj6w-v29q-4rgx",
+        "file": "GHSA-qj6w-v29q-4rgx.json",
+        "summary": "MantisBT is Vulnerable to Stored XSS in Custom Field Textarea Values",
+        "aliases": [
+          "CVE-2026-39960"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-rmp5-5jj7-gmvf",
+        "file": "GHSA-rmp5-5jj7-gmvf.json",
+        "summary": "MantisBT has an authorization bypass that allows reading attachments after losing access to a private issue",
+        "aliases": [
+          "CVE-2026-34744"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "code16/sharp": [
+      {
+        "id": "GHSA-748w-hm6r-qc7v",
+        "file": "GHSA-748w-hm6r-qc7v.json",
+        "summary": "Authenticated Sharp users can download unrelated Laravel Storage objects through the generic download endpoint",
+        "aliases": [
+          "CVE-2026-44692"
+        ],
+        "severity": "high"
+      }
+    ],
+    "phpoffice/phpspreadsheet": [
+      {
+        "id": "GHSA-7c6m-4442-2x6m",
+        "file": "GHSA-7c6m-4442-2x6m.json",
+        "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Number in XLSX Row Dimensions",
+        "aliases": [
+          "CVE-2026-40902"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-7c6m-4442-2x6m",
+        "file": "GHSA-7c6m-4442-2x6m.json",
+        "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Number in XLSX Row Dimensions",
+        "aliases": [
+          "CVE-2026-40902"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-7c6m-4442-2x6m",
+        "file": "GHSA-7c6m-4442-2x6m.json",
+        "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Number in XLSX Row Dimensions",
+        "aliases": [
+          "CVE-2026-40902"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-7c6m-4442-2x6m",
+        "file": "GHSA-7c6m-4442-2x6m.json",
+        "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Number in XLSX Row Dimensions",
+        "aliases": [
+          "CVE-2026-40902"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-7c6m-4442-2x6m",
+        "file": "GHSA-7c6m-4442-2x6m.json",
+        "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Number in XLSX Row Dimensions",
+        "aliases": [
+          "CVE-2026-40902"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-84wq-86v6-x5j6",
+        "file": "GHSA-84wq-86v6-x5j6.json",
+        "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Index in SpreadsheetML XML Reader",
+        "aliases": [
+          "CVE-2026-40863"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-84wq-86v6-x5j6",
+        "file": "GHSA-84wq-86v6-x5j6.json",
+        "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Index in SpreadsheetML XML Reader",
+        "aliases": [
+          "CVE-2026-40863"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-84wq-86v6-x5j6",
+        "file": "GHSA-84wq-86v6-x5j6.json",
+        "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Index in SpreadsheetML XML Reader",
+        "aliases": [
+          "CVE-2026-40863"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-84wq-86v6-x5j6",
+        "file": "GHSA-84wq-86v6-x5j6.json",
+        "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Index in SpreadsheetML XML Reader",
+        "aliases": [
+          "CVE-2026-40863"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-84wq-86v6-x5j6",
+        "file": "GHSA-84wq-86v6-x5j6.json",
+        "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Index in SpreadsheetML XML Reader",
+        "aliases": [
+          "CVE-2026-40863"
+        ],
+        "severity": "high"
+      }
+    ],
+    "studio-42/elfinder": [
+      {
+        "id": "GHSA-c3gj-q88f-7hqj",
+        "file": "GHSA-c3gj-q88f-7hqj.json",
+        "summary": "elFinder MySQL has a SQL Injection in its Volume Driver (elFinderVolumeMySQL)",
+        "aliases": [
+          "CVE-2026-44521"
+        ],
+        "severity": "high"
+      }
+    ],
+    "simplesamlphp/simplesamlphp-module-casserver": [
+      {
+        "id": "GHSA-cvrm-5hp6-h523",
+        "file": "GHSA-cvrm-5hp6-h523.json",
+        "summary": "SimpleSAMLphp casserver: Open Redirect in logout",
+        "aliases": [
+          "CVE-2025-65954"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-cvrm-5hp6-h523",
+        "file": "GHSA-cvrm-5hp6-h523.json",
+        "summary": "SimpleSAMLphp casserver: Open Redirect in logout",
+        "aliases": [
+          "CVE-2025-65954"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-jrrg-99xh-5j2q",
+        "file": "GHSA-jrrg-99xh-5j2q.json",
+        "summary": "SimpleSAMLphp casserver FileSystemTicketStore path traversal allows out-of-ticket-directory read/unserialize and conditional deletion",
+        "aliases": [
+          "CVE-2026-46491"
+        ],
+        "severity": "high"
+      }
+    ],
+    "almirhodzic/nova-toggle-5": [
+      {
+        "id": "GHSA-f5c8-m5vw-rmgq",
+        "file": "GHSA-f5c8-m5vw-rmgq.json",
+        "summary": "nova-toggle-5: Improper authorization on toggle endpoint allowed non-Nova users to modify boolean fields",
+        "aliases": [
+          "CVE-2026-42202"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "nabeel/phpvms": [
+      {
+        "id": "GHSA-fv26-4939-62fh",
+        "file": "GHSA-fv26-4939-62fh.json",
+        "summary": "phpVMS has an /importer authorization bypass causing full database wipe",
+        "aliases": [
+          "CVE-2026-42569"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "spiral/roadrunner": [
+      {
+        "id": "GHSA-g9pc-8g42-g6vq",
+        "file": "GHSA-g9pc-8g42-g6vq.json",
+        "summary": "RoadRunner is at risk of HTTP Request/Response Smuggling through vulnerable dependency",
+        "aliases": [
+          "BIT-golang-2025-22871",
+          "CVE-2025-22871",
+          "GO-2025-3563"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "azuracast/azuracast": [
+      {
+        "id": "GHSA-gv7r-3mr9-h5x8",
+        "file": "GHSA-gv7r-3mr9-h5x8.json",
+        "summary": "AzuraCast has Password Reset Poisoning via Untrusted X-Forwarded-Host Header that Leads to Account Takeover and 2FA Bypass",
+        "aliases": [
+          "CVE-2026-42606"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-vp2f-cqqp-478j",
+        "file": "GHSA-vp2f-cqqp-478j.json",
+        "summary": "AzuraCast has Path Traversal in `currentDirectory` Parameter that Enables Remote Code Execution via Media Upload",
+        "aliases": [
+          "CVE-2026-42605"
+        ],
+        "severity": "high"
+      }
+    ],
+    "snipe/snipe-it": [
+      {
+        "id": "GHSA-hq28-crg7-95pr",
+        "file": "GHSA-hq28-crg7-95pr.json",
+        "summary": "Snipe-IT has Privilege Escalation via API Permissions Assignment",
+        "aliases": [
+          "CVE-2026-44832"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-mghp-5cq4-v6mg",
+        "file": "GHSA-mghp-5cq4-v6mg.json",
+        "summary": "Snipe-IT has an open redirect vulnerability",
+        "aliases": [
+          "CVE-2026-44833"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-r42m-953q-6vjx",
+        "file": "GHSA-r42m-953q-6vjx.json",
+        "summary": "Snipe-IT has Stored XSS via Component Checkout Notes (v8.4.0)",
+        "aliases": [
+          "CVE-2026-44831"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-xg82-2hrv-hf64",
+        "file": "GHSA-xg82-2hrv-hf64.json",
+        "summary": "Snipe-IT has insecure permissions in file uploads",
+        "aliases": [
+          "CVE-2026-37709"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "krayin/laravel-crm": [
+      {
+        "id": "GHSA-j822-46r5-h4qx",
+        "file": "GHSA-j822-46r5-h4qx.json",
+        "summary": "Webkul Krayin CRM is Vulnerable to Cross-Site Scripting in the /admin/activities/create endpoint",
+        "aliases": [
+          "CVE-2026-36341"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "statamic/cms": [
+      {
+        "id": "GHSA-m24v-f7g5-gq67",
+        "file": "GHSA-m24v-f7g5-gq67.json",
+        "summary": "Statamic CMS vulnerable to email enumeration via forgot password endpoint",
+        "aliases": [
+          "CVE-2026-44306"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-m24v-f7g5-gq67",
+        "file": "GHSA-m24v-f7g5-gq67.json",
+        "summary": "Statamic CMS vulnerable to email enumeration via forgot password endpoint",
+        "aliases": [
+          "CVE-2026-44306"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "coreshop/core-shop": [
+      {
+        "id": "GHSA-q58j-g3f4-h26h",
+        "file": "GHSA-q58j-g3f4-h26h.json",
+        "summary": "CoreShop Vulnerable to Remote Code Execution (RCE) via Insecure `pull_request_target` Configuration",
+        "aliases": [
+          "CVE-2026-41249"
+        ],
+        "severity": "high"
+      }
+    ],
+    "phpunit/phpunit": [
+      {
+        "id": "GHSA-qrr6-mg7r-m243",
+        "file": "GHSA-qrr6-mg7r-m243.json",
+        "summary": "PHPUnit has Argument injection via newline in PHP INI values that are forwarded to child processes",
+        "aliases": [
+          "CVE-2026-41570"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-qrr6-mg7r-m243",
+        "file": "GHSA-qrr6-mg7r-m243.json",
+        "summary": "PHPUnit has Argument injection via newline in PHP INI values that are forwarded to child processes",
+        "aliases": [
+          "CVE-2026-41570"
+        ],
+        "severity": "high"
+      }
+    ],
+    "getgrav/grav-plugin-api": [
+      {
+        "id": "GHSA-r945-h4vm-h736",
+        "file": "GHSA-r945-h4vm-h736.json",
+        "summary": "Grav API Privilege Escalation to Super Admin",
+        "aliases": [
+          "CVE-2026-42843"
+        ],
+        "severity": "high"
+      }
+    ],
+    "librenms/librenms": [
+      {
+        "id": "GHSA-rp7w-624x-95qv",
+        "file": "GHSA-rp7w-624x-95qv.json",
+        "summary": "Duplicate Advisory: LibreNMS affected by an authenticated Cross-site Scripting vulnerability on the showconfig page",
+        "aliases": [
+          "CVE-2026-2728"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-x645-6pf9-xwxw",
+        "file": "GHSA-x645-6pf9-xwxw.json",
+        "summary": "LibreNMS has an Authenticated OS Command Injection",
+        "aliases": [
+          "CVE-2024-51092"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "dolibarr/dolibarr": [
+      {
+        "id": "GHSA-rvwr-q5hj-wq7g",
+        "file": "GHSA-rvwr-q5hj-wq7g.json",
+        "summary": "Dolibarr has an Injection issue",
+        "aliases": [
+          "CVE-2026-7688"
+        ],
+        "severity": "low"
+      }
+    ],
+    "getgrav/grav-plugin-form": [
+      {
+        "id": "GHSA-w4rc-p66m-x6qq",
+        "file": "GHSA-w4rc-p66m-x6qq.json",
+        "summary": "Grav Form Plugin has an Anonymous Page Content Overwrite via Form File Upload filename Override",
+        "aliases": [
+          "CVE-2026-42845"
+        ],
+        "severity": "high"
+      }
+    ],
+    "flarum/core": [
+      {
+        "id": "GHSA-xjvc-pw2r-6878",
+        "file": "GHSA-xjvc-pw2r-6878.json",
+        "summary": "Flarum: Path traversal in LESS parser via theme color settings (incomplete fix for CVE-2023-27577)",
+        "aliases": [
+          "CVE-2026-41887"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-xjvc-pw2r-6878",
+        "file": "GHSA-xjvc-pw2r-6878.json",
+        "summary": "Flarum: Path traversal in LESS parser via theme color settings (incomplete fix for CVE-2023-27577)",
+        "aliases": [
+          "CVE-2026-41887"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "intercom-php": [
+      {
+        "id": "MAL-2026-3637",
+        "file": "MAL-2026-3637.json",
+        "summary": "Malicious code in intercom-php (Packagist)",
+        "aliases": []
+      }
+    ]
+  }
+}

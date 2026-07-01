@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Validation rules and anti-patterns for HTTP / object-storage file upload endpoints. Combine magic-byte allowlist, filename sanitization, size/timeout limits, separate serving domain, and out-of-band virus scanning.",
+  "references": [
+    "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html",
+    "https://cwe.mitre.org/data/definitions/434.html"
+  ],
+  "defaults": {
+    "verify_magic_bytes": true,
+    "magic_byte_library_preferred": ["libmagic", "file-type (Node)", "filetype.py (Python)", "Apache Tika"],
+    "allowlist_mime_types_recommended": [
+      "image/png",
+      "image/jpeg",
+      "image/gif",
+      "image/webp",
+      "application/pdf",
+      "text/plain"
+    ],
+    "denylist_mime_types_alarm": [
+      "text/html",
+      "image/svg+xml",
+      "application/xhtml+xml",
+      "application/xml",
+      "application/x-msdownload",
+      "application/x-shockwave-flash",
+      "application/x-java-archive",
+      "application/octet-stream"
+    ],
+    "max_upload_bytes_default": 10485760,
+    "max_upload_bytes_image": 5242880,
+    "max_upload_bytes_pdf": 26214400,
+    "request_timeout_seconds": 30,
+    "filename_allowed_chars_regex": "^[A-Za-z0-9._-]{1,255}$",
+    "storage_path_pattern": "<bucket-or-dir>/<uuidv4>",
+    "serve_from_separate_origin": true,
+    "force_content_disposition_attachment_for_non_image": true,
+    "csp_for_user_content_origin": "default-src 'none'; sandbox; frame-ancestors 'none'",
+    "av_scan_required": true,
+    "av_scanners_recommended": ["clamav", "Sophos", "VirusTotal API"],
+    "reencode_media_server_side": true
+  },
+  "anti_patterns": [
+    {"id": "upload-trust-content-type", "severity": "critical", "cwe": 434, "rule": "Trusting client-sent Content-Type for the allowlist check"},
+    {"id": "upload-trust-extension", "severity": "critical", "cwe": 434, "rule": "Trusting the file extension for the allowlist check"},
+    {"id": "upload-path-traversal-storage", "severity": "critical", "cwe": 22, "rule": "Constructing storage path from user-supplied filename without sanitization (path traversal / Windows reserved names)"},
+    {"id": "upload-same-origin-serve", "severity": "critical", "cwe": 79, "rule": "Serving uploads from the application origin makes HTML / SVG uploads same-origin XSS"},
+    {"id": "upload-no-size-limit", "severity": "high", "cwe": 770, "rule": "No size limit at proxy and app allows trivial bandwidth + memory DoS"},
+    {"id": "upload-no-av-scan", "severity": "high", "cwe": 434, "rule": "No virus scan turns the upload store into a malware distribution endpoint"},
+    {"id": "upload-svg-unfiltered", "severity": "high", "cwe": 79, "rule": "SVG accepted without script / foreignObject / xlink:href stripping is a stored-XSS vector"},
+    {"id": "upload-imagemagick-default-policy", "severity": "high", "cwe": 78, "rule": "ImageMagick with default policy.xml passes MVG / MSL / EPHEMERAL / HTTPS / URL delegates to shell — ImageTragick class"},
+    {"id": "upload-zip-slip", "severity": "high", "cwe": 22, "rule": "Extracting archives without canonicalizing entry paths against the destination directory permits zip-slip"},
+    {"id": "upload-s3-presigned-no-conditions", "severity": "high", "cwe": 434, "rule": "S3 presigned upload URL without ContentType + key-prefix conditions lets attacker overwrite arbitrary keys"},
+    {"id": "upload-pdf-no-structure-check", "severity": "medium", "cwe": 434, "rule": "Accepting PDFs without pdfinfo structural validation permits XFA / JavaScript-in-PDF abuse"},
+    {"id": "upload-no-reencode", "severity": "medium", "cwe": 434, "rule": "Not re-encoding images / videos / PDFs preserves polyglot and codec exploit payloads"}
+  ],
+  "magic_byte_signatures": [
+    {"mime": "image/png", "hex_prefix": "89504E470D0A1A0A"},
+    {"mime": "image/jpeg", "hex_prefix": "FFD8FF"},
+    {"mime": "image/gif", "hex_prefix": ["474946383761", "474946383961"]},
+    {"mime": "image/webp", "hex_prefix": "52494646", "notes": "RIFF, then 'WEBP' at offset 8"},
+    {"mime": "application/pdf", "hex_prefix": "25504446"},
+    {"mime": "application/zip", "hex_prefix": "504B0304"},
+    {"mime": "video/mp4", "hex_prefix": "0000001866747970"},
+    {"mime": "application/x-msdownload", "hex_prefix": "4D5A", "notes": "MZ — Windows PE; deny everywhere unless explicit"}
+  ]
+}

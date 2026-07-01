@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.7.5",
+  "id": "MAL-2026-3158",
+  "published": "2026-04-29T08:00:00Z",
+  "modified": "2026-05-15T11:19:25.516381Z",
+  "aliases": [
+    "GHSA-mc4h-h4q5-8hw9"
+  ],
+  "summary": "Malicious code in apple-internal-pki-trust (npm)",
+  "affected": [
+    {
+      "package": {
+        "name": "apple-internal-pki-trust",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/apple-internal-pki-trust"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.5.0"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          },
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "source": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/npm/apple-internal-pki-trust/MAL-2026-3158.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-mc4h-h4q5-8hw9"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "import_time": "2026-04-30T22:23:14.201405791Z",
+        "modified_time": "2026-04-30T21:59:18Z",
+        "sha256": "50fe6a637643643b8f442834e218443bbcaf18dcaefe0f0b5ae8d66cbe7a6e84",
+        "source": "amazon-inspector",
+        "versions": [
+          "2.5.0"
+        ]
+      },
+      {
+        "id": "GHSA-mc4h-h4q5-8hw9",
+        "import_time": "2026-05-15T11:03:58.975919827Z",
+        "modified_time": "2026-05-15T10:40:55Z",
+        "ranges": [
+          {
+            "events": [
+              {
+                "introduced": "0"
+              }
+            ],
+            "type": "SEMVER"
+          }
+        ],
+        "sha256": "7ff0ba62a485e4357c65d36f2f577a2df53ae7310a2cf5712011cfdb83a9c054",
+        "source": "ghsa-malware"
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "actran@amazon.com"
+      ],
+      "type": "FINDER"
+    },
+    {
+      "name": "SafeDep",
+      "contact": [
+        "https://safedep.io"
+      ],
+      "type": "FINDER"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

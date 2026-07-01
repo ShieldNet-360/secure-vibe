@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.7.5",
+  "id": "RUSTSEC-2026-0119",
+  "published": "2026-05-01T12:00:00Z",
+  "modified": "2026-05-07T08:56:41Z",
+  "aliases": [
+    "GHSA-q2qq-hmj6-3wpp"
+  ],
+  "related": [
+    "CVE-2024-8508"
+  ],
+  "summary": "CPU exhaustion during message encoding due to O(n\u00b2) name compression",
+  "affected": [
+    {
+      "package": {
+        "name": "hickory-proto",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/hickory-proto"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.3.1"
+            },
+            {
+              "fixed": "0.26.1"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "affected_functions": null,
+        "affects": {
+          "arch": [],
+          "functions": [],
+          "os": []
+        }
+      },
+      "database_specific": {
+        "categories": [
+          "denial-of-service"
+        ],
+        "cvss": null,
+        "informational": null,
+        "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2026-0119.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://crates.io/crates/hickory-proto"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://rustsec.org/advisories/RUSTSEC-2026-0119.html"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/hickory-dns/hickory-dns/security/advisories/GHSA-q2qq-hmj6-3wpp"
+    }
+  ],
+  "database_specific": {
+    "license": "CC-BY-4.0"
+  },
+  "last_updated": "2026-05-07"
+}

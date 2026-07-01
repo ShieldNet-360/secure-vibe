@@ -1,0 +1,26 @@
+# SecureVibe pre-commit hooks.
+#
+# Add to your .pre-commit-config.yaml:
+#
+#   repos:
+#     - repo: https://github.com/shieldnet-360/secure-vibe
+#       rev: v0.4.0          # pin to a release tag that ships the CLI
+#       hooks:
+#         - id: secure-code-gate
+#
+# The hook installs the published @shieldnet360/secure-code-mcp package
+# (language: node — see the repo-root package.json) so its `secure-code-check`
+# CLI is on PATH, then runs `gate` over the staged files. gate routes each
+# file to the right scanner (Dockerfile / lockfile / workflow → specialised
+# scanner; anything else → secret scan) and exits non-zero when any finding
+# meets the severity floor. Override the floor with `args: ["--severity-floor",
+# "critical"]` in your config.
+- id: secure-code-gate
+  name: SecureVibe gate
+  description: Fail on secrets, vulnerable dependencies, and Dockerfile / GitHub Actions issues at or above a severity floor.
+  entry: secure-code-check gate
+  language: node
+  args: ["--severity-floor", "high"]
+  types: [text]
+  pass_filenames: true
+  require_serial: false

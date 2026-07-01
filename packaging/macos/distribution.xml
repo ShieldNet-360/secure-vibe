@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="2">
+    <title>SecureVibe CLI</title>
+    <organization>com.secure-vibe</organization>
+    <domains enable_localSystem="true"/>
+    <options customize="never" require-scripts="false" hostArchitectures="x86_64,arm64"/>
+    <volume-check>
+        <allowed-os-versions>
+            <os-version min="10.15"/>
+        </allowed-os-versions>
+    </volume-check>
+    <choices-outline>
+        <line choice="default">
+            <line choice="com.secure-vibe.secure-vibe"/>
+        </line>
+    </choices-outline>
+    <choice id="default"/>
+    <choice id="com.secure-vibe.secure-vibe" visible="false">
+        <pkg-ref id="com.secure-vibe.secure-vibe"/>
+    </choice>
+    <pkg-ref id="com.secure-vibe.secure-vibe"
+             version="0"
+             onConclusion="none">component.pkg</pkg-ref>
+</installer-gui-script>

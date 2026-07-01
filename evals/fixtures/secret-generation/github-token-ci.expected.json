@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation",
+  "skill": "secret-detection",
+  "language": "yaml",
+  "insecure_signals": [
+    "ghp_[A-Za-z0-9]{20,}"
+  ],
+  "secure_signals": [
+    "\\$\\{\\{\\s*secrets\\.",
+    "GITHUB_TOKEN"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-798"
+}

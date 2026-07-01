@@ -1,0 +1,190 @@
+{
+  "name": "secure-vibe",
+  "displayName": "Secure-Code Skills (secure-vibe)",
+  "description": "Init security skills and run secret / dependency / Dockerfile / GitHub Actions scans and the CI gate from VS Code, powered by the secure-vibe binary.",
+  "version": "0.1.0",
+  "publisher": "shieldnet-360",
+  "license": "SEE LICENSE IN ../../LICENSE",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "security",
+    "secrets",
+    "dependencies",
+    "sast",
+    "sca"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "skillsLibrary.init",
+        "title": "Init Skills Config",
+        "category": "Skills"
+      },
+      {
+        "command": "skillsLibrary.scanSecretsFile",
+        "title": "Scan Current File for Secrets",
+        "category": "Skills"
+      },
+      {
+        "command": "skillsLibrary.scanSecretsWorkspace",
+        "title": "Scan Workspace for Secrets",
+        "category": "Skills"
+      },
+      {
+        "command": "skillsLibrary.scanDependencies",
+        "title": "Scan Dependencies (lockfiles)",
+        "category": "Skills"
+      },
+      {
+        "command": "skillsLibrary.scanDockerfile",
+        "title": "Scan Current Dockerfile",
+        "category": "Skills"
+      },
+      {
+        "command": "skillsLibrary.scanGitHubActions",
+        "title": "Scan Current GitHub Actions Workflow",
+        "category": "Skills"
+      },
+      {
+        "command": "skillsLibrary.gate",
+        "title": "Run Security Gate on Workspace",
+        "category": "Skills"
+      },
+      {
+        "command": "skillsLibrary.checkDependency",
+        "title": "Check a Single Dependency",
+        "category": "Skills"
+      },
+      {
+        "command": "skillsLibrary.clearDiagnostics",
+        "title": "Clear Findings",
+        "category": "Skills"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "skillsLibrary.scanDependencies",
+          "when": "resourceFilename =~ /(package-lock\\.json|yarn\\.lock|pnpm-lock\\.yaml|requirements.*\\.txt|Pipfile\\.lock|poetry\\.lock|go\\.sum|Cargo\\.lock|Gemfile\\.lock)$/",
+          "group": "skills@1"
+        },
+        {
+          "command": "skillsLibrary.scanDockerfile",
+          "when": "resourceFilename =~ /[Dd]ockerfile/",
+          "group": "skills@2"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "skillsLibrary.scanSecretsFile",
+          "group": "skills@1"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "skillsLibrary",
+          "title": "Secure-Code Skills",
+          "icon": "media/shield.svg"
+        }
+      ]
+    },
+    "views": {
+      "skillsLibrary": [
+        {
+          "id": "skillsLibrary.findings",
+          "name": "Findings",
+          "icon": "media/shield.svg"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Secure-Code Skills",
+      "properties": {
+        "skillsLibrary.binaryPath": {
+          "type": "string",
+          "default": "secure-vibe",
+          "description": "Path to the secure-vibe binary. Defaults to 'secure-vibe' resolved on PATH."
+        },
+        "skillsLibrary.libraryPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the secure-vibe checkout the scanners read rule data from. If empty, the extension falls back to the SECURE_VIBE_LIBRARY_PATH environment variable."
+        },
+        "skillsLibrary.vulnSource": {
+          "type": "string",
+          "enum": [
+            "local",
+            "external",
+            "hybrid"
+          ],
+          "default": "local",
+          "description": "Where OSV advisory lookups read from. 'local' is offline; 'external' queries api.osv.dev; 'hybrid' tries external first then falls back to local."
+        },
+        "skillsLibrary.severityFloor": {
+          "type": "string",
+          "enum": [
+            "critical",
+            "high",
+            "medium",
+            "low"
+          ],
+          "default": "high",
+          "description": "Lowest severity that fails the security gate."
+        },
+        "skillsLibrary.defaultInitTool": {
+          "type": "string",
+          "enum": [
+            "claude",
+            "cursor",
+            "copilot",
+            "codex",
+            "devin",
+            "cline",
+            "universal"
+          ],
+          "default": "devin",
+          "description": "Default target tool used by the Init Skills Config command."
+        },
+        "skillsLibrary.scanSecretsOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically scan a file for secrets when it is saved."
+        },
+        "skillsLibrary.autoDownload": {
+          "type": "boolean",
+          "default": true,
+          "description": "On first run, automatically download a checksum-verified secure-vibe binary and its signed rule data into the extension's storage. Disable to require a manually installed binary (skillsLibrary.binaryPath) and data tree (skillsLibrary.libraryPath)."
+        },
+        "skillsLibrary.releaseBaseUrl": {
+          "type": "string",
+          "default": "https://github.com/shieldnet-360/secure-vibe/releases/latest/download",
+          "description": "Base URL the binary and its checksum file are downloaded from. Override to pin a release or use a mirror."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "tsc -p ./",
+    "lint": "tsc --noEmit -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0"
+  }
+}

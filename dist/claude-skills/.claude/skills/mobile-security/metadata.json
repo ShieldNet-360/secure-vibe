@@ -1,0 +1,43 @@
+{
+  "id": "mobile-security",
+  "version": "1.0.0",
+  "title": "Mobile Application Security",
+  "description": "Android and iOS hardening: exported components, ATS, keychain, certificate pinning, root/jailbreak detection",
+  "category": "hardening",
+  "severity": "high",
+  "applies_to": [
+    "when generating Android (Kotlin / Java) app code or manifests",
+    "when generating iOS (Swift / Objective-C) app code",
+    "when generating React Native / Flutter native modules"
+  ],
+  "languages": [
+    "kotlin",
+    "java",
+    "swift",
+    "objc",
+    "dart",
+    "javascript",
+    "typescript",
+    "xml",
+    "plist"
+  ],
+  "token_budget": {
+    "minimal": 1000,
+    "compact": 1200,
+    "full": 2500
+  },
+  "rules_path": "checklists/",
+  "related_skills": [
+    "crypto-misuse",
+    "secret-detection",
+    "auth-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP MASVS v2.0",
+    "OWASP Mobile Application Security Testing Guide (MASTG)",
+    "CWE-919, CWE-921, CWE-925, CWE-926",
+    "Apple Platform Security Guide",
+    "Android Developers — App Security Best Practices"
+  ]
+}

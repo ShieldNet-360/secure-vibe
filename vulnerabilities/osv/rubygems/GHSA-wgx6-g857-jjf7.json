@@ -1,0 +1,179 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-wgx6-g857-jjf7",
+  "published": "2026-04-22T22:13:10Z",
+  "modified": "2026-05-05T16:11:45.116714Z",
+  "aliases": [
+    "CVE-2026-42084"
+  ],
+  "summary": "OpenC3 COSMOS: Hijacked session token can be used to reset password for persistence",
+  "affected": [
+    {
+      "package": {
+        "name": "openc3",
+        "ecosystem": "RubyGems",
+        "purl": "pkg:gem/openc3"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.10.5"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "5.0.10",
+        "5.0.11",
+        "5.0.6",
+        "5.0.7",
+        "5.0.8",
+        "5.0.9",
+        "5.1.0",
+        "5.1.1",
+        "5.10.0",
+        "5.10.1",
+        "5.11.0",
+        "5.11.1",
+        "5.11.2",
+        "5.11.3",
+        "5.12.0",
+        "5.13.0",
+        "5.14.0",
+        "5.14.1",
+        "5.14.2",
+        "5.15.0",
+        "5.15.1",
+        "5.15.2",
+        "5.16.0",
+        "5.16.1",
+        "5.16.2",
+        "5.17.0",
+        "5.17.1",
+        "5.18.0",
+        "5.19.0",
+        "5.2.0",
+        "5.20.0",
+        "5.3.0",
+        "5.4.0",
+        "5.4.1",
+        "5.4.2",
+        "5.4.3.pre.beta0",
+        "5.5.0",
+        "5.5.0.pre.beta0",
+        "5.5.1",
+        "5.5.2",
+        "5.5.2.pre.beta0",
+        "5.6.0",
+        "5.6.1",
+        "5.7.0",
+        "5.7.2",
+        "5.8.0",
+        "5.8.1",
+        "5.9.0",
+        "5.9.1",
+        "6.0.0",
+        "6.0.1",
+        "6.0.2",
+        "6.1.0",
+        "6.10.0",
+        "6.10.1",
+        "6.10.2",
+        "6.10.3",
+        "6.10.4",
+        "6.2.0",
+        "6.2.1",
+        "6.3.0",
+        "6.4.0",
+        "6.4.1",
+        "6.4.2",
+        "6.5.0",
+        "6.5.1",
+        "6.6.0",
+        "6.7.0",
+        "6.8.0",
+        "6.8.1",
+        "6.9.0",
+        "6.9.1",
+        "6.9.2"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-wgx6-g857-jjf7/GHSA-wgx6-g857-jjf7.json"
+      }
+    },
+    {
+      "package": {
+        "name": "openc3",
+        "ecosystem": "RubyGems",
+        "purl": "pkg:gem/openc3"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "7.0.0.pre.rc1"
+            },
+            {
+              "fixed": "7.0.0-rc3"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "7.0.0.pre.rc1",
+        "7.0.0.pre.rc2"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-wgx6-g857-jjf7/GHSA-wgx6-g857-jjf7.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenC3/cosmos/security/advisories/GHSA-wgx6-g857-jjf7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42084"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenC3/cosmos/commit/2e623714e3426d5ae81b6f8239d4a2a6937ef776"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/OpenC3/cosmos"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenC3/cosmos/releases/tag/v6.10.5"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenC3/cosmos/releases/tag/v7.0.0-rc3"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-620"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-22T22:13:10Z",
+    "nvd_published_at": "2026-05-04T18:16:30Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-05"
+}

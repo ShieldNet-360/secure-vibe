@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.7.5",
+  "id": "MAL-2026-3773",
+  "published": "2026-05-14T19:25:48Z",
+  "modified": "2026-05-15T07:51:38.273051Z",
+  "summary": "Malicious code in sysbin (npm)",
+  "affected": [
+    {
+      "package": {
+        "name": "sysbin",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/sysbin"
+      },
+      "versions": [
+        "1.0.34"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "pointer.py",
+              "sha256": "fb92fc2bf9a16ef9a4eb4e6ad0c792682d03d6e27c90e4b0d6cb36c1fa0c6be0",
+              "tlsh": "87b2714adc0d584ac433cd1f6952b823fb1e43439a5e9917f8bca9901f7431689e4ef9"
+            },
+            {
+              "path": "index.js",
+              "sha256": "a68b940ab1f3cb8dca48c53f74c11b4b94c81bfbd98566362bb8a5ba2a5a0f7f",
+              "tlsh": "c58140075a95a234ed3247ed9b07212be517a0736101e69cbdbe83840f76945c073fee"
+            },
+            {
+              "path": "package.json",
+              "sha256": "faf5b2859becc22f2f887a9641e9aa335f943fcfc4237bbf5a694b3f34f84437",
+              "tlsh": "7ce04f3389615c5344b94aa29a2a8b15b5729b3f00354c0b30bba01c9ba25b245bab5c"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "sysbin-1.0.34.tgz",
+              "hashes": {
+                "sha1": "7c0509088db0d478d4808e276a501039181f6e68",
+                "sha512_sri": "sha512-a+onHkOdpZXFcYQCcOsozLM0Anpn5D2345168v4/z5SnaxgbVEN5lH0INIKxCurxz/MKTMRlxfeY//TuNpPkvw=="
+              }
+            }
+          ]
+        },
+        "source": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/npm/sysbin/MAL-2026-3773.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/sysbin/v/1.0.34"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-002758",
+        "import_time": "2026-05-15T07:37:19.225288551Z",
+        "modified_time": "2026-05-14T19:25:48Z",
+        "sha256": "8ab8ea4ce073a93a1973a062ac7661ceeaea9c312f9fd67e9acda9936e2b6578",
+        "source": "amazon-inspector",
+        "versions": [
+          "1.0.34"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "actran@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

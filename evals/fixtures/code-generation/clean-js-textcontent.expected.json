@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "frontend-security",
+  "language": "javascript",
+  "insecure_signals": [
+    "\\.innerHTML\\s*=",
+    "document\\.write\\("
+  ],
+  "secure_signals": [
+    "\\.textContent\\s*=",
+    "\\.innerText\\s*="
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

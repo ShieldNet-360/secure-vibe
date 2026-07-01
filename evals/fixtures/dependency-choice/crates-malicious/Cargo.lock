@@ -1,0 +1,31 @@
+# Cargo.lock fixture for the eval harness.
+#
+# This file pins `rustdecimal`, a known-malicious crate listed in
+# vulnerabilities/supply-chain/malicious-packages/crates.json
+# (CVE-2022-36315 — typosquat of `rust_decimal` that bundled a
+# Linux credential-stealer payload). The other entries are normal
+# crates that should NOT be flagged.
+#
+# Format follows the standard `cargo generate-lockfile` output that
+# the cargo team has shipped since the v3 lockfile bump in 2022.
+version = 3
+
+[[package]]
+name = "demo-app"
+version = "0.1.0"
+dependencies = [
+ "rustdecimal",
+ "chrono",
+]
+
+[[package]]
+name = "rustdecimal"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0000000000000000000000000000000000000000000000000000000000000000"
+
+[[package]]
+name = "chrono"
+version = "0.4.34"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3fb1c873e1b9b056a4dc4c0c0152c4538cbafb01941dcad7ac5cb1b81b3d6f01"

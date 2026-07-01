@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the file-upload-security skill. It is schema-driven because no deterministic gate scanner judges these fixtures — a model reads each snippet against the skill's ALWAYS/NEVER rules; 'detect' means an upload handler that trusts client Content-Type/extension, builds the storage path from the user filename, or stores in the web root (CWE-434, CWE-22), while 'ignore' means the secure fix that verifies magic bytes against an allowlist, enforces a size limit, stores under a random name outside the document root.",
+  "fixtures": [
+    {
+      "id": "content-type-trust-webroot-detect",
+      "text": "app.post('/upload', upload.single('file'), (req, res) => {\n  if (!req.file.mimetype.startsWith('image/')) {\n    return res.status(400).send('not an image');\n  }\n  const dest = path.join('/var/www/html/uploads', req.file.originalname);\n  fs.writeFileSync(dest, req.file.buffer);\n  res.json({ url: '/uploads/' + req.file.originalname });\n});",
+      "expected": "detect",
+      "reason": "Trusts the client-supplied mimetype (attacker can set image/png on an HTML/PHP payload), uses the raw originalname as the path, and writes into the public document root served same-origin. Violates NEVER 'trust Content-Type', 'construct path with user filename', 'serve from same origin'. CWE-434 + CWE-22."
+    },
+    {
+      "id": "magic-bytes-allowlist-random-name-ignore",
+      "text": "import { fileTypeFromBuffer } from 'file-type';\nconst ALLOWED = new Set(['image/png', 'image/jpeg']);\napp.post('/upload', upload.single('file'), async (req, res) => {\n  if (req.file.size > 5 * 1024 * 1024) return res.status(413).send('too large');\n  const type = await fileTypeFromBuffer(req.file.buffer);\n  if (!type || !ALLOWED.has(type.mime)) return res.status(400).send('unsupported type');\n  const key = crypto.randomUUID() + '.' + type.ext;\n  const dest = path.join('/srv/usercontent', key);\n  await fs.promises.writeFile(dest, req.file.buffer);\n  res.json({ url: 'https://usercontent.example.net/' + key });\n});",
+      "expected": "ignore",
+      "reason": "Verifies real magic bytes against a strict allowlist, enforces a size limit, stores under a random UUID name in a directory outside the web root, and serves from a separate domain. Follows ALWAYS magic-byte/allowlist/size/random-name/outside-root rules. Mitigates CWE-434 and CWE-22."
+    },
+    {
+      "id": "path-traversal-filename-detect",
+      "text": "@app.post('/upload')\ndef upload():\n    f = request.files['file']\n    save_path = os.path.join(UPLOAD_DIR, f.filename)\n    f.save(save_path)\n    return {'saved': save_path}",
+      "expected": "detect",
+      "reason": "Joins UPLOAD_DIR with the raw client filename; a filename like '../../etc/cron.d/evil' escapes the directory and writes attacker-chosen paths. Violates NEVER 'construct storage path with user-supplied filename'. CWE-22 Path Traversal."
+    },
+    {
+      "id": "path-traversal-sanitized-uuid-ignore",
+      "text": "import magic, uuid, os\nALLOWED = {'image/png': '.png', 'application/pdf': '.pdf'}\n@app.post('/upload')\ndef upload():\n    f = request.files['file']\n    head = f.stream.read(2048); f.stream.seek(0)\n    mime = magic.from_buffer(head, mime=True)\n    if mime not in ALLOWED:\n        return {'error': 'unsupported type'}, 400\n    name = uuid.uuid4().hex + ALLOWED[mime]\n    save_path = os.path.join(UPLOAD_DIR, name)\n    f.save(save_path)\n    return {'saved': name}",
+      "expected": "ignore",
+      "reason": "Detects MIME from magic bytes against an allowlist and stores under a server-generated UUID name, so the user filename never touches the path. Follows ALWAYS magic-byte verification + filename-as-UUID rules. No CWE-22 / CWE-434 exposure."
+    },
+    {
+      "id": "presigned-url-no-conditions-detect",
+      "text": "const url = s3.getSignedUrl('putObject', {\n  Bucket: 'user-uploads',\n  Key: req.body.key,\n  Expires: 3600,\n});\nres.json({ uploadUrl: url });",
+      "expected": "detect",
+      "reason": "Generates an S3 presigned PUT with an attacker-controlled Key and no Content-Type or key-prefix condition, so the client can write any object type to any key in the bucket. Violates NEVER 'presigned upload URLs without a strict Content-Type condition and fixed key prefix'. CWE-434."
+    },
+    {
+      "id": "presigned-url-constrained-ignore",
+      "text": "const key = `incoming/${userId}/${crypto.randomUUID()}.png`;\nconst url = s3.getSignedUrl('putObject', {\n  Bucket: 'user-uploads',\n  Key: key,\n  ContentType: 'image/png',\n  Expires: 300,\n  Conditions: [\n    ['content-length-range', 0, 5242880],\n    ['eq', '$Content-Type', 'image/png'],\n    ['starts-with', '$key', `incoming/${userId}/`],\n  ],\n});\nres.json({ uploadUrl: url, key });",
+      "expected": "ignore",
+      "reason": "Pins a server-generated key under a fixed per-user prefix, enforces a signed Content-Type and content-length-range condition, and a short expiry — the client cannot choose the key or type. Follows ALWAYS presigned-URL strict-condition rule. Mitigates CWE-434."
+    }
+  ]
+}

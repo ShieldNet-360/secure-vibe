@@ -1,0 +1,290 @@
+name: Sign & publish
+
+# Promotes a draft GitHub Release created by `release.yml` to a
+# public release, but only after CI has re-verified that the
+# release manager's signed `manifest.json` is intact end-to-end.
+#
+# Pre-conditions (release manager checklist — see SIGNING.md):
+#   1. `release.yml` has run and produced a DRAFT release for the tag.
+#   2. The release manager downloaded the draft's `manifest.json`,
+#      signed it offline with the Ed25519 release key per SIGNING.md,
+#      and re-uploaded the signed manifest to the same draft.
+#   3. The release manager triggers this workflow via the GitHub
+#      Actions UI ("Run workflow"), passing the same tag.
+#
+# What this workflow verifies before publishing:
+#   - `manifest.json` exists on the draft and its `signature` field
+#     is NOT "TBD" (i.e. the offline-signing step was performed).
+#   - `secure-vibe dev manifest verify --path .` succeeds — that is,
+#     the Ed25519 signature on the manifest is valid against the
+#     public key embedded in the just-built binary AND every per-file
+#     checksum still matches the bytes inside
+#     `secure-vibe-data.tar.gz`.
+#   - The data tarball unpacks cleanly and its on-disk SHA-256
+#     matches the checksum line in `SHA256SUMS.txt`.
+#
+# Only if every check passes does the workflow flip the release
+# from draft to public.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to verify and publish (e.g. v0.1.0). Must reference an existing DRAFT release."
+        required: true
+        type: string
+
+# Least privilege: read-only default; the single publishing job below
+# re-grants the contents: write it needs to promote the release.
+permissions:
+  contents: read
+
+jobs:
+  verify-and-publish:
+    name: Verify signed manifest and promote ${{ inputs.tag }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout (for tooling sources at this tag)
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          # Check out the tag the release manager is publishing,
+          # not the workflow's default branch. The embedded public
+          # key (and any signing-related code) MUST come from the
+          # exact source tree the release was cut from.
+          #
+          # `inputs.tag` is interpolated directly here because `with:`
+          # parameters are evaluated by the actions runner as YAML
+          # inputs, never handed to a shell. The script-injection
+          # class addressed by the `env: TAG: ${{ inputs.tag }}`
+          # indirection in the shell `run:` steps below does not
+          # apply to action inputs. Worst case a bad tag value fails
+          # `actions/checkout@v5` with a "ref not found" error.
+          ref: ${{ inputs.tag }}
+
+      - name: Set up Go
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
+        with:
+          go-version: "1.22"
+          cache: true
+
+      - name: Build secure-vibe (with embedded public key)
+        # `inputs.tag` is funnelled through TAG so the shell sees a
+        # POSIX variable, not a literal expansion of the workflow
+        # input. This matches the safe pattern used by every other
+        # step in this file, per
+        # https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
+        env:
+          TAG: ${{ inputs.tag }}
+          SECURE_VIBE_LIBRARY_PUBKEY_B64: ${{ secrets.SECURE_VIBE_LIBRARY_PUBKEY_B64 }}
+          SECURE_VIBE_LIBRARY_PUBKEY_ID: ${{ secrets.SECURE_VIBE_LIBRARY_PUBKEY_ID }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          go build \
+            -trimpath \
+            -ldflags "-s -w \
+              -X github.com/shieldnet-360/secure-vibe/cmd/secure-vibe/cmd.CLIVersion=${TAG} \
+              -X github.com/shieldnet-360/secure-vibe/cmd/secure-vibe/internal/manifest.EmbeddedPublicKey=${SECURE_VIBE_LIBRARY_PUBKEY_B64:-} \
+              -X github.com/shieldnet-360/secure-vibe/cmd/secure-vibe/internal/manifest.EmbeddedPublicKeyID=${SECURE_VIBE_LIBRARY_PUBKEY_ID:-} \
+            " \
+            -o /tmp/secure-vibe \
+            ./cmd/secure-vibe
+
+      - name: Locate the draft release for this tag
+        id: draft
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # `gh release view` matches the tag whether or not the
+          # release is a draft, so we can use it to confirm the
+          # release exists. We assert `isDraft=true` here so that
+          # accidentally re-running the workflow against an
+          # already-published release is a hard failure rather
+          # than a silent no-op.
+          payload=$(gh release view "$TAG" \
+            --json isDraft,tagName,url 2>/dev/null || true)
+          if [ -z "$payload" ]; then
+            echo "::error::no release found for tag $TAG"
+            exit 1
+          fi
+          is_draft=$(echo "$payload" | python3 -c 'import json,sys;print(json.load(sys.stdin)["isDraft"])')
+          url=$(echo "$payload" | python3 -c 'import json,sys;print(json.load(sys.stdin)["url"])')
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          if [ "$is_draft" != "True" ]; then
+            echo "::error::release $TAG is not a draft; refusing to re-publish"
+            exit 1
+          fi
+          echo "Located draft release at $url"
+
+      - name: Download release assets to ./verify
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p verify
+          gh release download "$TAG" --dir verify
+
+      - name: Reject manifest with signature == "TBD"
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f verify/manifest.json ]; then
+            echo "::error::draft release is missing manifest.json"
+            exit 1
+          fi
+          sig=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("signature",""))' verify/manifest.json)
+          echo "manifest signature: $sig"
+          if [ -z "$sig" ] || [ "$sig" = "TBD" ]; then
+            echo "::error::manifest.json on draft is unsigned (signature=\"$sig\"); release manager must sign offline and re-upload before running this workflow. See SIGNING.md."
+            exit 1
+          fi
+
+      - name: Extract data tarball into the verify directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f verify/secure-vibe-data.tar.gz ]; then
+            echo "::error::draft release is missing secure-vibe-data.tar.gz"
+            exit 1
+          fi
+          # The tarball already contains manifest.json. Extract into
+          # a sibling directory so `secure-vibe dev manifest verify`
+          # can re-walk every payload file and re-check both the
+          # checksums AND the Ed25519 signature against the bytes
+          # that consumers will actually see post-publish.
+          mkdir -p verify/extracted
+          tar -xzf verify/secure-vibe-data.tar.gz -C verify/extracted
+          if [ ! -f verify/extracted/manifest.json ]; then
+            echo "::error::tarball does not contain manifest.json"
+            exit 1
+          fi
+
+      - name: Verify signature and per-file checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Use the asset-level manifest.json (re-uploaded after
+          # signing) for the verify step inside the tarball so the
+          # signature being checked is the published one.
+          cp verify/manifest.json verify/extracted/manifest.json
+          /tmp/secure-vibe dev manifest verify --path verify/extracted
+
+      - name: Verify binary checksum signatures (best effort)
+        # If the release manager signed the per-platform checksum files
+        # offline (SIGNING.md step 4), every `checksums-*.txt.sig` must
+        # verify against the public key embedded in the freshly-built
+        # binary before we publish — otherwise a self-update would trust a
+        # bad signature. Releases that predate signed checksums (no .sig
+        # assets) are allowed through; self-update falls back to
+        # checksum-only integrity for them unless run with
+        # --require-signature.
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          sigs=(verify/checksums-*.txt.sig)
+          if [ ${#sigs[@]} -eq 0 ]; then
+            echo "::notice::no checksum .sig files on this release; self-update will fall back to checksum-only integrity (see SIGNING.md step 4)"
+            exit 0
+          fi
+          for sig in "${sigs[@]}"; do
+            base="${sig%.sig}"
+            echo "verifying ${base}.sig"
+            /tmp/secure-vibe dev manifest verify-file "$base"
+          done
+          echo "::notice::verified ${#sigs[@]} binary checksum signature(s)"
+
+      - name: Cross-check tarball SHA-256 against SHA256SUMS.txt
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f verify/SHA256SUMS.txt ]; then
+            echo "::error::draft release is missing SHA256SUMS.txt"
+            exit 1
+          fi
+          cd verify
+          # SHA256SUMS.txt is generated by release.yml BEFORE the
+          # release manager re-uploads the signed manifest.json, so
+          # the line for the standalone `manifest.json` asset (if
+          # present) goes stale by design. The canonical integrity
+          # proof for manifest.json is its embedded Ed25519
+          # signature, which the previous step verified with
+          # `secure-vibe dev manifest verify`. Here we only cross-check
+          # `secure-vibe-data.tar.gz` — the tarball is never
+          # re-uploaded, so its SHA256SUMS.txt entry is still
+          # authoritative and any drift means asset tampering.
+          grep -E '  secure-vibe-data\.tar\.gz$' SHA256SUMS.txt \
+            | sha256sum -c -
+
+      - name: Promote draft to public release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # `gh release edit --draft=false` is the documented way to
+          # flip a draft to public. We deliberately do NOT set
+          # --latest here so the release manager retains explicit
+          # control over which tag the "latest" pointer follows.
+          gh release edit "$TAG" --draft=false
+          echo "::notice::Published ${TAG}"
+
+      - name: Update Homebrew tap
+        # Push the stamped formula (secure-vibe.rb, downloaded with the other
+        # release assets into ./verify above) to shieldnet-360/homebrew-tap so
+        # `brew install shieldnet-360/tap/secure-vibe` resolves. Runs AFTER the
+        # promote step so the release assets the formula's url lines point at
+        # are downloadable. Graceful no-op when HOMEBREW_TAP_TOKEN is not set —
+        # the stamped formula is still published as a release asset for a manual
+        # tap update, matching the repo's "off until a key is provided" pattern.
+        env:
+          TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          TAG: ${{ inputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${TAP_TOKEN:-}" ]; then
+            echo "::notice::HOMEBREW_TAP_TOKEN not configured; skipping tap update. The stamped formula is published as the secure-vibe.rb release asset for a manual tap update."
+            exit 0
+          fi
+          if [ ! -f verify/secure-vibe.rb ]; then
+            echo "::error::verify/secure-vibe.rb was not among the release assets; cannot update the tap."
+            exit 1
+          fi
+          tapdir=$(mktemp -d)
+          git clone --depth 1 \
+            "https://x-access-token:${TAP_TOKEN}@github.com/shieldnet-360/homebrew-tap.git" "$tapdir"
+          mkdir -p "$tapdir/Formula"
+          cp verify/secure-vibe.rb "$tapdir/Formula/secure-vibe.rb"
+          git -C "$tapdir" add Formula/secure-vibe.rb
+          if git -C "$tapdir" diff --cached --quiet; then
+            echo "::notice::Tap formula already up to date for ${TAG}."
+          else
+            git -C "$tapdir" \
+              -c user.name="SecureVibe release bot" \
+              -c user.email="release-bot@users.noreply.github.com" \
+              commit -m "secure-vibe ${TAG}"
+            git -C "$tapdir" push origin HEAD
+            echo "::notice::Updated shieldnet-360/homebrew-tap to ${TAG}."
+          fi
+
+      - name: Summary
+        env:
+          TAG: ${{ inputs.tag }}
+          URL: ${{ steps.draft.outputs.url }}
+        run: |
+          {
+            echo "## Released $TAG"
+            echo
+            echo "- Manifest signature: validated by \`secure-vibe dev manifest verify --path .\`."
+            echo "- Tarball SHA-256: validated against \`SHA256SUMS.txt\`."
+            echo "- Release page: $URL"
+          } >> "$GITHUB_STEP_SUMMARY"

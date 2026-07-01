@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Google Workspace",
+  "description": "Google Workspace (formerly G Suite) security patterns: OAuth tokens, service-account JSON keys, Admin SDK misuse, and admin-console red flags. Applies to Gmail, Drive, Calendar, Meet, Docs/Sheets, Admin SDK, GAM, and Cloud Identity.",
+  "token_patterns": [
+    {
+      "name": "Google OAuth Access Token",
+      "regex": "ya29\\.[0-9A-Za-z\\-_]{20,}",
+      "severity": "high",
+      "hotwords": [
+        "google",
+        "oauth",
+        "ya29",
+        "access_token",
+        "gws",
+        "workspace"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "ya29.",
+      "entropy_min": 3.5
+    },
+    {
+      "name": "Google OAuth Refresh Token",
+      "regex": "1//0[0-9A-Za-z\\-_]{30,}",
+      "severity": "critical",
+      "hotwords": [
+        "google",
+        "oauth",
+        "refresh_token",
+        "gws"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "1//0",
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Google API Key (Workspace / GCP)",
+      "regex": "AIza[0-9A-Za-z\\-_]{35}",
+      "severity": "critical",
+      "hotwords": [
+        "google",
+        "api_key",
+        "gws",
+        "gcp",
+        "maps",
+        "firebase"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "AIza"
+    },
+    {
+      "name": "Google Service Account JSON (private_key block)",
+      "regex": "\"type\":\\s*\"service_account\"[\\s\\S]{0,400}?\"private_key\":\\s*\"-----BEGIN PRIVATE KEY-----",
+      "severity": "critical",
+      "hotwords": [
+        "service_account",
+        "private_key",
+        "google",
+        "gws",
+        "delegation"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "notes": "Detects pasted Google service-account JSON. Domain-wide-delegation enabled service accounts are catastrophic if leaked \u2014 they can impersonate any Workspace user."
+    },
+    {
+      "name": "Google Cloud Storage Signed URL credential",
+      "regex": "X-Goog-Credential=[A-Za-z0-9%@.\\-]+",
+      "severity": "medium",
+      "hotwords": [
+        "x-goog-credential",
+        "signed_url",
+        "gcs"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "gws-no-domain-restricted-sharing",
+      "severity": "high",
+      "title": "Drive 'Anyone with the link' must not be the default for the org",
+      "rationale": "Default-public link-sharing makes every accidentally-shared doc world-readable. GWS supports a domain-restricted default at the org-unit level.",
+      "fix": "Admin Console > Apps > Google Workspace > Drive and Docs > Sharing settings \u2014 set default to 'On - your-domain.com' and disable 'Anyone with the link'."
+    },
+    {
+      "id": "gws-super-admin-oauth-scope",
+      "severity": "critical",
+      "title": "Avoid `https://www.googleapis.com/auth/admin` super-admin OAuth scope",
+      "rationale": "Granting the full Admin SDK scope to a service account allows arbitrary user/group/role mutation. Domain-wide delegation amplifies this.",
+      "fix": "Replace with the narrowest specific scope you need \u2014 e.g. `admin.directory.user.readonly`, `admin.reports.audit.readonly`. Audit existing delegations in Admin Console > Security > API controls > Domain-wide Delegation.",
+      "pattern": "https://www\\.googleapis\\.com/auth/admin(?![._a-z])"
+    },
+    {
+      "id": "gws-2sv-not-enforced",
+      "severity": "critical",
+      "title": "2-Step Verification must be enforced for all users (and especially admins)",
+      "rationale": "Workspace admin compromises in the public record (e.g. 2023 Reddit, 2024 Snowflake-adjacent OAuth thefts) all involved accounts without 2SV or with SMS-fallback enabled.",
+      "fix": "Admin Console > Security > Authentication > 2-step verification \u2014 enforce, exclude only break-glass accounts which use hardware keys."
+    },
+    {
+      "id": "gws-context-aware-access-missing",
+      "severity": "medium",
+      "title": "No Context-Aware Access policy on Admin Console / Drive / Gmail",
+      "rationale": "Posture-based access controls (geo, device-state) materially reduce token-replay risk.",
+      "fix": "Admin Console > Security > Context-Aware Access \u2014 define IP/device-trust policies for Admin Console, Drive, Gmail at minimum."
+    },
+    {
+      "id": "gws-service-account-key-rotation",
+      "severity": "high",
+      "title": "Service-account JSON keys must be rotated \u2264 90 days",
+      "rationale": "Long-lived service-account keys are the canonical GWS leak vector.",
+      "fix": "Prefer Workload Identity Federation. If keys are required, automate rotation via `gcloud iam service-accounts keys create/delete` on a 90-day schedule."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "gws-mass-data-export",
+      "severity": "critical",
+      "title": "Data Export Tool (Vault) used by a non-IT principal",
+      "rationale": "The Data Export Tool can extract an entire tenant's mail/Drive content. Legitimate use is rare.",
+      "signal": "Admin Audit log: `DATA_EXPORT_CREATED` actor not in known IT-admin list."
+    },
+    {
+      "id": "gws-admin-role-grant",
+      "severity": "high",
+      "title": "Admin role granted to a non-standard account",
+      "rationale": "Privilege escalation via role grant is a recurring GWS compromise pattern.",
+      "signal": "Admin Audit log: `ASSIGN_ROLE` with role in {Super Admin, User Management Admin, Groups Admin} to an account not in the IT-admin group."
+    },
+    {
+      "id": "gws-oauth-app-grant-burst",
+      "severity": "high",
+      "title": "Sudden burst of `authorize` events for a previously-unseen OAuth app",
+      "rationale": "OAuth phishing campaigns (e.g. consent phish) show up as many users granting the same brand-new client ID in a short window.",
+      "signal": "Token activity report: distinct user count for a single client_id > 5 within 1h."
+    },
+    {
+      "id": "gws-domain-wide-delegation-change",
+      "severity": "critical",
+      "title": "Domain-wide delegation added/modified for any service account",
+      "rationale": "DWD is the most dangerous setting in Workspace. Every change should be reviewed.",
+      "signal": "Admin Audit log: `AUTHORIZE_API_CLIENT_ACCESS` with scope list containing any `admin.directory.*` or `gmail.*`."
+    },
+    {
+      "id": "gws-suspicious-forwarding",
+      "severity": "high",
+      "title": "Automatic Gmail forwarding rule created to an external domain",
+      "rationale": "Auto-forward to an attacker-controlled inbox is a classic BEC persistence.",
+      "signal": "Gmail audit log: `CREATE_FORWARDING_ADDRESS` or `email_forwarding_out_of_domain`."
+    }
+  ],
+  "references": [
+    "https://developers.google.com/identity/protocols/oauth2",
+    "https://support.google.com/a/answer/162106",
+    "https://cloud.google.com/iam/docs/service-account-overview",
+    "https://workspace.google.com/security/"
+  ]
+}

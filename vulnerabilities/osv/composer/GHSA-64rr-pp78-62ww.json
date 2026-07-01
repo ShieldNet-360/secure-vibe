@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-64rr-pp78-62ww",
+  "published": "2026-05-15T16:45:03Z",
+  "modified": "2026-05-15T17:05:09.253401Z",
+  "aliases": [
+    "CVE-2026-41147"
+  ],
+  "summary": "NukeViet CMS: Stored Cross-Site Scripting (XSS) via insufficient server-side input sanitization in Request class",
+  "affected": [
+    {
+      "package": {
+        "name": "nukeviet/nukeviet",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/nukeviet/nukeviet"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "4.4.01"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.0.24",
+        "4.4.01"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-64rr-pp78-62ww/GHSA-64rr-pp78-62ww.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/nukeviet/nukeviet/security/advisories/GHSA-64rr-pp78-62ww"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nukeviet/nukeviet/commit/2a0860fbe22e2f6a3b90f802bf80b25e18699611"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/nukeviet/nukeviet"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nukeviet/nukeviet/releases/tag/4.5.08"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-15T16:45:03Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "secure-code-review",
+  "version": "1.1.0",
+  "title": "Secure Code Review",
+  "description": "Apply OWASP Top 10 and CWE Top 25 patterns during code generation and review",
+  "category": "prevention",
+  "severity": "high",
+  "applies_to": [
+    "when generating new code",
+    "when reviewing pull requests",
+    "when refactoring security-sensitive paths (auth, input handling, file I/O)",
+    "when adding new HTTP handlers or endpoints"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 700,
+    "compact": 900,
+    "full": 2400
+  },
+  "rules_path": "checklists/",
+  "related_skills": [
+    "api-security",
+    "secret-detection",
+    "container-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP Top 10 2021",
+    "CWE Top 25 2023",
+    "SEI CERT Coding Standards"
+  ]
+}

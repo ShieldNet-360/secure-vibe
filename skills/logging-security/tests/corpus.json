@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the logging-security skill. Fixtures are schema-driven code snippets; 'detect' marks code that leaks secrets/PII to logs or permits log injection (violates a NEVER), and 'ignore' marks code that redacts secrets, uses structured logging, and sanitizes user input (follows ALWAYS).",
+  "fixtures": [
+    {
+      "id": "log-plaintext-password",
+      "text": "@app.route('/login', methods=['POST'])\ndef login(req):\n    username = req.form['username']\n    password = req.form['password']\n    logger.info(f\"Login attempt user={username} password={password}\")\n    return authenticate(username, password)",
+      "expected": "detect",
+      "reason": "Logs a plaintext password (a field named 'password') to the log sink, leaking credentials. CWE-532 Insertion of Sensitive Information into Log File; violates NEVER (log any field named password)."
+    },
+    {
+      "id": "log-injection-unsanitized-input",
+      "text": "func handleSearch(w http.ResponseWriter, r *http.Request) {\n    query := r.URL.Query().Get(\"q\")\n    log.Printf(\"user searched for: %s\", query)\n    results := search(query)\n    writeJSON(w, results)\n}",
+      "expected": "detect",
+      "reason": "User-controlled 'q' is logged without stripping CR/LF/control chars, so an attacker can inject forged log lines. CWE-117 Improper Output Neutralization for Logs; violates ALWAYS (sanitize newlines from user-controlled strings)."
+    },
+    {
+      "id": "log-authorization-header-and-body",
+      "text": "app.use((req, res, next) => {\n  console.log('INCOMING', {\n    headers: req.headers,        // includes Authorization + Cookie\n    body: req.body               // includes tokens / PII\n  });\n  next();\n});",
+      "expected": "detect",
+      "reason": "Logs the full Authorization/Cookie headers and the full request body at INFO via console.log, leaking session tokens and PII. CWE-532; violates NEVER (log Authorization/Cookie headers, full request bodies, use console.log in production)."
+    },
+    {
+      "id": "log-redacted-structured",
+      "text": "@app.route('/login', methods=['POST'])\ndef login(req):\n    username = req.form['username']\n    password = req.form['password']\n    logger.info('auth.login.attempt', extra={\n        'event': 'auth.login.attempt',\n        'user_id': hash_id(username),\n        'request_id': req.request_id,\n    })  # password never logged\n    return authenticate(username, password)",
+      "expected": "ignore",
+      "reason": "Structured log with stable fields, no credential logged; the password is excluded entirely. Follows ALWAYS (structured format, no secret fields). Secure per CWE-532."
+    },
+    {
+      "id": "log-sanitized-user-input",
+      "text": "func sanitize(s string) string {\n    r := strings.NewReplacer(\"\\n\", \"\", \"\\r\", \"\", \"\\t\", \" \")\n    return r.Replace(s)\n}\n\nfunc handleSearch(w http.ResponseWriter, r *http.Request) {\n    query := r.URL.Query().Get(\"q\")\n    log.Printf(\"event=search query=%q\", sanitize(query))\n    writeJSON(w, search(query))\n}",
+      "expected": "ignore",
+      "reason": "User input has newlines/control chars stripped before logging, preventing forged log entries. Follows ALWAYS (sanitize newlines/control characters); safe per CWE-117."
+    },
+    {
+      "id": "log-redactor-middleware",
+      "text": "const REDACT = new Set(['authorization', 'cookie', 'set-cookie']);\napp.use((req, res, next) => {\n  const safeHeaders = Object.fromEntries(\n    Object.entries(req.headers).filter(([k]) => !REDACT.has(k.toLowerCase()))\n  );\n  logger.info({ event: 'http.request', method: req.method, path: req.path, headers: safeHeaders });\n  next();\n});",
+      "expected": "ignore",
+      "reason": "Sensitive headers (Authorization, Cookie) are filtered out by a redactor before logging, and no request body is logged. Follows ALWAYS (run logs through a redactor, structured logging); safe per CWE-532."
+    }
+  ]
+}

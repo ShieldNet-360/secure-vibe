@@ -1,0 +1,248 @@
+{
+  "schema_version": "1.0",
+  "ecosystem": "github-actions",
+  "last_updated": "2026-06-21T12:00:00Z",
+  "description": "Documented compromises of GitHub Actions, classes of weak action-usage patterns, and CI/CD pipeline supply-chain incidents.",
+  "entries": [
+    {
+      "name": "tj-actions/changed-files",
+      "versions_affected": [
+        "v1",
+        "v2",
+        "v35.7.7+"
+      ],
+      "type": "action_compromise",
+      "severity": "critical",
+      "discovered": "2025-03-14",
+      "description": "Attackers compromised the tj-actions/changed-files action and pushed a version that exfiltrated all workflow secrets to a public attacker endpoint. ~23,000 repositories pulled the malicious tag before remediation. Every consumer using a floating tag (e.g. @v1) was impacted.",
+      "references": [
+        "https://www.stepsecurity.io/blog/tj-actions-changed-files-attack-analysis",
+        "https://github.com/advisories/GHSA-mrrh-fwg8-r2c3",
+        "https://github.com/tj-actions/changed-files/issues/2464"
+      ],
+      "indicators": [
+        "floating tag",
+        "secrets exfiltration",
+        "mass impact"
+      ],
+      "attack_type": "action_compromise"
+    },
+    {
+      "name": "reviewdog/action-setup",
+      "versions_affected": [
+        "v1"
+      ],
+      "type": "action_compromise",
+      "severity": "critical",
+      "discovered": "2025-03-14",
+      "description": "Same attack chain as tj-actions: attacker pushed a compromised reviewdog/action-setup release that exfiltrated CI secrets. Tag-pin consumers were impacted; SHA-pin consumers were not.",
+      "references": [
+        "https://www.stepsecurity.io/blog/reviewdog-action-setup-compromise",
+        "https://github.com/reviewdog/action-setup/issues/96"
+      ],
+      "indicators": [
+        "secrets exfiltration"
+      ],
+      "attack_type": "action_compromise"
+    },
+    {
+      "name": "codecov-bash-uploader-action",
+      "versions_affected": [
+        "pre-2021-04-01"
+      ],
+      "type": "action_compromise",
+      "severity": "critical",
+      "discovered": "2021-04-15",
+      "description": "Codecov's `bash <(curl https://codecov.io/bash)` uploader (often invoked from custom GitHub Actions) was modified on its CDN to exfiltrate env vars between Jan 31 and Apr 1, 2021. Any Action that piped the uploader script was affected.",
+      "references": [
+        "https://about.codecov.io/security-update/",
+        "https://www.cisa.gov/news-events/alerts/2021/04/30/codecov-bash-uploader-compromise"
+      ],
+      "indicators": [
+        "curl | bash CI",
+        "env exfil"
+      ],
+      "cve": "CVE-2021-32699",
+      "attack_type": "action_compromise"
+    },
+    {
+      "name": "ultralytics-actions",
+      "versions_affected": [
+        "8.3.41",
+        "8.3.42"
+      ],
+      "type": "build_pipeline_compromise",
+      "severity": "critical",
+      "discovered": "2024-12-05",
+      "description": "Compromised GitHub Actions cache + release workflow allowed injection of a Python wheel that exfiltrated env vars and mined Monero. Affected PyPI release path of the Ultralytics YOLO package.",
+      "references": [
+        "https://github.com/ultralytics/ultralytics/security/advisories/GHSA-wfcc-qpfc-mqj9",
+        "https://www.stepsecurity.io/blog/ultralytics-supply-chain-attack-analysis"
+      ],
+      "indicators": [
+        "Actions cache poisoning",
+        "PyPI propagation"
+      ],
+      "attack_type": "build_pipeline_compromise"
+    },
+    {
+      "name": "actions/checkout@untrusted-ref",
+      "versions_affected": [
+        "any"
+      ],
+      "type": "design_pattern_weakness",
+      "severity": "high",
+      "discovered": "2020-09-15",
+      "description": "Pattern weakness: workflow_run / pull_request_target combined with `actions/checkout` using `${{ github.event.pull_request.head.ref }}` checks out attacker-controlled code with secrets in the environment. Documented by GitHub Security Lab as `pwn requests`.",
+      "references": [
+        "https://securitylab.github.com/research/github-actions-preventing-pwn-requests/",
+        "https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions"
+      ],
+      "indicators": [
+        "pull_request_target",
+        "fork-to-main exfil"
+      ],
+      "attack_type": "design_pattern_weakness"
+    },
+    {
+      "name": "peter-evans/create-or-update-comment-injection",
+      "versions_affected": [
+        "pre-3.1.0"
+      ],
+      "type": "design_pattern_weakness",
+      "severity": "medium",
+      "discovered": "2023-05-04",
+      "description": "Actions that interpolate untrusted text into `body:` parameter without escaping are vulnerable to GitHub Actions script injection. Pattern flagged across many community actions; create-or-update-comment hardened in 3.1.0.",
+      "references": [
+        "https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#understanding-the-risk-of-script-injections",
+        "https://github.com/peter-evans/create-or-update-comment"
+      ],
+      "indicators": [
+        "script injection",
+        "expression in body"
+      ],
+      "attack_type": "design_pattern_weakness"
+    },
+    {
+      "name": "ericcornelissen/git-tag-annotation-action",
+      "versions_affected": [
+        "v1.0.0",
+        "v1.0.1"
+      ],
+      "type": "action_compromise",
+      "severity": "high",
+      "discovered": "2023-08-15",
+      "description": "Demonstration / disclosure that a single re-pushed tag on a third-party action could distribute malicious code to all downstream consumers using floating tags. The maintainer remediated immediately and published a post-mortem.",
+      "references": [
+        "https://www.stepsecurity.io/blog/github-actions-tag-pinning"
+      ],
+      "indicators": [
+        "tag re-push",
+        "floating tag risk"
+      ],
+      "attack_type": "action_compromise"
+    },
+    {
+      "name": "dawidd6/action-download-artifact-injection",
+      "versions_affected": [
+        "pre-3"
+      ],
+      "type": "design_pattern_weakness",
+      "severity": "medium",
+      "discovered": "2024-01-22",
+      "description": "Actions that download artifacts from arbitrary workflow runs without verifying provenance can be tricked into pulling attacker-controlled artifacts. Hardening guidance now requires verifying source workflow + commit SHA before extracting.",
+      "references": [
+        "https://github.com/dawidd6/action-download-artifact",
+        "https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts"
+      ],
+      "indicators": [
+        "artifact provenance"
+      ],
+      "attack_type": "design_pattern_weakness"
+    },
+    {
+      "name": "shai-hulud-workflow-injection",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "build_pipeline_compromise",
+      "severity": "critical",
+      "discovered": "2025-09-15",
+      "description": "The self-replicating 'Shai-Hulud' npm worm (first wave Sept 2025, ~500 packages removed by GitHub incl. @ctrl/tinycolor and CrowdStrike-owned packages; 'Shai-Hulud 2.0' Nov 2025 affected 25,000+ repositories across ~350 users) abuses stolen GitHub tokens to write a malicious GitHub Actions workflow into every accessible repository for persistence and secret theft. The injected workflow (observed file names shai-hulud-workflow.yml and discussion.yaml) runs on push, uses the legitimate TruffleHog scanner to harvest secrets (.npmrc npm tokens, GitHub PATs, AWS/GCP/Azure keys), and publishes them to attacker-created public 'Shai-Hulud' repositories.",
+      "references": [
+        "https://unit42.paloaltonetworks.com/npm-supply-chain-attack/",
+        "https://www.wiz.io/blog/shai-hulud-npm-supply-chain-attack"
+      ],
+      "indicators": [
+        "unexpected workflow file shai-hulud-workflow.yml or discussion.yaml added under .github/workflows",
+        "workflow invokes TruffleHog to scan for secrets",
+        "workflow triggers on push and POSTs secrets to an external endpoint",
+        "creation of a public repository named 'Shai-Hulud'"
+      ],
+      "attack_type": "build_pipeline_compromise"
+    },
+    {
+      "name": "ghostaction-workflow-injection",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "build_pipeline_compromise",
+      "severity": "critical",
+      "discovered": "2025-09-05",
+      "description": "GitGuardian disclosed (2025-09-05) the 'GhostAction' campaign: an attacker with write access injected a malicious workflow named 'Github Actions Security' at .github/workflows/github_actions_security.yml into 817 repositories across 327 GitHub users, exfiltrating 3,325 secrets. The workflow harvested CI secrets (DockerHub credentials, GitHub PATs and npm tokens were most common, plus PyPI/AWS/Cloudflare keys and DB credentials) and POSTed them with curl to attacker endpoints; 24 downstream packages (9 npm, 15 PyPI) were left at immediate compromise risk from the stolen publish tokens.",
+      "references": [
+        "https://blog.gitguardian.com/ghostaction-campaign-3-325-secrets-stolen/",
+        "https://thehackernews.com/2025/03/github-action-compromise-puts-cicd.html"
+      ],
+      "indicators": [
+        "unexpected workflow .github/workflows/github_actions_security.yml named 'Github Actions Security'",
+        "curl -s -X POST -d '<secret vars>' exfiltration step",
+        "exfil endpoints *.plesk.page / IP 45.139.104.115 / carte-avantage.com",
+        "workflow enumerates and POSTs CI secrets (PyPI/npm/DockerHub/AWS/GitHub tokens)"
+      ],
+      "attack_type": "build_pipeline_compromise"
+    },
+    {
+      "name": "aquasecurity/trivy-action",
+      "versions_affected": [
+        "76 of 77 tags (0.0.1 through 0.34.2)"
+      ],
+      "type": "action_compromise",
+      "severity": "critical",
+      "discovered": "2026-03-19",
+      "description": "On 2026-03-19 attackers (TeamPCP) force-pushed/repointed 76 of 77 version tags of aquasecurity/trivy-action (the popular Trivy scanner Action) to imposter commits carrying a multi-stage credential stealer that reads GitHub Actions runner-worker memory and exfiltrates secrets to scan[.]aquasecurtiy[.]org (typosquatted domain). Compromised ~12h; StepSecurity Harden-Runner flagged C2 from 12,000+ repos. Second Trivy compromise in 3 weeks (first 2026-03-01; incomplete credential rotation left residual access). GHSA-69fq-xp46-6x23.",
+      "references": [
+        "https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23",
+        "https://www.stepsecurity.io/blog/trivy-compromised-a-second-time---malicious-v0-69-4-release"
+      ],
+      "indicators": [
+        "version tags force-pushed/repointed to malicious commits",
+        "credential stealer reads GitHub Actions runner-worker memory",
+        "exfiltrates to scan[.]aquasecurtiy[.]org (typosquatted aquasecurity)",
+        "pin actions by full commit SHA, never by tag"
+      ],
+      "attack_type": "action_compromise"
+    },
+    {
+      "name": "aquasecurity/setup-trivy",
+      "versions_affected": [
+        "all 7 tags"
+      ],
+      "type": "action_compromise",
+      "severity": "critical",
+      "discovered": "2026-03-19",
+      "description": "Companion compromise to aquasecurity/trivy-action on 2026-03-19 (TeamPCP): all 7 version tags of aquasecurity/setup-trivy were repointed to malicious commits (~4h) with the same runner-memory credential stealer exfiltrating to scan[.]aquasecurtiy[.]org. Part of the broader Trivy supply-chain compromise that also pushed malicious trivy binary v0.69.4 and DockerHub images v0.69.5/v0.69.6. GHSA-69fq-xp46-6x23.",
+      "references": [
+        "https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23",
+        "https://www.stepsecurity.io/blog/trivy-compromised-a-second-time---malicious-v0-69-4-release"
+      ],
+      "indicators": [
+        "version tags force-pushed/repointed to malicious commits",
+        "credential stealer reads GitHub Actions runner-worker memory",
+        "exfiltrates to scan[.]aquasecurtiy[.]org (typosquatted aquasecurity)",
+        "pin actions by full commit SHA, never by tag"
+      ],
+      "attack_type": "action_compromise"
+    }
+  ]
+}

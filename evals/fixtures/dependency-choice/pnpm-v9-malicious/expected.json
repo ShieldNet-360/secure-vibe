@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-06-20",
+  "description": "Fixture: a pnpm lockfileVersion 9 lockfile with the historically-malicious event-stream@3.3.6 planted (source: vulnerabilities/supply-chain/malicious-packages/npm.json). Locks in the v9 key-shape parsing fix end-to-end: v9 keys are quoted ''name@version'' with no leading slash, so before the fix the whole lockfile parsed zero dependencies and this would have been silently missed.",
+  "expected_findings": [
+    {
+      "ecosystem": "npm",
+      "package": "event-stream",
+      "version": "3.3.6",
+      "kind": "malicious",
+      "source": "vulnerabilities/supply-chain/malicious-packages/npm.json"
+    }
+  ],
+  "expected_clean": ["lodash", "react"]
+}

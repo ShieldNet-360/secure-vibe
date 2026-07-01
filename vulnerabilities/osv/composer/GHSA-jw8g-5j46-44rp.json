@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-jw8g-5j46-44rp",
+  "published": "2026-05-05T19:13:03Z",
+  "modified": "2026-05-13T14:33:40.154817Z",
+  "aliases": [
+    "CVE-2026-43877"
+  ],
+  "summary": "AVideo: CSRF in userSavePhoto.php Allows Cross-Origin Overwrite of Authenticated Users' Profile Photos with Arbitrary Content",
+  "affected": [
+    {
+      "package": {
+        "name": "wwbn/avideo",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/wwbn/avideo"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "29.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.4",
+        "10.8",
+        "11",
+        "11.1",
+        "11.1.1",
+        "11.5",
+        "11.6",
+        "12.4",
+        "14.3",
+        "14.3.1",
+        "14.4",
+        "18.0",
+        "21.0",
+        "22.0",
+        "24.0",
+        "25.0",
+        "26.0",
+        "29.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-jw8g-5j46-44rp/GHSA-jw8g-5j46-44rp.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/WWBN/AVideo/security/advisories/GHSA-jw8g-5j46-44rp"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43877"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/WWBN/AVideo/commit/9c38468041505e637101c5943c5370c68f48e3ac"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/WWBN/AVideo"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-352"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-05T19:13:03Z",
+    "nvd_published_at": "2026-05-11T22:22:12Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

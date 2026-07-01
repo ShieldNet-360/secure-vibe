@@ -1,0 +1,36 @@
+{
+  "id": "ssrf-prevention",
+  "version": "1.1.0",
+  "title": "SSRF Prevention",
+  "description": "Defend against Server-Side Request Forgery: cloud metadata blocking, internal IP filtering, DNS rebinding defense, allowlist-based URL fetching",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "when generating code that fetches a URL supplied by the client",
+    "when wiring webhooks, image proxies, PDF renderers, oEmbed fetchers",
+    "when running in any cloud environment with an instance metadata service",
+    "when reviewing a URL-parsing or HTTP-client wrapper"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 1200,
+    "compact": 1600,
+    "full": 2600
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "api-security",
+    "cors-security",
+    "iac-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP SSRF Prevention Cheat Sheet",
+    "CWE-918: Server-Side Request Forgery",
+    "Capital One 2019 breach post-mortem (IMDSv1 SSRF)",
+    "AWS IMDSv2 documentation",
+    "PortSwigger Web Security Academy — SSRF labs"
+  ]
+}

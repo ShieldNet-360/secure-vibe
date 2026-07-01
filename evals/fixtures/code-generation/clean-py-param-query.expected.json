@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "database-security",
+  "language": "python",
+  "insecure_signals": [
+    "execute\\(\\s*f['\\\"]",
+    "execute\\([^)]*%\\s*\\(?customer_id"
+  ],
+  "secure_signals": [
+    "execute\\([^)]*,\\s*[\\(\\[]",
+    "execute\\([^)]*%s['\\\"]\\s*,"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

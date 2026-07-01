@@ -1,0 +1,39 @@
+{
+  "id": "serverless-security",
+  "version": "1.0.0",
+  "title": "Serverless Security",
+  "description": "Lambda / Cloud Functions / Azure Functions hardening: IAM, timeouts, secrets, event injection",
+  "category": "hardening",
+  "severity": "high",
+  "applies_to": [
+    "when generating AWS Lambda / GCP Cloud Functions / Azure Functions code",
+    "when generating serverless.yml / SAM templates / functions framework",
+    "when wiring API Gateway, EventBridge, SQS, S3 triggers"
+  ],
+  "languages": [
+    "python",
+    "javascript",
+    "typescript",
+    "go",
+    "java",
+    "yaml"
+  ],
+  "token_budget": {
+    "minimal": 1000,
+    "compact": 1100,
+    "full": 2200
+  },
+  "rules_path": "checklists/",
+  "related_skills": [
+    "iac-security",
+    "api-security",
+    "secret-detection"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP Serverless Top 10",
+    "AWS Well-Architected: Security Pillar — Lambda",
+    "CIS AWS Foundations Benchmark §3 (Lambda)",
+    "NIST SP 800-204 (Microservices)"
+  ]
+}

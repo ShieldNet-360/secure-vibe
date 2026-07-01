@@ -1,0 +1,18 @@
+{
+  "ground_truth": "generation",
+  "skill": "crypto-misuse",
+  "language": "python",
+  "insecure_signals": [
+    "hashlib\\.(md5|sha1)\\(",
+    "\\bmd5\\(",
+    "\\bsha1\\("
+  ],
+  "secure_signals": [
+    "bcrypt\\.",
+    "argon2",
+    "scrypt",
+    "pbkdf2_hmac\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-916"
+}

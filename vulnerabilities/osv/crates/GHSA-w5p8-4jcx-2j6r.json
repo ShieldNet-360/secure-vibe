@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-w5p8-4jcx-2j6r",
+  "published": "2026-05-07T03:13:57Z",
+  "modified": "2026-05-15T20:44:22.114893685Z",
+  "aliases": [
+    "RUSTSEC-2026-0116"
+  ],
+  "related": [
+    "CGA-g2cc-p4h9-4m44"
+  ],
+  "summary": "imageproc: integer overflow in kernel size check leads to out-of-bounds read",
+  "affected": [
+    {
+      "package": {
+        "name": "imageproc",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/imageproc"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.23.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-w5p8-4jcx-2j6r/GHSA-w5p8-4jcx-2j6r.json"
+      }
+    },
+    {
+      "package": {
+        "name": "imageproc",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/imageproc"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.24.0"
+            },
+            {
+              "fixed": "0.24.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.24.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-w5p8-4jcx-2j6r/GHSA-w5p8-4jcx-2j6r.json"
+      }
+    },
+    {
+      "package": {
+        "name": "imageproc",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/imageproc"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.25.0"
+            },
+            {
+              "fixed": "0.25.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.25.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-w5p8-4jcx-2j6r/GHSA-w5p8-4jcx-2j6r.json"
+      }
+    },
+    {
+      "package": {
+        "name": "imageproc",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/imageproc"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.26.0"
+            },
+            {
+              "fixed": "0.26.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-w5p8-4jcx-2j6r/GHSA-w5p8-4jcx-2j6r.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/image-rs/imageproc"
+    },
+    {
+      "type": "WEB",
+      "url": "https://rustsec.org/advisories/RUSTSEC-2026-0116.html"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-190",
+      "CWE-125"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T03:13:57Z",
+    "nvd_published_at": null,
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

@@ -1,0 +1,3459 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-16T05:44:31Z",
+  "generated_at": "2026-05-16T05:44:31Z",
+  "by_package": {
+    "org.apache.neethi:neethi": [
+      {
+        "id": "GHSA-287c-fxr7-3w6c",
+        "file": "GHSA-287c-fxr7-3w6c.json",
+        "summary": "Apache Neethi doesn't impose any restrictions on URIs when manually fetching remote policy references through the PolicyReference API",
+        "aliases": [
+          "CVE-2026-42404"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-2hfh-9h53-qc24",
+        "file": "GHSA-2hfh-9h53-qc24.json",
+        "summary": "Apache Neethi does not properly detect circular references in policy definitions.",
+        "aliases": [
+          "CVE-2026-42403"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-g36m-9g3m-2vmp",
+        "file": "GHSA-g36m-9g3m-2vmp.json",
+        "summary": "Apache Neethi is vulnerable to a Denial of Service attack through algorithmic complexity in policy normalization",
+        "aliases": [
+          "CVE-2026-42402"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.opencms:opencms-core": [
+      {
+        "id": "GHSA-2887-f3v6-6rjf",
+        "file": "GHSA-2887-f3v6-6rjf.json",
+        "summary": "Alkacon OpenCms is vulnerable to XSS via updateModelGroups.jsp",
+        "aliases": [
+          "CVE-2023-42345"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-8gpv-c454-3hfc",
+        "file": "GHSA-8gpv-c454-3hfc.json",
+        "summary": "Alkacon OpenCms is vulnerable to XSS via cmis-online/type",
+        "aliases": [
+          "CVE-2023-42343"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-pj6p-9p8x-5mfc",
+        "file": "GHSA-pj6p-9p8x-5mfc.json",
+        "summary": "Alkacon OpenCms is vulnerable to XXE when the <!DOCTYPE> refers to an external host",
+        "aliases": [
+          "CVE-2023-42346"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rcc6-6q2f-m2cw",
+        "file": "GHSA-rcc6-6q2f-m2cw.json",
+        "summary": "Alkacon OpenCms allows remote unauthenticated attackers to obtain sensitive information",
+        "aliases": [
+          "CVE-2023-42344"
+        ],
+        "severity": "high"
+      }
+    ],
+    "io.netty:netty-codec-http3": [
+      {
+        "id": "GHSA-2c5c-chwr-9hqw",
+        "file": "GHSA-2c5c-chwr-9hqw.json",
+        "summary": "Netty HTTP/3 QPACK literal unbounded allocation",
+        "aliases": [
+          "CVE-2026-42582"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.nifi:nifi-other-graph-services-nar": [
+      {
+        "id": "GHSA-2j9m-25xv-mp6r",
+        "file": "GHSA-2j9m-25xv-mp6r.json",
+        "summary": "Apache NiFi is missing the Restricted annotation with the Execute Code Required Permission",
+        "aliases": [
+          "BIT-nifi-2026-39816",
+          "CVE-2026-39816"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.activemq:apache-activemq": [
+      {
+        "id": "GHSA-2jp3-2923-9h52",
+        "file": "GHSA-2jp3-2923-9h52.json",
+        "summary": "Apache ActiveMQ Vulnerable to Cross-site Scripting",
+        "aliases": [
+          "BIT-activemq-2026-41043",
+          "CVE-2026-41043"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-2jp3-2923-9h52",
+        "file": "GHSA-2jp3-2923-9h52.json",
+        "summary": "Apache ActiveMQ Vulnerable to Cross-site Scripting",
+        "aliases": [
+          "BIT-activemq-2026-41043",
+          "CVE-2026-41043"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-mr6m-xj7v-3cv3",
+        "file": "GHSA-mr6m-xj7v-3cv3.json",
+        "summary": "Apache ActiveMQ Vulnerable to Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-41044",
+          "CVE-2026-41044"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-mr6m-xj7v-3cv3",
+        "file": "GHSA-mr6m-xj7v-3cv3.json",
+        "summary": "Apache ActiveMQ Vulnerable to Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-41044",
+          "CVE-2026-41044"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-w3w2-mpp5-92gm",
+        "file": "GHSA-w3w2-mpp5-92gm.json",
+        "summary": "Apache ActiveMQ Vulnerable to Improper Input Validation and Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-40466",
+          "CVE-2026-40466"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-w3w2-mpp5-92gm",
+        "file": "GHSA-w3w2-mpp5-92gm.json",
+        "summary": "Apache ActiveMQ Vulnerable to Improper Input Validation and Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-40466",
+          "CVE-2026-40466"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.activemq:activemq-all": [
+      {
+        "id": "GHSA-2jp3-2923-9h52",
+        "file": "GHSA-2jp3-2923-9h52.json",
+        "summary": "Apache ActiveMQ Vulnerable to Cross-site Scripting",
+        "aliases": [
+          "BIT-activemq-2026-41043",
+          "CVE-2026-41043"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-2jp3-2923-9h52",
+        "file": "GHSA-2jp3-2923-9h52.json",
+        "summary": "Apache ActiveMQ Vulnerable to Cross-site Scripting",
+        "aliases": [
+          "BIT-activemq-2026-41043",
+          "CVE-2026-41043"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-mr6m-xj7v-3cv3",
+        "file": "GHSA-mr6m-xj7v-3cv3.json",
+        "summary": "Apache ActiveMQ Vulnerable to Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-41044",
+          "CVE-2026-41044"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-mr6m-xj7v-3cv3",
+        "file": "GHSA-mr6m-xj7v-3cv3.json",
+        "summary": "Apache ActiveMQ Vulnerable to Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-41044",
+          "CVE-2026-41044"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-w3w2-mpp5-92gm",
+        "file": "GHSA-w3w2-mpp5-92gm.json",
+        "summary": "Apache ActiveMQ Vulnerable to Improper Input Validation and Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-40466",
+          "CVE-2026-40466"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-w3w2-mpp5-92gm",
+        "file": "GHSA-w3w2-mpp5-92gm.json",
+        "summary": "Apache ActiveMQ Vulnerable to Improper Input Validation and Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-40466",
+          "CVE-2026-40466"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.activemq:activemq-broker": [
+      {
+        "id": "GHSA-2jp3-2923-9h52",
+        "file": "GHSA-2jp3-2923-9h52.json",
+        "summary": "Apache ActiveMQ Vulnerable to Cross-site Scripting",
+        "aliases": [
+          "BIT-activemq-2026-41043",
+          "CVE-2026-41043"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-2jp3-2923-9h52",
+        "file": "GHSA-2jp3-2923-9h52.json",
+        "summary": "Apache ActiveMQ Vulnerable to Cross-site Scripting",
+        "aliases": [
+          "BIT-activemq-2026-41043",
+          "CVE-2026-41043"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-mr6m-xj7v-3cv3",
+        "file": "GHSA-mr6m-xj7v-3cv3.json",
+        "summary": "Apache ActiveMQ Vulnerable to Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-41044",
+          "CVE-2026-41044"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-mr6m-xj7v-3cv3",
+        "file": "GHSA-mr6m-xj7v-3cv3.json",
+        "summary": "Apache ActiveMQ Vulnerable to Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-41044",
+          "CVE-2026-41044"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-w3w2-mpp5-92gm",
+        "file": "GHSA-w3w2-mpp5-92gm.json",
+        "summary": "Apache ActiveMQ Vulnerable to Improper Input Validation and Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-40466",
+          "CVE-2026-40466"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-w3w2-mpp5-92gm",
+        "file": "GHSA-w3w2-mpp5-92gm.json",
+        "summary": "Apache ActiveMQ Vulnerable to Improper Input Validation and Code Injection",
+        "aliases": [
+          "BIT-activemq-2026-40466",
+          "CVE-2026-40466"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.springframework.cloud:spring-cloud-config": [
+      {
+        "id": "GHSA-2mh5-3cw6-hrrq",
+        "file": "GHSA-2mh5-3cw6-hrrq.json",
+        "summary": "Spring Cloud Config has an Authorization Bypass Through User-Controlled Key ",
+        "aliases": [
+          "CVE-2026-40981"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-2mh5-3cw6-hrrq",
+        "file": "GHSA-2mh5-3cw6-hrrq.json",
+        "summary": "Spring Cloud Config has an Authorization Bypass Through User-Controlled Key ",
+        "aliases": [
+          "CVE-2026-40981"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-2mh5-3cw6-hrrq",
+        "file": "GHSA-2mh5-3cw6-hrrq.json",
+        "summary": "Spring Cloud Config has an Authorization Bypass Through User-Controlled Key ",
+        "aliases": [
+          "CVE-2026-40981"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-2mh5-3cw6-hrrq",
+        "file": "GHSA-2mh5-3cw6-hrrq.json",
+        "summary": "Spring Cloud Config has an Authorization Bypass Through User-Controlled Key ",
+        "aliases": [
+          "CVE-2026-40981"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-2mh5-3cw6-hrrq",
+        "file": "GHSA-2mh5-3cw6-hrrq.json",
+        "summary": "Spring Cloud Config has an Authorization Bypass Through User-Controlled Key ",
+        "aliases": [
+          "CVE-2026-40981"
+        ],
+        "severity": "high"
+      }
+    ],
+    "io.goobi.viewer:viewer-core": [
+      {
+        "id": "GHSA-2rgp-f66f-4499",
+        "file": "GHSA-2rgp-f66f-4499.json",
+        "summary": "Goobi viewer - Core: Unauthenticated Solr Streaming Expression Proxy",
+        "aliases": [
+          "CVE-2026-45083"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.apache.atlas:apache-atlas": [
+      {
+        "id": "GHSA-35xx-9xrg-gwhf",
+        "file": "GHSA-35xx-9xrg-gwhf.json",
+        "summary": "Apache Atlas has a Code Injection Vulnerability",
+        "aliases": [
+          "CVE-2026-40563"
+        ],
+        "severity": "high"
+      }
+    ],
+    "io.netty:netty-codec-http": [
+      {
+        "id": "GHSA-38f8-5428-x5cv",
+        "file": "GHSA-38f8-5428-x5cv.json",
+        "summary": "Netty vulnerable to HTTP Request Smuggling due to malformed Transfer-Encoding",
+        "aliases": [
+          "CVE-2026-42585"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-38f8-5428-x5cv",
+        "file": "GHSA-38f8-5428-x5cv.json",
+        "summary": "Netty vulnerable to HTTP Request Smuggling due to malformed Transfer-Encoding",
+        "aliases": [
+          "CVE-2026-42585"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-57rv-r2g8-2cj3",
+        "file": "GHSA-57rv-r2g8-2cj3.json",
+        "summary": "Netty has HttpClientCodec response desynchronization",
+        "aliases": [
+          "CVE-2026-42584"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-57rv-r2g8-2cj3",
+        "file": "GHSA-57rv-r2g8-2cj3.json",
+        "summary": "Netty has HttpClientCodec response desynchronization",
+        "aliases": [
+          "CVE-2026-42584"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-f6hv-jmp6-3vwv",
+        "file": "GHSA-f6hv-jmp6-3vwv.json",
+        "summary": "Netty: HttpContentDecompressor maxAllocation bypass when Content-Encoding set to br/zstd/snappy leads to decompression bomb DoS",
+        "aliases": [
+          "CVE-2026-42587"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-f6hv-jmp6-3vwv",
+        "file": "GHSA-f6hv-jmp6-3vwv.json",
+        "summary": "Netty: HttpContentDecompressor maxAllocation bypass when Content-Encoding set to br/zstd/snappy leads to decompression bomb DoS",
+        "aliases": [
+          "CVE-2026-42587"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-m4cv-j2px-7723",
+        "file": "GHSA-m4cv-j2px-7723.json",
+        "summary": "Netty vulnerable to HTTP Request Smuggling due to incorrect chunk size parsing",
+        "aliases": [
+          "CVE-2026-42580"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-m4cv-j2px-7723",
+        "file": "GHSA-m4cv-j2px-7723.json",
+        "summary": "Netty vulnerable to HTTP Request Smuggling due to incorrect chunk size parsing",
+        "aliases": [
+          "CVE-2026-42580"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-v8h7-rr48-vmmv",
+        "file": "GHSA-v8h7-rr48-vmmv.json",
+        "summary": "Netty: Start-Line Injection in DefaultHttpRequest.setUri() Allows HTTP Request Smuggling and RTSP Request Injection",
+        "aliases": [
+          "CVE-2026-41417"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-v8h7-rr48-vmmv",
+        "file": "GHSA-v8h7-rr48-vmmv.json",
+        "summary": "Netty: Start-Line Injection in DefaultHttpRequest.setUri() Allows HTTP Request Smuggling and RTSP Request Injection",
+        "aliases": [
+          "CVE-2026-41417"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-xxqh-mfjm-7mv9",
+        "file": "GHSA-xxqh-mfjm-7mv9.json",
+        "summary": "Netty HTTP/1.0 TE+CL Coexistence Bypasses Smuggling Sanitization",
+        "aliases": [
+          "CVE-2026-42581"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-xxqh-mfjm-7mv9",
+        "file": "GHSA-xxqh-mfjm-7mv9.json",
+        "summary": "Netty HTTP/1.0 TE+CL Coexistence Bypasses Smuggling Sanitization",
+        "aliases": [
+          "CVE-2026-42581"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "io.vertx:vertx-core": [
+      {
+        "id": "GHSA-3g76-f9xq-8vp6",
+        "file": "GHSA-3g76-f9xq-8vp6.json",
+        "summary": "Vert.x has a DoS via unbounded server-side SNI SslContext cache growth",
+        "aliases": [
+          "CVE-2026-6860"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3g76-f9xq-8vp6",
+        "file": "GHSA-3g76-f9xq-8vp6.json",
+        "summary": "Vert.x has a DoS via unbounded server-side SNI SslContext cache growth",
+        "aliases": [
+          "CVE-2026-6860"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3g76-f9xq-8vp6",
+        "file": "GHSA-3g76-f9xq-8vp6.json",
+        "summary": "Vert.x has a DoS via unbounded server-side SNI SslContext cache growth",
+        "aliases": [
+          "CVE-2026-6860"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3g76-f9xq-8vp6",
+        "file": "GHSA-3g76-f9xq-8vp6.json",
+        "summary": "Vert.x has a DoS via unbounded server-side SNI SslContext cache growth",
+        "aliases": [
+          "CVE-2026-6860"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.apache.wicket:wicket-core": [
+      {
+        "id": "GHSA-3gmf-p6r4-q8m6",
+        "file": "GHSA-3gmf-p6r4-q8m6.json",
+        "summary": "Apache Wicket has a Path Traversal issue",
+        "aliases": [
+          "CVE-2026-43975"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3gmf-p6r4-q8m6",
+        "file": "GHSA-3gmf-p6r4-q8m6.json",
+        "summary": "Apache Wicket has a Path Traversal issue",
+        "aliases": [
+          "CVE-2026-43975"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3gmf-p6r4-q8m6",
+        "file": "GHSA-3gmf-p6r4-q8m6.json",
+        "summary": "Apache Wicket has a Path Traversal issue",
+        "aliases": [
+          "CVE-2026-43975"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.ritense.valtimo:web": [
+      {
+        "id": "GHSA-3jh5-rr2q-xfv7",
+        "file": "GHSA-3jh5-rr2q-xfv7.json",
+        "summary": "Valtimo has sensitive data exposure through HTTP request/response logging in LoggingRestClientCustomizer",
+        "aliases": [
+          "CVE-2026-44516"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-3jh5-rr2q-xfv7",
+        "file": "GHSA-3jh5-rr2q-xfv7.json",
+        "summary": "Valtimo has sensitive data exposure through HTTP request/response logging in LoggingRestClientCustomizer",
+        "aliases": [
+          "CVE-2026-44516"
+        ],
+        "severity": "high"
+      }
+    ],
+    "io.micronaut:micronaut-inject": [
+      {
+        "id": "GHSA-3rfq-4wpf-qqw3",
+        "file": "GHSA-3rfq-4wpf-qqw3.json",
+        "summary": "Micronaut has Unbounded `bundleCache` in `ResourceBundleMessageSource` that Allows Memory Exhaustion via `Accept-Language` Header",
+        "aliases": [
+          "CVE-2026-44242"
+        ],
+        "severity": "low"
+      }
+    ],
+    "io.netty:netty-handler-proxy": [
+      {
+        "id": "GHSA-45q3-82m4-75jr",
+        "file": "GHSA-45q3-82m4-75jr.json",
+        "summary": "Netty has HTTP Header Injection via HttpProxyHandler Disabled Validation (Incomplete Fix CVE-2025-67735)",
+        "aliases": [
+          "CVE-2026-42578"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-45q3-82m4-75jr",
+        "file": "GHSA-45q3-82m4-75jr.json",
+        "summary": "Netty has HTTP Header Injection via HttpProxyHandler Disabled Validation (Incomplete Fix CVE-2025-67735)",
+        "aliases": [
+          "CVE-2026-42578"
+        ],
+        "severity": "low"
+      }
+    ],
+    "org.openjfx:javafx-media": [
+      {
+        "id": "GHSA-47g3-mf24-6559",
+        "file": "GHSA-47g3-mf24-6559.json",
+        "summary": "Vulnerability affecting the org.openjfx:javafx-media maven component of the OpenJFX project",
+        "aliases": [
+          "BIT-java-2024-20925",
+          "BIT-java-min-2024-20925",
+          "BIT-jre-2024-20925",
+          "CVE-2024-20925"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-47g3-mf24-6559",
+        "file": "GHSA-47g3-mf24-6559.json",
+        "summary": "Vulnerability affecting the org.openjfx:javafx-media maven component of the OpenJFX project",
+        "aliases": [
+          "BIT-java-2024-20925",
+          "BIT-java-min-2024-20925",
+          "BIT-jre-2024-20925",
+          "CVE-2024-20925"
+        ],
+        "severity": "low"
+      }
+    ],
+    "org.bouncycastle:bcpkix-jdk15on": [
+      {
+        "id": "GHSA-4cx2-fc23-5wg6",
+        "file": "GHSA-4cx2-fc23-5wg6.json",
+        "summary": "Bouncy Castle for Java bcpkix, bcprov, bcpkix-fips on All (API modules) allows Excessive Allocation",
+        "aliases": [
+          "CVE-2025-8916"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.bouncycastle:bcpkix-jdk15to18": [
+      {
+        "id": "GHSA-4cx2-fc23-5wg6",
+        "file": "GHSA-4cx2-fc23-5wg6.json",
+        "summary": "Bouncy Castle for Java bcpkix, bcprov, bcpkix-fips on All (API modules) allows Excessive Allocation",
+        "aliases": [
+          "CVE-2025-8916"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.bouncycastle:bcpkix-jdk18on": [
+      {
+        "id": "GHSA-4cx2-fc23-5wg6",
+        "file": "GHSA-4cx2-fc23-5wg6.json",
+        "summary": "Bouncy Castle for Java bcpkix, bcprov, bcpkix-fips on All (API modules) allows Excessive Allocation",
+        "aliases": [
+          "CVE-2025-8916"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.bouncycastle:bcpkix-fips": [
+      {
+        "id": "GHSA-4cx2-fc23-5wg6",
+        "file": "GHSA-4cx2-fc23-5wg6.json",
+        "summary": "Bouncy Castle for Java bcpkix, bcprov, bcpkix-fips on All (API modules) allows Excessive Allocation",
+        "aliases": [
+          "CVE-2025-8916"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-4cx2-fc23-5wg6",
+        "file": "GHSA-4cx2-fc23-5wg6.json",
+        "summary": "Bouncy Castle for Java bcpkix, bcprov, bcpkix-fips on All (API modules) allows Excessive Allocation",
+        "aliases": [
+          "CVE-2025-8916"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.verapdf:core": [
+      {
+        "id": "GHSA-4cx5-89vm-833x",
+        "file": "GHSA-4cx5-89vm-833x.json",
+        "summary": "veraPDF CLI has potential XXE (XML External Entity Injection) vulnerability",
+        "aliases": [
+          "CVE-2024-52800"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qxqf-2mfx-x8jw",
+        "file": "GHSA-qxqf-2mfx-x8jw.json",
+        "summary": "veraPDF has potential XSLT injection vulnerability when using policy files",
+        "aliases": [
+          "CVE-2024-28109"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.verapdf:core-jakarta": [
+      {
+        "id": "GHSA-4cx5-89vm-833x",
+        "file": "GHSA-4cx5-89vm-833x.json",
+        "summary": "veraPDF CLI has potential XXE (XML External Entity Injection) vulnerability",
+        "aliases": [
+          "CVE-2024-52800"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qxqf-2mfx-x8jw",
+        "file": "GHSA-qxqf-2mfx-x8jw.json",
+        "summary": "veraPDF has potential XSLT injection vulnerability when using policy files",
+        "aliases": [
+          "CVE-2024-28109"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.verapdf:core-arlington": [
+      {
+        "id": "GHSA-4cx5-89vm-833x",
+        "file": "GHSA-4cx5-89vm-833x.json",
+        "summary": "veraPDF CLI has potential XXE (XML External Entity Injection) vulnerability",
+        "aliases": [
+          "CVE-2024-52800"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qxqf-2mfx-x8jw",
+        "file": "GHSA-qxqf-2mfx-x8jw.json",
+        "summary": "veraPDF has potential XSLT injection vulnerability when using policy files",
+        "aliases": [
+          "CVE-2024-28109"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.verapdf:verapdf-library": [
+      {
+        "id": "GHSA-4cx5-89vm-833x",
+        "file": "GHSA-4cx5-89vm-833x.json",
+        "summary": "veraPDF CLI has potential XXE (XML External Entity Injection) vulnerability",
+        "aliases": [
+          "CVE-2024-52800"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qxqf-2mfx-x8jw",
+        "file": "GHSA-qxqf-2mfx-x8jw.json",
+        "summary": "veraPDF has potential XSLT injection vulnerability when using policy files",
+        "aliases": [
+          "CVE-2024-28109"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.verapdf:verapdf-library-jakarta": [
+      {
+        "id": "GHSA-4cx5-89vm-833x",
+        "file": "GHSA-4cx5-89vm-833x.json",
+        "summary": "veraPDF CLI has potential XXE (XML External Entity Injection) vulnerability",
+        "aliases": [
+          "CVE-2024-52800"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qxqf-2mfx-x8jw",
+        "file": "GHSA-qxqf-2mfx-x8jw.json",
+        "summary": "veraPDF has potential XSLT injection vulnerability when using policy files",
+        "aliases": [
+          "CVE-2024-28109"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.verapdf:verapdf-library-arlington": [
+      {
+        "id": "GHSA-4cx5-89vm-833x",
+        "file": "GHSA-4cx5-89vm-833x.json",
+        "summary": "veraPDF CLI has potential XXE (XML External Entity Injection) vulnerability",
+        "aliases": [
+          "CVE-2024-52800"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qxqf-2mfx-x8jw",
+        "file": "GHSA-qxqf-2mfx-x8jw.json",
+        "summary": "veraPDF has potential XSLT injection vulnerability when using policy files",
+        "aliases": [
+          "CVE-2024-28109"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.verapdf:library": [
+      {
+        "id": "GHSA-4cx5-89vm-833x",
+        "file": "GHSA-4cx5-89vm-833x.json",
+        "summary": "veraPDF CLI has potential XXE (XML External Entity Injection) vulnerability",
+        "aliases": [
+          "CVE-2024-52800"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qxqf-2mfx-x8jw",
+        "file": "GHSA-qxqf-2mfx-x8jw.json",
+        "summary": "veraPDF has potential XSLT injection vulnerability when using policy files",
+        "aliases": [
+          "CVE-2024-28109"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.verapdf:library-jakarta": [
+      {
+        "id": "GHSA-4cx5-89vm-833x",
+        "file": "GHSA-4cx5-89vm-833x.json",
+        "summary": "veraPDF CLI has potential XXE (XML External Entity Injection) vulnerability",
+        "aliases": [
+          "CVE-2024-52800"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qxqf-2mfx-x8jw",
+        "file": "GHSA-qxqf-2mfx-x8jw.json",
+        "summary": "veraPDF has potential XSLT injection vulnerability when using policy files",
+        "aliases": [
+          "CVE-2024-28109"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.verapdf:library-arlington": [
+      {
+        "id": "GHSA-4cx5-89vm-833x",
+        "file": "GHSA-4cx5-89vm-833x.json",
+        "summary": "veraPDF CLI has potential XXE (XML External Entity Injection) vulnerability",
+        "aliases": [
+          "CVE-2024-52800"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qxqf-2mfx-x8jw",
+        "file": "GHSA-qxqf-2mfx-x8jw.json",
+        "summary": "veraPDF has potential XSLT injection vulnerability when using policy files",
+        "aliases": [
+          "CVE-2024-28109"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.tomcat:tomcat-util": [
+      {
+        "id": "GHSA-4j3c-42xv-3f84",
+        "file": "GHSA-4j3c-42xv-3f84.json",
+        "summary": "Apache Tomcat Utilities is vulnerable to resource exhaustion when using the APR/Native connector",
+        "aliases": [
+          "CVE-2025-52434"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-4j3c-42xv-3f84",
+        "file": "GHSA-4j3c-42xv-3f84.json",
+        "summary": "Apache Tomcat Utilities is vulnerable to resource exhaustion when using the APR/Native connector",
+        "aliases": [
+          "CVE-2025-52434"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.apache.opennlp:opennlp-tools": [
+      {
+        "id": "GHSA-4v8g-86x5-3vrc",
+        "file": "GHSA-4v8g-86x5-3vrc.json",
+        "summary": "Apache OpenNLP DictionaryEntryPersistor Vulnerable to XML External Entity (XXE) via Unsanitized Dictionary Parsing",
+        "aliases": [
+          "CVE-2026-40682"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-4v8g-86x5-3vrc",
+        "file": "GHSA-4v8g-86x5-3vrc.json",
+        "summary": "Apache OpenNLP DictionaryEntryPersistor Vulnerable to XML External Entity (XXE) via Unsanitized Dictionary Parsing",
+        "aliases": [
+          "CVE-2026-40682"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-659w-93r5-9j6m",
+        "file": "GHSA-659w-93r5-9j6m.json",
+        "summary": "Apache OpenNLP AbstractModelReader has an OOM Denial of Service via Unbounded Array Allocation",
+        "aliases": [
+          "CVE-2026-42440"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-659w-93r5-9j6m",
+        "file": "GHSA-659w-93r5-9j6m.json",
+        "summary": "Apache OpenNLP AbstractModelReader has an OOM Denial of Service via Unbounded Array Allocation",
+        "aliases": [
+          "CVE-2026-42440"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-cx4m-2p55-rw7j",
+        "file": "GHSA-cx4m-2p55-rw7j.json",
+        "summary": "Apache OpenNLP ExtensionLoader Vulnerable to Arbitrary Class Instantiation via Model Manifest",
+        "aliases": [
+          "CVE-2026-42027"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-cx4m-2p55-rw7j",
+        "file": "GHSA-cx4m-2p55-rw7j.json",
+        "summary": "Apache OpenNLP ExtensionLoader Vulnerable to Arbitrary Class Instantiation via Model Manifest",
+        "aliases": [
+          "CVE-2026-42027"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.springframework:spring-webflux": [
+      {
+        "id": "GHSA-5843-p793-ghmm",
+        "file": "GHSA-5843-p793-ghmm.json",
+        "summary": "Spring Framework DoS with Multipart Temp Files in WebFlux",
+        "aliases": [
+          "CVE-2026-22740"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-5843-p793-ghmm",
+        "file": "GHSA-5843-p793-ghmm.json",
+        "summary": "Spring Framework DoS with Multipart Temp Files in WebFlux",
+        "aliases": [
+          "CVE-2026-22740"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-5843-p793-ghmm",
+        "file": "GHSA-5843-p793-ghmm.json",
+        "summary": "Spring Framework DoS with Multipart Temp Files in WebFlux",
+        "aliases": [
+          "CVE-2026-22740"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-5843-p793-ghmm",
+        "file": "GHSA-5843-p793-ghmm.json",
+        "summary": "Spring Framework DoS with Multipart Temp Files in WebFlux",
+        "aliases": [
+          "CVE-2026-22740"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-6p4f-wcwh-5vvm",
+        "file": "GHSA-6p4f-wcwh-5vvm.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources",
+        "aliases": [
+          "CVE-2026-22745"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6p4f-wcwh-5vvm",
+        "file": "GHSA-6p4f-wcwh-5vvm.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources",
+        "aliases": [
+          "CVE-2026-22745"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6p4f-wcwh-5vvm",
+        "file": "GHSA-6p4f-wcwh-5vvm.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources",
+        "aliases": [
+          "CVE-2026-22745"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6p4f-wcwh-5vvm",
+        "file": "GHSA-6p4f-wcwh-5vvm.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources",
+        "aliases": [
+          "CVE-2026-22745"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-wg35-8jpf-2xv3",
+        "file": "GHSA-wg35-8jpf-2xv3.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.",
+        "aliases": [
+          "CVE-2026-22741"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-wg35-8jpf-2xv3",
+        "file": "GHSA-wg35-8jpf-2xv3.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.",
+        "aliases": [
+          "CVE-2026-22741"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-wg35-8jpf-2xv3",
+        "file": "GHSA-wg35-8jpf-2xv3.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.",
+        "aliases": [
+          "CVE-2026-22741"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-wg35-8jpf-2xv3",
+        "file": "GHSA-wg35-8jpf-2xv3.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.",
+        "aliases": [
+          "CVE-2026-22741"
+        ],
+        "severity": "low"
+      }
+    ],
+    "com.oviva.telematik:epa4all-client": [
+      {
+        "id": "GHSA-5hhf-xmfx-4vvr",
+        "file": "GHSA-5hhf-xmfx-4vvr.json",
+        "summary": "epa4all-client: TLS Certificate Validation Disabled in Production",
+        "aliases": [
+          "CVE-2026-45574"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-g8r3-5hwf-qp96",
+        "file": "GHSA-g8r3-5hwf-qp96.json",
+        "summary": "epa4all-client has a VAU Signature bypass",
+        "aliases": [
+          "CVE-2026-44900"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gqx7-6552-67hf",
+        "file": "GHSA-gqx7-6552-67hf.json",
+        "summary": "Improper Verification of Cryptographic Signature in com.oviva.telematik:epa4all-client",
+        "aliases": [
+          "CVE-2026-45575"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.wicket:wicket-parent": [
+      {
+        "id": "GHSA-5x9h-93gp-chpj",
+        "file": "GHSA-5x9h-93gp-chpj.json",
+        "summary": "Apache Wicket has a Cross-site Scripting issue",
+        "aliases": [
+          "CVE-2026-42509"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5x9h-93gp-chpj",
+        "file": "GHSA-5x9h-93gp-chpj.json",
+        "summary": "Apache Wicket has a Cross-site Scripting issue",
+        "aliases": [
+          "CVE-2026-42509"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5x9h-93gp-chpj",
+        "file": "GHSA-5x9h-93gp-chpj.json",
+        "summary": "Apache Wicket has a Cross-site Scripting issue",
+        "aliases": [
+          "CVE-2026-42509"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-jvv4-8wxx-m5r6",
+        "file": "GHSA-jvv4-8wxx-m5r6.json",
+        "summary": "Apache Wicket has an Exposure of Sensitive Information to an Unauthorized Actor vulnerability",
+        "aliases": [
+          "CVE-2026-43646"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-jvv4-8wxx-m5r6",
+        "file": "GHSA-jvv4-8wxx-m5r6.json",
+        "summary": "Apache Wicket has an Exposure of Sensitive Information to an Unauthorized Actor vulnerability",
+        "aliases": [
+          "CVE-2026-43646"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-jvv4-8wxx-m5r6",
+        "file": "GHSA-jvv4-8wxx-m5r6.json",
+        "summary": "Apache Wicket has an Exposure of Sensitive Information to an Unauthorized Actor vulnerability",
+        "aliases": [
+          "CVE-2026-43646"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.springframework.cloud:spring-cloud-config-server": [
+      {
+        "id": "GHSA-6g23-24mc-hx6x",
+        "file": "GHSA-6g23-24mc-hx6x.json",
+        "summary": "Spring Cloud Config vulnerable to Path Traversal",
+        "aliases": [
+          "CVE-2026-40982"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-6g23-24mc-hx6x",
+        "file": "GHSA-6g23-24mc-hx6x.json",
+        "summary": "Spring Cloud Config vulnerable to Path Traversal",
+        "aliases": [
+          "CVE-2026-40982"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-6g23-24mc-hx6x",
+        "file": "GHSA-6g23-24mc-hx6x.json",
+        "summary": "Spring Cloud Config vulnerable to Path Traversal",
+        "aliases": [
+          "CVE-2026-40982"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-6g23-24mc-hx6x",
+        "file": "GHSA-6g23-24mc-hx6x.json",
+        "summary": "Spring Cloud Config vulnerable to Path Traversal",
+        "aliases": [
+          "CVE-2026-40982"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-6g23-24mc-hx6x",
+        "file": "GHSA-6g23-24mc-hx6x.json",
+        "summary": "Spring Cloud Config vulnerable to Path Traversal",
+        "aliases": [
+          "CVE-2026-40982"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-86wq-234q-r6wg",
+        "file": "GHSA-86wq-234q-r6wg.json",
+        "summary": "Spring Cloud Config Server Susceptible To TOCTOU Attack",
+        "aliases": [
+          "CVE-2026-41002"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-86wq-234q-r6wg",
+        "file": "GHSA-86wq-234q-r6wg.json",
+        "summary": "Spring Cloud Config Server Susceptible To TOCTOU Attack",
+        "aliases": [
+          "CVE-2026-41002"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-86wq-234q-r6wg",
+        "file": "GHSA-86wq-234q-r6wg.json",
+        "summary": "Spring Cloud Config Server Susceptible To TOCTOU Attack",
+        "aliases": [
+          "CVE-2026-41002"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-86wq-234q-r6wg",
+        "file": "GHSA-86wq-234q-r6wg.json",
+        "summary": "Spring Cloud Config Server Susceptible To TOCTOU Attack",
+        "aliases": [
+          "CVE-2026-41002"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-86wq-234q-r6wg",
+        "file": "GHSA-86wq-234q-r6wg.json",
+        "summary": "Spring Cloud Config Server Susceptible To TOCTOU Attack",
+        "aliases": [
+          "CVE-2026-41002"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-j6hh-h3cf-c2hf",
+        "file": "GHSA-j6hh-h3cf-c2hf.json",
+        "summary": "Spring Cloud Config Server Logged Sensitive Information",
+        "aliases": [
+          "CVE-2026-41004"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-j6hh-h3cf-c2hf",
+        "file": "GHSA-j6hh-h3cf-c2hf.json",
+        "summary": "Spring Cloud Config Server Logged Sensitive Information",
+        "aliases": [
+          "CVE-2026-41004"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-j6hh-h3cf-c2hf",
+        "file": "GHSA-j6hh-h3cf-c2hf.json",
+        "summary": "Spring Cloud Config Server Logged Sensitive Information",
+        "aliases": [
+          "CVE-2026-41004"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-j6hh-h3cf-c2hf",
+        "file": "GHSA-j6hh-h3cf-c2hf.json",
+        "summary": "Spring Cloud Config Server Logged Sensitive Information",
+        "aliases": [
+          "CVE-2026-41004"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-j6hh-h3cf-c2hf",
+        "file": "GHSA-j6hh-h3cf-c2hf.json",
+        "summary": "Spring Cloud Config Server Logged Sensitive Information",
+        "aliases": [
+          "CVE-2026-41004"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.springframework:spring-webmvc": [
+      {
+        "id": "GHSA-6p4f-wcwh-5vvm",
+        "file": "GHSA-6p4f-wcwh-5vvm.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources",
+        "aliases": [
+          "CVE-2026-22745"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6p4f-wcwh-5vvm",
+        "file": "GHSA-6p4f-wcwh-5vvm.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources",
+        "aliases": [
+          "CVE-2026-22745"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6p4f-wcwh-5vvm",
+        "file": "GHSA-6p4f-wcwh-5vvm.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources",
+        "aliases": [
+          "CVE-2026-22745"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6p4f-wcwh-5vvm",
+        "file": "GHSA-6p4f-wcwh-5vvm.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to Denial of Service attacks when resolving static resources",
+        "aliases": [
+          "CVE-2026-22745"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-wg35-8jpf-2xv3",
+        "file": "GHSA-wg35-8jpf-2xv3.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.",
+        "aliases": [
+          "CVE-2026-22741"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-wg35-8jpf-2xv3",
+        "file": "GHSA-wg35-8jpf-2xv3.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.",
+        "aliases": [
+          "CVE-2026-22741"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-wg35-8jpf-2xv3",
+        "file": "GHSA-wg35-8jpf-2xv3.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.",
+        "aliases": [
+          "CVE-2026-22741"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-wg35-8jpf-2xv3",
+        "file": "GHSA-wg35-8jpf-2xv3.json",
+        "summary": "Spring MVC and WebFlux applications are vulnerable to cache poisoning when resolving static resources.",
+        "aliases": [
+          "CVE-2026-22741"
+        ],
+        "severity": "low"
+      }
+    ],
+    "org.openmrs.web:openmrs-web": [
+      {
+        "id": "GHSA-78fc-9688-w8xw",
+        "file": "GHSA-78fc-9688-w8xw.json",
+        "summary": "OpenMRS Module Upload Vulnerable to Path Traversal (Zip Slip)",
+        "aliases": [
+          "CVE-2026-40076"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-78fc-9688-w8xw",
+        "file": "GHSA-78fc-9688-w8xw.json",
+        "summary": "OpenMRS Module Upload Vulnerable to Path Traversal (Zip Slip)",
+        "aliases": [
+          "CVE-2026-40076"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-jjgj-cx3q-pw4w",
+        "file": "GHSA-jjgj-cx3q-pw4w.json",
+        "summary": "OpenMRS ModuleResourcesServlet has Path Traversal that Leads to Arbitrary File Read",
+        "aliases": [
+          "CVE-2026-40075"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-jjgj-cx3q-pw4w",
+        "file": "GHSA-jjgj-cx3q-pw4w.json",
+        "summary": "OpenMRS ModuleResourcesServlet has Path Traversal that Leads to Arbitrary File Read",
+        "aliases": [
+          "CVE-2026-40075"
+        ],
+        "severity": "high"
+      }
+    ],
+    "com.microsoft.kiota:microsoft-kiota-abstractions": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "microsoft.kiota.abstractions": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "microsoft-kiota-http": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "kiota-typescript": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/microsoft/kiota-http-go": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.thrift:libthrift": [
+      {
+        "id": "GHSA-7pwc-h2j2-rjgj",
+        "file": "GHSA-7pwc-h2j2-rjgj.json",
+        "summary": "Apache Thrift has an Improper Validation of Certificate with Host Mismatch Vulnerability",
+        "aliases": [
+          "BIT-thrift-2026-43869",
+          "CVE-2026-43869"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.mina:mina-core": [
+      {
+        "id": "GHSA-8297-v2rf-2p32",
+        "file": "GHSA-8297-v2rf-2p32.json",
+        "summary": "Apache MINA vulnerable to Deserialization of Untrusted Data",
+        "aliases": [
+          "CVE-2026-41635"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-8297-v2rf-2p32",
+        "file": "GHSA-8297-v2rf-2p32.json",
+        "summary": "Apache MINA vulnerable to Deserialization of Untrusted Data",
+        "aliases": [
+          "CVE-2026-41635"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-8297-v2rf-2p32",
+        "file": "GHSA-8297-v2rf-2p32.json",
+        "summary": "Apache MINA vulnerable to Deserialization of Untrusted Data",
+        "aliases": [
+          "CVE-2026-41635"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-995c-6rp3-4m4x",
+        "file": "GHSA-995c-6rp3-4m4x.json",
+        "summary": "Apache MINA vulnerable to Deserialization of Untrusted Data (CVE-2026-41409 Incomplete Fix)",
+        "aliases": [
+          "CVE-2026-42778"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-995c-6rp3-4m4x",
+        "file": "GHSA-995c-6rp3-4m4x.json",
+        "summary": "Apache MINA vulnerable to Deserialization of Untrusted Data (CVE-2026-41409 Incomplete Fix)",
+        "aliases": [
+          "CVE-2026-42778"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-vf5j-865m-mq7c",
+        "file": "GHSA-vf5j-865m-mq7c.json",
+        "summary": "Apache MINA vulnerable to Deserialization of Untrusted Data (CVE-2026-41635 Incomplete Fix)",
+        "aliases": [
+          "CVE-2026-42779"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-vf5j-865m-mq7c",
+        "file": "GHSA-vf5j-865m-mq7c.json",
+        "summary": "Apache MINA vulnerable to Deserialization of Untrusted Data (CVE-2026-41635 Incomplete Fix)",
+        "aliases": [
+          "CVE-2026-42779"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.apache.polaris:polaris-runtime-service": [
+      {
+        "id": "GHSA-8ggj-j522-h5qf",
+        "file": "GHSA-8ggj-j522-h5qf.json",
+        "summary": "Apache Polaris has an Improper Input Validation Issue",
+        "aliases": [
+          "CVE-2026-42809"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-w76p-3cgp-qfcm",
+        "file": "GHSA-w76p-3cgp-qfcm.json",
+        "summary": "Apache Polaris has an Improper Input Validation issue",
+        "aliases": [
+          "CVE-2026-42812"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.eclipse.basyx:basyx.sdk": [
+      {
+        "id": "GHSA-8gpm-h2mh-36qc",
+        "file": "GHSA-8gpm-h2mh-36qc.json",
+        "summary": "Eclipse BaSyx Java Server SDK vulnerable to Path Traversal",
+        "aliases": [
+          "CVE-2026-7411"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-gx3v-wxfj-8h24",
+        "file": "GHSA-gx3v-wxfj-8h24.json",
+        "summary": "Eclipse BaSyx Java Server SDK vulnerable to Server-Side Request Forgery",
+        "aliases": [
+          "CVE-2026-7412"
+        ],
+        "severity": "high"
+      }
+    ],
+    "io.micronaut:micronaut-context": [
+      {
+        "id": "GHSA-8hjv-92q9-g4xj",
+        "file": "GHSA-8hjv-92q9-g4xj.json",
+        "summary": "Micronaut has unbounded `formattersCache` in `TimeConverterRegistrar` that Allows Memory Exhaustion via `Accept-Language` Header",
+        "aliases": [
+          "CVE-2026-44241"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.springframework.boot:spring-boot": [
+      {
+        "id": "GHSA-8v8j-3hxp-93wr",
+        "file": "GHSA-8v8j-3hxp-93wr.json",
+        "summary": "Spring Boot's default security filter chain has no authorization rule with Actuator but without Health",
+        "aliases": [
+          "CVE-2026-40976"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-wwpq-f5c3-7hvx",
+        "file": "GHSA-wwpq-f5c3-7hvx.json",
+        "summary": "Spring Boot accepts predictable temp directory without ownership verification",
+        "aliases": [
+          "CVE-2026-40973"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wwpq-f5c3-7hvx",
+        "file": "GHSA-wwpq-f5c3-7hvx.json",
+        "summary": "Spring Boot accepts predictable temp directory without ownership verification",
+        "aliases": [
+          "CVE-2026-40973"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wwpq-f5c3-7hvx",
+        "file": "GHSA-wwpq-f5c3-7hvx.json",
+        "summary": "Spring Boot accepts predictable temp directory without ownership verification",
+        "aliases": [
+          "CVE-2026-40973"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wwpq-f5c3-7hvx",
+        "file": "GHSA-wwpq-f5c3-7hvx.json",
+        "summary": "Spring Boot accepts predictable temp directory without ownership verification",
+        "aliases": [
+          "CVE-2026-40973"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wwpq-f5c3-7hvx",
+        "file": "GHSA-wwpq-f5c3-7hvx.json",
+        "summary": "Spring Boot accepts predictable temp directory without ownership verification",
+        "aliases": [
+          "CVE-2026-40973"
+        ],
+        "severity": "high"
+      }
+    ],
+    "xalan:xalan": [
+      {
+        "id": "GHSA-9339-86wc-4qgf",
+        "file": "GHSA-9339-86wc-4qgf.json",
+        "summary": "Apache Xalan Java XSLT library integer truncation issue when processing malicious XSLT stylesheets",
+        "aliases": [
+          "BIT-java-2022-34169",
+          "BIT-java-min-2022-34169",
+          "BIT-jre-2022-34169",
+          "CVE-2022-34169"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.struts:struts-core": [
+      {
+        "id": "GHSA-9848-v244-962p",
+        "file": "GHSA-9848-v244-962p.json",
+        "summary": "Withdrawn Advisory: Apache Struts XSS",
+        "aliases": [
+          "CVE-2012-1007"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "struts:struts": [
+      {
+        "id": "GHSA-9848-v244-962p",
+        "file": "GHSA-9848-v244-962p.json",
+        "summary": "Withdrawn Advisory: Apache Struts XSS",
+        "aliases": [
+          "CVE-2012-1007"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.apache.tomcat.embed:tomcat-embed-core": [
+      {
+        "id": "GHSA-c9hw-wf7x-jp9j",
+        "file": "GHSA-c9hw-wf7x-jp9j.json",
+        "summary": "Improper Privilege Management in Tomcat",
+        "aliases": [
+          "CVE-2020-1938"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-c9hw-wf7x-jp9j",
+        "file": "GHSA-c9hw-wf7x-jp9j.json",
+        "summary": "Improper Privilege Management in Tomcat",
+        "aliases": [
+          "CVE-2020-1938"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-c9hw-wf7x-jp9j",
+        "file": "GHSA-c9hw-wf7x-jp9j.json",
+        "summary": "Improper Privilege Management in Tomcat",
+        "aliases": [
+          "CVE-2020-1938"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-gqp3-2cvr-x8m3",
+        "file": "GHSA-gqp3-2cvr-x8m3.json",
+        "summary": "Apache Tomcat Improper Resource Shutdown or Release vulnerability",
+        "aliases": [
+          "BIT-tomcat-2025-48989",
+          "CVE-2025-48989"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gqp3-2cvr-x8m3",
+        "file": "GHSA-gqp3-2cvr-x8m3.json",
+        "summary": "Apache Tomcat Improper Resource Shutdown or Release vulnerability",
+        "aliases": [
+          "BIT-tomcat-2025-48989",
+          "CVE-2025-48989"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gqp3-2cvr-x8m3",
+        "file": "GHSA-gqp3-2cvr-x8m3.json",
+        "summary": "Apache Tomcat Improper Resource Shutdown or Release vulnerability",
+        "aliases": [
+          "BIT-tomcat-2025-48989",
+          "CVE-2025-48989"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qxf4-chvg-4r8r",
+        "file": "GHSA-qxf4-chvg-4r8r.json",
+        "summary": "Potential HTTP request smuggling in Apache Tomcat",
+        "aliases": [
+          "CVE-2020-1935"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qxf4-chvg-4r8r",
+        "file": "GHSA-qxf4-chvg-4r8r.json",
+        "summary": "Potential HTTP request smuggling in Apache Tomcat",
+        "aliases": [
+          "CVE-2020-1935"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qxf4-chvg-4r8r",
+        "file": "GHSA-qxf4-chvg-4r8r.json",
+        "summary": "Potential HTTP request smuggling in Apache Tomcat",
+        "aliases": [
+          "CVE-2020-1935"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.thymeleaf:thymeleaf": [
+      {
+        "id": "GHSA-c9ph-gxww-7744",
+        "file": "GHSA-c9ph-gxww-7744.json",
+        "summary": "Sandboxed Thymeleaf expressions vulnerable to improper recognition of unauthorized syntax patterns",
+        "aliases": [
+          "CVE-2026-41901"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.thymeleaf:thymeleaf-spring5": [
+      {
+        "id": "GHSA-c9ph-gxww-7744",
+        "file": "GHSA-c9ph-gxww-7744.json",
+        "summary": "Sandboxed Thymeleaf expressions vulnerable to improper recognition of unauthorized syntax patterns",
+        "aliases": [
+          "CVE-2026-41901"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.thymeleaf:thymeleaf-spring6": [
+      {
+        "id": "GHSA-c9ph-gxww-7744",
+        "file": "GHSA-c9ph-gxww-7744.json",
+        "summary": "Sandboxed Thymeleaf expressions vulnerable to improper recognition of unauthorized syntax patterns",
+        "aliases": [
+          "CVE-2026-41901"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "io.netty:netty-codec-dns": [
+      {
+        "id": "GHSA-cm33-6792-r9fm",
+        "file": "GHSA-cm33-6792-r9fm.json",
+        "summary": "Netty has a DNS Codec Input Validation Bypass (Encoder + Decoder)",
+        "aliases": [
+          "CVE-2026-42579"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-cm33-6792-r9fm",
+        "file": "GHSA-cm33-6792-r9fm.json",
+        "summary": "Netty has a DNS Codec Input Validation Bypass (Encoder + Decoder)",
+        "aliases": [
+          "CVE-2026-42579"
+        ],
+        "severity": "high"
+      }
+    ],
+    "io.netty:netty-codec-http2": [
+      {
+        "id": "GHSA-f6hv-jmp6-3vwv",
+        "file": "GHSA-f6hv-jmp6-3vwv.json",
+        "summary": "Netty: HttpContentDecompressor maxAllocation bypass when Content-Encoding set to br/zstd/snappy leads to decompression bomb DoS",
+        "aliases": [
+          "CVE-2026-42587"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-f6hv-jmp6-3vwv",
+        "file": "GHSA-f6hv-jmp6-3vwv.json",
+        "summary": "Netty: HttpContentDecompressor maxAllocation bypass when Content-Encoding set to br/zstd/snappy leads to decompression bomb DoS",
+        "aliases": [
+          "CVE-2026-42587"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.polaris:polaris-core": [
+      {
+        "id": "GHSA-fc3h-c6h7-r83j",
+        "file": "GHSA-fc3h-c6h7-r83j.json",
+        "summary": "Apache Polaris has an Improper Input Validation issue",
+        "aliases": [
+          "CVE-2026-42811"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-vxgg-mqx2-3w59",
+        "file": "GHSA-vxgg-mqx2-3w59.json",
+        "summary": "Apache Polaris has an Improper Input Validation Issue",
+        "aliases": [
+          "CVE-2026-42810"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "io.quarkiverse.openapi.generator:quarkus-openapi-generator": [
+      {
+        "id": "GHSA-fr8f-rwjx-f32v",
+        "file": "GHSA-fr8f-rwjx-f32v.json",
+        "summary": "quarkus-openapi-generator has overly broad path-parameter matching that sends authentication headers to unintended operations",
+        "aliases": [
+          "CVE-2026-42333"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-fr8f-rwjx-f32v",
+        "file": "GHSA-fr8f-rwjx-f32v.json",
+        "summary": "quarkus-openapi-generator has overly broad path-parameter matching that sends authentication headers to unintended operations",
+        "aliases": [
+          "CVE-2026-42333"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.springframework.ai:spring-ai-vector-store": [
+      {
+        "id": "GHSA-fvh3-672c-7p6c",
+        "file": "GHSA-fvh3-672c-7p6c.json",
+        "summary": "Spring AI: SpEL injection is triggered when a user-supplied value is used as a filter expression key",
+        "aliases": [
+          "CVE-2026-22738"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-fvh3-672c-7p6c",
+        "file": "GHSA-fvh3-672c-7p6c.json",
+        "summary": "Spring AI: SpEL injection is triggered when a user-supplied value is used as a filter expression key",
+        "aliases": [
+          "CVE-2026-22738"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.apache.activemq:artemis-server": [
+      {
+        "id": "GHSA-fw88-pf9m-p947",
+        "file": "GHSA-fw88-pf9m-p947.json",
+        "summary": "Apache Artemis and Apache ActiveMQ Artemis are Missing Authentication for Critical Functions",
+        "aliases": [
+          "CVE-2026-27446"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.apache.artemis:artemis-server": [
+      {
+        "id": "GHSA-fw88-pf9m-p947",
+        "file": "GHSA-fw88-pf9m-p947.json",
+        "summary": "Apache Artemis and Apache ActiveMQ Artemis are Missing Authentication for Critical Functions",
+        "aliases": [
+          "CVE-2026-27446"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "com.arcadedb:arcadedb-server": [
+      {
+        "id": "GHSA-fxc7-fm93-6q77",
+        "file": "GHSA-fxc7-fm93-6q77.json",
+        "summary": "ArcadeDB vulnerable to cross-database authorization bypass and unsecured newly-created databases",
+        "aliases": [
+          "CVE-2026-44221"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.apache.tomcat:tomcat-coyote": [
+      {
+        "id": "GHSA-gqp3-2cvr-x8m3",
+        "file": "GHSA-gqp3-2cvr-x8m3.json",
+        "summary": "Apache Tomcat Improper Resource Shutdown or Release vulnerability",
+        "aliases": [
+          "BIT-tomcat-2025-48989",
+          "CVE-2025-48989"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gqp3-2cvr-x8m3",
+        "file": "GHSA-gqp3-2cvr-x8m3.json",
+        "summary": "Apache Tomcat Improper Resource Shutdown or Release vulnerability",
+        "aliases": [
+          "BIT-tomcat-2025-48989",
+          "CVE-2025-48989"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gqp3-2cvr-x8m3",
+        "file": "GHSA-gqp3-2cvr-x8m3.json",
+        "summary": "Apache Tomcat Improper Resource Shutdown or Release vulnerability",
+        "aliases": [
+          "BIT-tomcat-2025-48989",
+          "CVE-2025-48989"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.apache.tomcat:tomcat": [
+      {
+        "id": "GHSA-h3ch-5pp2-vh6w",
+        "file": "GHSA-h3ch-5pp2-vh6w.json",
+        "summary": "Improper socket reuse in Apache Tomcat",
+        "aliases": [
+          "CVE-2022-25762"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-h3ch-5pp2-vh6w",
+        "file": "GHSA-h3ch-5pp2-vh6w.json",
+        "summary": "Improper socket reuse in Apache Tomcat",
+        "aliases": [
+          "CVE-2022-25762"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-qxf4-chvg-4r8r",
+        "file": "GHSA-qxf4-chvg-4r8r.json",
+        "summary": "Potential HTTP request smuggling in Apache Tomcat",
+        "aliases": [
+          "CVE-2020-1935"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qxf4-chvg-4r8r",
+        "file": "GHSA-qxf4-chvg-4r8r.json",
+        "summary": "Potential HTTP request smuggling in Apache Tomcat",
+        "aliases": [
+          "CVE-2020-1935"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qxf4-chvg-4r8r",
+        "file": "GHSA-qxf4-chvg-4r8r.json",
+        "summary": "Potential HTTP request smuggling in Apache Tomcat",
+        "aliases": [
+          "CVE-2020-1935"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.bitcoinj:bitcoinj-core": [
+      {
+        "id": "GHSA-hfcf-v2f8-x9pc",
+        "file": "GHSA-hfcf-v2f8-x9pc.json",
+        "summary": "bitcoinj has a ScriptExecution P2PKH/P2WPKH Verification Bypass",
+        "aliases": [
+          "CVE-2026-44714"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.apache.tomcat:tomcat-catalina": [
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-hgrr-935x-pq79",
+        "file": "GHSA-hgrr-935x-pq79.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Resource Shutdown or Release",
+        "aliases": [
+          "BIT-tomcat-2025-61795",
+          "CVE-2025-61795"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-vfww-5hm6-hx2j",
+        "file": "GHSA-vfww-5hm6-hx2j.json",
+        "summary": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+        "aliases": [
+          "BIT-tomcat-2025-55754",
+          "CVE-2025-55754"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wmwf-9ccg-fff5",
+        "file": "GHSA-wmwf-9ccg-fff5.json",
+        "summary": "Apache Tomcat Vulnerable to Relative Path Traversal",
+        "aliases": [
+          "BIT-tomcat-2025-55752",
+          "CVE-2025-55752"
+        ],
+        "severity": "high"
+      }
+    ],
+    "com.ritense.valtimo:document": [
+      {
+        "id": "GHSA-j7j9-5253-f7vh",
+        "file": "GHSA-j7j9-5253-f7vh.json",
+        "summary": "Valtimo has SpEL injection via StandardEvaluationContext that allows Remote Code Execution by admin users",
+        "aliases": [
+          "CVE-2026-42555"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "com.ritense.valtimo:case": [
+      {
+        "id": "GHSA-j7j9-5253-f7vh",
+        "file": "GHSA-j7j9-5253-f7vh.json",
+        "summary": "Valtimo has SpEL injection via StandardEvaluationContext that allows Remote Code Execution by admin users",
+        "aliases": [
+          "CVE-2026-42555"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "com.ritense.valtimo:contract": [
+      {
+        "id": "GHSA-j7j9-5253-f7vh",
+        "file": "GHSA-j7j9-5253-f7vh.json",
+        "summary": "Valtimo has SpEL injection via StandardEvaluationContext that allows Remote Code Execution by admin users",
+        "aliases": [
+          "CVE-2026-42555"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.jopendocument:jopendocument": [
+      {
+        "id": "GHSA-j9rh-p96m-mhhp",
+        "file": "GHSA-j9rh-p96m-mhhp.json",
+        "summary": "jOpenDocument has an improper restriction of XML external entity reference vulnerability",
+        "aliases": [
+          "CVE-2026-6501"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "io.netty:netty-codec-mqtt": [
+      {
+        "id": "GHSA-jfg9-48mv-9qgx",
+        "file": "GHSA-jfg9-48mv-9qgx.json",
+        "summary": "Netty MQTT: Resource exhaustion in MqttDecoder",
+        "aliases": [
+          "CVE-2026-44248"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-jfg9-48mv-9qgx",
+        "file": "GHSA-jfg9-48mv-9qgx.json",
+        "summary": "Netty MQTT: Resource exhaustion in MqttDecoder",
+        "aliases": [
+          "CVE-2026-44248"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.jenkins-ci.plugins:matrix-auth": [
+      {
+        "id": "GHSA-jp9r-mmhw-vff3",
+        "file": "GHSA-jp9r-mmhw-vff3.json",
+        "summary": "Jenkins Matrix Authorization Strategy Plugin: Unsafe deserialization allows invocation of parameterless constructors",
+        "aliases": [
+          "CVE-2026-42521"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "io.netty:netty-codec-compression": [
+      {
+        "id": "GHSA-mj4r-2hfc-f8p6",
+        "file": "GHSA-mj4r-2hfc-f8p6.json",
+        "summary": "Netty Lz4FrameDecoder is vulnerable to resource exhaustion ",
+        "aliases": [
+          "CVE-2026-42583"
+        ],
+        "severity": "high"
+      }
+    ],
+    "io.netty:netty-codec": [
+      {
+        "id": "GHSA-mj4r-2hfc-f8p6",
+        "file": "GHSA-mj4r-2hfc-f8p6.json",
+        "summary": "Netty Lz4FrameDecoder is vulnerable to resource exhaustion ",
+        "aliases": [
+          "CVE-2026-42583"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.bouncycastle:bc-fips": [
+      {
+        "id": "GHSA-mx76-r943-rf8g",
+        "file": "GHSA-mx76-r943-rf8g.json",
+        "summary": "Bouncy Castle has a vulnerability in program files gcm128w, gcm512w",
+        "aliases": [
+          "CVE-2026-8149"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.jenkins-ci.plugins:script-security": [
+      {
+        "id": "GHSA-p334-gfhq-c7w6",
+        "file": "GHSA-p334-gfhq-c7w6.json",
+        "summary": "Jenkins Script Security Plugin: Missing permission checks allow enumeration of pending and approved classpaths ",
+        "aliases": [
+          "CVE-2026-42519"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.hyperledger.fabric-sdk-java:fabric-sdk-java": [
+      {
+        "id": "GHSA-prf8-cf2x-rhx7",
+        "file": "GHSA-prf8-cf2x-rhx7.json",
+        "summary": "fabric-sdk-java has ObjectInputStream.readObject() without ObjectInputFilter, which allows Java deserialization RCE",
+        "aliases": [
+          "BIT-hyperledger-fabric-orderer-2026-41586",
+          "BIT-hyperledger-fabric-peer-2026-41586",
+          "BIT-hyperledger-fabric-tools-2026-41586",
+          "CVE-2026-41586"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.mapfish.print:print-lib": [
+      {
+        "id": "GHSA-q7m6-wpvf-mvwx",
+        "file": "GHSA-q7m6-wpvf-mvwx.json",
+        "summary": "Mapfish Print: Remote Code Injection (RCE) in Dynamic table",
+        "aliases": [
+          "CVE-2026-44672"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-q7m6-wpvf-mvwx",
+        "file": "GHSA-q7m6-wpvf-mvwx.json",
+        "summary": "Mapfish Print: Remote Code Injection (RCE) in Dynamic table",
+        "aliases": [
+          "CVE-2026-44672"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-q7m6-wpvf-mvwx",
+        "file": "GHSA-q7m6-wpvf-mvwx.json",
+        "summary": "Mapfish Print: Remote Code Injection (RCE) in Dynamic table",
+        "aliases": [
+          "CVE-2026-44672"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-q7m6-wpvf-mvwx",
+        "file": "GHSA-q7m6-wpvf-mvwx.json",
+        "summary": "Mapfish Print: Remote Code Injection (RCE) in Dynamic table",
+        "aliases": [
+          "CVE-2026-44672"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-q7m6-wpvf-mvwx",
+        "file": "GHSA-q7m6-wpvf-mvwx.json",
+        "summary": "Mapfish Print: Remote Code Injection (RCE) in Dynamic table",
+        "aliases": [
+          "CVE-2026-44672"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.mapfish.print:print-servlet": [
+      {
+        "id": "GHSA-q7m6-wpvf-mvwx",
+        "file": "GHSA-q7m6-wpvf-mvwx.json",
+        "summary": "Mapfish Print: Remote Code Injection (RCE) in Dynamic table",
+        "aliases": [
+          "CVE-2026-44672"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-q7m6-wpvf-mvwx",
+        "file": "GHSA-q7m6-wpvf-mvwx.json",
+        "summary": "Mapfish Print: Remote Code Injection (RCE) in Dynamic table",
+        "aliases": [
+          "CVE-2026-44672"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-q7m6-wpvf-mvwx",
+        "file": "GHSA-q7m6-wpvf-mvwx.json",
+        "summary": "Mapfish Print: Remote Code Injection (RCE) in Dynamic table",
+        "aliases": [
+          "CVE-2026-44672"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-q7m6-wpvf-mvwx",
+        "file": "GHSA-q7m6-wpvf-mvwx.json",
+        "summary": "Mapfish Print: Remote Code Injection (RCE) in Dynamic table",
+        "aliases": [
+          "CVE-2026-44672"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-q7m6-wpvf-mvwx",
+        "file": "GHSA-q7m6-wpvf-mvwx.json",
+        "summary": "Mapfish Print: Remote Code Injection (RCE) in Dynamic table",
+        "aliases": [
+          "CVE-2026-44672"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.apache.wicket:wicket-auth-roles": [
+      {
+        "id": "GHSA-qpjw-p3jg-59j6",
+        "file": "GHSA-qpjw-p3jg-59j6.json",
+        "summary": "Apache Wicket has a Session Fixation issue",
+        "aliases": [
+          "CVE-2026-40010"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-qpjw-p3jg-59j6",
+        "file": "GHSA-qpjw-p3jg-59j6.json",
+        "summary": "Apache Wicket has a Session Fixation issue",
+        "aliases": [
+          "CVE-2026-40010"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-qpjw-p3jg-59j6",
+        "file": "GHSA-qpjw-p3jg-59j6.json",
+        "summary": "Apache Wicket has a Session Fixation issue",
+        "aliases": [
+          "CVE-2026-40010"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "github.com/apple/swift-nio-http2": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "golang.org/x/net": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.eclipse.jetty.http2:http2-common": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.eclipse.jetty.http2:http2-server": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.eclipse.jetty.http2:jetty-http2-common": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.eclipse.jetty.http2:jetty-http2-server": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.typesafe.akka:akka-http-core": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.typesafe.akka:akka-http-core_2.13": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.typesafe.akka:akka-http-core_2.12": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.typesafe.akka:akka-http-core_2.11": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "io.unitycatalog:unitycatalog-server": [
+      {
+        "id": "GHSA-qqcj-rghw-829x",
+        "file": "GHSA-qqcj-rghw-829x.json",
+        "summary": "Unity Catalog has a JWT Issuer Validation Bypass tht Allows Complete User Impersonation",
+        "aliases": [
+          "CVE-2026-27478"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "io.awspring.cloud:spring-cloud-aws-sns": [
+      {
+        "id": "GHSA-r4w4-wv68-qv85",
+        "file": "GHSA-r4w4-wv68-qv85.json",
+        "summary": "Spring Cloud AWS missing SNS message signature verification allows spoofing of HTTP/HTTPS endpoint notifications",
+        "aliases": [
+          "CVE-2026-44308"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-r4w4-wv68-qv85",
+        "file": "GHSA-r4w4-wv68-qv85.json",
+        "summary": "Spring Cloud AWS missing SNS message signature verification allows spoofing of HTTP/HTTPS endpoint notifications",
+        "aliases": [
+          "CVE-2026-44308"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "io.quarkus:quarkus-vertx-http": [
+      {
+        "id": "GHSA-rc95-pcm8-65v9",
+        "file": "GHSA-rc95-pcm8-65v9.json",
+        "summary": "Quarkus has Authentication/Authorization bypasses",
+        "aliases": [
+          "CVE-2026-39852"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rc95-pcm8-65v9",
+        "file": "GHSA-rc95-pcm8-65v9.json",
+        "summary": "Quarkus has Authentication/Authorization bypasses",
+        "aliases": [
+          "CVE-2026-39852"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rc95-pcm8-65v9",
+        "file": "GHSA-rc95-pcm8-65v9.json",
+        "summary": "Quarkus has Authentication/Authorization bypasses",
+        "aliases": [
+          "CVE-2026-39852"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rc95-pcm8-65v9",
+        "file": "GHSA-rc95-pcm8-65v9.json",
+        "summary": "Quarkus has Authentication/Authorization bypasses",
+        "aliases": [
+          "CVE-2026-39852"
+        ],
+        "severity": "high"
+      }
+    ],
+    "io.opentelemetry:opentelemetry-api": [
+      {
+        "id": "GHSA-rcgg-9c38-7xpx",
+        "file": "GHSA-rcgg-9c38-7xpx.json",
+        "summary": "OpenTelemetry Java SDK has Unbounded Memory Allocation in W3C Baggage Propagation",
+        "aliases": [
+          "CVE-2026-45292"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "io.opentelemetry:opentelemetry-extension-trace-propagators": [
+      {
+        "id": "GHSA-rcgg-9c38-7xpx",
+        "file": "GHSA-rcgg-9c38-7xpx.json",
+        "summary": "OpenTelemetry Java SDK has Unbounded Memory Allocation in W3C Baggage Propagation",
+        "aliases": [
+          "CVE-2026-45292"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "io.netty:netty-codec-redis": [
+      {
+        "id": "GHSA-rgrr-p7gp-5xj7",
+        "file": "GHSA-rgrr-p7gp-5xj7.json",
+        "summary": "Netty Redis Codec Encoder has a CRLF Injection Issue",
+        "aliases": [
+          "CVE-2026-42586"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-rgrr-p7gp-5xj7",
+        "file": "GHSA-rgrr-p7gp-5xj7.json",
+        "summary": "Netty Redis Codec Encoder has a CRLF Injection Issue",
+        "aliases": [
+          "CVE-2026-42586"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "io.netty:netty-transport-native-epoll": [
+      {
+        "id": "GHSA-rwm7-x88c-3g2p",
+        "file": "GHSA-rwm7-x88c-3g2p.json",
+        "summary": "Netty epoll transport denial of service via RST on half-closed TCP connection",
+        "aliases": [
+          "CVE-2026-42577"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.springframework.ai:spring-ai-milvus-store": [
+      {
+        "id": "GHSA-v632-2m87-7469",
+        "file": "GHSA-v632-2m87-7469.json",
+        "summary": "Spring AI's MilvusVectorStore#doDelete(List) implementation is vulnerable to filter-expression injection via unsanitized document IDs",
+        "aliases": [
+          "CVE-2026-41705"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v632-2m87-7469",
+        "file": "GHSA-v632-2m87-7469.json",
+        "summary": "Spring AI's MilvusVectorStore#doDelete(List) implementation is vulnerable to filter-expression injection via unsanitized document IDs",
+        "aliases": [
+          "CVE-2026-41705"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.springframework.ai:spring-ai-typesense-store": [
+      {
+        "id": "GHSA-v632-2m87-7469",
+        "file": "GHSA-v632-2m87-7469.json",
+        "summary": "Spring AI's MilvusVectorStore#doDelete(List) implementation is vulnerable to filter-expression injection via unsanitized document IDs",
+        "aliases": [
+          "CVE-2026-41705"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v632-2m87-7469",
+        "file": "GHSA-v632-2m87-7469.json",
+        "summary": "Spring AI's MilvusVectorStore#doDelete(List) implementation is vulnerable to filter-expression injection via unsanitized document IDs",
+        "aliases": [
+          "CVE-2026-41705"
+        ],
+        "severity": "high"
+      }
+    ],
+    "org.omnifaces:omnifaces": [
+      {
+        "id": "GHSA-vp6r-9m58-5xv8",
+        "file": "GHSA-vp6r-9m58-5xv8.json",
+        "summary": "OmniFaces: EL injection via crafted resource name in wildcard CDN mapping",
+        "aliases": [
+          "CVE-2026-41883"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-vp6r-9m58-5xv8",
+        "file": "GHSA-vp6r-9m58-5xv8.json",
+        "summary": "OmniFaces: EL injection via crafted resource name in wildcard CDN mapping",
+        "aliases": [
+          "CVE-2026-41883"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-vp6r-9m58-5xv8",
+        "file": "GHSA-vp6r-9m58-5xv8.json",
+        "summary": "OmniFaces: EL injection via crafted resource name in wildcard CDN mapping",
+        "aliases": [
+          "CVE-2026-41883"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-vp6r-9m58-5xv8",
+        "file": "GHSA-vp6r-9m58-5xv8.json",
+        "summary": "OmniFaces: EL injection via crafted resource name in wildcard CDN mapping",
+        "aliases": [
+          "CVE-2026-41883"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-vp6r-9m58-5xv8",
+        "file": "GHSA-vp6r-9m58-5xv8.json",
+        "summary": "OmniFaces: EL injection via crafted resource name in wildcard CDN mapping",
+        "aliases": [
+          "CVE-2026-41883"
+        ],
+        "severity": "high"
+      }
+    ],
+    "com.amazon.redshift:redshift-jdbc42": [
+      {
+        "id": "GHSA-wmmv-vvg5-993q",
+        "file": "GHSA-wmmv-vvg5-993q.json",
+        "summary": "Amazon Redshift Vulnerable to Remote Code Execution via Unsafe Class Loading",
+        "aliases": [
+          "CVE-2026-8178"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "sealed-env": [
+      {
+        "id": "GHSA-x3r2-fj3r-g5mv",
+        "file": "GHSA-x3r2-fj3r-g5mv.json",
+        "summary": "sealed-env: TOTP secret embedded in unseal token payload (enterprise mode)",
+        "aliases": [
+          "CVE-2026-45091"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "io.github.davidalmeidac:sealed-env-core": [
+      {
+        "id": "GHSA-x3r2-fj3r-g5mv",
+        "file": "GHSA-x3r2-fj3r-g5mv.json",
+        "summary": "sealed-env: TOTP secret embedded in unseal token payload (enterprise mode)",
+        "aliases": [
+          "CVE-2026-45091"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.geysermc.geyser:core": [
+      {
+        "id": "GHSA-xcfg-fcr5-gw9r",
+        "file": "GHSA-xcfg-fcr5-gw9r.json",
+        "summary": "Geyser Vulnerable to Server-Side Request Forgery (SSRF) via Player Head Texture URL in Geyser",
+        "aliases": [
+          "CVE-2026-42188"
+        ],
+        "severity": "low"
+      }
+    ],
+    "org.openmrs.api:openmrs-api": [
+      {
+        "id": "GHSA-xj4f-8jjg-vx4q",
+        "file": "GHSA-xj4f-8jjg-vx4q.json",
+        "summary": "OpenMRS has Stored Velocity SSTI to RCE via ConceptReferenceRange",
+        "aliases": [
+          "CVE-2026-41258"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-xj4f-8jjg-vx4q",
+        "file": "GHSA-xj4f-8jjg-vx4q.json",
+        "summary": "OpenMRS has Stored Velocity SSTI to RCE via ConceptReferenceRange",
+        "aliases": [
+          "CVE-2026-41258"
+        ],
+        "severity": "critical"
+      }
+    ]
+  }
+}

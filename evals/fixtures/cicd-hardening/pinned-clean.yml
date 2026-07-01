@@ -1,0 +1,24 @@
+# Fixture: pinned-clean.yml
+#
+# Control workflow that should clear every rule in
+# skills/cicd-security/checklists/github_actions_hardening.yaml.
+# All actions are pinned to 40-char SHAs, the workflow declares
+# read-only permissions, no remote-script execution, no untrusted
+# github.event interpolation, no pull_request_target trigger.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af  # v4.1.0
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npm test

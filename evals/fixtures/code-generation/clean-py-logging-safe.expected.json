@@ -1,0 +1,13 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "logging-security",
+  "language": "python",
+  "insecure_signals": [
+    "password|token|secret|authorization|api[_-]?key|cookie"
+  ],
+  "secure_signals": [
+    "logger\\.(info|debug|warning)\\(",
+    "method.*path.*status"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

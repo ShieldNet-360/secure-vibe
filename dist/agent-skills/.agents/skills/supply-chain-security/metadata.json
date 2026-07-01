@@ -1,0 +1,35 @@
+{
+  "id": "supply-chain-security",
+  "version": "1.1.0",
+  "title": "Supply Chain Security",
+  "description": "Defend against typosquats, dependency confusion, and malicious package contributions",
+  "category": "supply-chain",
+  "severity": "critical",
+  "applies_to": [
+    "when AI is asked to add a dependency",
+    "when reviewing PRs that modify package manifests",
+    "when setting up a new project that uses internal namespaces",
+    "before publishing a package to a public registry"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 750,
+    "compact": 1100,
+    "full": 2500
+  },
+  "rules_path": "rules/",
+  "tests_path": "tests/",
+  "related_skills": [
+    "dependency-audit",
+    "secret-detection",
+    "container-security"
+  ],
+  "last_updated": "2026-06-21",
+  "sources": [
+    "Alex Birsan, Dependency Confusion (2021)",
+    "OpenSSF Best Practices for OSS Developers",
+    "SLSA Supply-chain Levels for Software Artifacts v1.0"
+  ]
+}

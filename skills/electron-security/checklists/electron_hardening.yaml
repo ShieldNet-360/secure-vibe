@@ -1,0 +1,60 @@
+schema_version: "1.0"
+framework: "Electron Security Checklist + Doyensec Electronegativity"
+last_updated: "2026-06-02"
+patterns:
+  - id: elec-node-integration-off
+    severity: critical
+    rule: "Every BrowserWindow sets nodeIntegration:false (the renderer must not have Node access)"
+    cwe: 250
+  - id: elec-context-isolation-on
+    severity: critical
+    rule: "Every BrowserWindow sets contextIsolation:true so preload and page run in separate worlds"
+    cwe: 693
+  - id: elec-sandbox-on
+    severity: high
+    rule: "BrowserWindow sets sandbox:true unless a specific, documented capability requires otherwise"
+    cwe: 693
+  - id: elec-no-web-security-off
+    severity: critical
+    rule: "webSecurity is not set to false and allowRunningInsecureContent is not true"
+    cwe: 16
+  - id: elec-context-bridge-minimal
+    severity: high
+    rule: "Preload exposes a minimal named API via contextBridge; it never exposes ipcRenderer, require, process, or whole modules to the renderer"
+    cwe: 749
+  - id: elec-ipc-input-validation
+    severity: high
+    rule: "Every ipcMain handler validates its arguments (type, bounds, allowlist) — the renderer is treated as untrusted input"
+    cwe: 20
+  - id: elec-no-shell-string-exec
+    severity: critical
+    rule: "Child processes use execFile/spawn with an argument array and allowlisted args; no exec/execSync with a shell string built from renderer input"
+    cwe: 78
+  - id: elec-path-confinement
+    severity: high
+    rule: "Renderer-supplied file paths are resolved and confined under a base dir (path.resolve + startsWith check); absolute paths and .. are rejected"
+    cwe: 22
+  - id: elec-open-external-allowlist
+    severity: high
+    rule: "shell.openExternal only opens https:/mailto: after URL parsing; file: and custom schemes are rejected"
+    cwe: 749
+  - id: elec-navigation-guards
+    severity: critical
+    rule: "web-contents-created registers will-navigate and setWindowOpenHandler that deny by default against an origin allowlist"
+    cwe: 1021
+  - id: elec-credentialed-fetch-allowlist
+    severity: high
+    rule: "Session tokens/cookies are only attached to requests whose host is on an own-API allowlist; never to a renderer-supplied URL"
+    cwe: 200
+  - id: elec-deeplink-state-binding
+    severity: high
+    rule: "Custom-protocol / deep-link auth is bound to a one-time state/PKCE value and validated before any token is stored"
+    cwe: 352
+  - id: elec-token-safe-storage
+    severity: medium
+    rule: "Tokens at rest use Electron safeStorage (OS keychain/DPAPI/libsecret); no AES-CBC-without-integrity, no machine-id-derived key, no PLAINTEXT fallback"
+    cwe: 311
+  - id: elec-asar-integrity
+    severity: medium
+    rule: "Release builds enable ASAR integrity and code signing so packaged resources cannot be tampered with"
+    cwe: 829

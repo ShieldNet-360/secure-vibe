@@ -1,0 +1,39 @@
+{
+  "id": "iac-security",
+  "version": "1.2.0",
+  "title": "Infrastructure-as-Code Security",
+  "description": "Hardening rules for Terraform, CloudFormation, and Pulumi: state, providers, drift, secrets",
+  "category": "hardening",
+  "severity": "high",
+  "applies_to": [
+    "when generating Terraform / Pulumi / CloudFormation",
+    "when reviewing IaC changes in PR",
+    "when wiring up a new cloud account or workspace"
+  ],
+  "languages": [
+    "hcl",
+    "yaml",
+    "json",
+    "typescript",
+    "python",
+    "go"
+  ],
+  "token_budget": {
+    "minimal": 1000,
+    "compact": 1100,
+    "full": 2500
+  },
+  "rules_path": "checklists/",
+  "related_skills": [
+    "container-security",
+    "secret-detection",
+    "iam-best-practices"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "CIS Benchmarks (AWS, Azure, GCP)",
+    "HashiCorp Terraform Best Practices",
+    "NIST SP 800-53 Rev. 5 (CM-6, CM-8, SC-28)",
+    "OWASP IaC Security Top 10"
+  ]
+}

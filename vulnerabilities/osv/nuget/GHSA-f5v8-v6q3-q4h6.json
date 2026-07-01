@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-f5v8-v6q3-q4h6",
+  "published": "2026-04-16T22:50:37Z",
+  "modified": "2026-04-16T23:04:55.824103Z",
+  "summary": "Meridian: Multiple defense-in-depth gaps (collection/depth caps, telemetry, retry, fan-out)",
+  "affected": [
+    {
+      "package": {
+        "name": "Meridian.Mapping",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Meridian.Mapping"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.0.0"
+            },
+            {
+              "fixed": "2.1.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.1.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-f5v8-v6q3-q4h6/GHSA-f5v8-v6q3-q4h6.json"
+      }
+    },
+    {
+      "package": {
+        "name": "Meridian.Mediator",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Meridian.Mediator"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.0.0"
+            },
+            {
+              "fixed": "2.1.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.0.0",
+        "2.0.1"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-f5v8-v6q3-q4h6/GHSA-f5v8-v6q3-q4h6.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/UmutKorkmaz/meridian/security/advisories/GHSA-f5v8-v6q3-q4h6"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/UmutKorkmaz/meridian"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/UmutKorkmaz/meridian/blob/main/CHANGELOG.md#211---2026-04-16"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/UmutKorkmaz/meridian/releases/tag/v2.1.1"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-1325",
+      "CWE-209",
+      "CWE-400",
+      "CWE-532",
+      "CWE-665",
+      "CWE-674",
+      "CWE-770"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-16T22:50:37Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-04-16"
+}

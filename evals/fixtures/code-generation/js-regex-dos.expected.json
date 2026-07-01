@@ -1,0 +1,17 @@
+{
+  "ground_truth": "generation",
+  "skill": "secure-code-review",
+  "language": "javascript",
+  "insecure_signals": [
+    "\\(\\[[^\\]]+\\]\\+\\)\\+",
+    "\\(\\.\\*\\)\\+",
+    "\\(\\.\\+\\)\\+"
+  ],
+  "secure_signals": [
+    "\\{1,\\d+\\}",
+    "safe-regex|re2|RE2",
+    "\\^\\[a-zA-Z0-9._%+\\-]"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-1333"
+}

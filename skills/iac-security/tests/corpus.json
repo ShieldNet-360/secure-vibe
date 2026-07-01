@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Schema-driven corpus for iac-security. Misconfiguration intent (public storage, open ingress, privileged containers, hardcoded secrets) needs schema-aware judgement beyond a single regex, so the runner smoke-validates shape; fixtures double as ground truth for the LLM eval harness. detect = Terraform/k8s that violates a NEVER rule; ignore = the locked-down equivalent following ALWAYS.",
+  "fixtures": [
+    {
+      "id": "public-s3-bucket-acl",
+      "text": "resource \"aws_s3_bucket\" \"data\" {\n  bucket = \"acme-customer-exports\"\n}\n\nresource \"aws_s3_bucket_acl\" \"data\" {\n  bucket = aws_s3_bucket.data.id\n  acl    = \"public-read\"\n}\n\nresource \"aws_s3_bucket_public_access_block\" \"data\" {\n  bucket                  = aws_s3_bucket.data.id\n  block_public_acls       = false\n  ignore_public_acls      = false\n  block_public_policy     = false\n  restrict_public_buckets = false\n}",
+      "expected": "detect",
+      "reason": "bucket holding customer exports is public-read with all public-access-block protections disabled, exposing data to the internet (CWE-732 Incorrect Permission Assignment, CIS AWS S3 benchmark)"
+    },
+    {
+      "id": "private-s3-bucket-blocked",
+      "text": "resource \"aws_s3_bucket\" \"data\" {\n  bucket = \"acme-customer-exports\"\n}\n\nresource \"aws_s3_bucket_public_access_block\" \"data\" {\n  bucket                  = aws_s3_bucket.data.id\n  block_public_acls       = true\n  ignore_public_acls      = true\n  block_public_policy     = true\n  restrict_public_buckets = true\n}\n\nresource \"aws_s3_bucket_server_side_encryption_configuration\" \"data\" {\n  bucket = aws_s3_bucket.data.id\n  rule {\n    apply_server_side_encryption_by_default {\n      sse_algorithm     = \"aws:kms\"\n      kms_master_key_id = aws_kms_key.data.arn\n    }\n  }\n}",
+      "expected": "ignore",
+      "reason": "bucket has every public-access-block flag enabled and customer-managed KMS encryption at rest, keeping it private (follows ALWAYS: encrypt with CMK, block public access)"
+    },
+    {
+      "id": "security-group-open-ssh-world",
+      "text": "resource \"aws_security_group\" \"db\" {\n  name = \"db-sg\"\n  ingress {\n    from_port   = 22\n    to_port     = 22\n    protocol    = \"tcp\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }\n  ingress {\n    from_port   = 5432\n    to_port     = 5432\n    protocol    = \"tcp\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }\n}",
+      "expected": "detect",
+      "reason": "SSH (22) and PostgreSQL (5432) are open to 0.0.0.0/0, exposing admin and database ports to the entire internet (CWE-284 Improper Access Control; NEVER: open 22/5432 to 0.0.0.0/0)"
+    },
+    {
+      "id": "security-group-scoped-bastion",
+      "text": "variable \"bastion_cidr\" {}\n\nresource \"aws_security_group\" \"db\" {\n  name = \"db-sg\"\n  ingress {\n    description = \"PostgreSQL from app subnet only\"\n    from_port   = 5432\n    to_port     = 5432\n    protocol    = \"tcp\"\n    cidr_blocks = [var.bastion_cidr]\n  }\n}",
+      "expected": "ignore",
+      "reason": "database ingress is restricted to a specific bastion/app CIDR variable rather than the world, and no public SSH rule exists (follows NEVER guidance: use bastion/VPN, no 0.0.0.0/0 on sensitive ports)"
+    },
+    {
+      "id": "privileged-container-and-hardcoded-secret",
+      "text": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: worker\nspec:\n  template:\n    spec:\n      containers:\n        - name: worker\n          image: acme/worker:latest\n          securityContext:\n            privileged: true\n            allowPrivilegeEscalation: true\n          env:\n            - name: DB_PASSWORD\n              value: \"S3cr3t-Pr0d-Passw0rd!\"\n            - name: AWS_SECRET_ACCESS_KEY\n              value: \"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY\"",
+      "expected": "detect",
+      "reason": "container runs privileged with privilege escalation allowed (CWE-250 Execution with Unnecessary Privileges) and embeds a plaintext DB password and AWS secret key in the manifest (CWE-798 Use of Hard-coded Credentials)"
+    },
+    {
+      "id": "hardened-container-secretref",
+      "text": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: worker\nspec:\n  template:\n    spec:\n      containers:\n        - name: worker\n          image: acme/worker:1.8.3\n          securityContext:\n            privileged: false\n            allowPrivilegeEscalation: false\n            readOnlyRootFilesystem: true\n            runAsNonRoot: true\n            capabilities:\n              drop: [\"ALL\"]\n          env:\n            - name: DB_PASSWORD\n              valueFrom:\n                secretKeyRef:\n                  name: worker-secrets\n                  key: db-password",
+      "expected": "ignore",
+      "reason": "container is non-privileged, drops all capabilities, runs as non-root with a read-only root FS, pins an explicit image tag, and pulls the secret from a Kubernetes Secret rather than hardcoding it (mitigates CWE-250 and CWE-798)"
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Slack",
+  "description": "Slack bot/user/app-level/config tokens, workflow tokens, webhook URLs, and workspace red flags. Some token formats are already detected by the broader secret-detection skill; this file adds Slack-specific misconfigs and admin signals.",
+  "token_patterns": [
+    {
+      "name": "Slack Bot Token",
+      "regex": "xoxb-[0-9]{10,13}-[0-9]{10,13}-[A-Za-z0-9]{24,34}",
+      "severity": "critical",
+      "hotwords": [
+        "slack",
+        "xoxb",
+        "bot_token"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "xoxb-"
+    },
+    {
+      "name": "Slack User OAuth Token",
+      "regex": "xoxp-[0-9]{10,13}-[0-9]{10,13}-[0-9]{10,13}-[A-Fa-f0-9]{32,64}",
+      "severity": "critical",
+      "hotwords": [
+        "slack",
+        "xoxp",
+        "user_token",
+        "oauth"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "xoxp-"
+    },
+    {
+      "name": "Slack App-Level Token",
+      "regex": "xapp-1-[A-Z0-9]{8,}-[0-9]{10,}-[A-Fa-f0-9]{64}",
+      "severity": "critical",
+      "hotwords": [
+        "slack",
+        "xapp",
+        "app_token",
+        "socket_mode"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "xapp-"
+    },
+    {
+      "name": "Slack Config-Access Token",
+      "regex": "xoxe\\.xoxp-[0-9]+-[A-Za-z0-9\\-]+",
+      "severity": "critical",
+      "hotwords": [
+        "slack",
+        "xoxe",
+        "config",
+        "manifest"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "xoxe.",
+      "notes": "Config-access tokens can mutate Slack app manifests org-wide."
+    },
+    {
+      "name": "Slack Workflow Token",
+      "regex": "xwfp-[A-Za-z0-9\\-]{20,}",
+      "severity": "high",
+      "hotwords": [
+        "slack",
+        "xwfp",
+        "workflow"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "xwfp-"
+    },
+    {
+      "name": "Slack Incoming Webhook URL",
+      "regex": "https://hooks\\.slack\\.com/services/T[A-Z0-9]{8,}/B[A-Z0-9]{8,}/[A-Za-z0-9]{20,}",
+      "severity": "high",
+      "hotwords": [
+        "hooks.slack.com",
+        "webhook"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "slack-workspace-public-channels-default",
+      "severity": "medium",
+      "title": "New channels default to public; sensitive workspaces should default to private",
+      "rationale": "Public-by-default in workspaces handling customer data leads to over-sharing.",
+      "fix": "Org settings > Channels > new-channel-default = private for security/legal/finance workspaces."
+    },
+    {
+      "id": "slack-external-shared-channels-unrestricted",
+      "severity": "high",
+      "title": "Slack Connect external shared channels allowed without admin approval",
+      "rationale": "Externally-shared channels are a documented exfiltration vector.",
+      "fix": "Org admin > Slack Connect > require admin approval for accepting/inviting external orgs."
+    },
+    {
+      "id": "slack-incoming-webhook-as-only-auth",
+      "severity": "high",
+      "title": "Service uses an Incoming Webhook URL where a signed Bot App would be appropriate",
+      "rationale": "Webhooks have no scope; they can post to any channel they were created for, and they cannot be granularly revoked without losing all integrations.",
+      "fix": "Migrate to a Slack App with `chat:write.channel` scope + bot-token; signed; revocable."
+    },
+    {
+      "id": "slack-signing-secret-not-verified",
+      "severity": "critical",
+      "title": "Event handler does not verify `X-Slack-Signature` + `X-Slack-Request-Timestamp`",
+      "rationale": "Without signature verification, any internet host can spoof Slack events.",
+      "fix": "Compute v0 signature: `'v0:' + ts + ':' + body` HMAC-SHA256 with signing secret; reject if timestamp drift > 5 min."
+    },
+    {
+      "id": "slack-mfa-not-enforced",
+      "severity": "high",
+      "title": "MFA not required at the workspace / org level",
+      "rationale": "Workspace admin ATO leads directly to DM/channel exfil.",
+      "fix": "Org settings > Authentication > require 2FA for all members (and admins)."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "slack-bulk-message-export",
+      "severity": "high",
+      "title": "Workspace export of public channels / corporate export of all messages",
+      "rationale": "Discovery / Discovery API access dumps full message history.",
+      "signal": "Audit log: `export_started` or Discovery API token usage outside the IT-managed pipeline."
+    },
+    {
+      "id": "slack-new-app-installed-broad-scopes",
+      "severity": "high",
+      "title": "New Slack app installed with `chat:write` + `files:read` + `users:read.email`",
+      "rationale": "Combination is the standard 'exfil bot' shape.",
+      "signal": "Audit log: `app_installed` with scopes superset of the watchlist."
+    },
+    {
+      "id": "slack-org-admin-promotion",
+      "severity": "critical",
+      "title": "User promoted to Org Owner / Workspace Owner",
+      "rationale": "Privilege escalation step inside Slack.",
+      "signal": "Audit log: `role_change` to owner outside scheduled changes."
+    },
+    {
+      "id": "slack-file-public-link-burst",
+      "severity": "high",
+      "title": "Bulk creation of public file share links",
+      "rationale": "Public file links leak code, credentials, customer docs.",
+      "signal": "Audit log: `file_public_url_created` count per user > 10 in 1h."
+    }
+  ],
+  "references": [
+    "https://api.slack.com/authentication/token-types",
+    "https://api.slack.com/authentication/verifying-requests-from-slack",
+    "https://slack.com/help/articles/360002360574-Slack-Connect-Channel-shared-with-an-external-organization",
+    "https://slack.com/security"
+  ]
+}

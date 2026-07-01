@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the error-handling-security skill. It is schema-driven because no deterministic gate scanner judges these fixtures — a model reads each snippet against the skill's ALWAYS/NEVER rules; 'detect' means the code leaks internal detail (stack traces, SQL, paths, version banners, record-presence) to the client and must be flagged (CWE-209), while 'ignore' means the secure fix that logs detail server-side and returns a sanitized generic error with a correlation ID.",
+  "fixtures": [
+    {
+      "id": "express-stacktrace-to-client-detect",
+      "text": "app.use((err, req, res, next) => {\n  res.status(500).json({\n    error: err.message,\n    stack: err.stack,\n  });\n});",
+      "expected": "detect",
+      "reason": "Returns err.stack (full stack trace) to the client, exposing file paths, framework internals and code structure. Violates the NEVER 'render printStackTrace/traceback to client' rule. CWE-209: Generation of Error Message Containing Sensitive Information."
+    },
+    {
+      "id": "express-generic-error-with-correlation-ignore",
+      "text": "app.use((err, req, res, next) => {\n  const correlationId = req.id || crypto.randomUUID();\n  logger.error({ correlationId, err, path: req.path }, 'unhandled error');\n  res.status(500).json({\n    code: 'INTERNAL_ERROR',\n    message: 'An unexpected error occurred.',\n    correlationId,\n  });\n});",
+      "expected": "ignore",
+      "reason": "Logs the full error with context server-side and returns only a stable code, generic message and correlation ID. Follows the ALWAYS 'log server-side, return sanitized error' rule. No CWE-209 leak."
+    },
+    {
+      "id": "sql-error-echoed-detect",
+      "text": "try {\n  await db.query('INSERT INTO users (email) VALUES ($1)', [email]);\n} catch (e) {\n  res.status(400).json({ error: e.message });\n}",
+      "expected": "detect",
+      "reason": "Echoes the raw database driver error (e.g. 'duplicate key value violates unique constraint \"users_email_key\"'), disclosing table and column names. Violates NEVER 'echo SQL queries/parameters in error messages'. CWE-209."
+    },
+    {
+      "id": "sql-error-mapped-generic-ignore",
+      "text": "try {\n  await db.query('INSERT INTO users (email) VALUES ($1)', [email]);\n} catch (e) {\n  if (e.code === '23505') {\n    return res.status(409).json({ code: 'CONFLICT', message: 'Resource already exists.' });\n  }\n  const correlationId = crypto.randomUUID();\n  logger.error({ correlationId, e }, 'db insert failed');\n  return res.status(500).json({ code: 'INTERNAL_ERROR', message: 'An unexpected error occurred.', correlationId });\n}",
+      "expected": "ignore",
+      "reason": "Maps the DB error code to a generic client message without revealing table/column names; logs detail server-side with a correlation ID. Follows ALWAYS centralized sanitized-error rule. No sensitive disclosure."
+    },
+    {
+      "id": "login-user-enumeration-detect",
+      "text": "const user = await db.findUser(username);\nif (!user) {\n  return res.status(404).json({ error: 'User not found' });\n}\nif (!verifyPassword(password, user.hash)) {\n  return res.status(401).json({ error: 'Invalid password' });\n}",
+      "expected": "detect",
+      "reason": "Distinct 'User not found' vs 'Invalid password' responses let an attacker enumerate valid accounts. Violates NEVER 'leak presence-of-record information'. CWE-209 (sensitive info via error variation)."
+    },
+    {
+      "id": "login-uniform-message-ignore",
+      "text": "const user = await db.findUser(username);\nconst ok = user && verifyPassword(password, user.hash);\nif (!ok) {\n  return res.status(401).json({ code: 'AUTH_FAILED', message: 'Invalid username or password.' });\n}\nreturn res.status(200).json({ code: 'OK' });",
+      "expected": "ignore",
+      "reason": "Returns one uniform message and status for both unknown-user and wrong-password cases, preventing account enumeration. Follows ALWAYS 'uniform error responses / same message for wrong username vs password'. No CWE-209 leak."
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.7.3",
+  "id": "GO-2026-4338",
+  "published": "2026-01-28T19:07:48Z",
+  "modified": "2026-05-15T10:59:22.805158994Z",
+  "aliases": [
+    "BIT-golang-2025-68119",
+    "CVE-2025-68119"
+  ],
+  "related": [
+    "CGA-4h42-h3g6-cxx5",
+    "RHSA-2026:7291",
+    "RHSA-2026:7385"
+  ],
+  "summary": "Unexpected code execution when invoking toolchain in cmd/go",
+  "affected": [
+    {
+      "package": {
+        "name": "toolchain",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/toolchain"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.25.0"
+            },
+            {
+              "fixed": "1.25.6"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "cmd/go"
+          }
+        ]
+      },
+      "database_specific": {
+        "source": "https://vuln.go.dev/ID/GO-2026-4338.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/736710"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/77099"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/Vd2tYVM8eUc"
+    }
+  ],
+  "database_specific": {
+    "review_status": "REVIEWED",
+    "url": "https://pkg.go.dev/vuln/GO-2026-4338"
+  },
+  "credits": [
+    {
+      "name": "splitline (@splitline) from DEVCORE Research Team"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

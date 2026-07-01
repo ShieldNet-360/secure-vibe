@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the ml-security skill. Fixtures are schema-driven code snippets; 'detect' marks code that deserializes untrusted model artifacts or hardcodes secrets in notebooks (violates a NEVER), and 'ignore' marks code using safetensors / weights_only / env-var secrets (follows ALWAYS).",
+  "fixtures": [
+    {
+      "id": "torch-load-untrusted-url",
+      "text": "import torch, requests, io\n\nurl = 'http://random-models.example.com/community/checkpoint.pt'\nblob = requests.get(url).content\nmodel = torch.load(io.BytesIO(blob))  # default weights_only=False\nmodel.eval()",
+      "expected": "detect",
+      "reason": "torch.load on an artifact fetched at runtime from an untrusted source with default weights_only=False executes arbitrary code via pickle. CWE-502 Deserialization of Untrusted Data; violates NEVER (torch.load an untrusted runtime artifact)."
+    },
+    {
+      "id": "pickle-loads-model",
+      "text": "import pickle, urllib.request\n\nraw = urllib.request.urlopen('https://hub.example.net/uploads/model.pkl').read()\nclf = pickle.loads(raw)\nprediction = clf.predict(features)",
+      "expected": "detect",
+      "reason": "pickle.loads on bytes downloaded from an untrusted host runs arbitrary code on deserialization. CWE-502; violates NEVER (pickle.loads an artifact fetched at runtime from an untrusted source)."
+    },
+    {
+      "id": "hardcoded-api-key-notebook",
+      "text": "# notebook cell\nimport anthropic\nclient = anthropic.Anthropic(api_key='sk-ant-api03-9fA2bQ7xR3kL8mN0pZ4tWvYuC1eHjGd')\nresp = client.messages.create(model='claude-3-5-sonnet', max_tokens=100, messages=[{'role':'user','content':'hi'}])",
+      "expected": "detect",
+      "reason": "Hard-codes an Anthropic API key directly in a notebook cell, which gets committed in plaintext. CWE-798 / violates NEVER (hard-code API keys in notebooks; use environment variables)."
+    },
+    {
+      "id": "safetensors-load",
+      "text": "from safetensors.torch import load_file\nfrom transformers import AutoModelForSequenceClassification\n\nmodel = AutoModelForSequenceClassification.from_pretrained(\n    'internal-registry/sentiment-v3',\n    use_safetensors=True,\n)\nstate = load_file('weights.safetensors')\nmodel.load_state_dict(state)",
+      "expected": "ignore",
+      "reason": "Loads weights via safetensors, which is a pure-tensor format that cannot execute code on load. Follows ALWAYS (use safetensors for PyTorch/HF); safe per CWE-502."
+    },
+    {
+      "id": "torch-load-weights-only",
+      "text": "import torch, hashlib\n\nEXPECTED_SHA = 'a1b2c3d4e5f6...'\nwith open('checkpoint.pt', 'rb') as f:\n    data = f.read()\nassert hashlib.sha256(data).hexdigest() == EXPECTED_SHA  # provenance pin\nstate = torch.load('checkpoint.pt', weights_only=True)\nmodel.load_state_dict(state)",
+      "expected": "ignore",
+      "reason": "Uses weights_only=True (no arbitrary code execution) on a hash-pinned, provenance-verified local checkpoint. Follows ALWAYS (weights_only=True, pin/hash model versions); safe per CWE-502."
+    },
+    {
+      "id": "env-var-api-key",
+      "text": "import os, anthropic\n\nclient = anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])\nresp = client.messages.create(model='claude-3-5-sonnet', max_tokens=100,\n                              messages=[{'role':'user','content':'hi'}])",
+      "expected": "ignore",
+      "reason": "Reads the API key from an environment variable instead of hard-coding it, so no secret is committed. Follows ALWAYS (use environment variables for secrets); safe, no CWE-798 violation."
+    }
+  ]
+}

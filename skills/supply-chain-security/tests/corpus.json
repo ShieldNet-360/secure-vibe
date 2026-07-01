@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-06-12",
+  "description": "Test corpus for the supply-chain-security skill. Each entry is a candidate package name (or package manifest snippet) plus the expected detection outcome. The legacy typosquat_fixtures / dependency_confusion_fixtures blocks below are kept as documentation; the runnable corpus is the gate-driven 'fixtures' array (scanner: gate), which the secure-vibe dev test runner executes through the same PolicyCheck the CI gate uses.",
+  "typosquat_fixtures": [
+    {
+      "id": "axios-typo-axois",
+      "candidate": "axois",
+      "ecosystem": "npm",
+      "target": "axios",
+      "expected": "block",
+      "reason": "Levenshtein distance 1 from top-100 package"
+    },
+    {
+      "id": "lodash-typo-lodahs",
+      "candidate": "lodahs",
+      "ecosystem": "npm",
+      "target": "lodash",
+      "expected": "block",
+      "reason": "Adjacent-character swap"
+    },
+    {
+      "id": "django-typo-djanga",
+      "candidate": "djanga",
+      "ecosystem": "pypi",
+      "target": "django",
+      "expected": "block",
+      "reason": "Known historical typosquat"
+    },
+    {
+      "id": "requests-typo-requesys",
+      "candidate": "requesys",
+      "ecosystem": "pypi",
+      "target": "requests",
+      "expected": "block",
+      "reason": "Known historical typosquat"
+    },
+    {
+      "id": "react-homoglyph",
+      "candidate": "rеact",
+      "ecosystem": "npm",
+      "target": "react",
+      "expected": "block",
+      "reason": "Cyrillic 'е' homoglyph"
+    },
+    {
+      "id": "react-canary",
+      "candidate": "react@canary",
+      "ecosystem": "npm",
+      "target": "react",
+      "expected": "ignore",
+      "reason": "Known beta/canary release of the legitimate package"
+    },
+    {
+      "id": "react-distinct-name",
+      "candidate": "react-router-dom",
+      "ecosystem": "npm",
+      "target": "react",
+      "expected": "ignore",
+      "reason": "Distinct package in same ecosystem; not a typo"
+    },
+    {
+      "id": "fork-with-fork-suffix",
+      "candidate": "lodash-fork",
+      "ecosystem": "npm",
+      "target": "lodash",
+      "expected": "warn",
+      "reason": "Suffix impersonation; verify origin before accepting"
+    }
+  ],
+  "dependency_confusion_fixtures": [
+    {
+      "id": "internal-scope-public-shadow",
+      "candidate": "@acme/auth-client",
+      "ecosystem": "npm",
+      "internal_namespace": "@acme/*",
+      "expected": "block",
+      "reason": "Public registry contains a package matching internal scope"
+    },
+    {
+      "id": "missing-npmrc",
+      "candidate": "@acme/auth-client",
+      "ecosystem": "npm",
+      "config_present": false,
+      "expected": "warn",
+      "reason": "No .npmrc routing the internal scope"
+    },
+    {
+      "id": "pypi-prefix-shadow",
+      "candidate": "acme-internal-utils",
+      "ecosystem": "pypi",
+      "internal_namespace": "acme-*",
+      "expected": "block"
+    },
+    {
+      "id": "go-namespace-shadow",
+      "candidate": "github.com/acme/internal-sdk",
+      "ecosystem": "go",
+      "internal_namespace": "github.com/acme/*",
+      "expected": "block",
+      "reason": "GOPRIVATE not configured"
+    },
+    {
+      "id": "unrelated-public-package",
+      "candidate": "lodash",
+      "ecosystem": "npm",
+      "internal_namespace": "@acme/*",
+      "expected": "ignore",
+      "reason": "Public package, not within internal namespace pattern"
+    }
+  ],
+  "scanner": "gate",
+  "severity_floor": "medium",
+  "fixtures": [
+    {
+      "id": "typosquat-axois-in-lockfile",
+      "filename": "package-lock.json",
+      "text": "{\n  \"name\": \"fixture\",\n  \"lockfileVersion\": 3,\n  \"packages\": {\n    \"node_modules/axois\": { \"version\": \"1.0.0\" }\n  }\n}\n",
+      "expected": "detect",
+      "reason": "axois is a Levenshtein-1 typosquat of axios (legacy fixture axios-typo-axois, now executable)",
+      "expected_rule": "secure-vibe.typosquat"
+    },
+    {
+      "id": "malicious-flatmap-stream",
+      "filename": "package-lock.json",
+      "text": "{\n  \"name\": \"fixture\",\n  \"lockfileVersion\": 3,\n  \"packages\": {\n    \"node_modules/flatmap-stream\": { \"version\": \"0.1.1\" }\n  }\n}\n",
+      "expected": "detect",
+      "reason": "flatmap-stream@0.1.1 is the payload package of the event-stream incident"
+    },
+    {
+      "id": "clean-scoped-package",
+      "filename": "package-lock.json",
+      "text": "{\n  \"name\": \"fixture\",\n  \"lockfileVersion\": 3,\n  \"packages\": {\n    \"node_modules/lodash\": { \"version\": \"4.17.21\" }\n  }\n}\n",
+      "expected": "ignore",
+      "reason": "healthy popular package must pass; also pins the two FP fixes (self-popular sweep + target-side curated hits)"
+    }
+  ]
+}

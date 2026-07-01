@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Notion",
+  "description": "Notion integration tokens, workspace sharing controls, and admin red flags. Covers both internal integrations (secret_\u2026) and the newer ntn_ format used by Notion Connections / Workspace Integrations.",
+  "token_patterns": [
+    {
+      "name": "Notion Integration Token (legacy)",
+      "regex": "secret_[A-Za-z0-9]{43}",
+      "severity": "critical",
+      "hotwords": [
+        "notion",
+        "integration",
+        "secret_"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "secret_",
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Notion Integration Token (current \u2014 ntn)",
+      "regex": "ntn_[A-Za-z0-9]{36,}",
+      "severity": "critical",
+      "hotwords": [
+        "notion",
+        "integration",
+        "ntn_"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "ntn_",
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Notion OAuth Authorization Code",
+      "regex": "(?i)notion[_\\-]?oauth[_\\-]?code[\\\"'\\s:=]+[A-Za-z0-9_\\-]{20,}",
+      "severity": "medium",
+      "hotwords": [
+        "notion",
+        "oauth",
+        "code"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "notion-page-public-to-web",
+      "severity": "high",
+      "title": "Notion page set to 'Share to web' on a workspace containing internal data",
+      "rationale": "Public Notion pages are indexed by Google; multiple incident reports show PII / customer data leaking this way.",
+      "fix": "Workspace settings > Security > disable 'Share to web' at the workspace level and require admin approval for exceptions."
+    },
+    {
+      "id": "notion-workspace-guest-access",
+      "severity": "medium",
+      "title": "Guests added without expiration policy",
+      "rationale": "Guest accounts persist forever by default; ex-vendor / ex-contractor access bleeds over.",
+      "fix": "Quarterly guest review + automation that removes guests with no activity > 90 days."
+    },
+    {
+      "id": "notion-integration-internal-vs-public",
+      "severity": "high",
+      "title": "Public Notion integration used where an internal one would suffice",
+      "rationale": "Public integrations can be installed by anyone with a workspace; widens blast radius.",
+      "fix": "Settings > Integrations > prefer 'Internal' integrations for org-owned automation."
+    },
+    {
+      "id": "notion-sso-not-enforced",
+      "severity": "medium",
+      "title": "SAML SSO available (Enterprise plan) but not enforced",
+      "rationale": "Allowing both SSO and email-link login means token theft via personal email = workspace ATO.",
+      "fix": "Workspace settings > Identity & provisioning > enforce SSO, disable email-link login."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "notion-workspace-export",
+      "severity": "high",
+      "title": "Workspace-wide export by a non-admin",
+      "rationale": "`Export all workspace content` produces a complete data dump.",
+      "signal": "Audit log: `workspace.exported` actor not in {Workspace Owner, Admin}."
+    },
+    {
+      "id": "notion-permission-share-to-web",
+      "severity": "high",
+      "title": "Page newly shared to web from a database known to contain customer data",
+      "rationale": "Catch the moment of mis-sharing before crawlers index.",
+      "signal": "Audit log: `page.public_share_enabled` filtered to known-sensitive parent IDs."
+    },
+    {
+      "id": "notion-integration-internal-grant",
+      "severity": "medium",
+      "title": "Internal integration added to a top-level workspace page",
+      "rationale": "Indicates someone wiring an API consumer; should be reviewed.",
+      "signal": "Audit log: `integration.workspace_added` outside the IT-admin group."
+    }
+  ],
+  "references": [
+    "https://developers.notion.com/docs/authorization",
+    "https://www.notion.so/help/data-security-and-compliance",
+    "https://www.notion.so/help/audit-log"
+  ]
+}

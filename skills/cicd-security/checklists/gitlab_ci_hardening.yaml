@@ -1,0 +1,57 @@
+schema_version: "1.0"
+last_updated: "2026-05-13"
+framework: gitlab-ci
+description: >
+  Hardening checks for .gitlab-ci.yml pipelines. Covers protected
+  branches/tags, scoped CI/CD variables, runner isolation, signed pipelines,
+  and class-of-attack mitigations parallel to GitHub Actions guidance.
+references:
+  - "https://docs.gitlab.com/ee/ci/pipelines/pipeline_security.html"
+  - "https://docs.gitlab.com/ee/ci/yaml/#workflowrules"
+  - "https://docs.gitlab.com/ee/ci/runners/configure_runners.html"
+checks:
+  - id: glci-pin-include-sha
+    severity: critical
+    title: Pin `include:` references by commit SHA
+    rationale: >
+      `include: { project: '...', ref: 'main' }` re-evaluates on every run; a
+      compromise of the included project compromises every pipeline.
+    pattern: "include:[\\s\\S]+?ref:\\s*(main|master|stable|latest)"
+    fix: "Use a 40-char commit SHA (ref=d34db33f...) and rotate via Renovate."
+  - id: glci-protected-variables
+    severity: critical
+    title: "Secret variables must be `protected: true` and `masked: true`"
+    rationale: >
+      Unprotected variables are exposed to feature-branch pipelines (untrusted-context-on-trusted-secret).
+    fix: "In Settings > CI/CD > Variables, set Protected=Yes and Masked=Yes, and never reference these vars from merge_request_event pipelines without explicit allowlist."
+  - id: glci-merge-request-no-secrets
+    severity: critical
+    title: Merge-request pipelines (from forks) must not see secrets
+    rationale: >
+      Merge requests from forks run with the source branch's CI YAML — they
+      can execute arbitrary attacker-supplied YAML against the target repo's
+      runners. Even with protected vars hidden, the runner itself is shared.
+    pattern: "rules:[\\s\\S]+?\\$CI_PIPELINE_SOURCE\\s*==\\s*\"merge_request_event\""
+    fix: "Either disallow MR pipelines from forks, or run them on isolated, sandboxed runners with no shared cache, no Docker socket, and no production credentials."
+  - id: glci-no-curl-pipe-bash
+    severity: critical
+    title: Do not `curl | bash` in script blocks
+    rationale: Same class of attack as the Codecov bash-uploader incident.
+    pattern: "(curl|wget)[^|]*\\|\\s*(ba)?sh"
+    fix: "Download, checksum, then execute. Pin the upstream SHA-256 in the pipeline."
+  - id: glci-runner-isolation
+    severity: high
+    title: "Use ephemeral / Docker-in-Docker runners with `privileged: false`"
+    rationale: "Shared shell runners with `privileged: true` give a compromised job root on the host."
+    fix: "Configure GitLab Runner with executor=docker, privileged=false, volumes=[/cache] only."
+  - id: glci-no-shell-injection
+    severity: critical
+    title: Never interpolate `$CI_*` or `$TRIGGER_*` variables directly into `bash -c` or eval
+    rationale: GitLab CI variables can contain branch / tag / commit metadata that includes shell metacharacters in MR contexts.
+    pattern: "(bash|sh)\\s+-c[\\s\\S]+?\\$\\{?(CI_|TRIGGER_)"
+    fix: "Pass through environment variables and reference as quoted variables in scripts; validate against an allowlist regex."
+  - id: glci-signed-commits
+    severity: medium
+    title: Require signed commits on protected branches
+    rationale: Defense-in-depth against compromised maintainer accounts pushing pipeline-modifying commits.
+    fix: "Settings > Repository > Protected branches > Require GPG/SSH signatures."

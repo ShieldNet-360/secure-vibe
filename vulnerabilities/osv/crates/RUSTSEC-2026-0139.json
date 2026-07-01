@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.7.5",
+  "id": "RUSTSEC-2026-0139",
+  "published": "2026-05-02T12:00:00Z",
+  "modified": "2026-05-13T15:00:15.670790Z",
+  "summary": "Null-pointer dereference and double-free via safe APIs",
+  "affected": [
+    {
+      "package": {
+        "name": "metacall",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/metacall"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0.0.0-0"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "affected_functions": null,
+        "affects": {
+          "arch": [],
+          "functions": [],
+          "os": []
+        }
+      },
+      "database_specific": {
+        "categories": [
+          "memory-corruption"
+        ],
+        "cvss": null,
+        "informational": "unsound",
+        "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2026-0139.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://crates.io/crates/metacall"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://rustsec.org/advisories/RUSTSEC-2026-0139.html"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://github.com/metacall/core/issues/618"
+    }
+  ],
+  "database_specific": {
+    "license": "CC0-1.0"
+  },
+  "last_updated": "2026-05-13"
+}

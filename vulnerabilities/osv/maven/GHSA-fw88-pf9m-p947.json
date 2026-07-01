@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-fw88-pf9m-p947",
+  "published": "2026-03-04T09:31:07Z",
+  "modified": "2026-05-13T16:38:49.581915Z",
+  "aliases": [
+    "CVE-2026-27446"
+  ],
+  "summary": "Apache Artemis and Apache ActiveMQ Artemis are Missing Authentication for Critical Functions",
+  "affected": [
+    {
+      "package": {
+        "name": "org.apache.activemq:artemis-server",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.apache.activemq/artemis-server"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.11.0"
+            },
+            {
+              "last_affected": "2.44.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.11.0",
+        "2.12.0",
+        "2.13.0",
+        "2.14.0",
+        "2.15.0",
+        "2.16.0",
+        "2.17.0",
+        "2.18.0",
+        "2.19.0",
+        "2.19.1",
+        "2.20.0",
+        "2.21.0",
+        "2.22.0",
+        "2.23.0",
+        "2.23.1",
+        "2.24.0",
+        "2.25.0",
+        "2.26.0",
+        "2.27.0",
+        "2.27.1",
+        "2.28.0",
+        "2.29.0",
+        "2.30.0",
+        "2.31.0",
+        "2.31.1",
+        "2.31.2",
+        "2.32.0",
+        "2.33.0",
+        "2.34.0",
+        "2.35.0",
+        "2.36.0",
+        "2.37.0",
+        "2.38.0",
+        "2.39.0",
+        "2.40.0",
+        "2.41.0",
+        "2.42.0",
+        "2.43.0",
+        "2.44.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/03/GHSA-fw88-pf9m-p947/GHSA-fw88-pf9m-p947.json"
+      }
+    },
+    {
+      "package": {
+        "name": "org.apache.artemis:artemis-server",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.apache.artemis/artemis-server"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.50.0"
+            },
+            {
+              "fixed": "2.52.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.50.0",
+        "2.51.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/03/GHSA-fw88-pf9m-p947/GHSA-fw88-pf9m-p947.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-27446"
+    },
+    {
+      "type": "WEB",
+      "url": "https://cert-portal.siemens.com/productcert/html/ssa-085541.html"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/apache/artemis"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.apache.org/thread/jwpsdc8tdxotm98od8n8n30fqlzoc8gg"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.openwall.com/lists/oss-security/2026/03/03/4"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.openwall.com/lists/oss-security/2026/03/04/1"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-306"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-03-04T22:37:18Z",
+    "nvd_published_at": "2026-03-04T09:15:56Z",
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+    },
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:L/SI:L/SA:L"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

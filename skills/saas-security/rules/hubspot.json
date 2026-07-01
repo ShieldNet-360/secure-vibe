@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "HubSpot",
+  "description": "HubSpot Private App tokens, OAuth, the deprecated 'API key', webhook v3 HMAC, and customer-data export red flags.",
+  "token_patterns": [
+    {
+      "name": "HubSpot Private App Token (region-tagged)",
+      "regex": "pat-(na1|na2|eu1|eu2|ap1|au1)-[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}",
+      "severity": "critical",
+      "hotwords": [
+        "hubspot",
+        "pat",
+        "private_app"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "pat-"
+    },
+    {
+      "name": "HubSpot OAuth Access Token",
+      "regex": "(?i)hubspot[_\\-]?(oauth|access)[_\\-]?token[\\\"'\\s:=]+[A-Za-z0-9_\\-]{30,}",
+      "severity": "high",
+      "hotwords": [
+        "hubspot",
+        "oauth",
+        "access_token"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    },
+    {
+      "name": "HubSpot Legacy API Key (UUID, deprecated 2022)",
+      "regex": "(?i)(hapikey|hubspot[_\\-]?api[_\\-]?key)[\\\"'\\s:=]+[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}",
+      "severity": "high",
+      "hotwords": [
+        "hapikey",
+        "hubspot",
+        "api_key"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "notes": "Deprecated since 30 Nov 2022 \u2014 presence in new code is also a deprecation-debt smell."
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "hubspot-webhook-no-signature-check",
+      "severity": "critical",
+      "title": "HubSpot webhook handler does not verify `X-HubSpot-Signature-v3`",
+      "rationale": "v3 uses HMAC-SHA256 over method+URI+body+timestamp. Skipping it means any attacker who learns the endpoint URL can spoof contact/deal updates.",
+      "fix": "Compute HMAC over `method + uri + body + timestamp` with the app client secret. Reject if timestamp drift > 5 min.",
+      "pattern": "X-HubSpot-Signature(-v3)?"
+    },
+    {
+      "id": "hubspot-private-app-overscoped",
+      "severity": "high",
+      "title": "Private App granted more scopes than needed",
+      "rationale": "Private Apps default to a wide scope panel \u2014 humans tend to tick everything.",
+      "fix": "settings > Integrations > Private Apps > review each app; tick only scopes you actively call (use the access-log to verify)."
+    },
+    {
+      "id": "hubspot-mfa-not-required",
+      "severity": "high",
+      "title": "Two-factor authentication not required for portal users",
+      "rationale": "HubSpot ATO leads directly to customer-PII exposure.",
+      "fix": "settings > Defaults > Security > Two-factor authentication \u2014 set to 'Required'."
+    },
+    {
+      "id": "hubspot-user-role-super-admin",
+      "severity": "medium",
+      "title": "More than two users with Super Admin role",
+      "rationale": "Excessive super-admin count widens blast radius.",
+      "fix": "settings > Users & Teams \u2014 reduce Super Admin count; use 'Account Access' or custom roles for daily work."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "hubspot-contact-bulk-export",
+      "severity": "high",
+      "title": "Bulk contact / deal export by non-marketing principal",
+      "rationale": "Customer-list theft from CRM is a recurring competitor-poaching / phishing-seed vector.",
+      "signal": "settings > Audit log > Export \u2014 filter by Export action, alert on rows > 10k or by principal outside Sales Ops."
+    },
+    {
+      "id": "hubspot-new-private-app",
+      "severity": "medium",
+      "title": "New Private App created with broad scopes",
+      "rationale": "Attacker persistence pattern after portal ATO.",
+      "signal": "Audit log: `private-app:created` with scope list intersecting `contacts.write` / `crm.objects.*.write`."
+    },
+    {
+      "id": "hubspot-workflow-webhook-out",
+      "severity": "high",
+      "title": "Workflow created with 'Trigger a webhook' action posting to an external URL",
+      "rationale": "Workflow webhooks can exfiltrate any property of a contact/deal/company on the fly.",
+      "signal": "Workflow audit: action type = WEBHOOK with target host outside the org's allowlist."
+    }
+  ],
+  "references": [
+    "https://developers.hubspot.com/docs/api/private-apps",
+    "https://developers.hubspot.com/docs/api/webhooks/validating-requests",
+    "https://knowledge.hubspot.com/account/set-up-two-factor-authentication-2fa"
+  ]
+}

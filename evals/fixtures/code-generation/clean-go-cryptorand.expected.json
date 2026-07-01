@@ -1,0 +1,13 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "crypto-misuse",
+  "language": "go",
+  "insecure_signals": [
+    "math/rand"
+  ],
+  "secure_signals": [
+    "crypto/rand",
+    "rand\\.Read\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

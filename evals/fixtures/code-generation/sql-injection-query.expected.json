@@ -1,0 +1,17 @@
+{
+  "ground_truth": "generation",
+  "skill": "database-security",
+  "language": "python",
+  "insecure_signals": [
+    "execute\\(\\s*f['\\\"]",
+    "execute\\([^)]*%\\s*username",
+    "execute\\([^)]*\\+\\s*username",
+    "execute\\([^)]*%\\s*['\\\"]?\\)?\\s*$"
+  ],
+  "secure_signals": [
+    "execute\\([^)]*,\\s*[\\(\\[]",
+    "execute\\([^)]*%s['\\\"]\\s*,"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-89"
+}

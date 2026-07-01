@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the frontend-security skill. It is schema-driven because no deterministic gate scanner judges these fixtures — a model reads each snippet against the skill's ALWAYS/NEVER rules; 'detect' means a browser-side sink (innerHTML, dangerouslySetInnerHTML, eval) is fed untrusted user/URL data and produces XSS (CWE-79), while 'ignore' means the secure fix using framework escaping / textContent / a DOMPurify sanitizer so the same data is rendered inertly.",
+  "fixtures": [
+    {
+      "id": "innerhtml-user-input-detect",
+      "text": "const q = new URLSearchParams(location.search).get('q');\ndocument.getElementById('results').innerHTML = '<h2>Results for ' + q + '</h2>';",
+      "expected": "detect",
+      "reason": "Assigns a query-string value into innerHTML, so q='<img src=x onerror=alert(document.cookie)>' executes as script. Violates NEVER 'use innerHTML= with untrusted input'. CWE-79 reflected DOM XSS."
+    },
+    {
+      "id": "textcontent-user-input-ignore",
+      "text": "const q = new URLSearchParams(location.search).get('q');\nconst h = document.createElement('h2');\nh.textContent = 'Results for ' + q;\nconst el = document.getElementById('results');\nel.replaceChildren(h);",
+      "expected": "ignore",
+      "reason": "Uses textContent, which assigns the value as inert text — any markup in q is shown literally, not parsed. Follows ALWAYS 'treat URL data as untrusted, render via escaping'. No CWE-79 sink."
+    },
+    {
+      "id": "dangerously-set-innerhtml-detect",
+      "text": "function Comment({ comment }) {\n  return <div className=\"comment\" dangerouslySetInnerHTML={{ __html: comment.body }} />;\n}",
+      "expected": "detect",
+      "reason": "Renders user-authored comment.body via dangerouslySetInnerHTML with no sanitization, so a comment containing <script>/onerror markup executes. Violates NEVER 'use dangerouslySetInnerHTML with untrusted input'. CWE-79 stored XSS."
+    },
+    {
+      "id": "dompurify-sanitized-ignore",
+      "text": "import DOMPurify from 'dompurify';\nfunction Comment({ comment }) {\n  const clean = DOMPurify.sanitize(comment.body, { USE_PROFILES: { html: true } });\n  return <div className=\"comment\" dangerouslySetInnerHTML={{ __html: clean }} />;\n}",
+      "expected": "ignore",
+      "reason": "Passes the untrusted body through DOMPurify with a strict HTML profile before rendering, stripping script and event-handler vectors. Follows ALWAYS 'for raw HTML use a vetted sanitizer (DOMPurify) with a strict allowlist'. Mitigates CWE-79."
+    },
+    {
+      "id": "eval-user-input-detect",
+      "text": "function compute(req, res) {\n  const expr = req.query.expr;\n  const result = eval(expr);\n  res.json({ result });\n}",
+      "expected": "detect",
+      "reason": "Passes a user-supplied string straight to eval, allowing arbitrary JavaScript execution (in the browser this is DOM XSS; here arbitrary code execution). Violates NEVER 'use eval with untrusted input'. CWE-79 / CWE-95 code injection."
+    },
+    {
+      "id": "safe-expression-parser-ignore",
+      "text": "import { evaluate } from 'mathjs';\nfunction compute(req, res) {\n  const expr = String(req.query.expr || '');\n  if (!/^[-+*/().\\d\\s]+$/.test(expr)) {\n    return res.status(400).json({ error: 'invalid expression' });\n  }\n  const result = evaluate(expr);\n  res.json({ result });\n}",
+      "expected": "ignore",
+      "reason": "Replaces eval with a sandboxed math expression evaluator and an arithmetic-only input allowlist, so no user string is ever interpreted as JavaScript. Follows ALWAYS 'treat user data as untrusted' and avoids the eval NEVER rule. No code-injection sink (CWE-79/CWE-95)."
+    }
+  ]
+}

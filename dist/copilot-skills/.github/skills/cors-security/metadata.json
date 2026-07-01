@@ -1,0 +1,32 @@
+{
+  "id": "cors-security",
+  "version": "1.0.0",
+  "title": "CORS Security",
+  "description": "Strict CORS configuration: no wildcard with credentials, allowlist-based origins, sensible preflight cache, minimal exposed headers",
+  "category": "prevention",
+  "severity": "high",
+  "applies_to": [
+    "when generating CORS middleware or framework config",
+    "when wiring API Gateway / Cloud Front / Nginx CORS headers",
+    "when reviewing a cross-origin browser-facing endpoint"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 1000,
+    "compact": 1000,
+    "full": 2000
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "frontend-security",
+    "api-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP HTML5 Security Cheat Sheet — CORS",
+    "CWE-942 — Permissive Cross-domain Policy with Untrusted Domains",
+    "Fetch Living Standard (CORS)"
+  ]
+}

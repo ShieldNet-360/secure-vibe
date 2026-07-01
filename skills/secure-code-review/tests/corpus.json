@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the secure-code-review skill. Each fixture is a classic injectable code pattern this review checklist would flag; schema-driven means the runner smoke-validates shape while detect marks code that violates a NEVER (eval of user input, command injection, SSRF, SQL string-building) and ignore marks the safe form (allowlists, parameterized queries, no shell, validated outbound URLs).",
+  "fixtures": [
+    {
+      "id": "eval-user-input",
+      "text": "from flask import request\n\n@app.route('/calc')\ndef calc():\n    expr = request.args.get('expr')\n    result = eval(expr)  # attacker controls expr\n    return str(result)",
+      "expected": "detect",
+      "reason": "User-controlled input is passed straight to eval(), allowing arbitrary code execution. Violates the NEVER 'Pass user input directly to eval'. CWE-95 / CWE-94 Code Injection."
+    },
+    {
+      "id": "command-injection-childprocess",
+      "text": "const { exec } = require('child_process');\n\napp.get('/ping', (req, res) => {\n  const host = req.query.host;\n  exec('ping -c 1 ' + host, (err, stdout) => res.send(stdout));\n});",
+      "expected": "detect",
+      "reason": "User input is concatenated into a shell command run by child_process.exec; 'host=8.8.8.8; rm -rf /' executes attacker commands. Violates the NEVER 'Pass user input directly to child_process'. CWE-78 OS Command Injection."
+    },
+    {
+      "id": "ssrf-unvalidated-url",
+      "text": "import requests\nfrom flask import request\n\n@app.route('/fetch')\ndef fetch():\n    target = request.args.get('url')  # e.g. http://169.254.169.254/latest/meta-data/\n    return requests.get(target).text",
+      "expected": "detect",
+      "reason": "An attacker-supplied URL is fetched server-side with no scheme/host allowlist, letting them reach internal services and the cloud metadata endpoint. Fails the ALWAYS 'Validate input at the trust boundary'. CWE-918 SSRF."
+    },
+    {
+      "id": "ping-host-allowlist",
+      "text": "const { execFile } = require('child_process');\nconst net = require('net');\n\napp.get('/ping', (req, res) => {\n  const host = req.query.host;\n  if (net.isIP(host) === 0) return res.status(400).send('invalid');\n  execFile('ping', ['-c', '1', host], (err, stdout) => res.send(stdout));\n});",
+      "expected": "ignore",
+      "reason": "Input is validated to be a literal IP, and execFile passes args as a vector with no shell, so no metacharacters are interpreted. Follows the ALWAYS input-validation rule; no command injection. CWE-78 mitigated."
+    },
+    {
+      "id": "parameterized-query",
+      "text": "from flask import request\n\n@app.route('/user')\ndef get_user():\n    uid = request.args.get('id')\n    cur.execute('SELECT name, email FROM users WHERE id = %s', (uid,))\n    return jsonify(cur.fetchone())",
+      "expected": "ignore",
+      "reason": "Uses a parameterized query (bound placeholder), so user input cannot alter SQL structure. Follows the ALWAYS 'Use parameterized queries' rule; no SQL injection. CWE-89 mitigated."
+    },
+    {
+      "id": "ssrf-allowlisted-fetch",
+      "text": "import requests\nfrom urllib.parse import urlparse\nfrom flask import request\n\nALLOWED = {'images.example.com', 'cdn.example.com'}\n\n@app.route('/fetch')\ndef fetch():\n    target = request.args.get('url')\n    p = urlparse(target)\n    if p.scheme != 'https' or p.hostname not in ALLOWED:\n        return 'forbidden', 403\n    return requests.get(target, timeout=5).text",
+      "expected": "ignore",
+      "reason": "Outbound URL is constrained to https and a host allowlist before the request, blocking access to internal/metadata addresses. Follows the ALWAYS trust-boundary validation rule; SSRF mitigated."
+    }
+  ]
+}

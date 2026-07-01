@@ -1,0 +1,28 @@
+schema_version: "1.0"
+title: Google Workspace Gmail forwarding to external recipient
+id: 22b3c66f-4a89-4b00-aba6-ecce1cadfa17
+status: stable
+level: high
+description: |
+  Detects creation of a Gmail forwarding address or an out-of-domain
+  forwarding event. Auto-forwarding mailbox traffic to an attacker
+  inbox is a classic BEC persistence technique used after credential
+  phishing.
+references:
+  - https://developers.google.com/admin-sdk/reports/v1/appendix/activity/gmail
+  - https://attack.mitre.org/techniques/T1114/003/
+tags:
+  - attack.t1114.003
+  - attack.collection
+logsource:
+  product: google_workspace
+  service: gmail
+detection:
+  selection:
+    eventName|contains:
+      - CREATE_FORWARDING_ADDRESS
+      - email_forwarding_out_of_domain
+  condition: selection
+falsepositives:
+  - Documented forwarding from a shared/role mailbox to a managed
+    distribution list inside the same organization.

@@ -1,0 +1,28 @@
+schema_version: "1.0"
+title: Slack user promoted to org / workspace owner
+id: 57dc6010-839a-4e1c-ba59-a4168dbeb042
+status: stable
+level: critical
+description: |
+  Detects a Slack `role_change` audit event whose `new_role` contains
+  `owner` (Org Owner or Workspace Owner). Owner promotion grants
+  full administrative control of the workspace and is a recurring
+  privilege-escalation step inside Slack after account takeover.
+references:
+  - https://api.slack.com/admins/audit-logs
+  - https://slack.com/help/articles/360018112273-Types-of-roles-in-Slack
+  - https://attack.mitre.org/techniques/T1098/003/
+tags:
+  - attack.t1098.003
+  - attack.persistence
+logsource:
+  product: slack
+  service: audit_log
+detection:
+  selection:
+    action: role_change
+    new_role|contains: owner
+  condition: selection
+falsepositives:
+  - Documented hand-off of an Org Owner role to a new IT administrator
+    inside an approved change window.

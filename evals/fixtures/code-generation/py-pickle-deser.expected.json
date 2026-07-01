@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "deserialization-security",
+  "language": "python",
+  "insecure_signals": [
+    "pickle\\.loads?\\(",
+    "cPickle\\.loads?\\(",
+    "yaml\\.load\\((?![^)]*Safe)"
+  ],
+  "secure_signals": [
+    "json\\.loads\\(",
+    "yaml\\.safe_load\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-502"
+}

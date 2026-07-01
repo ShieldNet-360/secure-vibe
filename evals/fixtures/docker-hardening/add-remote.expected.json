@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "add-remote.Dockerfile",
+  "description": "Fixture uses `ADD https://...` to fetch a remote tarball at build time, which dkr-no-add-remote flags. The image is otherwise hardened (pinned-digest FROM, non-root USER, no secret-named ENV, no curl|sh) to keep the fixture focused on the ADD-remote rule.",
+  "expected_findings": [
+    {"rule": "dkr-no-add-remote", "ecosystem": "docker"}
+  ]
+}

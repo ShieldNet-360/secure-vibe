@@ -1,0 +1,62 @@
+schema_version: "1.0"
+framework: "OWASP Top 10 2021"
+last_updated: "2026-05-14"
+mapping:
+  - skill: "api-security"
+    owasp_items: ["A01", "A02", "A07"]
+  - skill: "secret-detection"
+    owasp_items: ["A02", "A07"]
+  - skill: "secure-code-review"
+    owasp_items: ["A01", "A02", "A03", "A04", "A05", "A07", "A10"]
+  - skill: "dependency-audit"
+    owasp_items: ["A06"]
+  - skill: "supply-chain-security"
+    owasp_items: ["A06", "A08"]
+  - skill: "compliance-awareness"
+    owasp_items: ["A09"]
+  - skill: "auth-security"
+    owasp_items: ["A01", "A07"]
+  - skill: "crypto-misuse"
+    owasp_items: ["A02"]
+  - skill: "database-security"
+    owasp_items: ["A03"]
+  - skill: "frontend-security"
+    owasp_items: ["A03", "A05"]
+  - skill: "ml-security"
+    owasp_items: ["A04", "A08"]
+  - skill: "llm-app-security"
+    owasp_items: ["A03", "A04"]
+  - skill: "protocol-security"
+    owasp_items: ["A02"]
+  - skill: "logging-security"
+    owasp_items: ["A09"]
+  - skill: "error-handling-security"
+    owasp_items: ["A04", "A09"]
+  - skill: "cors-security"
+    owasp_items: ["A05"]
+  - skill: "container-security"
+    owasp_items: ["A05"]
+  - skill: "electron-security"
+    owasp_items: ["A01", "A05", "A08"]
+  - skill: "iac-security"
+    owasp_items: ["A05"]
+  - skill: "serverless-security"
+    owasp_items: ["A01", "A05"]
+  - skill: "mobile-security"
+    owasp_items: ["A02", "A05"]
+  - skill: "cicd-security"
+    owasp_items: ["A06", "A08"]
+  - skill: "ssrf-prevention"
+    owasp_items: ["A10"]
+  - skill: "deserialization-security"
+    owasp_items: ["A08"]
+  - skill: "graphql-security"
+    owasp_items: ["A01", "A03", "A04"]
+  - skill: "file-upload-security"
+    owasp_items: ["A03", "A04"]
+  - skill: "websocket-security"
+    owasp_items: ["A01", "A05"]
+  - skill: "saas-security"
+    owasp_items: ["A02", "A07"]
+  - skill: "iam-best-practices"
+    owasp_items: ["A01", "A07"]

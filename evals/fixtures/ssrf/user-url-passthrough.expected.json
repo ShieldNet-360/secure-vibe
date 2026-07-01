@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "fixture": "user-url-passthrough.py",
+  "expected_findings": [
+    {
+      "rule": "ssrf-user-controlled-url",
+      "line_hint": "requests.get(url, timeout=5)",
+      "source": "skills/ssrf-prevention/rules/ssrf_sinks.json"
+    }
+  ],
+  "notes": "The 'proxy_safe' handler is intentionally clean and must NOT be flagged."
+}

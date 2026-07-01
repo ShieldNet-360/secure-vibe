@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-06-20",
+  "description": "End-to-end Package.resolved (v2) -> OSV path. The SPM identity 'zstd' (github.com/facebook/zstd) at 1.5.2 is in the affected range (<1.5.4) of GHSA-5c9c-6x87-f9vm (zstd buffer overrun), so the offline swift OSV index emits one osv-advisory finding. 'swift-log'@1.5.3 is a benign control with no advisory in the index. Source: vulnerabilities/osv/swift/GHSA-5c9c-6x87-f9vm.json.",
+  "expected_findings": [
+    {
+      "ecosystem": "swift",
+      "package": "zstd",
+      "version": "1.5.2",
+      "kind": "osv",
+      "source": "vulnerabilities/osv/swift/GHSA-5c9c-6x87-f9vm.json"
+    }
+  ],
+  "expected_clean": ["swift-log"]
+}

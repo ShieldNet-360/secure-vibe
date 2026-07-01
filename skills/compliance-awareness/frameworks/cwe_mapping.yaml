@@ -1,0 +1,60 @@
+schema_version: "1.0"
+framework: "CWE Top 25 2023"
+last_updated: "2026-05-14"
+mapping:
+  - skill: "secure-code-review"
+    cwes: [787, 79, 89, 416, 78, 20, 125, 22, 352, 434, 862, 476, 287, 190, 502, 77, 119, 798, 918, 306, 362, 269, 94, 863, 276]
+  - skill: "secret-detection"
+    cwes: [798, 259, 522, 532]
+  - skill: "api-security"
+    cwes: [79, 89, 287, 306, 352, 434, 502, 639, 798, 862, 863, 918]
+  - skill: "supply-chain-security"
+    cwes: [494, 829, 830, 1357]
+  - skill: "dependency-audit"
+    cwes: [1104, 937, 1035]
+  - skill: "auth-security"
+    cwes: [287, 306, 384, 521, 522, 798]
+  - skill: "crypto-misuse"
+    cwes: [326, 327, 330, 338, 759, 760, 780, 916]
+  - skill: "database-security"
+    cwes: [89, 564, 943]
+  - skill: "frontend-security"
+    cwes: [79, 80, 116, 692, 1021]
+  - skill: "ml-security"
+    cwes: [502, 1039, 1395]
+  - skill: "llm-app-security"
+    cwes: [1426, 77, 89]
+  - skill: "protocol-security"
+    cwes: [295, 297, 319, 757]
+  - skill: "logging-security"
+    cwes: [117, 532, 778]
+  - skill: "error-handling-security"
+    cwes: [209, 215, 754, 755]
+  - skill: "cors-security"
+    cwes: [942, 1385]
+  - skill: "container-security"
+    cwes: [250, 269, 276, 732]
+  - skill: "electron-security"
+    cwes: [78, 22, 250, 693, 829, 1021, 200]
+  - skill: "iac-security"
+    cwes: [276, 732, 798, 1188]
+  - skill: "serverless-security"
+    cwes: [285, 287, 770, 798]
+  - skill: "mobile-security"
+    cwes: [276, 295, 311, 312, 919]
+  - skill: "cicd-security"
+    cwes: [829, 830, 1357, 1395]
+  - skill: "ssrf-prevention"
+    cwes: [918, 601, 1056]
+  - skill: "deserialization-security"
+    cwes: [502, 915]
+  - skill: "graphql-security"
+    cwes: [400, 770, 862, 863]
+  - skill: "file-upload-security"
+    cwes: [22, 73, 400, 434]
+  - skill: "websocket-security"
+    cwes: [346, 1385, 942]
+  - skill: "saas-security"
+    cwes: [798, 284, 1392]
+  - skill: "iam-best-practices"
+    cwes: [269, 250, 284]

@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-gqx7-6552-67hf",
+  "published": "2026-05-15T18:30:48Z",
+  "modified": "2026-05-15T18:48:55.457329Z",
+  "aliases": [
+    "CVE-2026-45575"
+  ],
+  "summary": "Improper Verification of Cryptographic Signature in com.oviva.telematik:epa4all-client",
+  "affected": [
+    {
+      "package": {
+        "name": "com.oviva.telematik:epa4all-client",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/com.oviva.telematik/epa4all-client"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.2"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.0.2-rc.0",
+        "0.0.4",
+        "0.0.5",
+        "0.0.7",
+        "0.0.8",
+        "1.0.0",
+        "1.0.2",
+        "1.0.3",
+        "1.1.0",
+        "1.1.1",
+        "1.2.0",
+        "1.2.1"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-gqx7-6552-67hf/GHSA-gqx7-6552-67hf.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/oviva-ag/epa4all-client/security/advisories/GHSA-gqx7-6552-67hf"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oviva-ag/epa4all-client/pull/36"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oviva-ag/epa4all-client/commit/9111d6fbb939007036a7f74b2a93bb278cb5af32"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/oviva-ag/epa4all-client"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/oviva-ag/epa4all-client/releases/tag/v1.2.2"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-347"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-15T18:30:48Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

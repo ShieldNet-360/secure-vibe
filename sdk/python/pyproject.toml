@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skillslib"
+version = "0.1.0"
+description = "Python SDK for the Skills Library — load, parse, and validate SKILL.md files."
+readme = "README.md"
+authors = [{ name = "Skills Library maintainers" }]
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = ["PyYAML>=6.0"]
+keywords = ["security", "skills", "policy-as-code", "llm", "agent"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Security",
+]
+
+[project.urls]
+Homepage = "https://github.com/shieldnet-360/secure-vibe"
+Issues = "https://github.com/shieldnet-360/secure-vibe/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.setuptools.packages.find]
+include = ["skillslib*"]

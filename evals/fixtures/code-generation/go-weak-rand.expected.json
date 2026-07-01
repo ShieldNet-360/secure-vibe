@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "crypto-misuse",
+  "language": "go",
+  "insecure_signals": [
+    "math/rand",
+    "\\brand\\.(Int|Int63|Intn|Seed)\\("
+  ],
+  "secure_signals": [
+    "crypto/rand",
+    "crypto_rand\\.Read\\(",
+    "rand\\.Read\\(\\s*b"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-338"
+}

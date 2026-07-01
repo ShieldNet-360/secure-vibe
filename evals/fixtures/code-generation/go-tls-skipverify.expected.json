@@ -1,0 +1,15 @@
+{
+  "ground_truth": "generation",
+  "skill": "protocol-security",
+  "language": "go",
+  "insecure_signals": [
+    "InsecureSkipVerify\\s*:\\s*true"
+  ],
+  "secure_signals": [
+    "RootCAs\\s*:",
+    "InsecureSkipVerify\\s*:\\s*false",
+    "x509\\.NewCertPool\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-295"
+}

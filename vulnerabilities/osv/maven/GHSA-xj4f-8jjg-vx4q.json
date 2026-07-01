@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-xj4f-8jjg-vx4q",
+  "published": "2026-05-04T19:31:22Z",
+  "modified": "2026-05-16T00:10:46.998566Z",
+  "aliases": [
+    "CVE-2026-41258"
+  ],
+  "summary": "OpenMRS has Stored Velocity SSTI to RCE via ConceptReferenceRange",
+  "affected": [
+    {
+      "package": {
+        "name": "org.openmrs.api:openmrs-api",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.openmrs.api/openmrs-api"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.7.0"
+            },
+            {
+              "fixed": "2.7.9"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-xj4f-8jjg-vx4q/GHSA-xj4f-8jjg-vx4q.json"
+      }
+    },
+    {
+      "package": {
+        "name": "org.openmrs.api:openmrs-api",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.openmrs.api/openmrs-api"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.8.0"
+            },
+            {
+              "fixed": "2.8.6"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-xj4f-8jjg-vx4q/GHSA-xj4f-8jjg-vx4q.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/openmrs/openmrs-core/security/advisories/GHSA-xj4f-8jjg-vx4q"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41258"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/openmrs/openmrs-core/commit/8d1c193"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/openmrs/openmrs-core"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.machinespirits.com/advisory/1e8430"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-94"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-04T19:31:22Z",
+    "nvd_published_at": "2026-05-15T17:16:46Z",
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H"
+    }
+  ],
+  "last_updated": "2026-05-16"
+}

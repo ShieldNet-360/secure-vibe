@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-rc6v-5rmx-w5mv",
+  "published": "2026-05-15T18:13:57Z",
+  "modified": "2026-05-15T18:31:28.966686Z",
+  "summary": "arnika is affected by medium-severity issues in UDP rotation, PQC handling, and KMS TLS",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/arnika-project/arnika",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/arnika-project/arnika"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "1.0.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-rc6v-5rmx-w5mv/GHSA-rc6v-5rmx-w5mv.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/arnika-project/arnika/security/advisories/GHSA-rc6v-5rmx-w5mv"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/arnika-project/arnika/commit/efbd980d8b636cb59f60f2d6ece1b80a9cf36535"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/arnika-project/arnika"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/arnika-project/arnika/releases/tag/v1.0.1"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-294",
+      "CWE-345",
+      "CWE-295"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-15T18:13:57Z",
+    "nvd_published_at": null,
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

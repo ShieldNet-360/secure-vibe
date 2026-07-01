@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-9m44-rr2w-ppp7",
+  "published": "2026-04-03T03:39:38Z",
+  "modified": "2026-04-03T03:49:54.941370Z",
+  "aliases": [
+    "CVE-2026-28815"
+  ],
+  "summary": "Swift Crypto: X-Wing HPKE Decapsulation Accepts Malformed Ciphertext Length",
+  "affected": [
+    {
+      "package": {
+        "name": "swift-crypto",
+        "ecosystem": "SwiftURL",
+        "purl": "pkg:swift/swift-crypto"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "4.0.0"
+            },
+            {
+              "fixed": "4.3.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 4.3.0",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-9m44-rr2w-ppp7/GHSA-9m44-rr2w-ppp7.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/apple/swift-crypto/security/advisories/GHSA-9m44-rr2w-ppp7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-28815"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/apple/swift-crypto"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-787"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-03T03:39:38Z",
+    "nvd_published_at": "2026-04-03T03:16:18Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:H/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-04-03"
+}

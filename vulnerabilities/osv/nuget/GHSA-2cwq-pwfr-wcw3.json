@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-2cwq-pwfr-wcw3",
+  "published": "2026-05-06T23:05:52Z",
+  "modified": "2026-05-14T21:04:32.794420Z",
+  "aliases": [
+    "CVE-2026-44375"
+  ],
+  "summary": "Nerdbank.MessagePack: Attacker-controlled stackalloc in DateTime decoding causes process-terminating StackOverflowException",
+  "affected": [
+    {
+      "package": {
+        "name": "Nerdbank.MessagePack",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Nerdbank.MessagePack"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.62"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.1.705-alpha-gad428877b7",
+        "0.1.734-alpha-g09268fd45c",
+        "0.10.2-rc",
+        "0.10.7-rc",
+        "0.2.108-alpha",
+        "0.2.2-alpha",
+        "0.2.34-alpha",
+        "0.2.52-alpha",
+        "0.2.82-alpha",
+        "0.3.120-beta",
+        "0.3.151-beta",
+        "0.3.161-beta",
+        "0.3.2-alpha",
+        "0.3.27-alpha",
+        "0.3.38-beta",
+        "0.4.5-beta",
+        "0.5.1-beta",
+        "0.5.37-beta",
+        "0.5.57-beta",
+        "0.5.72-beta",
+        "0.5.80-beta",
+        "0.6.1-beta",
+        "0.6.27-beta",
+        "0.6.7-beta",
+        "0.7.1-beta",
+        "0.8.1-rc",
+        "0.8.102-rc",
+        "0.8.111-rc",
+        "0.8.128-rc",
+        "0.8.131-rc",
+        "0.8.30-rc",
+        "0.8.46-rc",
+        "0.8.54-rc",
+        "0.8.67-rc",
+        "0.8.82-rc",
+        "0.8.90-rc",
+        "0.8.92-rc",
+        "0.9.12-rc",
+        "0.9.14-rc",
+        "0.9.23-rc",
+        "0.9.26-rc",
+        "0.9.35-rc",
+        "1.0.11",
+        "1.0.2",
+        "1.0.40",
+        "1.0.43",
+        "1.1.25"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-2cwq-pwfr-wcw3/GHSA-2cwq-pwfr-wcw3.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/AArnott/Nerdbank.MessagePack/security/advisories/GHSA-2cwq-pwfr-wcw3"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44375"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/AArnott/Nerdbank.MessagePack/pull/941"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/AArnott/Nerdbank.MessagePack/commit/7d1eb319cfabe7280e70699946c9a48579fa2f30"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/AArnott/Nerdbank.MessagePack"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/AArnott/Nerdbank.MessagePack/releases/tag/v1.1.62"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/msgpack/msgpack/blob/master/spec.md#timestamp-extension-type"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-789"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-06T23:05:52Z",
+    "nvd_published_at": "2026-05-14T15:16:48Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

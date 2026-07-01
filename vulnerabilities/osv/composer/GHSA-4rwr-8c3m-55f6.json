@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-4rwr-8c3m-55f6",
+  "published": "2025-11-10T21:30:44Z",
+  "modified": "2026-05-13T13:52:30.544034Z",
+  "aliases": [
+    "CVE-2025-64519"
+  ],
+  "summary": "TorrentPier is Vulnerable to Authenticated SQL Injection through Moderator Control Panel's topic_id parameter",
+  "affected": [
+    {
+      "package": {
+        "name": "torrentpier/torrentpier",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/torrentpier/torrentpier"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.8.9"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.3.0.4-beta",
+        "2.3.0.4-beta2",
+        "v2.2.0",
+        "v2.2.1",
+        "v2.2.2",
+        "v2.2.3",
+        "v2.3.0",
+        "v2.3.0.1",
+        "v2.3.0.2",
+        "v2.3.0.3",
+        "v2.3.1",
+        "v2.3.1-rc1",
+        "v2.4.0",
+        "v2.4.0-alpha1",
+        "v2.4.0-alpha2",
+        "v2.4.0-alpha3",
+        "v2.4.0-alpha4",
+        "v2.4.0-beta1",
+        "v2.4.0-beta2",
+        "v2.4.0-beta3",
+        "v2.4.0-beta4",
+        "v2.4.0-rc1",
+        "v2.4.0-rc2",
+        "v2.4.1",
+        "v2.4.10",
+        "v2.4.11",
+        "v2.4.12",
+        "v2.4.13",
+        "v2.4.2",
+        "v2.4.3",
+        "v2.4.4",
+        "v2.4.5",
+        "v2.4.5-rc.1",
+        "v2.4.5-rc.2",
+        "v2.4.5-rc.3",
+        "v2.4.5-rc.4",
+        "v2.4.5-rc.5",
+        "v2.4.6",
+        "v2.4.6-alpha.1",
+        "v2.4.6-alpha.2",
+        "v2.4.6-alpha.3",
+        "v2.4.6-alpha.4",
+        "v2.4.7",
+        "v2.4.8",
+        "v2.4.9",
+        "v2.5.0",
+        "v2.6.0",
+        "v2.7.0",
+        "v2.8.0",
+        "v2.8.1",
+        "v2.8.2",
+        "v2.8.3",
+        "v2.8.4",
+        "v2.8.4.1",
+        "v2.8.5",
+        "v2.8.6",
+        "v2.8.7",
+        "v2.8.8"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 2.8.8",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2025/11/GHSA-4rwr-8c3m-55f6/GHSA-4rwr-8c3m-55f6.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/torrentpier/torrentpier/security/advisories/GHSA-4rwr-8c3m-55f6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/torrentpier/torrentpier/commit/6a0f6499d89fa5d6e2afa8ee53802a1ad11ece80"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/torrentpier/torrentpier"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/torrentpier/torrentpier/releases/tag/v2.8.9"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-89"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2025-11-10T21:30:44Z",
+    "nvd_published_at": "2025-11-10T23:15:41Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

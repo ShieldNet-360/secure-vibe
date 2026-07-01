@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.7.5",
+  "id": "MAL-2026-3767",
+  "published": "2026-05-14T19:25:21Z",
+  "modified": "2026-05-15T07:51:25.016669Z",
+  "summary": "Malicious code in node-ci-utils (npm)",
+  "affected": [
+    {
+      "package": {
+        "name": "node-ci-utils",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/node-ci-utils"
+      },
+      "versions": [
+        "2.1.4"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "index.js",
+              "sha256": "d0edc02a27cdc550fdfe254d09bf4bbf6215dc85a28823b0ed0ac219ced796f3",
+              "tlsh": "5f41fed60ff33231067360da5eeba42a7253c5537546dac8fd4c4188af8216882b5afc"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "node-ci-utils-2.1.4.tgz",
+              "hashes": {
+                "sha1": "a06dc48d3c080efd11bf5ddb99a80ba7f9bf10a1",
+                "sha512_sri": "sha512-nPJ3v7+TQKW3QeFkZu2L2Wdt9bpNizjBQ9KwnJPHOtf9RC486Roq+iGxRfqyTYm0RdeWyKVTYTScLKOiiwbTEw=="
+              }
+            }
+          ]
+        },
+        "source": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/npm/node-ci-utils/MAL-2026-3767.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/node-ci-utils/v/2.1.4"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-002717",
+        "import_time": "2026-05-15T07:37:17.807191252Z",
+        "modified_time": "2026-05-14T19:25:21Z",
+        "sha256": "1593e77b5e2763e7ace49c239accedfe30209faea11bc07cf3901a7253798444",
+        "source": "amazon-inspector",
+        "versions": [
+          "2.1.4"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "actran@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

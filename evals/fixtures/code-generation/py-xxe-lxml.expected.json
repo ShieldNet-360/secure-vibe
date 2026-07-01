@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "api-security",
+  "language": "python",
+  "insecure_signals": [
+    "etree\\.fromstring\\(\\s*xml_bytes\\s*\\)",
+    "etree\\.parse\\([^)]*\\)\\s*$"
+  ],
+  "secure_signals": [
+    "resolve_entities\\s*=\\s*False",
+    "no_network\\s*=\\s*True",
+    "defusedxml"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-611"
+}

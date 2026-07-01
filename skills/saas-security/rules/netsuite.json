@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "NetSuite",
+  "description": "Oracle NetSuite Token-Based Authentication (TBA), OAuth 2.0, SuiteScript red flags, and account/role mutation patterns. Applies to NetSuite ERP / SuiteCommerce.",
+  "token_patterns": [
+    {
+      "name": "NetSuite TBA Consumer Key",
+      "regex": "(?i)netsuite[_\\-]?(consumer[_\\-]?key|client[_\\-]?id)[\\\"'\\s:=]+[A-Fa-f0-9]{64}",
+      "severity": "critical",
+      "hotwords": [
+        "netsuite",
+        "tba",
+        "consumer_key",
+        "client_id"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 4.0
+    },
+    {
+      "name": "NetSuite TBA Consumer Secret",
+      "regex": "(?i)netsuite[_\\-]?(consumer|client)[_\\-]?secret[\\\"'\\s:=]+[A-Fa-f0-9]{64}",
+      "severity": "critical",
+      "hotwords": [
+        "netsuite",
+        "tba",
+        "consumer_secret",
+        "client_secret"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 4.0
+    },
+    {
+      "name": "NetSuite TBA Token ID",
+      "regex": "(?i)netsuite[_\\-]?(token[_\\-]?id|tba[_\\-]?token)[\\\"'\\s:=]+[A-Fa-f0-9]{64}",
+      "severity": "critical",
+      "hotwords": [
+        "netsuite",
+        "tba",
+        "token_id"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    },
+    {
+      "name": "NetSuite TBA Token Secret",
+      "regex": "(?i)netsuite[_\\-]?(token[_\\-]?secret|tba[_\\-]?secret)[\\\"'\\s:=]+[A-Fa-f0-9]{64}",
+      "severity": "critical",
+      "hotwords": [
+        "netsuite",
+        "tba",
+        "token_secret"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    },
+    {
+      "name": "NetSuite Account / Realm ID",
+      "regex": "(?i)(netsuite[_\\-]?)?(account|realm)[_\\-]?id[\\\"'\\s:=]+[0-9]{6,}(?:_SB[12])?",
+      "severity": "low",
+      "hotwords": [
+        "netsuite",
+        "account",
+        "realm"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "notes": "Account IDs are not strictly secret but reveal tenant + sandbox topology."
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "netsuite-user-password-flow-for-integration",
+      "severity": "critical",
+      "title": "Integration uses NLAuth (user/password) instead of TBA or OAuth 2.0",
+      "rationale": "NLAuth is deprecated and tied to a human's role; rotation breaks integrations and password leaks = full account access.",
+      "fix": "Migrate to TBA (Token-Based Auth) with a dedicated integration record and least-privilege role, or to OAuth 2.0 client-credentials."
+    },
+    {
+      "id": "netsuite-integration-record-token-management-off",
+      "severity": "high",
+      "title": "Integration record created without 'Token-Based Authentication' enabled",
+      "rationale": "Without TBA enabled, the integration must use the legacy NLAuth path.",
+      "fix": "Setup > Integration > Manage Integrations > New > tick 'Token-Based Authentication'."
+    },
+    {
+      "id": "netsuite-admin-role-no-2fa",
+      "severity": "critical",
+      "title": "Administrator role users without 2FA enforced",
+      "rationale": "Admin ATO = full ERP control.",
+      "fix": "Setup > Users/Roles > Two-Factor Authentication Roles \u2014 require 2FA for Administrator and any custom highly-privileged role."
+    },
+    {
+      "id": "netsuite-ip-rules-disabled",
+      "severity": "high",
+      "title": "IP Address Rules disabled for the production account",
+      "rationale": "Lets a stolen TBA token be replayed from any source IP.",
+      "fix": "Setup > Company > Allowed IP Addresses \u2014 define an allowlist for production."
+    },
+    {
+      "id": "netsuite-suitescript-eval-from-record",
+      "severity": "high",
+      "title": "SuiteScript code that `eval()`s a Custom Record string field",
+      "rationale": "Allows arbitrary JS execution in tenant context \u2014 recurring SuiteScript pitfall.",
+      "fix": "Never eval record fields; use a strict allow-list of operations and validated JSON.",
+      "pattern": "eval\\(\\s*[A-Za-z_$][A-Za-z0-9_$]*\\.get(?:Value|SublistValue)\\("
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "netsuite-tba-token-issuance",
+      "severity": "high",
+      "title": "New TBA Access Token created for a non-integration user role",
+      "rationale": "Issuing TBA tokens to human-bound roles is an ATO persistence step.",
+      "signal": "System notes: 'Access Token Created' on a User whose roles include Administrator / Full Access."
+    },
+    {
+      "id": "netsuite-bulk-customer-export",
+      "severity": "high",
+      "title": "SuiteAnalytics / Saved Search export covering all customers by non-RevOps role",
+      "rationale": "Customer-list theft from ERP.",
+      "signal": "Audit: saved_search_run with row count > 10k and target = Customer record."
+    },
+    {
+      "id": "netsuite-role-permission-mutation",
+      "severity": "critical",
+      "title": "Role permission added: 'Full' on 'Set Up Company' / 'Documents and Files'",
+      "rationale": "Privilege escalation pattern.",
+      "signal": "System notes: Role record updated with Permission line additions on sensitive permissions."
+    },
+    {
+      "id": "netsuite-bundle-install-marketplace",
+      "severity": "high",
+      "title": "SuiteApp / Bundle installed in production",
+      "rationale": "Bundles contain SuiteScript that runs with tenant privilege \u2014 supply-chain risk.",
+      "signal": "System notes: Bundle Install events outside scheduled change windows."
+    }
+  ],
+  "references": [
+    "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_4247337262.html",
+    "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_158132338057.html",
+    "https://www.netsuite.com/portal/services/security.shtml"
+  ]
+}

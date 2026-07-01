@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-r33j-c622-r6qp",
+  "published": "2026-05-07T01:00:24Z",
+  "modified": "2026-05-14T21:05:07.887969Z",
+  "aliases": [
+    "CVE-2026-42594"
+  ],
+  "summary": "Gotenberg has an unauthenticated denial of service via echo.Context pool reuse in webhook async goroutine",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gotenberg/gotenberg/v8",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/gotenberg/gotenberg/v8"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "8.32.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.31.0",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-r33j-c622-r6qp/GHSA-r33j-c622-r6qp.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/gotenberg/gotenberg/security/advisories/GHSA-r33j-c622-r6qp"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42594"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/gotenberg/gotenberg"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-362"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T01:00:24Z",
+    "nvd_published_at": "2026-05-14T16:16:22Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

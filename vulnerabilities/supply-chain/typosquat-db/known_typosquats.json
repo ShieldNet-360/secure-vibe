@@ -1,0 +1,3992 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-06-23T00:00:00Z",
+  "description": "Curated list of well-known typosquats across npm, PyPI, crates.io, and Go. Each entry maps a fake package (typosquat) to the legitimate target it imitates, with its Levenshtein distance and current status.",
+  "references": [
+    "https://blog.phylum.io/typosquatting-malware-found-in-rust-crate",
+    "https://snyk.io/research/state-of-open-source-security-2023",
+    "https://www.cisa.gov/news-events/alerts/2021/10/22/malware-discovered-popular-npm-package-ua-parser-js",
+    "https://medium.com/@m.s.miettinen/ctx-pypi-hijack-on-may-2022-c4a86a8acec5",
+    "https://jfrog.com/blog/jfrog-detects-coordinated-attack-on-go-package-ecosystem/"
+  ],
+  "entries": [
+    {
+      "target": "lodash",
+      "typosquat": "lodahs",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2019-07-02",
+      "references": [
+        "https://snyk.io/research/state-of-open-source-security-2023"
+      ]
+    },
+    {
+      "target": "express",
+      "typosquat": "expres",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2019-03-21",
+      "references": [
+        "https://snyk.io/research/state-of-open-source-security-2023"
+      ]
+    },
+    {
+      "target": "axios",
+      "typosquat": "axois",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2020-09-15",
+      "references": [
+        "https://snyk.io/research/state-of-open-source-security-2023"
+      ]
+    },
+    {
+      "target": "cross-env",
+      "typosquat": "crossenv",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2017-08-01",
+      "references": [
+        "https://blog.npmjs.org/post/163723642530/crossenv-malware-on-the-npm-registry"
+      ]
+    },
+    {
+      "target": "twilio",
+      "typosquat": "twilio-npm",
+      "ecosystem": "npm",
+      "levenshtein_distance": 4,
+      "status": "removed",
+      "discovered": "2020-10-30",
+      "references": [
+        "https://snyk.io/blog/discord-malware-npm-package/"
+      ]
+    },
+    {
+      "target": "discord.js",
+      "typosquat": "discord-js",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2020-12-09",
+      "references": [
+        "https://snyk.io/blog/discord-malware-npm-package/"
+      ]
+    },
+    {
+      "target": "requests",
+      "typosquat": "request",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2017-09-12",
+      "references": [
+        "https://www.bleepingcomputer.com/news/security/ten-malicious-libraries-found-on-pypi-python-package-index/"
+      ]
+    },
+    {
+      "target": "urllib3",
+      "typosquat": "urlib3",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2017-09-12",
+      "references": [
+        "https://www.bleepingcomputer.com/news/security/ten-malicious-libraries-found-on-pypi-python-package-index/"
+      ]
+    },
+    {
+      "target": "pyyaml",
+      "typosquat": "pyymal",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2018-11-29",
+      "references": [
+        "https://medium.com/@bertusk/cryptocurrency-clipboard-hijacker-discovered-in-pypi-repository-b66b8a534a8"
+      ]
+    },
+    {
+      "target": "colorama",
+      "typosquat": "colourama",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2018-10-31",
+      "references": [
+        "https://medium.com/@bertusk/cryptocurrency-clipboard-hijacker-discovered-in-pypi-repository-b66b8a534a8"
+      ]
+    },
+    {
+      "target": "rust_decimal",
+      "typosquat": "rustdecimal",
+      "ecosystem": "crates",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2022-05-10",
+      "references": [
+        "https://blog.rust-lang.org/2022/05/10/cve-2022-36315.html"
+      ]
+    },
+    {
+      "target": "anyhow",
+      "typosquat": "anyhow_ext",
+      "ecosystem": "crates",
+      "levenshtein_distance": 4,
+      "status": "removed",
+      "discovered": "2023-07-19",
+      "references": [
+        "https://blog.phylum.io/rust-cargo-supply-chain-attack-research-summer-2023/"
+      ]
+    },
+    {
+      "target": "postgres",
+      "typosquat": "postgress",
+      "ecosystem": "crates",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-07-19",
+      "references": [
+        "https://blog.phylum.io/rust-cargo-supply-chain-attack-research-summer-2023/"
+      ]
+    },
+    {
+      "target": "github.com/aws/aws-sdk-go-v2",
+      "typosquat": "github.com/aws-utils/aws-go-sdk",
+      "ecosystem": "go",
+      "levenshtein_distance": 12,
+      "status": "removed",
+      "discovered": "2023-09-12",
+      "references": [
+        "https://socket.dev/blog/research-deep-dive-malicious-go-packages"
+      ]
+    },
+    {
+      "target": "github.com/hashicorp/terraform-provider-google",
+      "typosquat": "github.com/hashicorpp/terraform-provider-google",
+      "ecosystem": "go",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-01-08",
+      "references": [
+        "https://socket.dev/blog/research-deep-dive-malicious-go-packages"
+      ]
+    },
+    {
+      "target": "babel-cli",
+      "typosquat": "babelcli",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2017-08-01",
+      "references": [
+        "https://blog.npmjs.org/post/163723642530/crossenv-malware-on-the-npm-registry"
+      ]
+    },
+    {
+      "target": "mongoose",
+      "typosquat": "mongose",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2017-08-01",
+      "references": [
+        "https://blog.npmjs.org/post/163723642530/crossenv-malware-on-the-npm-registry"
+      ]
+    },
+    {
+      "target": "d3",
+      "typosquat": "d3.js",
+      "ecosystem": "npm",
+      "levenshtein_distance": 3,
+      "status": "removed",
+      "discovered": "2017-08-01",
+      "references": [
+        "https://blog.npmjs.org/post/163723642530/crossenv-malware-on-the-npm-registry"
+      ]
+    },
+    {
+      "target": "http-proxy",
+      "typosquat": "http-proxy.js",
+      "ecosystem": "npm",
+      "levenshtein_distance": 3,
+      "status": "removed",
+      "discovered": "2017-08-01",
+      "references": [
+        "https://blog.npmjs.org/post/163723642530/crossenv-malware-on-the-npm-registry"
+      ]
+    },
+    {
+      "target": "react",
+      "typosquat": "reacct",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-06-10",
+      "references": [
+        "https://socket.dev/blog/react-typosquat"
+      ]
+    },
+    {
+      "target": "react-dom",
+      "typosquat": "react-domutils",
+      "ecosystem": "npm",
+      "levenshtein_distance": 5,
+      "status": "removed",
+      "discovered": "2023-09-14",
+      "references": [
+        "https://blog.phylum.io/react-dom-typosquat"
+      ]
+    },
+    {
+      "target": "next",
+      "typosquat": "nextt",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-02-08",
+      "references": [
+        "https://socket.dev/blog/next-typosquat"
+      ]
+    },
+    {
+      "target": "vite",
+      "typosquat": "v1te",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-05-22",
+      "references": [
+        "https://socket.dev/blog/vite-typosquat-attack"
+      ]
+    },
+    {
+      "target": "vite",
+      "typosquat": "viite",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-05-22",
+      "references": [
+        "https://socket.dev/blog/vite-typosquat-attack"
+      ]
+    },
+    {
+      "target": "tailwindcss",
+      "typosquat": "tailwind-css",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-01-11",
+      "references": [
+        "https://blog.phylum.io/tailwindcss-typosquat"
+      ]
+    },
+    {
+      "target": "tailwindcss",
+      "typosquat": "tailwindcs",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-01-11",
+      "references": [
+        "https://blog.phylum.io/tailwindcss-typosquat"
+      ]
+    },
+    {
+      "target": "@tanstack/react-query",
+      "typosquat": "tanstack-react-query",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-08-03",
+      "references": [
+        "https://socket.dev/blog/tanstack-typosquat"
+      ]
+    },
+    {
+      "target": "@ethersproject/providers",
+      "typosquat": "ethers-provider2",
+      "ecosystem": "npm",
+      "levenshtein_distance": 4,
+      "status": "removed",
+      "discovered": "2025-03-27",
+      "references": [
+        "https://blog.phylum.io/ethers-provider2-malicious-npm-package"
+      ]
+    },
+    {
+      "target": "@ethersproject/providers",
+      "typosquat": "ethers-providerz",
+      "ecosystem": "npm",
+      "levenshtein_distance": 5,
+      "status": "removed",
+      "discovered": "2025-03-27",
+      "references": [
+        "https://blog.phylum.io/ethers-provider2-malicious-npm-package"
+      ]
+    },
+    {
+      "target": "discord.js",
+      "typosquat": "discord.js-user",
+      "ecosystem": "npm",
+      "levenshtein_distance": 5,
+      "status": "removed",
+      "discovered": "2020-10-22",
+      "references": [
+        "https://snyk.io/blog/malicious-npm-packages-discord-tokens/"
+      ]
+    },
+    {
+      "target": "noblox.js",
+      "typosquat": "noblox.js-server",
+      "ecosystem": "npm",
+      "levenshtein_distance": 7,
+      "status": "removed",
+      "discovered": "2023-08-09",
+      "references": [
+        "https://socket.dev/blog/noblox-js-typosquat-campaign"
+      ]
+    },
+    {
+      "target": "noblox.js",
+      "typosquat": "noblox.js-vps",
+      "ecosystem": "npm",
+      "levenshtein_distance": 4,
+      "status": "removed",
+      "discovered": "2023-08-09",
+      "references": [
+        "https://socket.dev/blog/noblox-js-typosquat-campaign"
+      ]
+    },
+    {
+      "target": "typescript",
+      "typosquat": "typescriptt",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-04-15",
+      "references": [
+        "https://socket.dev/blog/typescript-typosquats"
+      ]
+    },
+    {
+      "target": "eslint",
+      "typosquat": "eslintt",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-09-19",
+      "references": [
+        "https://blog.phylum.io/eslint-typosquats"
+      ]
+    },
+    {
+      "target": "electron",
+      "typosquat": "electrn",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2022-11-03",
+      "references": [
+        "https://blog.sonatype.com/electron-typosquat"
+      ]
+    },
+    {
+      "target": "dotenv",
+      "typosquat": "dotenvv",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-12-19",
+      "references": [
+        "https://socket.dev/blog/dotenv-typosquat"
+      ]
+    },
+    {
+      "target": "django",
+      "typosquat": "diango",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2017-09-09",
+      "references": [
+        "https://www.nbu.gov.sk/skcsirt-sa-20170909-pypi/"
+      ]
+    },
+    {
+      "target": "django",
+      "typosquat": "djago",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2017-09-09",
+      "references": [
+        "https://www.nbu.gov.sk/skcsirt-sa-20170909-pypi/"
+      ]
+    },
+    {
+      "target": "urllib3",
+      "typosquat": "urllib",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2017-09-09",
+      "references": [
+        "https://www.nbu.gov.sk/skcsirt-sa-20170909-pypi/"
+      ]
+    },
+    {
+      "target": "setuptools",
+      "typosquat": "setup-tools",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2017-09-09",
+      "references": [
+        "https://www.nbu.gov.sk/skcsirt-sa-20170909-pypi/"
+      ]
+    },
+    {
+      "target": "python-dateutil",
+      "typosquat": "python3-dateutil",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2019-12-02",
+      "references": [
+        "https://snyk.io/blog/malicious-packages-found-to-be-typo-squatting-in-pypi/"
+      ]
+    },
+    {
+      "target": "jellyfish",
+      "typosquat": "jeIlyfish",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2019-12-02",
+      "references": [
+        "https://snyk.io/blog/malicious-packages-found-to-be-typo-squatting-in-pypi/"
+      ]
+    },
+    {
+      "target": "langchain",
+      "typosquat": "lang-chain",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-02-20",
+      "references": [
+        "https://blog.phylum.io/typosquatting-attack-targets-langchain-developers"
+      ]
+    },
+    {
+      "target": "langchain",
+      "typosquat": "langchian",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-02-20",
+      "references": [
+        "https://blog.phylum.io/typosquatting-attack-targets-langchain-developers"
+      ]
+    },
+    {
+      "target": "openai",
+      "typosquat": "open-ai",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-08-09",
+      "references": [
+        "https://blog.phylum.io/malicious-pypi-packages-target-ai-developers"
+      ]
+    },
+    {
+      "target": "openai",
+      "typosquat": "openai-python",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 7,
+      "status": "removed",
+      "discovered": "2023-08-09",
+      "references": [
+        "https://blog.phylum.io/malicious-pypi-packages-target-ai-developers"
+      ]
+    },
+    {
+      "target": "anthropic",
+      "typosquat": "antropic",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-06-04",
+      "references": [
+        "https://socket.dev/blog/anthropic-typosquat"
+      ]
+    },
+    {
+      "target": "anthropic",
+      "typosquat": "anthropic-sdk",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 4,
+      "status": "removed",
+      "discovered": "2024-06-04",
+      "references": [
+        "https://socket.dev/blog/anthropic-typosquat"
+      ]
+    },
+    {
+      "target": "transformers",
+      "typosquat": "transfomers",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-09-21",
+      "references": [
+        "https://blog.phylum.io/transformers-typosquat"
+      ]
+    },
+    {
+      "target": "fastapi",
+      "typosquat": "fast-api",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-04-26",
+      "references": [
+        "https://socket.dev/blog/fastapi-typosquat"
+      ]
+    },
+    {
+      "target": "pydantic",
+      "typosquat": "pydantics",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-01-22",
+      "references": [
+        "https://socket.dev/blog/pydantic-typosquat"
+      ]
+    },
+    {
+      "target": "huggingface_hub",
+      "typosquat": "huggingface-cli",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 4,
+      "status": "active",
+      "discovered": "2024-03-28",
+      "references": [
+        "https://blog.lasso.security/ai-package-hallucinations/"
+      ]
+    },
+    {
+      "target": "aiohttp-socks",
+      "typosquat": "aiohttp-socks3",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-06-10",
+      "references": [
+        "https://blog.lasso.security/ai-package-hallucinations/"
+      ]
+    },
+    {
+      "target": "colorama",
+      "typosquat": "coloredtxt",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 6,
+      "status": "removed",
+      "discovered": "2023-04-26",
+      "references": [
+        "https://blog.phylum.io/multi-stage-pypi-malware-coloredtxt"
+      ]
+    },
+    {
+      "target": "cupy",
+      "typosquat": "cupy-cuda-x",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 4,
+      "status": "removed",
+      "discovered": "2020-07-23",
+      "references": [
+        "https://blog.reversinglabs.com/blog/discovered-malicious-pypi-packages-targeting-popular-ml-frameworks"
+      ]
+    },
+    {
+      "target": "pillow",
+      "typosquat": "pillow-image",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 6,
+      "status": "removed",
+      "discovered": "2024-08-16",
+      "references": [
+        "https://socket.dev/blog/pillow-typosquat"
+      ]
+    },
+    {
+      "target": "tokio",
+      "typosquat": "tokiio",
+      "ecosystem": "crates",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-04-04",
+      "references": [
+        "https://blog.phylum.io/typosquatting-malware-found-in-rust-crate"
+      ]
+    },
+    {
+      "target": "tokio",
+      "typosquat": "tok1o",
+      "ecosystem": "crates",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-04-04",
+      "references": [
+        "https://blog.phylum.io/typosquatting-malware-found-in-rust-crate"
+      ]
+    },
+    {
+      "target": "serde",
+      "typosquat": "serdee",
+      "ecosystem": "crates",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-08-29",
+      "references": [
+        "https://blog.phylum.io/crates-io-typosquat-disclosure"
+      ]
+    },
+    {
+      "target": "reqwest",
+      "typosquat": "reqwest-http",
+      "ecosystem": "crates",
+      "levenshtein_distance": 5,
+      "status": "removed",
+      "discovered": "2023-08-29",
+      "references": [
+        "https://blog.phylum.io/crates-io-typosquat-disclosure"
+      ]
+    },
+    {
+      "target": "github.com/boltdb/bolt",
+      "typosquat": "github.com/boltdb-go/bolt",
+      "ecosystem": "go",
+      "levenshtein_distance": 3,
+      "status": "removed",
+      "discovered": "2025-04-08",
+      "references": [
+        "https://jfrog.com/blog/jfrog-detects-coordinated-attack-on-go-package-ecosystem/"
+      ]
+    },
+    {
+      "target": "github.com/grafana/grafana",
+      "typosquat": "github.com/grafanq/grafana",
+      "ecosystem": "go",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-04-08",
+      "references": [
+        "https://jfrog.com/blog/jfrog-detects-coordinated-attack-on-go-package-ecosystem/"
+      ]
+    },
+    {
+      "target": "github.com/grpc/grpc-go",
+      "typosquat": "github.com/AlexEisen/grpc-go",
+      "ecosystem": "go",
+      "levenshtein_distance": 11,
+      "status": "removed",
+      "discovered": "2025-04-08",
+      "references": [
+        "https://jfrog.com/blog/jfrog-detects-coordinated-attack-on-go-package-ecosystem/"
+      ]
+    },
+    {
+      "target": "github.com/kubernetes/kubernetes",
+      "typosquat": "github.com/kubernetes-utility/k8s-utils",
+      "ecosystem": "go",
+      "levenshtein_distance": 20,
+      "status": "removed",
+      "discovered": "2025-04-08",
+      "references": [
+        "https://jfrog.com/blog/jfrog-detects-coordinated-attack-on-go-package-ecosystem/"
+      ]
+    },
+    {
+      "target": "bootstrap-sass",
+      "typosquat": "bootstrap-sass-3-2-0",
+      "ecosystem": "rubygems",
+      "levenshtein_distance": 6,
+      "status": "removed",
+      "discovered": "2019-04-04",
+      "references": [
+        "https://github.com/twbs/bootstrap-sass/issues/1195"
+      ]
+    },
+    {
+      "target": "rails",
+      "typosquat": "railes",
+      "ecosystem": "rubygems",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2021-09-30",
+      "references": [
+        "https://github.com/rubygems/rubygems.org/issues/3013"
+      ]
+    },
+    {
+      "target": "rest-client",
+      "typosquat": "rest-clientx",
+      "ecosystem": "rubygems",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2019-08-20",
+      "references": [
+        "https://blog.appsignal.com/2019/08/22/the-rest-client-vulnerability.html"
+      ]
+    },
+    {
+      "target": "org.apache.logging.log4j:log4j-core",
+      "typosquat": "org.apache.logging.log4j:log4j-core-patched",
+      "ecosystem": "maven",
+      "levenshtein_distance": 8,
+      "status": "removed",
+      "discovered": "2021-12-15",
+      "references": [
+        "https://blog.sonatype.com/log4shell-related-malicious-maven-packages"
+      ]
+    },
+    {
+      "target": "com.google.inject:guice-assistedinject",
+      "typosquat": "com.google.inject:guice-assistedinject-typosquat",
+      "ecosystem": "maven",
+      "levenshtein_distance": 10,
+      "status": "removed",
+      "discovered": "2023-11-15",
+      "references": [
+        "https://blog.sonatype.com/maven-central-and-dependency-confusion"
+      ]
+    },
+    {
+      "target": "Guna.UI2.WinForms",
+      "typosquat": "Guna.UI2.WinForms.Cracked",
+      "ecosystem": "nuget",
+      "levenshtein_distance": 8,
+      "status": "removed",
+      "discovered": "2023-03-21",
+      "references": [
+        "https://blog.phylum.io/malicious-nuget-package-impersonates-popular-ui-library"
+      ]
+    },
+    {
+      "target": "Coinbase.Core",
+      "typosquat": "Coinbase.Core.SDK",
+      "ecosystem": "nuget",
+      "levenshtein_distance": 4,
+      "status": "removed",
+      "discovered": "2024-02-08",
+      "references": [
+        "https://blog.phylum.io/coinbase-nuget-typosquat"
+      ]
+    },
+    {
+      "target": "request",
+      "typosquat": "4equest",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-7012"
+    },
+    {
+      "target": "pino",
+      "typosquat": "6ini",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-rcgj-rgf8-526p",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-40"
+    },
+    {
+      "target": "chai",
+      "typosquat": "8chan",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-7035"
+    },
+    {
+      "target": "yargs",
+      "typosquat": "9args",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-j773-3r89-wh3v",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-47"
+    },
+    {
+      "target": "@nestjs/core",
+      "typosquat": "@hestjs/core",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-09-16",
+      "references": [
+        "https://github.com/advisories/GHSA-q2gx-2wjq-695q",
+        "https://www.wiz.io/blog/shai-hulud-npm-supply-chain-attack",
+        "https://semgrep.dev/blog/2025/security-advisory-npm-packages-using-secret-scanning-tools-to-steal-credentials/"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-47239"
+    },
+    {
+      "target": "cookie",
+      "typosquat": "acookie",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2022-06-20",
+      "references": [
+        "https://github.com/advisories/GHSA-vhw6-v5ff-rfjg",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-826"
+    },
+    {
+      "target": "redux",
+      "typosquat": "aeux",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-06-20",
+      "references": [
+        "https://github.com/advisories/GHSA-vchv-4gf2-p68f",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-880"
+    },
+    {
+      "target": "knex",
+      "typosquat": "ajex",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-07-11",
+      "references": [
+        "https://github.com/advisories/GHSA-56m9-7m4c-6jgv",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-7697"
+    },
+    {
+      "target": "yaml",
+      "typosquat": "amll",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-6q35-gvgh-fpf8",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-971"
+    },
+    {
+      "target": "aws-sdk",
+      "typosquat": "ams-ssk",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2026-05-02",
+      "references": [
+        "https://safedep.io/malicious-common-tg-service-npm-telegram-hijacking-framework/",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2026-3287"
+    },
+    {
+      "target": "angular",
+      "typosquat": "angula",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-14520"
+    },
+    {
+      "target": "angular",
+      "typosquat": "angulargp",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-14536"
+    },
+    {
+      "target": "angular",
+      "typosquat": "angulin",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-14538"
+    },
+    {
+      "target": "vitest",
+      "typosquat": "aptest",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-14749"
+    },
+    {
+      "target": "hapi",
+      "typosquat": "apui",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-14752"
+    },
+    {
+      "target": "argon2",
+      "typosquat": "archon2",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-02-18",
+      "references": [
+        "https://github.com/advisories/GHSA-hhg9-82p6-jfcq",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-1459"
+    },
+    {
+      "target": "vite",
+      "typosquat": "avito",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-06-20",
+      "references": [
+        "https://github.com/advisories/GHSA-6727-6p8v-wp2c",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-1186"
+    },
+    {
+      "target": "vitest",
+      "typosquat": "avrtest",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-15211"
+    },
+    {
+      "target": "aws-sdk",
+      "typosquat": "aws-pdk",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-15228"
+    },
+    {
+      "target": "axios",
+      "typosquat": "axcors",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-09-24",
+      "references": [
+        "https://github.com/advisories/GHSA-xj4h-8h2g-w5p9",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-47517"
+    },
+    {
+      "target": "axios",
+      "typosquat": "axio.js",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-07-15",
+      "references": [
+        "https://github.com/advisories/GHSA-c8rg-3wr5-v5x4",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-5895"
+    },
+    {
+      "target": "axios",
+      "typosquat": "axioss",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-15242"
+    },
+    {
+      "target": "bunyan",
+      "typosquat": "azunyan",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-15262"
+    },
+    {
+      "target": "babel-core",
+      "typosquat": "babel-node",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-15286"
+    },
+    {
+      "target": "yaml",
+      "typosquat": "babl",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-15313"
+    },
+    {
+      "target": "bcryptjs",
+      "typosquat": "bcrypts-js",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-09-11",
+      "references": [
+        "https://github.com/advisories/GHSA-h6cw-hrwc-f4wm",
+        "https://security.snyk.io/vuln/SNYK-JS-BCRYPTSJS-7931933",
+        "https://npmjs.com/package/bcrypts-js"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-8862"
+    },
+    {
+      "target": "vitest",
+      "typosquat": "bitext",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-15761"
+    },
+    {
+      "target": "vite",
+      "typosquat": "bitg",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-11-08",
+      "references": [
+        "https://github.com/advisories/GHSA-hm6j-mqm2-cqfr",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-10537"
+    },
+    {
+      "target": "next",
+      "typosquat": "bnext",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-15908"
+    },
+    {
+      "target": "body-parser",
+      "typosquat": "boby_parser",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://security.snyk.io/vuln/SNYK-JS-BOBYPARSER-13561241",
+        "https://socket.dev/blog/north-korea-contagious-interview-campaign-338-malicious-npm-packages",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-15924"
+    },
+    {
+      "target": "body-parser",
+      "typosquat": "bodyfpvarser",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-p49m-9q33-7735",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-1641"
+    },
+    {
+      "target": "express",
+      "typosquat": "boxpress",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16047"
+    },
+    {
+      "target": "bcrypt",
+      "typosquat": "bryp4t",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-8m6x-vgx9-x8pf",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-1699"
+    },
+    {
+      "target": "tslib",
+      "typosquat": "bsplib",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16233"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "cahlk",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16430"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "calk",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16451"
+    },
+    {
+      "target": "cookie",
+      "typosquat": "ccooie",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-jwvp-g8vh-qp5c",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-1847"
+    },
+    {
+      "target": "cors",
+      "typosquat": "cdrd",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16696"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "chak",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16763"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "chakl",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16766"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "chakll",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-02-03",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-1210"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "chal",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-2w82-3g5x-xf3c",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-1876"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "chalc",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16769"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "chalk2",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16775"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "chalkk",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16776"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "chalq",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16777"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "chand",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-07-24",
+      "references": [
+        "https://github.com/advisories/GHSA-v9xq-jrr3-wm99",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-169"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "chlak",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16991"
+    },
+    {
+      "target": "chai",
+      "typosquat": "choad",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-16993"
+    },
+    {
+      "target": "chokidar",
+      "typosquat": "chokader",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-11-27",
+      "references": [
+        "https://github.com/advisories/GHSA-2gwx-mrwq-358q",
+        "https://security.snyk.io/vuln/SNYK-JS-CHOKADER-8422607",
+        "https://socket.dev/blog/malicious-npm-packages-inject-ssh-backdoors-via-typosquatted-libraries"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-11032"
+    },
+    {
+      "target": "chokidar",
+      "typosquat": "chokdazr",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-v4wg-2x4v-qj8w",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-1900"
+    },
+    {
+      "target": "cors",
+      "typosquat": "ckfors",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-pvv8-qgwg-2vvv",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-1910"
+    },
+    {
+      "target": "commander",
+      "typosquat": "cmmande",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-4chj-vj2w-373j",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-1950"
+    },
+    {
+      "target": "commander",
+      "typosquat": "cmomander",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17228"
+    },
+    {
+      "target": "color",
+      "typosquat": "cogler",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17267"
+    },
+    {
+      "target": "color",
+      "typosquat": "colne",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17284"
+    },
+    {
+      "target": "color",
+      "typosquat": "coloma",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-01-11",
+      "references": [
+        "https://github.com/advisories/GHSA-f6x6-4q7r-qp2w",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-70"
+    },
+    {
+      "target": "color",
+      "typosquat": "colomb",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17286"
+    },
+    {
+      "target": "colors",
+      "typosquat": "colorajs",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-10-31",
+      "references": [
+        "https://github.com/advisories/GHSA-7f97-8rm9-rmw6",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2002"
+    },
+    {
+      "target": "color",
+      "typosquat": "colormo",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17289"
+    },
+    {
+      "target": "colors",
+      "typosquat": "colorss",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2022-08-02",
+      "references": [
+        "https://github.com/advisories/GHSA-8r9g-vmc8-x8x7",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2024"
+    },
+    {
+      "target": "colors",
+      "typosquat": "colorsss",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-06-20",
+      "references": [
+        "https://github.com/advisories/GHSA-2838-3g8m-vc5p",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2026"
+    },
+    {
+      "target": "color",
+      "typosquat": "colorv",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17299"
+    },
+    {
+      "target": "commander",
+      "typosquat": "comamnder",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17377"
+    },
+    {
+      "target": "commander",
+      "typosquat": "comander",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17378"
+    },
+    {
+      "target": "commander",
+      "typosquat": "commandef",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17407"
+    },
+    {
+      "target": "commander",
+      "typosquat": "commandr",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17409"
+    },
+    {
+      "target": "commander",
+      "typosquat": "commandre",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17410"
+    },
+    {
+      "target": "commander",
+      "typosquat": "commanedr",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17411"
+    },
+    {
+      "target": "commander",
+      "typosquat": "commender",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17413"
+    },
+    {
+      "target": "commander",
+      "typosquat": "commmander",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17423"
+    },
+    {
+      "target": "commander",
+      "typosquat": "commnader",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17424"
+    },
+    {
+      "target": "commander",
+      "typosquat": "commqnder",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17435"
+    },
+    {
+      "target": "commander",
+      "typosquat": "comnader",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-9xcj-wf9r-rxc9",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2141"
+    },
+    {
+      "target": "cors",
+      "typosquat": "congrs",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17487"
+    },
+    {
+      "target": "cookie-parser",
+      "typosquat": "cooieparser",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-x9f8-853w-gh42",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2177"
+    },
+    {
+      "target": "cors",
+      "typosquat": "cooo",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-07-01",
+      "references": [
+        "https://github.com/advisories/GHSA-m23c-qfxf-pfm4",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-5384"
+    },
+    {
+      "target": "compression",
+      "typosquat": "copressio",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-v4m7-v6p6-fg4g",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2185"
+    },
+    {
+      "target": "cors",
+      "typosquat": "corb",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17560"
+    },
+    {
+      "target": "cors",
+      "typosquat": "corin",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17584"
+    },
+    {
+      "target": "cosmiconfig",
+      "typosquat": "cozsmiconfnig",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-8w8r-7f4r-37g3",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2220"
+    },
+    {
+      "target": "chai",
+      "typosquat": "crar",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-9w79-c6r3-4922",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2225"
+    },
+    {
+      "target": "color",
+      "typosquat": "croler",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17691"
+    },
+    {
+      "target": "chalk",
+      "typosquat": "cschalk",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-01-21",
+      "references": [
+        "https://github.com/advisories/GHSA-c59q-9895-p26f",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-611"
+    },
+    {
+      "target": "cypress",
+      "typosquat": "cypressjs",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-17900"
+    },
+    {
+      "target": "cors",
+      "typosquat": "czss",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-x434-mj6r-w9pm",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2304"
+    },
+    {
+      "target": "dayjs",
+      "typosquat": "daeyjds",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-mx65-h32q-f69g",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2317"
+    },
+    {
+      "target": "dayjs",
+      "typosquat": "dahsjs",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-05-19",
+      "references": [
+        "https://github.com/advisories/GHSA-32fc-rhwj-m825",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-3988"
+    },
+    {
+      "target": "dayjs",
+      "typosquat": "dasjhs",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-05-19",
+      "references": [
+        "https://github.com/advisories/GHSA-5562-767p-v82f",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-3989"
+    },
+    {
+      "target": "date-fns",
+      "typosquat": "date-fns-2",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-07-15",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-6086"
+    },
+    {
+      "target": "debug",
+      "typosquat": "dbeug",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-18097"
+    },
+    {
+      "target": "date-fns",
+      "typosquat": "ddte-fdns",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2022-08-19",
+      "references": [
+        "https://github.com/advisories/GHSA-346g-6pr3-vf37",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2385"
+    },
+    {
+      "target": "debug",
+      "typosquat": "debgu",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-18136"
+    },
+    {
+      "target": "debug",
+      "typosquat": "debu",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-18142"
+    },
+    {
+      "target": "debug",
+      "typosquat": "debug11",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-04-03",
+      "references": [
+        "https://github.com/advisories/GHSA-q858-j4v2-2xmv",
+        "https://security.snyk.io/vuln/SNYK-JS-DEBUG11-9634276",
+        "https://npmjs.com/package/debug11"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-3095"
+    },
+    {
+      "target": "debug",
+      "typosquat": "debugr1",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-11-26",
+      "references": [
+        "https://github.com/advisories/GHSA-px94-8496-j327",
+        "https://npmjs.com/package/debugr1",
+        "https://security.snyk.io/vuln/SNYK-JS-DEBUGR1-8422639"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-10959"
+    },
+    {
+      "target": "esbuild",
+      "typosquat": "debuild",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-18147"
+    },
+    {
+      "target": "debug",
+      "typosquat": "debuug",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2022-06-20",
+      "references": [
+        "https://github.com/advisories/GHSA-58hw-p67f-f36h",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-2389"
+    },
+    {
+      "target": "debug",
+      "typosquat": "degbu",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-18180"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aaiohttp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1574"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "adhttp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-23",
+      "references": [
+        "https://medium.com/checkmarx-security/the-skeleton-squad-tracing-the-origins-and-scope-of-5000-malicious-packages-on-pypi-7516c16e4da9",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-2485"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aihottp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1575"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aiihttp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2026-01-04",
+      "references": [
+        "https://www.virustotal.com/gui/file/68d0f3934245cba3741079b16cc93b98bf73101fdebf3dfc666d1eda22f997f1/behavior",
+        "https://tria.ge/260104-xc563asncq/static1",
+        "https://tria.ge/260104-w59jhswlgt/static1"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2026-35"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aiohhttp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1576"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aiohtpt",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1577"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aiohtt",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1578"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aiohtto",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2026-01-04",
+      "references": [
+        "https://www.virustotal.com/gui/file/68d0f3934245cba3741079b16cc93b98bf73101fdebf3dfc666d1eda22f997f1/behavior",
+        "https://tria.ge/260104-xc563asncq/static1",
+        "https://tria.ge/260104-w59jhswlgt/static1"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2026-36"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aiohttpp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1579"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aioohttp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1580"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aiothtp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1581"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aiottp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1582"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aiphttp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-03-28",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-2932"
+    },
+    {
+      "target": "matplotlib",
+      "typosquat": "amtplotlib",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1583"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aohttp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1584"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "aoohttp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2026-01-04",
+      "references": [
+        "https://www.virustotal.com/gui/file/68d0f3934245cba3741079b16cc93b98bf73101fdebf3dfc666d1eda22f997f1/behavior",
+        "https://tria.ge/260104-xc563asncq/static1",
+        "https://tria.ge/260104-w59jhswlgt/static1"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2026-37"
+    },
+    {
+      "target": "pandas",
+      "typosquat": "apndas",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1585"
+    },
+    {
+      "target": "matplotlib",
+      "typosquat": "atplotlib",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1586"
+    },
+    {
+      "target": "aiohttp",
+      "typosquat": "auohttp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2026-01-04",
+      "references": [
+        "https://www.virustotal.com/gui/file/68d0f3934245cba3741079b16cc93b98bf73101fdebf3dfc666d1eda22f997f1/behavior",
+        "https://tria.ge/260104-xc563asncq/static1",
+        "https://tria.ge/260104-w59jhswlgt/static1"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2026-38"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "bautifulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1588"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "bautifulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1589"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "bbeautifulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1590"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beaautifulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1592"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beaautifulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1593"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beatifulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1594"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beatuifulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1596"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beauifulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1597"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautiffulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1600"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautiffulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1601"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautiflsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1602"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautiflsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1603"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautiflusoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1605"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifullsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1606"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifullsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1607"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulosup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1609"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifuloup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1610"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifuloup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1611"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsooup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1612"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsooup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1613"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsop",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1614"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsop4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1615"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsopu",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1616"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsou",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1617"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsou4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1618"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsoup44",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1619"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsoupp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1620"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsoupp4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1621"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsouup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1622"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsouup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1623"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulssoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1624"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulssoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1625"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsuop4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1627"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifulsup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1628"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifusloup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1630"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifusoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1631"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifuulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1632"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautifuulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1633"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautiifulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1634"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautiifulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1635"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautiulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1637"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beautiulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1638"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beauttifulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1639"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beauttifulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1640"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beauutifulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1641"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beauutifulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1642"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beeautifulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1643"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beeautifulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1644"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beuatifulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1646"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beutifulsoup",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1647"
+    },
+    {
+      "target": "beautifulsoup4",
+      "typosquat": "beutifulsoup4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1648"
+    },
+    {
+      "target": "black",
+      "typosquat": "blypack",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-10-16",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-9950"
+    },
+    {
+      "target": "boto3",
+      "typosquat": "bo3to",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-09-20",
+      "references": [
+        "https://bad-packages.kam193.eu/pypi/package/bo3to",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-11538"
+    },
+    {
+      "target": "boto3",
+      "typosquat": "booto3",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-03-08",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-1059"
+    },
+    {
+      "target": "botocore",
+      "typosquat": "botoceor",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-09-20",
+      "references": [
+        "https://bad-packages.kam193.eu/pypi/package/botoceor",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-11540"
+    },
+    {
+      "target": "pytest",
+      "typosquat": "bytesp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-11-06",
+      "references": [
+        "https://bad-packages.kam193.eu/pypi/package/bytesp",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-10412"
+    },
+    {
+      "target": "pytest",
+      "typosquat": "c8test",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-07-26",
+      "references": [
+        "https://bad-packages.kam193.eu/pypi/package/c8test",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-5099"
+    },
+    {
+      "target": "click",
+      "typosquat": "cclick",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1673"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "ccolorama",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1674"
+    },
+    {
+      "target": "certifi",
+      "typosquat": "ceritfi",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-28",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-41629"
+    },
+    {
+      "target": "certifi",
+      "typosquat": "certiffi",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-28",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-41630"
+    },
+    {
+      "target": "certifi",
+      "typosquat": "certifia",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-28",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-41631"
+    },
+    {
+      "target": "certifi",
+      "typosquat": "certifii",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-28",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-41632"
+    },
+    {
+      "target": "certifi",
+      "typosquat": "certifij",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-28",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-41633"
+    },
+    {
+      "target": "certifi",
+      "typosquat": "certifiq",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-28",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-41634"
+    },
+    {
+      "target": "certifi",
+      "typosquat": "certifiy",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-28",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-41635"
+    },
+    {
+      "target": "certifi",
+      "typosquat": "certifo",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-28",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-41636"
+    },
+    {
+      "target": "certifi",
+      "typosquat": "certufi",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-28",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-41637"
+    },
+    {
+      "target": "click",
+      "typosquat": "cick",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1680"
+    },
+    {
+      "target": "scikit-learn",
+      "typosquat": "cikit-learn",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1681"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "cilorama",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://medium.com/checkmarx-security/pypi-is-under-attack-project-creation-and-user-registration-suspended-heres-the-details-c3b6291d4579",
+        "https://security.snyk.io/vuln/SNYK-PYTHON-CILORAMA-6513280",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-4890"
+    },
+    {
+      "target": "click",
+      "typosquat": "clcik",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1682"
+    },
+    {
+      "target": "click",
+      "typosquat": "clicck",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1683"
+    },
+    {
+      "target": "click",
+      "typosquat": "clickk",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1684"
+    },
+    {
+      "target": "click",
+      "typosquat": "cliick",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1685"
+    },
+    {
+      "target": "click",
+      "typosquat": "clikc",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-02-11",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1686"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "clolorama",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://medium.com/checkmarx-security/pypi-is-under-attack-project-creation-and-user-registration-suspended-heres-the-details-c3b6291d4579",
+        "https://security.snyk.io/vuln/SNYK-PYTHON-CLOLORAMA-6513704",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-4897"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "clorama",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1687"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "cloroma",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://security.snyk.io/vuln/SNYK-PYTHON-CLOROMA-6513703",
+        "https://medium.com/checkmarx-security/pypi-is-under-attack-project-creation-and-user-registration-suspended-heres-the-details-c3b6291d4579",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-4898"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "colarama",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-4905"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "colaroma",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://security.snyk.io/vuln/SNYK-PYTHON-COLAROMA-6513702",
+        "https://medium.com/checkmarx-security/pypi-is-under-attack-project-creation-and-user-registration-suspended-heres-the-details-c3b6291d4579",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-4911"
+    },
+    {
+      "target": "github.com/google/uuid",
+      "typosquat": "github.com/bpoorman/uid",
+      "ecosystem": "go",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2021-05-01",
+      "references": [
+        "https://socket.dev/blog/malicious-go-packages-impersonate-googles-uuid-library-and-exfiltrate-data",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": ""
+    },
+    {
+      "target": "github.com/google/uuid",
+      "typosquat": "github.com/bpoorman/uuid",
+      "ecosystem": "go",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2021-05-01",
+      "references": [
+        "https://socket.dev/blog/malicious-go-packages-impersonate-googles-uuid-library-and-exfiltrate-data",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": ""
+    },
+    {
+      "target": "golang.org/x/crypto",
+      "typosquat": "github.com/xinfeisoft/crypto",
+      "ecosystem": "go",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-02-20",
+      "references": [
+        "https://cybersecuritynews.com/malicious-go-crypto-module-steals-passwords-and-deploy-rekoobe/",
+        "https://thehackernews.com/2026/02/malicious-go-crypto-module-steals.html",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": ""
+    },
+    {
+      "target": "lodash",
+      "typosquat": "lodsah",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2025-25516",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-25516"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "collorama",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1688"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "colorana",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2024-4941",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-4941"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "colorramma",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://medium.com/checkmarx-security/pypi-is-under-attack-project-creation-and-user-registration-suspended-heres-the-details-c3b6291d4579",
+        "https://security.snyk.io/vuln/SNYK-PYTHON-COLORRAMMA-6513688",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-4975"
+    },
+    {
+      "target": "colorama",
+      "typosquat": "colorsama",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2022-08-23",
+      "references": [
+        "https://blog.checkpoint.com/2022/08/23/check-point-research-detects-12-malicious-python-packages-in-pypi/",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": ""
+    },
+    {
+      "target": "numpy",
+      "typosquat": "cupy",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2020-07-23",
+      "references": [
+        "https://blog.reversinglabs.com/blog/discovered-malicious-pypi-packages-targeting-popular-ml-frameworks",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": ""
+    },
+    {
+      "target": "django",
+      "typosquat": "djanga",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2022-11-15",
+      "references": [
+        "https://blog.phylum.io/malicious-pypi-package/",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": ""
+    },
+    {
+      "target": "httpx",
+      "typosquat": "httpxc",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://github.com/DataDog/malicious-software-packages-dataset",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-5238"
+    },
+    {
+      "target": "matplotlib",
+      "typosquat": "maplotlib",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1895"
+    },
+    {
+      "target": "matplotlib",
+      "typosquat": "matplolib",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1899"
+    },
+    {
+      "target": "matplotlib",
+      "typosquat": "matplotlibp",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-07-26",
+      "references": [
+        "https://bad-packages.kam193.eu/pypi/package/matplotlibp",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-11631"
+    },
+    {
+      "target": "pillow",
+      "typosquat": "pilloa",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://medium.com/checkmarx-security/pypi-is-under-attack-project-creation-and-user-registration-suspended-heres-the-details-c3b6291d4579",
+        "https://security.snyk.io/vuln/SNYK-PYTHON-PILLOA-6513387",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-5473"
+    },
+    {
+      "target": "pyyaml",
+      "typosquat": "pyyal",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-11-06",
+      "references": [
+        "https://bad-packages.kam193.eu/pypi/package/pyyal",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-10646"
+    },
+    {
+      "target": "requests",
+      "typosquat": "reqquests",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2022-05-31",
+      "references": [
+        "https://medium.com/checkmarx-security/typosquatting-attack-on-requests-one-of-the-most-popular-python-packages-3b0a329a892d",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2022-7435"
+    },
+    {
+      "target": "requests",
+      "typosquat": "requeits",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://medium.com/checkmarx-security/pypi-is-under-attack-project-creation-and-user-registration-suspended-heres-the-details-c3b6291d4579",
+        "https://security.snyk.io/vuln/SNYK-PYTHON-REQUEITS-6513290",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-5875"
+    },
+    {
+      "target": "requests",
+      "typosquat": "requests3",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2018-09-25",
+      "references": [
+        "https://pypi.org/project/requests3/",
+        "https://snyk.io/advisor/python/requests3",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": ""
+    },
+    {
+      "target": "scrapy",
+      "typosquat": "scraapy",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-2225"
+    },
+    {
+      "target": "scrapy",
+      "typosquat": "scrrapy",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-2229"
+    },
+    {
+      "target": "selenium",
+      "typosquat": "selenum",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-2240"
+    },
+    {
+      "target": "tensorflow",
+      "typosquat": "tensorfloww",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-2303"
+    },
+    {
+      "target": "tiktoken",
+      "typosquat": "tiktok4",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2024-06-25",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2024-6143",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2024-6143"
+    },
+    {
+      "target": "next",
+      "typosquat": "arnext",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2026-05-26",
+      "references": [
+        "https://www.npmjs.com/package/arnext/v/0.1.5",
+        "http://www.ox.security/blog/ironworm-supply-chain-malware-hits-npm/",
+        "https://research.jfrog.com/post/iron-worm-shai-hulud-rustier-cousin/"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2026-4482"
+    },
+    {
+      "target": "anthropic",
+      "typosquat": "anthropy",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2026-06-05",
+      "references": [
+        "https://bad-packages.kam193.eu/pypi/package/anthropy",
+        "https://pypi.org/project/anthropy/0.0.4/",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2026-5273"
+    },
+    {
+      "target": "express",
+      "typosquat": "expressos",
+      "ecosystem": "npm",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2025-11-24",
+      "references": [
+        "https://github.com/advisories/GHSA-p3w8-q8jq-wf9v",
+        "https://www.aikido.dev/blog/shai-hulud-strikes-again-hitting-zapier-ensdomains",
+        "https://www.wiz.io/blog/shai-hulud-2-0-ongoing-supply-chain-attack"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-190961"
+    },
+    {
+      "target": "react",
+      "typosquat": "reat",
+      "ecosystem": "npm",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-08-14",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2025-31896",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-31896"
+    },
+    {
+      "target": "flask",
+      "typosquat": "flasl",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2024-12-24",
+      "references": [
+        "https://www.virustotal.com/gui/file/0736a1f176f081a076b2cba3b54e1cb1462fe1a01be16144397bbc0d4739d01a",
+        "https://www.virustotal.com/gui/file/56ed3b8ca17b00ee8e7a1cb13298e5b12fd1771c24b33b9a84ba92b0610279e5",
+        "https://bad-packages.kam193.eu/pypi/package/flasl"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-926"
+    },
+    {
+      "target": "matplotlib",
+      "typosquat": "matpllotlib",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2023-02-10",
+      "references": [
+        "https://medium.com/checkmarx-security/17-malicious-python-packages-targeting-selenium-users-to-steal-crypto-8d24628ec656",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-1898"
+    },
+    {
+      "target": "pyjwt",
+      "typosquat": "pyjio",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 2,
+      "status": "removed",
+      "discovered": "2023-10-02",
+      "references": [
+        "https://medium.com/checkmarx-security/attacker-hidden-in-plain-sight-for-nearly-six-months-targeting-python-developers-3712f0f107e0",
+        "https://checkmarx.com/blog/attacker-hidden-in-plain-sight-for-nearly-six-months-targeting-python-developers/",
+        "https://security.snyk.io/vuln/SNYK-PYTHON-PYJIO-6069620"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2023-8576"
+    },
+    {
+      "target": "tensorflow",
+      "typosquat": "tensorflows",
+      "ecosystem": "pypi",
+      "levenshtein_distance": 1,
+      "status": "removed",
+      "discovered": "2025-05-26",
+      "references": [
+        "https://bad-packages.kam193.eu/pypi/package/tensorflows",
+        "https://github.com/ossf/malicious-packages"
+      ],
+      "source": "ossf-malicious-packages-derived",
+      "osv_id": "MAL-2025-191891"
+    }
+  ],
+  "sources": {
+    "ossf-malicious-packages-derived": {
+      "url": "https://github.com/ossf/malicious-packages",
+      "method": "Levenshtein <=2 against popular-packages catalogue",
+      "rows_added": 199,
+      "regenerated_at": "2026-05-14T16:11:22Z"
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Zoom",
+  "description": "Zoom Server-to-Server OAuth, legacy JWT app credentials (deprecated June 2023), Webhook verification, meeting-control red flags. Includes Zoom Phone where overlap.",
+  "token_patterns": [
+    {
+      "name": "Zoom Server-to-Server OAuth Client Secret",
+      "regex": "(?i)zoom[_\\-]?(s2s)?[_\\-]?(client[_\\-]?secret|secret)[\\\"'\\s:=]+[A-Za-z0-9]{30,}",
+      "severity": "critical",
+      "hotwords": [
+        "zoom",
+        "s2s",
+        "client_secret",
+        "oauth"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Zoom Webhook Verification Token",
+      "regex": "(?i)zoom[_\\-]?webhook[_\\-]?(verification|secret)[_\\-]?token[\\\"'\\s:=]+[A-Za-z0-9]{20,}",
+      "severity": "high",
+      "hotwords": [
+        "zoom",
+        "webhook",
+        "verification_token"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    },
+    {
+      "name": "Zoom Legacy JWT App Token (deprecated June 2023)",
+      "regex": "(?i)zoom[_\\-]?jwt[_\\-]?token[\\\"'\\s:=]+eyJ[A-Za-z0-9_\\-]{20,}\\.[A-Za-z0-9_\\-]{20,}\\.[A-Za-z0-9_\\-]{20,}",
+      "severity": "high",
+      "hotwords": [
+        "zoom",
+        "jwt"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "notes": "JWT apps were deprecated 1 Jun 2023 \u2014 presence in new code is a debt + secret-leak signal."
+    },
+    {
+      "name": "Zoom Meeting Join URL with embedded password (pwd=)",
+      "regex": "https://[A-Za-z0-9\\-]+\\.zoom\\.us/j/[0-9]+\\?pwd=[A-Za-z0-9.]+",
+      "severity": "medium",
+      "hotwords": [
+        "zoom.us",
+        "pwd",
+        "join_url"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "zoom-webhook-no-validation",
+      "severity": "critical",
+      "title": "Webhook endpoint does not validate `x-zm-signature` (and CRC token handshake)",
+      "rationale": "Lets attackers spoof participant_left / phone_call events to game integrations.",
+      "fix": "Compute HMAC-SHA256 with the Verification Token over `v0:<x-zm-request-timestamp>:<body>`; compare against `x-zm-signature` (v0=...). Handle the validation event with the `encryptedToken` HMAC handshake."
+    },
+    {
+      "id": "zoom-cloud-recording-public",
+      "severity": "high",
+      "title": "Cloud recording sharing set to 'Publicly available'",
+      "rationale": "Multiple public Zoom recording leaks have surfaced via this default.",
+      "fix": "Account settings > Recording > Sharing & passcode \u2014 require passcode, require login, set link expiration \u2264 7 days."
+    },
+    {
+      "id": "zoom-waiting-room-disabled",
+      "severity": "medium",
+      "title": "Waiting Room disabled for external meetings",
+      "rationale": "Disabled Waiting Room leads to Zoombombing / uninvited-guest exposure.",
+      "fix": "Account settings > Meeting > require Waiting Room for guests / non-authenticated users."
+    },
+    {
+      "id": "zoom-meeting-passcode-not-enforced",
+      "severity": "high",
+      "title": "Default meeting passcode enforcement turned off",
+      "rationale": "Brute force / leaked link reuse becomes trivial.",
+      "fix": "Account settings > Security > require passcode for instant, scheduled, PMI, and webinars."
+    },
+    {
+      "id": "zoom-mfa-not-enforced",
+      "severity": "high",
+      "title": "MFA / SSO not enforced; password-only login allowed for admins",
+      "rationale": "Admin ATO -> tenant-wide recording exfil.",
+      "fix": "Account settings > Security > require 2FA, require SSO for admins."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "zoom-bulk-recording-download",
+      "severity": "high",
+      "title": "Bulk cloud-recording download by an unusual account",
+      "rationale": "Recordings often contain confidential meeting content / customer PII.",
+      "signal": "Audit log: `Cloud Recording downloaded` count per user > 10 in 1h."
+    },
+    {
+      "id": "zoom-account-role-elevation",
+      "severity": "critical",
+      "title": "User role elevated to Owner / Admin",
+      "rationale": "Privilege escalation step inside Zoom.",
+      "signal": "Operation log: role-change to Admin/Owner outside scheduled changes."
+    },
+    {
+      "id": "zoom-data-routing-change",
+      "severity": "high",
+      "title": "Data Center region added to data routing (especially CN-region routing)",
+      "rationale": "2020 incident showed data could route through regions outside tenant expectation.",
+      "signal": "Operation log: 'Edit communication content storage location' / 'Customize data center regions'."
+    },
+    {
+      "id": "zoom-marketplace-app-install",
+      "severity": "medium",
+      "title": "New Marketplace app installed with `meeting:read` / `recording:read` admin scopes",
+      "rationale": "Standard exfil-bot shape.",
+      "signal": "Operation log: 'App installed' with admin-scope set."
+    }
+  ],
+  "references": [
+    "https://developers.zoom.us/docs/internal-apps/s2s-oauth/",
+    "https://developers.zoom.us/docs/api/webhooks/",
+    "https://developers.zoom.us/docs/integrations/security/",
+    "https://www.zoom.com/en/trust/security/"
+  ]
+}

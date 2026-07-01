@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  WiX v4 / v5 source for the secure-vibe MSI installer.
+
+  Prerequisites:
+    1. WiX Toolset v4+ (https://wixtoolset.org/docs/intro/)
+    2. Pre-built secure-vibe.exe at the path specified by the BinaryPath variable.
+
+  Build:
+    wix build -d BinaryPath=..\..\dist-build\secure-vibe-windows-amd64.exe ^
+              -d Version=2026.05.12.0 ^
+              -o build\secure-vibe.msi ^
+              secure-vibe.wxs
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+      Name="SecureVibe CLI"
+      Manufacturer="Skills Library"
+      Version="$(var.Version)"
+      UpgradeCode="E7D3A9B2-1F4C-4B5E-8C7D-2A6F3E9B1D4C"
+      Scope="perMachine">
+
+    <MajorUpgrade
+        DowngradeErrorMessage="A newer version of SecureVibe is already installed." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="SecureVibe">
+        <Component Id="MainExecutable" Guid="B1C2D3E4-F5A6-7B8C-9D0E-1F2A3B4C5D6E">
+          <File Id="SecurevibeExe"
+                Source="$(var.BinaryPath)"
+                Name="secure-vibe.exe"
+                KeyPath="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <!-- Add INSTALLFOLDER to the system PATH so secure-vibe is available
+         from any shell without the full path. -->
+    <Component Id="PathEntry" Directory="INSTALLFOLDER"
+               Guid="A2B3C4D5-E6F7-8A9B-0C1D-2E3F4A5B6C7D">
+      <Environment Id="PathEnv"
+                   Name="PATH"
+                   Value="[INSTALLFOLDER]"
+                   Permanent="no"
+                   Part="last"
+                   Action="set"
+                   System="yes" />
+    </Component>
+
+    <Feature Id="ProductFeature" Title="SecureVibe CLI" Level="1">
+      <ComponentRef Id="MainExecutable" />
+      <ComponentRef Id="PathEntry" />
+    </Feature>
+
+  </Package>
+</Wix>

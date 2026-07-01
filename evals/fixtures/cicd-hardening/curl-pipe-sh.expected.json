@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "curl-pipe-sh.yml",
+  "description": "The fixture has no top-level `permissions:` block and one `curl ... | sh` step, so the scanner fires on exactly those two rules. The earlier residual FP (the `gha-no-curl-pipe-bash` regex also matched the `# 'curl ... | sh'` comment header, and its `[^|]*` atom spanned newlines and mis-located the real finding) is fixed: the pattern is anchored to a single line (`[^|\\n]*`) and the scanner skips matches that fall inside YAML comments.",
+  "expected_findings": [
+    {
+      "rule": "gha-default-permissions-read",
+      "ecosystem": "github-actions",
+      "source": "skills/cicd-security/SKILL.md"
+    },
+    {
+      "rule": "gha-no-curl-pipe-bash",
+      "ecosystem": "github-actions",
+      "source": "skills/cicd-security/SKILL.md"
+    }
+  ]
+}

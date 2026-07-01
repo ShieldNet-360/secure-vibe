@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-8hjv-92q9-g4xj",
+  "published": "2026-05-06T20:00:22Z",
+  "modified": "2026-05-13T16:46:24.869468Z",
+  "aliases": [
+    "CVE-2026-44241"
+  ],
+  "summary": "Micronaut has unbounded `formattersCache` in `TimeConverterRegistrar` that Allows Memory Exhaustion via `Accept-Language` Header",
+  "affected": [
+    {
+      "package": {
+        "name": "io.micronaut:micronaut-context",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/io.micronaut/micronaut-context"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "4.3.0"
+            },
+            {
+              "fixed": "4.10.22"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.10.0",
+        "4.10.1",
+        "4.10.10",
+        "4.10.11",
+        "4.10.12",
+        "4.10.13",
+        "4.10.14",
+        "4.10.15",
+        "4.10.16",
+        "4.10.17",
+        "4.10.18",
+        "4.10.19",
+        "4.10.2",
+        "4.10.20",
+        "4.10.21",
+        "4.10.3",
+        "4.10.4",
+        "4.10.5",
+        "4.10.6",
+        "4.10.7",
+        "4.10.8",
+        "4.10.9",
+        "4.3.0",
+        "4.3.1",
+        "4.3.10",
+        "4.3.11",
+        "4.3.12",
+        "4.3.13",
+        "4.3.14",
+        "4.3.15",
+        "4.3.16",
+        "4.3.17",
+        "4.3.2",
+        "4.3.3",
+        "4.3.4",
+        "4.3.5",
+        "4.3.6",
+        "4.3.7",
+        "4.3.8",
+        "4.3.9",
+        "4.4.0",
+        "4.4.1",
+        "4.4.10",
+        "4.4.2",
+        "4.4.3",
+        "4.4.4",
+        "4.4.5",
+        "4.4.6",
+        "4.4.7",
+        "4.4.8",
+        "4.4.9",
+        "4.5.0",
+        "4.5.1",
+        "4.5.2",
+        "4.5.3",
+        "4.5.4",
+        "4.6.0",
+        "4.6.1",
+        "4.6.2",
+        "4.6.3",
+        "4.6.4",
+        "4.6.5",
+        "4.6.6",
+        "4.6.7",
+        "4.6.8",
+        "4.7.0",
+        "4.7.1",
+        "4.7.10",
+        "4.7.11",
+        "4.7.12",
+        "4.7.13",
+        "4.7.14",
+        "4.7.15",
+        "4.7.16",
+        "4.7.17",
+        "4.7.18",
+        "4.7.19",
+        "4.7.2",
+        "4.7.20",
+        "4.7.21",
+        "4.7.22",
+        "4.7.23",
+        "4.7.24",
+        "4.7.25",
+        "4.7.26",
+        "4.7.27",
+        "4.7.3",
+        "4.7.4",
+        "4.7.5",
+        "4.7.6",
+        "4.7.7",
+        "4.7.8",
+        "4.7.9",
+        "4.8.0",
+        "4.8.1",
+        "4.8.10",
+        "4.8.11",
+        "4.8.12",
+        "4.8.13",
+        "4.8.14",
+        "4.8.15",
+        "4.8.16",
+        "4.8.17",
+        "4.8.18",
+        "4.8.19",
+        "4.8.2",
+        "4.8.3",
+        "4.8.4",
+        "4.8.5",
+        "4.8.6",
+        "4.8.7",
+        "4.8.8",
+        "4.8.9",
+        "4.9.0",
+        "4.9.1",
+        "4.9.10",
+        "4.9.11",
+        "4.9.12",
+        "4.9.2",
+        "4.9.3",
+        "4.9.4",
+        "4.9.5",
+        "4.9.6",
+        "4.9.7",
+        "4.9.8",
+        "4.9.9"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-8hjv-92q9-g4xj/GHSA-8hjv-92q9-g4xj.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/micronaut-projects/micronaut-core/security/advisories/GHSA-8hjv-92q9-g4xj"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44241"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/micronaut-projects/micronaut-core"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/micronaut-projects/micronaut-core/releases/tag/v4.10.22"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-06T20:00:22Z",
+    "nvd_published_at": "2026-05-12T22:16:35Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "description": "Expected findings for the npm-malicious fixture. Source citations live alongside each row in vulnerabilities/supply-chain/malicious-packages/npm.json.",
+  "expected_findings": [
+    {
+      "ecosystem": "npm",
+      "package": "event-stream",
+      "version": "3.3.6",
+      "kind": "malicious",
+      "source": "vulnerabilities/supply-chain/malicious-packages/npm.json"
+    }
+  ],
+  "expected_clean": ["lodash", "react"]
+}

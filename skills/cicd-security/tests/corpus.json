@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "description": "Gate-driven corpus for cicd-security: each fixture is a GitHub Actions workflow run through the same PolicyCheck the CI gate uses. Filenames carry the .github/workflows/ prefix because the gate's dispatch requires it.",
+  "scanner": "gate",
+  "severity_floor": "medium",
+  "fixtures": [
+    {
+      "id": "pwn-request-checkout",
+      "filename": ".github/workflows/pwn.yml",
+      "text": "name: pr\non: pull_request_target\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@8edcb1bdb4e25140b69c05f6e2a13fe90568de4a\n        with:\n          ref: ${{ github.event.pull_request.head.sha }}\n      - run: npm install && npm test\n",
+      "expected": "detect",
+      "expected_rule": "gha-pr-target-no-untrusted-checkout",
+      "reason": "pull_request_target + checkout of attacker-controlled head = classic pwn request"
+    },
+    {
+      "id": "expression-injection-title",
+      "filename": ".github/workflows/inject.yml",
+      "text": "name: greet\non: issues\njobs:\n  greet:\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read\n    steps:\n      - run: echo \"New issue: ${{ github.event.issue.title }}\"\n",
+      "expected": "detect",
+      "expected_rule": "gha-no-untrusted-script-injection",
+      "reason": "attacker-controlled event field interpolated straight into a shell line"
+    },
+    {
+      "id": "unpinned-action",
+      "filename": ".github/workflows/unpinned.yml",
+      "text": "name: ci\non: push\njobs:\n  build:\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read\n    steps:\n      - uses: actions/checkout@main\n      - run: echo ok\n",
+      "expected": "detect",
+      "expected_rule": "gha-pin-actions-by-sha",
+      "reason": "mutable ref instead of a commit SHA pin"
+    },
+    {
+      "id": "hardened-clean",
+      "filename": ".github/workflows/clean.yml",
+      "text": "name: ci\non: push\npermissions:\n  contents: read\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@8edcb1bdb4e25140b69c05f6e2a13fe90568de4a\n      - run: echo ok\n",
+      "expected": "ignore",
+      "reason": "SHA-pinned action, least-privilege permissions, no tainted interpolation"
+    }
+  ]
+}

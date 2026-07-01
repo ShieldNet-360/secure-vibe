@@ -1,0 +1,792 @@
+# SecureVibe — full documentation
+
+Prevention-first security for AI-written code. This file concatenates the core docs for LLM ingestion. Source: https://shieldnet-360.github.io/secure-vibe/
+
+
+================================================================
+# SOURCE: docs/index.md
+================================================================
+
+
+<div class="ss-hero" markdown>
+
+# SecureVibe
+
+Prevention-first security for AI-written code. Signed security skills shape what your assistant writes, deterministic scanners back it up, and a CI gate blocks what slips through — across Claude Code, Cursor, Copilot, Codex, Windsurf, Cline, Antigravity, and Devin.
+
+<div class="ss-hero-shields">
+  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT">
+  <img src="https://img.shields.io/github/actions/workflow/status/shieldnet-360/secure-vibe/validate.yml?branch=main&label=CI" alt="CI">
+  <img src="https://img.shields.io/badge/skills-29-blue" alt="Skills">
+  <img src="https://img.shields.io/badge/CVE%20patterns-58-orange" alt="CVE patterns">
+  <img src="https://img.shields.io/badge/supply--chain%20ecosystems-9-purple" alt="Supply-chain ecosystems">
+  <img src="https://img.shields.io/badge/Secret%20patterns-83-red" alt="secret-detection patterns">
+  <img src="https://img.shields.io/badge/platforms-win%20%7C%20mac%20%7C%20linux-green" alt="Platforms">
+  <img src="https://img.shields.io/badge/AI%20clients-8-16a34a" alt="AI clients">
+</div>
+
+<div class="ss-hero-demo">
+  <img src="assets/demo.gif" alt="secure-code-check gate catching a typosquatted dependency and leaked secrets before commit" loading="eager">
+</div>
+
+```
+npx -p @shieldnet360/secure-code-mcp secure-code-check gate Dockerfile --severity-floor high
+```
+
+<div class="ss-hero-badges">
+  <a href="quickstart/">🚀 Quick Start</a>
+  <a href="https://github.com/shieldnet-360/secure-vibe">💻 GitHub</a>
+  <a href="https://github.com/shieldnet-360/secure-vibe/blob/main/ARCHITECTURE.md">🏗️ Architecture</a>
+  <a href="https://github.com/shieldnet-360/secure-vibe/blob/main/SIGNING.md">✍️ Signing</a>
+  <a href="https://github.com/shieldnet-360/secure-vibe/tree/main/cmd/secure-vibe">🛰️ MCP Server</a>
+</div>
+
+<div class="ss-stats">
+  <div class="ss-stat"><span class="ss-stat-value">29</span><span class="ss-stat-label">Skills</span></div>
+  <div class="ss-stat"><span class="ss-stat-value">58</span><span class="ss-stat-label">CVE Patterns</span></div>
+  <div class="ss-stat"><span class="ss-stat-value">9</span><span class="ss-stat-label">Supply-Chain Ecosystems</span></div>
+  <div class="ss-stat"><span class="ss-stat-value">83</span><span class="ss-stat-label">Secret Patterns</span></div>
+  <div class="ss-stat"><span class="ss-stat-value">8</span><span class="ss-stat-label">AI Client Integrations</span></div>
+</div>
+
+</div>
+
+<div class="ss-section" markdown>
+
+## The problem
+
+Your developers use Claude Code, Cursor, Copilot, and a dozen other AI coding assistants every day. They accept generated code that imports compromised packages, hardcodes API keys, opens SSRF holes, and ships unsafe deserialization patterns into production. Three structural gaps drive this:
+
+**1. AI assistants ship without current security context.** Training data is months or years stale. A package compromised yesterday is happily imported by the model today. CWE / OWASP rules live nowhere the assistant looks at generation time.
+
+**2. Supply-chain intel changes daily; static rules go stale.** Typosquats, malicious-package disclosures, and CVE-to-code patterns evolve every week. A rule file checked in last quarter is already wrong. You need delta-updatable, cryptographically signed intel — not yet another quarterly export.
+
+**3. Each AI vendor ships its own secret-handling rules, or nothing at all.** Claude has CLAUDE.md, Cursor has .cursorrules, Copilot has copilot-instructions.md, Codex has AGENTS.md — eight surfaces, eight formats, eight blind spots. There's no shared rule corpus and no on-demand lookup API that any of them can call.
+
+</div>
+
+<div class="ss-section" markdown>
+
+## Embed in 3 commands
+
+Everything ships on npm — no checkout, no Go toolchain. The package bundles the
+platform binary and the rule data; pick a surface.
+
+```bash
+# Drop the skills into a project (writes IDE config, e.g. CLAUDE.md)
+npx @shieldnet360/secure-code-skill init --tool claude
+```
+
+```bash
+# Or wire the MCP server so any MCP-speaking client can call its tools on demand
+claude mcp add secure-code -- npx -y @shieldnet360/secure-code-mcp
+```
+
+```bash
+# Or gate files from the terminal / CI / pre-commit (deterministic, exit code)
+npx -p @shieldnet360/secure-code-mcp secure-code-check gate Dockerfile package-lock.json --severity-floor high
+```
+
+`gate` picks the right scanner per file (Dockerfile / lockfile / workflow → specialised
+scanner; anything else → secret scan) and exits non-zero when a finding meets the floor.
+The data is bundled, so it runs fully offline.
+
+</div>
+
+<div class="ss-section" markdown>
+
+## How it works
+
+``` mermaid
+flowchart LR
+    AI["🤖 AI coding<br/>assistant"] -->|reads at session start| DIST["dist/CLAUDE.md<br/>(or 7 other formats)"]
+    AI -->|JSON-RPC on demand| MCP["secure-vibe mcp<br/>server"]
+    subgraph LIB [" SecureVibe library "]
+        direction TB
+        SK["skills/<br/>29 SKILL.md"]
+        VU["vulnerabilities/<br/>npm · pypi · cargo · gem · go ·<br/>nuget · maven · gh-actions · docker"]
+        CV["CVE patterns<br/>58 code-relevant"]
+        SECRETS["Secret patterns<br/>83 detection rules"]
+        CO["compliance/<br/>SOC2 · HIPAA · PCI"]
+    end
+    DIST --> LIB
+    MCP --> LIB
+    REL["GitHub Releases<br/>+ Ed25519 sig"] -->|secure-vibe update| LIB
+    LIB -->|policy check| DEC{"Allow /<br/>Block /<br/>Redact"}
+    DEC --> AI
+```
+
+Every surface is optional. Drop a static `CLAUDE.md` for zero-config baseline coverage. Add the MCP server to get on-demand vulnerability lookups, dependency scans, and Dockerfile hardening checks without spending tokens until they're actually needed.
+
+</div>
+
+<div class="ss-section" markdown>
+
+## Components
+
+<div class="ss-cards">
+<a class="ss-card" data-pkg="skills" href="https://github.com/shieldnet-360/secure-vibe/tree/main/skills">
+<span class="ss-card-icon">🧠</span>
+<span class="ss-card-body"><span class="ss-card-title">Skill Catalogue</span>
+<span class="ss-card-desc">29 structured security skills, machine-readable, ranked by severity. Three token tiers (minimal / compact / full) per skill.</span></span>
+</a>
+<a class="ss-card" data-pkg="cve" href="https://github.com/shieldnet-360/secure-vibe/tree/main/vulnerabilities/cve">
+<span class="ss-card-icon">🛡️</span>
+<span class="ss-card-body"><span class="ss-card-title">CVE Patterns</span>
+<span class="ss-card-desc">58 code-relevant CVE detection patterns — what the diff looks like, not just which version is bad.</span></span>
+</a>
+<a class="ss-card" data-pkg="supply" href="threat-intel/">
+<span class="ss-card-icon">📦</span>
+<span class="ss-card-body"><span class="ss-card-title">Supply-Chain Intel</span>
+<span class="ss-card-desc">3,623 web-cited malicious-package entries across 10 ecosystems + typosquats. Browse the curated canon →</span></span>
+</a>
+<a class="ss-card" data-pkg="secrets" href="https://github.com/shieldnet-360/secure-vibe/tree/main/skills/secret-detection">
+<span class="ss-card-icon">🔐</span>
+<span class="ss-card-body"><span class="ss-card-title">Secret Patterns</span>
+<span class="ss-card-desc">83 secret-detection patterns optimised for AI-assistant context, with entropy and hotword-proximity scoring.</span></span>
+</a>
+<a class="ss-card" data-pkg="signing" href="https://github.com/shieldnet-360/secure-vibe/blob/main/SIGNING.md">
+<span class="ss-card-icon">✍️</span>
+<span class="ss-card-body"><span class="ss-card-title">Ed25519 Signing</span>
+<span class="ss-card-desc">Cryptographically signed manifest updates. YubiKey-backed signing, verify-before-replace, atomic atomic writes.</span></span>
+</a>
+<a class="ss-card" data-pkg="cli" href="quickstart/">
+<span class="ss-card-icon">⚡</span>
+<span class="ss-card-body"><span class="ss-card-title">CLI + MCP Server</span>
+<span class="ss-card-desc"><code>secure-vibe</code> Go binary for init / validate / update / regenerate / gate. <code>secure-vibe mcp</code> exposes 16 JSON-RPC tools.</span></span>
+</a>
+<a class="ss-card" data-pkg="compliance" href="https://github.com/shieldnet-360/secure-vibe/tree/main/compliance">
+<span class="ss-card-icon">📋</span>
+<span class="ss-card-body"><span class="ss-card-title">Compliance Evidence</span>
+<span class="ss-card-desc">Automated SOC 2 / HIPAA / PCI-DSS control coverage reports. <code>secure-vibe dev evidence --framework SOC2</code>.</span></span>
+</a>
+<a class="ss-card" data-pkg="enterprise" href="https://github.com/shieldnet-360/secure-vibe/tree/main/profiles">
+<span class="ss-card-icon">🏢</span>
+<span class="ss-card-body"><span class="ss-card-title">Enterprise Profiles</span>
+<span class="ss-card-desc">Locked policy bundles for managed deployments: financial-services, healthcare, government. <code>--profile</code> on init / regenerate.</span></span>
+</a>
+</div>
+</div>
+
+<div class="ss-section" markdown>
+
+## AI Client Integrations
+
+Eight first-class targets. Same skills, same library, eight rendered output formats.
+
+| Client | Config file | Format | Token tier (default) | Embed |
+|---|---|---|---|---|
+| **Claude Code** | `CLAUDE.md` | markdown | compact | `secure-vibe init --tool claude` |
+| **Cursor** | `.cursorrules` | flat instructions | compact | `secure-vibe init --tool cursor` |
+| **GitHub Copilot** | `.github/copilot-instructions.md` | markdown | compact | `secure-vibe init --tool copilot` |
+| **OpenAI Codex** | `AGENTS.md` | agent-oriented | compact | `secure-vibe init --tool codex` |
+| **Windsurf** | `.windsurfrules` | flat instructions | compact | `secure-vibe init --tool windsurf` |
+| **Cline / OpenCode** | `.clinerules` | flat instructions | compact | `secure-vibe init --tool cline` |
+| **Antigravity** | `AGENTS.md` (shared) | agent-oriented | compact | `secure-vibe init --tool codex` |
+| **Devin** | `devin.md` | full markdown | full | `secure-vibe init --tool devin` |
+
+Native skill bundles are also produced for the three clients that support per-skill directories: `agent-skills/.agents/skills/`, `claude-skills/.claude/skills/`, `copilot-skills/.github/skills/`.
+
+For MCP-aware clients (Claude Code, Cursor, etc.), `secure-vibe mcp` exposes 16 JSON-RPC tools — `lookup_vulnerability`, `scan_dependencies`, `scan_dockerfile`, `scan_github_actions`, `check_secret_pattern`, `map_compliance_control`, `gate`, and 9 more — so the assistant can ask for security context on demand instead of loading the whole rule corpus into its prompt.
+
+</div>
+
+<div class="ss-section" markdown>
+
+## Signing model
+
+Releases are signed with **Ed25519**. The CLI embeds the production public key at build time via `-ldflags -X` and refuses to apply any update whose manifest signature doesn't verify against a trusted key. Multiple trusted keys can be configured for staging vs production rollouts.
+
+Every file in a release manifest carries a SHA-256 checksum. Updates verify the manifest signature first, then each file's checksum, then `rename`-atomic-write the file into place. A crash mid-update leaves the previous version intact. Private keys are held offline on YubiKeys — never in CI secrets, never on disk.
+
+See [SIGNING.md](https://github.com/shieldnet-360/secure-vibe/blob/main/SIGNING.md) for the full key-management policy and rotation procedure.
+
+</div>
+
+<div class="ss-section" markdown>
+
+## Compliance coverage
+
+Generate a control coverage report for any of three frameworks. Output is markdown or JSON, timestamped, with per-control source citations back into the skill files that satisfy it.
+
+```bash
+secure-vibe dev evidence --framework SOC2    --format markdown --out evidence-soc2.md
+secure-vibe dev evidence --framework HIPAA   --format json
+secure-vibe dev evidence --framework PCI-DSS --format markdown
+```
+
+| Standard | Mapping file | Notes |
+|---|---|---|
+| [OWASP Top 10 2025](https://owasp.org/Top10/) | `compliance/owasp_top10_2025.yaml` | Per-CWE coverage from the skill catalogue. |
+| [CWE Top 25](https://cwe.mitre.org/top25/) | `compliance/cwe_top25.yaml` | Each CWE maps to the skills that detect it. |
+| SOC 2 (CC series) | `compliance/soc2_mapping.yaml` | Developer-facing coverage map, not a substitute for a real audit. |
+| HIPAA Security Rule | `compliance/hipaa_mapping.yaml` | Same — pair with runtime evidence, change-management records, access reviews. |
+| PCI-DSS v4.0 | `compliance/pci_dss_mapping.yaml` | Card-data-handling controls. |
+| FedRAMP / NIST SP 800-53 Rev 5 | `profiles/government.yaml` | Profile-locked subset for public-sector deployments. |
+
+The mappings are YAML, version-controlled, and contributable — open a PR against the file to add or correct a control linkage.
+
+</div>
+
+================================================================
+# SOURCE: docs/quickstart.md
+================================================================
+
+
+================================================================
+# SOURCE: docs/concepts/why.md
+================================================================
+
+
+================================================================
+# SOURCE: docs/concepts/features.md
+================================================================
+
+
+## 2. Zero-false-positive curated DB
+
+**What it is.** A curated malicious-package database of **3,623 entries across 10 ecosystems** (npm 1833, pypi 618, nuget 608, rubygems 456, plus curated composer / crates / docker / maven / go / github-actions). Every curated entry is web-cited. Lookups are exact-match, so a hit means a *known* bad package — never a guess.
+
+**Why it matters.** Exact-match against a hand-verified list means **zero false positives**. The primary use is at generation time: "about to import this dependency?" — the assistant or the `scan-dependencies` scanner can check the name before the import lands. A curated, cited list is the data moat — it's defensible because it's verified, not scraped.
+
+**Why it works as a moat.** A small, web-cited, exact-match list is something a heuristic scanner can't fake: there are no near-misses to argue about, and every entry has a citation behind it.
+
+!!! warning "Honest limit"
+    This is **curated known-bad data, not an all-knowing SCA**. It catches packages someone has already verified and listed — it does not discover novel malicious packages on its own. It is **not** marketed as "our DB vs Snyk's"; it is a precise, zero-FP exact-match layer that feeds prevention, not a comprehensive supply-chain replacement.
+
+
+## 3. The LEARN / contribution loop
+
+**What it is.** A signed flywheel for turning one person's finding into shared protection. You add a package locally; it propagates outward through three scopes.
+
+1. **You** — `secure-vibe contribute add -p <pkg> -e <npm|pypi|...>` writes a **signed** local overlay at `.secure-vibe/overlay.json`. The gate blocks that package on the next run.
+2. **Team** — commit the overlay file. Git is the fan-out; everyone on the repo inherits the block.
+3. **Org** — point `$SECURE_VIBE_OVERLAY` at a path-list of overlays to layer team → org coverage.
+4. **Peer-to-peer** — `contribute submit --sign` produces a signed contribution; a maintainer runs `contribute verify` then `contribute import`. Import is **signature-gated** (`--allow-unsigned` is an explicit opt-in). Keys come from `contribute keygen`.
+
+**Why it matters.** This is the defensible flywheel. Every block one person adds can become herd immunity for their team, their org, and the wider network — and because every step is signed, trust scales without a central server. The more it's used, the more it's worth, and the data stays verifiable end to end.
+
+```mermaid
+flowchart LR
+    Y[You<br/>signed overlay] -->|commit| T[Team<br/>git fan-out]
+    T -->|$SECURE_VIBE_OVERLAY| O[Org<br/>overlay path-list]
+    Y -->|submit --sign| P[Peer maintainer<br/>verify + import]
+    P -->|signature-gated| N[Network<br/>herd immunity]
+    style Y fill:#dff,stroke:#08a
+    style N fill:#dfd,stroke:#0a0
+```
+
+!!! tip "Honest limit"
+    The loop's value is proportional to participation, and there are **no production users yet** — the flywheel is built and signature-safe, but it hasn't spun up at scale. The mechanism is real; the network effect is still ahead.
+
+
+## 4. Signed self-update
+
+**What it is.** `secure-vibe self-update` fetches a signed release manifest and verifies it before touching anything: it checks a **detached Ed25519 signature** against the binary's embedded public key, then verifies **SHA-256 checksums** per file, then performs an **atomic rename** (crash-safe). The private signing key is held offline.
+
+**Why it matters.** A security tool that updates itself is a supply-chain target. SecureVibe applies its own trust model to its own updates: nothing is replaced unless both the signature and the checksum pass, so a tampered or man-in-the-middle'd release is rejected rather than installed. It works offline and requires no API key.
+
+| Step | Check | On failure |
+| --- | --- | --- |
+| 1 | Detached Ed25519 signature vs embedded public key | Abort — no replacement |
+| 2 | SHA-256 checksum per file | Abort — no replacement |
+| 3 | Atomic rename of the binary | Crash-safe; old binary intact |
+
+!!! note "Honest limit"
+    Signed self-update guarantees the integrity of *what you receive*, not the absence of bugs in *what was signed*. It proves the release came from the holder of the offline key unmodified — it can't vouch for code the key-holder shipped in good faith.
+
+
+## 5. Four high-precision scanners
+
+**What it is.** Deterministic, offline scanners for the four highest-signal shapes: **secrets**, **dependencies** (malicious / typosquat / CVE / OSV), **Dockerfile**, and **GitHub Actions**. They run via `scan-secrets`, `scan-dependencies`, `scan-dockerfile`, `scan-github-actions`, and the `gate` auto-picks the right scanner per file.
+
+**Why it matters.** Where they fire, they fire precisely — and precision is what makes a gate usable in CI without drowning developers in noise. The measured results:
+
+- **Secret scanner: 100% precision / 100% recall** versus gitleaks' 92.4% / 65.9% (76.9 F1) — **on SecureVibe's own tuned corpus ("on the shapes we tested")**. The honest signal here is gitleaks' *recall gap*, not a universal claim of superiority.
+- **The three structured scanners (deps / Dockerfile / GitHub Actions): 100% precision / recall on the committed eval corpus** — this is **prevention ground-truth on a fixed corpus, not a claim of universal detection**.
+
+!!! warning "Honest limit"
+    Detection is **narrow by design** — four scanners, not a general-purpose SAST. The numbers above are measured on *our* corpora and shapes; they are not universal benchmarks. The tool catches **known patterns** and **misses novel or semantic bugs** — that's the accepted, deliberate trade-off of a deterministic keyless scanner.
+
+
+## 6. MCP-native
+
+**What it is.** `secure-vibe mcp` exposes **16 tools** over stdio that an assistant can call on demand — including `scan_dependencies`, `scan_secrets`, `scan_dockerfile`, `scan_github_actions`, `lookup_vulnerability`, `check_secret_pattern`, `map_compliance_control`, and `gate`. Add it to Claude Code with:
+
+```bash
+claude mcp add secure-vibe -- npx -y @shieldnet360/secure-code-mcp
+```
+
+**Why it matters.** Because the capabilities are MCP tools, the assistant invokes them *as part of its own reasoning loop* — checking a dependency or running the gate mid-task rather than waiting for a separate CI step. It works across **8 assistants**: Claude Code, Cursor, GitHub Copilot, Codex, Windsurf, Cline/OpenCode, Antigravity, and Devin.
+
+!!! note "Honest limit"
+    MCP makes the scanners callable, but it doesn't widen what they detect — the same narrow-by-design coverage applies whether a tool is invoked over MCP or from the CLI.
+
+
+## 7. Offline, MIT, signed
+
+**What it is.** SecureVibe is **MIT-licensed**, **fully offline**, and **Ed25519-signed**. There is **no telemetry, no cloud dependency, and no API key required**.
+
+**Why it matters.** Security tooling that phones home is itself a risk surface. SecureVibe runs entirely on your machine, sends nothing anywhere, and ships with verifiable signatures — so you can audit it, run it in an air-gapped environment, and trust the bytes you got. The open-core boundary is honest: the paid surface is **scale and trust-infrastructure** (a central signing pipeline, a private registry, fleet policy, SLAs) — **never** a paywalled security fix.
+
+!!! note "Honest limit"
+    Offline and keyless means the tool has only what's bundled or in your overlays — there is no live cloud lookup pulling the latest intelligence on every run. Freshness is your responsibility (`secure-vibe status --fail-if-stale`, `update` / `fetch-vulns`).
+
+
+!!! warning "Honest about the limits"
+    SecureVibe is deliberately narrow. Detection is **four scanners by design**, not a comprehensive SAST and not a replacement for one. It catches **known patterns** and **misses novel or semantic vulnerabilities** — the accepted trade-off of a deterministic, keyless, offline tool. The measured results above are on *our* corpora and shapes, not universal benchmarks. And the project has **no production users yet**: the prevention lane, the signed DB, and the contribution flywheel are real and built, but the network effects they're designed for are still ahead. What's special here is the *lane* — prevention at generation time, backed by verifiable, offline, signed trust infrastructure — not a claim to catch everything.
+
+================================================================
+# SOURCE: docs/concepts/comparison.md
+================================================================
+
+
+================================================================
+# SOURCE: docs/concepts/benchmarks.md
+================================================================
+
+
+================================================================
+# SOURCE: docs/concepts/architecture.md
+================================================================
+
+
+================================================================
+# SOURCE: docs/reference/cli.md
+================================================================
+
+
+## IDE integration
+
+Generate the per-assistant configuration that feeds security skills into your coding agent at generation time.
+
+### `init`
+
+Write an IDE-specific config file into the current project (e.g. `CLAUDE.md`, `.cursorrules`, `.github/copilot-instructions.md`, `AGENTS.md`, `.windsurfrules`, `.clinerules`, `devin.md`, or the universal `SECURITY-SKILLS.md`).
+
+```text
+secure-vibe init --tool <tool> [flags]
+```
+
+| Flag | Description |
+|------|-------------|
+| `--tool` | Target tool (required): `claude`, `cursor`, `copilot`, `codex`, `agents`, `windsurf`, `devin`, `cline`, `universal`. |
+| `--library` | Path to the secure-vibe checkout (default `.`). |
+| `--skills` | Comma-separated skill IDs to include (narrows a `--profile` selection when combined). |
+| `--budget` | Tier override: `minimal` \| `compact` \| `full`. |
+| `--out` | Output directory (default: cwd). |
+| `--profile` | Enterprise profile, e.g. `financial-services`, `healthcare`, `government` — restricts the skill set. |
+| `--no-prompt` | Skip the interactive prompt to set up scheduled updates. |
+| `--full-inline` | Render the legacy monolithic per-tool output that inlines every skill body (default is the minimal pointer file). |
+| `--legacy` | Alias for `--full-inline`. |
+
+```bash
+secure-vibe init --tool claude
+secure-vibe init --tool cursor --profile financial-services
+```
+
+
+## Contribute / LEARN loop
+
+Record a locally-discovered bad package so the gate blocks it immediately — the rule never leaves your machine unless you choose to share it. Overlay scopes, in increasing blast radius:
+
+- **You** — `.secure-vibe/overlay.json` is read by every `check` / `scan` / `gate` run.
+- **Team** — commit `.secure-vibe/overlay.json`; git is the fan-out.
+- **Org** — point `$SECURE_VIBE_OVERLAY` at a shared overlay file (OS path-list separated for more than one); every invocation folds it in.
+
+```mermaid
+flowchart LR
+  A[contribute add] --> B[.secure-vibe/overlay.json]
+  B --> C[gate blocks it next run]
+  B -- commit --> D[team gates enforce]
+  A2[contribute submit --key] --> E[candidate.json]
+  E --> F[contribute verify]
+  F --> G[contribute import]
+  G --> B
+```
+
+### `contribute add`
+
+Add or update a bad-package rule in the local overlay.
+
+```text
+secure-vibe contribute add -p <package> -e <ecosystem> [flags]
+```
+
+| Flag | Description |
+|------|-------------|
+| `-p`, `--package` | Package name (required). |
+| `-e`, `--ecosystem` | Ecosystem: `npm`, `pypi`, `crates`, `go`, `rubygems`, `maven`, `nuget`, `composer` (required). |
+| `--versions` | Affected versions/ranges (comma-separated; default: all versions). |
+| `--severity` | `critical` \| `high` \| `medium` \| `low` (default `high` so the gate blocks). |
+| `--type` | Finding type label. |
+| `--reason` | Why this package is flagged (shown in the finding). |
+| `--references` | Evidence URLs (comma-separated). |
+| `--by` | Contributor identifier (default: `$USER`). |
+| `--key` | Ed25519 private key (PEM) to sign the entry for provenance. |
+| `--dir` | Project directory holding `.secure-vibe/overlay.json` (default: cwd). |
+
+```bash
+secure-vibe contribute add -p evil-pkg -e npm --reason "exfiltrates AWS creds in postinstall"
+secure-vibe contribute add -p left-pad -e npm --versions 1.0.0,1.1.0 --key ~/key.pem
+```
+
+### `contribute list`
+
+List the rules in the local overlay.
+
+| Flag | Description |
+|------|-------------|
+| `--dir` | Project directory (default: cwd). |
+| `--json` | Emit the raw overlay JSON. |
+
+### `contribute remove`
+
+Remove a rule from the local overlay.
+
+```text
+secure-vibe contribute remove -p <package> -e <ecosystem> [flags]
+```
+
+| Flag | Description |
+|------|-------------|
+| `-p`, `--package` | Package name (required). |
+| `-e`, `--ecosystem` | Ecosystem (required). |
+| `--dir` | Project directory (default: cwd). |
+
+### `contribute keygen`
+
+Generate an Ed25519 keypair for signing contributions.
+
+| Flag | Description |
+|------|-------------|
+| `--out` | Path to write the Ed25519 private key (PEM, `0600`); the public key is written to `<out>.pub`. Required. |
+
+```bash
+secure-vibe contribute keygen --out ~/secure-vibe-contrib.pem
+```
+
+### `contribute submit`
+
+Export the overlay as a portable, optionally-signed candidate file to share upstream. Nothing is uploaded — this only writes a file.
+
+| Flag | Description |
+|------|-------------|
+| `--out` | Write the candidate to this file (default: stdout). |
+| `--package` | Submit only this package's rule (default: all). |
+| `--key` | Ed25519 private key to sign the candidate for provenance. |
+| `--dir` | Project directory (default: cwd). |
+
+```bash
+secure-vibe contribute submit --key ~/secure-vibe-contrib.pem --out candidate.json
+```
+
+### `contribute verify`
+
+Verify the signatures on a submitted candidate file. Exits non-zero if any signature is missing or invalid.
+
+```text
+secure-vibe contribute verify <candidate.json>
+```
+
+### `contribute import`
+
+Merge a shared candidate file into the local overlay. A signed candidate must verify before any rule is adopted; an unsigned one is refused unless `--allow-unsigned`.
+
+```text
+secure-vibe contribute import <candidate.json> [flags]
+```
+
+| Flag | Description |
+|------|-------------|
+| `--allow-unsigned` | Import a candidate that carries no signature/provenance. |
+| `--dir` | Project directory (default: cwd). |
+
+
+## Update & freshness
+
+### `status`
+
+Report how fresh the local skills + vulnerability data is, with a freshness verdict.
+
+| Flag | Description |
+|------|-------------|
+| `--path` | Library root (default: `$SECURE_VIBE_LIBRARY_PATH`, else cwd). |
+| `--json` | Emit the report as JSON. |
+| `--fail-if-stale` | Exit non-zero when the vulnerability data is older than 30 days (CI gate). |
+| `--max-age-days` | Exit non-zero when the data is older than this many days (overrides `--fail-if-stale`). |
+
+```bash
+secure-vibe status
+secure-vibe status --fail-if-stale
+```
+
+### `update`
+
+Pull the latest signed skills and vulnerability data from a release channel. Verifies the signed manifest, downloads only files whose SHA-256 differs, and atomically writes them in.
+
+| Flag | Description |
+|------|-------------|
+| `--source` | Update source: https URL, `file:///path`, local directory, or `.tar.gz` tarball. |
+| `--path` | Library root to apply the update into. |
+| `--check-only` | Fetch and verify the manifest, then print available updates without applying. |
+| `--regenerate` | Regenerate `dist/` from `skills/` after applying. |
+| `--rollback` | Restore the previous applied update from `.secure-vibe-previous/`. |
+| `--public-key` | Ed25519 public key file used to verify the manifest (default: embedded). |
+| `--skip-signature` | Skip signature verification (testing / bootstrap only). |
+| `--quiet` | Suppress non-essential output. |
+| `--full-inline` | With `--regenerate`, keep the legacy inlined output. |
+| `--legacy` | Alias for `--full-inline`. |
+
+```bash
+secure-vibe update --check-only
+secure-vibe update --regenerate
+```
+
+### `fetch-vulns`
+
+Populate the user-local OSV cache (under `$SECURE_VIBE_MCP_CACHE`, falling back to `$XDG_CACHE_HOME/secure-vibe/vulns`, then `~/.cache/secure-vibe/vulns`) from osv.dev or a pre-built release asset.
+
+| Flag | Description |
+|------|-------------|
+| `--path` | Library root (used to locate `scripts/ingest-osv.py`). |
+| `--cache-dir` | Override the cache root. |
+| `--per-ecosystem` | Max advisories per ecosystem (`0` = full archive, recommended). |
+| `--only` | Limit to the named ecosystem(s); repeat or comma-separate. Known: `composer`, `crates`, `go`, `maven`, `npm`, `nuget`, `pub`, `pypi`, `rubygems`, `swift`. |
+| `--ordering` | Ordering passed to the ingest script: `stride` \| `latest-first`. |
+| `--check` | Verify the cache is present and fresh; do not download. |
+| `--max-age-days` | Cache is stale when older than this many days (default 7). |
+| `--verbose` | Pass `--verbose` through to the ingest script. |
+| `--from-release` | Download the pre-built `osv-cache.tar.gz` from a GitHub release instead of hitting osv.dev. |
+| `--release-tag` | Release tag to pull from with `--from-release` (default `latest`). |
+| `--release-url` | Explicit URL of the `osv-cache.tar.gz` asset; overrides `--release-tag`. |
+
+```bash
+secure-vibe dev fetch-vulns --from-release
+secure-vibe dev fetch-vulns --only npm,pypi --check
+```
+
+### `self-update`
+
+Download the latest `secure-vibe` binary matching the running GOOS/GOARCH from GitHub Releases, verify its SHA-256 against the published checksum file, verify that file's Ed25519 signature against the embedded release key, and atomically replace the running binary.
+
+| Flag | Description |
+|------|-------------|
+| `--base-url` | Override the base URL the binary and checksum file are fetched from. |
+| `--dry-run` | Verify the download without replacing the on-disk binary. |
+| `--require-signature` | Fail unless the checksum file carries a valid Ed25519 signature (strict mode). |
+
+```bash
+secure-vibe self-update --dry-run
+secure-vibe self-update --require-signature
+```
+
+### `scheduler`
+
+Install or remove a background scheduled update (launchd / systemd / Task Scheduler depending on OS).
+
+| Subcommand | Description |
+|------------|-------------|
+| `scheduler install` | Install a recurring update task. Flags: `--interval` (default `6h`), `--binary` (default: current binary), `--quiet` (default true). |
+| `scheduler remove` | Remove the scheduled update from this host. |
+| `scheduler status` | Show whether a scheduled update is installed. |
+| `scheduler preview` | Print the launchd/systemd/Task Scheduler artifact that would be written. Flags: `--interval`, `--binary`, `--target` (`darwin` \| `linux` \| `windows`). |
+
+```bash
+secure-vibe dev scheduler install --interval 12h
+secure-vibe dev scheduler preview --target linux
+```
+
+
+## Compliance
+
+### `evidence`
+
+Emit a compliance coverage report mapping installed skills onto the controls of a framework. It is a developer-facing coverage map, not a full audit artifact.
+
+| Flag | Description |
+|------|-------------|
+| `--framework` | Compliance framework: `SOC2` \| `HIPAA` \| `PCI-DSS` (required). |
+| `--format` | `json` (default) \| `markdown`. |
+| `--out` | Write report to this file; `-` or empty for stdout. |
+| `--library` | Path to the skills library root (default `.`). |
+
+```bash
+secure-vibe dev evidence --framework SOC2 --format markdown --out soc2-coverage.md
+```
+
+### `configure`
+
+Write or update `.secure-vibe.yaml` for private-repo / org deployments (update source, signing key, default profile, bearer-token env).
+
+| Flag | Description |
+|------|-------------|
+| `--dir` | Directory containing `.secure-vibe.yaml` (default `.`). |
+| `--source` | Custom update source URL (e.g. `https://skills.internal/`). |
+| `--bearer-token-env` | Env var holding a bearer token (e.g. `SECURE_VIBE_LIBRARY_TOKEN`). |
+| `--trusted-key` | Additional Ed25519 public key file (repeatable). |
+| `--profile` | Default enterprise profile name. |
+| `--skills` | Comma-separated default skill set. |
+| `--clear-trusted-keys` | Remove existing `trusted_key_paths` before adding new ones. |
+| `--clear` | Reset the entire config to defaults before applying flags. |
+| `--insecure-allow-http-token` | Permit bearer-token auth over plaintext `http://` (internal networks only; OFF by default). |
+
+```bash
+secure-vibe configure \
+    --source https://skills.internal.example.com \
+    --trusted-key /etc/skills/orgkey.pem \
+    --bearer-token-env SECURE_VIBE_LIBRARY_TOKEN
+```
+
+
+## Maintenance & build
+
+Commands used when authoring skills or building the library distribution.
+
+### `list`
+
+List skills with category, severity, and per-tier token counts.
+
+| Flag | Description |
+|------|-------------|
+| `--path` | Library root. |
+| `--category` | Filter by category. |
+
+### `coverage`
+
+Show, per skill, which `<!-- pattern: ... -->` markers the gate enforces deterministically vs. which it leaves to the agent.
+
+```text
+secure-vibe dev coverage [skill-id] [flags]
+```
+
+| Flag | Description |
+|------|-------------|
+| `--path` | Library root (default: `$SECURE_VIBE_LIBRARY_PATH`, else cwd). |
+
+### `validate`
+
+Validate `SKILL.md` frontmatter, rule files, and token budgets. Exits non-zero on any problem.
+
+| Flag | Description |
+|------|-------------|
+| `--path` | Library root. |
+
+### `test`
+
+Run a skill's bundled test corpus (`skills/<id>/tests/corpus.json`) and report pass/fail. Exits non-zero on any failure.
+
+```text
+secure-vibe dev test <skill-id> [flags]
+```
+
+| Flag | Description |
+|------|-------------|
+| `--library` | Path to the skills library root (default `.`). |
+| `--verbose` | Print one line per fixture. |
+
+```bash
+secure-vibe dev test secret-detection --verbose
+```
+
+### `new`
+
+Scaffold a new skill directory under `skills/<id>/` with template frontmatter, section stubs, a starter rule file, and a test corpus.
+
+```text
+secure-vibe dev new <skill-id> [flags]
+```
+
+| Flag | Description |
+|------|-------------|
+| `--library` | Path to the skills library root. |
+| `--title` | Human-readable title (defaults to a humanized id). |
+| `--description` | One-line description. |
+| `--category` | `prevention` \| `detection` \| `compliance` \| `supply-chain` \| `hardening` (default `prevention`). |
+| `--severity` | `low` \| `medium` \| `high` \| `critical` (default `high`). |
+| `--languages` | Comma-separated language list, or `*` for any. |
+| `--rules-kind` | Scaffold a `rules/` or `checklists/` directory (default `rules`). |
+| `--force` | Overwrite `skills/<id>/` if it already exists. |
+
+```bash
+secure-vibe dev new my-skill --title "My Skill" --category prevention --severity high
+```
+
+### `regenerate`
+
+Rebuild the `dist/` files from the current `skills/`.
+
+| Flag | Description |
+|------|-------------|
+| `--path` | Library root. |
+| `--tool` | Single tool to regenerate (default all). |
+| `--budget` | Override tier: `minimal` \| `compact` \| `full`. |
+| `--profile` | Enterprise profile (e.g. `financial-services`). |
+| `--full-inline` | Render the legacy monolithic per-tool output. |
+| `--legacy` | Alias for `--full-inline`. |
+| `--skip-native` | Skip emitting the native skill bundles. |
+
+### `generate-native`
+
+Generate the native skill bundles (`dist/agent-skills`, `dist/copilot-skills`, `dist/claude-skills`) without regenerating the per-tool files.
+
+| Flag | Description |
+|------|-------------|
+| `--path` | Library root. |
+
+### `derive-checklists`
+
+Derive `checklists/*.yaml` from a skill's `SKILL.md` HTML-comment pattern markers (`<!-- pattern: { id, severity, cwe } -->`). Existing manual rows are preserved (merge semantics).
+
+```text
+secure-vibe dev derive-checklists <skill-id> [flags]
+```
+
+| Flag | Description |
+|------|-------------|
+| `--path` | Path to the secure-vibe checkout (default cwd). |
+| `--framework` | Target checklist framework when the skill has more than one (must match the YAML basename). |
+| `--check` | Dry-run; exit 1 if any target YAML differs from the derived form (CI drift gate). |
+
+### `manifest`
+
+Inspect, recompute, sign, and verify the root `manifest.json` (the per-file SHA-256 + Ed25519 signature that anchors `update` and `self-update` trust).
+
+| Subcommand | Description |
+|------------|-------------|
+| `manifest compute` | Walk distributable roots and update checksums. Flags: `--path`, `--write`, `--prune`. |
+| `manifest verify` | Verify the manifest signature and per-file checksums. Flags: `--path`, `--public-key`, `--checksums-only`. |
+| `manifest sign` | Sign `manifest.json` with an Ed25519 private key. Flags: `--path`, `--key` (required). |
+| `manifest sign-file` | Write a detached `<file>.sig` signature for a release artifact. Flags: `--key` (required), `--out`. |
+| `manifest verify-file` | Verify a detached signature for a release artifact. Flags: `--public-key`, `--sig`. |
+| `manifest delta` | Compute a delta patch between two manifest files. Flags: `--from` (required), `--to` (required), `--out`. |
+
+```bash
+secure-vibe dev manifest compute --path . --write
+secure-vibe dev manifest verify --checksums-only
+```
+
+### `version`
+
+Print the CLI version, library version, embedded signing-key id, and Go version.
+
+| Flag | Description |
+|------|-------------|
+| `--path` | Library root containing `manifest.json`. |
+
+
+## See also
+
+- [Quick start](../quickstart.md)
+- [Developer guide](../guides/developer.md)
+- [Contribute](../contribute.md)
+
+================================================================
+# SOURCE: docs/reference/mcp-tools.md
+================================================================
+
+
+================================================================
+# SOURCE: docs/contribute.md
+================================================================
+

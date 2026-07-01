@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "auth-security",
+  "language": "python",
+  "insecure_signals": [
+    "verify_signature['\\\"]?\\s*:\\s*False",
+    "algorithms\\s*=\\s*\\[[^\\]]*['\\\"]none",
+    "jwt\\.decode\\([^)]*verify_signature"
+  ],
+  "secure_signals": [
+    "algorithms\\s*=\\s*\\[\\s*['\\\"]HS256['\\\"]\\s*\\]",
+    "algorithms\\s*=\\s*\\[\\s*['\\\"]RS256['\\\"]\\s*\\]"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-347"
+}

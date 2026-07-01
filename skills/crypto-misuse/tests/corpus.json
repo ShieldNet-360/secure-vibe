@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the crypto-misuse skill. No deterministic gate scanner judges broken-primitive choices, so this is a schema-driven corpus: the runner smoke-validates fixture shape, and the detect/ignore pairs double as ground truth for the LLM eval harness. detect = a broken primitive the skill forbids; ignore = the library the skill mandates.",
+  "fixtures": [
+    {
+      "id": "md5-password-hash",
+      "text": "const crypto = require('crypto'); function hashPassword(pw) { return crypto.createHash('md5').update(pw).digest('hex'); }",
+      "expected": "detect",
+      "reason": "fast hash (MD5) used for passwords — no work factor, trivially brute-forced (CWE-916)"
+    },
+    {
+      "id": "argon2-password-hash",
+      "text": "const argon2 = require('argon2'); async function hashPassword(pw) { return argon2.hash(pw, { type: argon2.argon2id, memoryCost: 65536, timeCost: 3, parallelism: 1 }); }",
+      "expected": "ignore",
+      "reason": "argon2id slow KDF with RFC 9106 parameters"
+    },
+    {
+      "id": "math-random-token",
+      "text": "function resetToken() { let t = ''; for (let i = 0; i < 32; i++) t += Math.floor(Math.random() * 16).toString(16); return t; }",
+      "expected": "detect",
+      "reason": "Math.random() is not a CSPRNG — predictable reset token (CWE-338)"
+    },
+    {
+      "id": "crypto-randombytes-token",
+      "text": "const crypto = require('crypto'); function resetToken() { return crypto.randomBytes(32).toString('hex'); }",
+      "expected": "ignore",
+      "reason": "cryptographically secure RNG"
+    },
+    {
+      "id": "aes-ecb-mode",
+      "text": "const crypto = require('crypto'); function encrypt(plain, key) { const cipher = crypto.createCipheriv('aes-256-ecb', key, null); return Buffer.concat([cipher.update(plain), cipher.final()]); }",
+      "expected": "detect",
+      "reason": "ECB mode leaks plaintext structure and has no integrity (CWE-327)"
+    },
+    {
+      "id": "aes-gcm-mode",
+      "text": "const crypto = require('crypto'); function encrypt(plain, key) { const iv = crypto.randomBytes(12); const cipher = crypto.createCipheriv('aes-256-gcm', key, iv); const ct = Buffer.concat([cipher.update(plain), cipher.final()]); return { iv, ct, tag: cipher.getAuthTag() }; }",
+      "expected": "ignore",
+      "reason": "authenticated AES-GCM with a random IV"
+    }
+  ]
+}

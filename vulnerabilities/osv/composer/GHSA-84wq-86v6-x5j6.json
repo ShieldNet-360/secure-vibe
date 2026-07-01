@@ -1,0 +1,297 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-84wq-86v6-x5j6",
+  "published": "2026-04-29T20:23:27Z",
+  "modified": "2026-05-13T16:57:37.364731Z",
+  "aliases": [
+    "CVE-2026-40863"
+  ],
+  "summary": "PhpSpreadsheet has CPU Denial of Service via Unbounded Row Index in SpreadsheetML XML Reader",
+  "affected": [
+    {
+      "package": {
+        "name": "phpoffice/phpspreadsheet",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/phpoffice/phpspreadsheet"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "4.0.0"
+            },
+            {
+              "fixed": "5.7.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.0.0",
+        "4.1.0",
+        "4.2.0",
+        "4.3.0",
+        "4.3.1",
+        "4.4.0",
+        "4.5.0",
+        "5.0.0",
+        "5.1.0",
+        "5.2.0",
+        "5.3.0",
+        "5.4.0",
+        "5.5.0",
+        "5.6.0"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 5.6.0",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-84wq-86v6-x5j6/GHSA-84wq-86v6-x5j6.json"
+      }
+    },
+    {
+      "package": {
+        "name": "phpoffice/phpspreadsheet",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/phpoffice/phpspreadsheet"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "3.3.0"
+            },
+            {
+              "fixed": "3.10.5"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.10.0",
+        "3.10.1",
+        "3.10.2",
+        "3.10.3",
+        "3.10.4",
+        "3.3.0",
+        "3.4.0",
+        "3.5.0",
+        "3.6.0",
+        "3.7.0",
+        "3.8.0",
+        "3.9.0",
+        "3.9.1",
+        "3.9.2",
+        "3.9.3"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 3.10.4",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-84wq-86v6-x5j6/GHSA-84wq-86v6-x5j6.json"
+      }
+    },
+    {
+      "package": {
+        "name": "phpoffice/phpspreadsheet",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/phpoffice/phpspreadsheet"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.2.0"
+            },
+            {
+              "fixed": "2.4.5"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.2.0",
+        "2.2.1",
+        "2.2.2",
+        "2.3.0",
+        "2.3.10",
+        "2.3.2",
+        "2.3.3",
+        "2.3.4",
+        "2.3.5",
+        "2.3.6",
+        "2.3.7",
+        "2.3.8",
+        "2.3.9",
+        "2.4.0",
+        "2.4.1",
+        "2.4.2",
+        "2.4.3",
+        "2.4.4"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 2.4.4",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-84wq-86v6-x5j6/GHSA-84wq-86v6-x5j6.json"
+      }
+    },
+    {
+      "package": {
+        "name": "phpoffice/phpspreadsheet",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/phpoffice/phpspreadsheet"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.0.0"
+            },
+            {
+              "fixed": "2.1.16"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.0.0",
+        "2.1.0",
+        "2.1.1",
+        "2.1.10",
+        "2.1.11",
+        "2.1.12",
+        "2.1.13",
+        "2.1.14",
+        "2.1.15",
+        "2.1.3",
+        "2.1.4",
+        "2.1.5",
+        "2.1.6",
+        "2.1.7",
+        "2.1.8",
+        "2.1.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 2.1.15",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-84wq-86v6-x5j6/GHSA-84wq-86v6-x5j6.json"
+      }
+    },
+    {
+      "package": {
+        "name": "phpoffice/phpspreadsheet",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/phpoffice/phpspreadsheet"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.30.4"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.0.0",
+        "1.0.0-beta",
+        "1.0.0-beta2",
+        "1.1.0",
+        "1.10.0",
+        "1.10.1",
+        "1.11.0",
+        "1.12.0",
+        "1.13.0",
+        "1.14.0",
+        "1.14.1",
+        "1.15.0",
+        "1.16.0",
+        "1.17.0",
+        "1.17.1",
+        "1.18.0",
+        "1.19.0",
+        "1.2.0",
+        "1.2.1",
+        "1.20.0",
+        "1.21.0",
+        "1.22.0",
+        "1.23.0",
+        "1.24.0",
+        "1.24.1",
+        "1.25.0",
+        "1.25.1",
+        "1.25.2",
+        "1.26.0",
+        "1.27.0",
+        "1.27.1",
+        "1.28.0",
+        "1.29.0",
+        "1.29.1",
+        "1.29.10",
+        "1.29.11",
+        "1.29.12",
+        "1.29.2",
+        "1.29.4",
+        "1.29.5",
+        "1.29.6",
+        "1.29.7",
+        "1.29.8",
+        "1.29.9",
+        "1.3.0",
+        "1.3.1",
+        "1.30.0",
+        "1.30.1",
+        "1.30.2",
+        "1.30.3",
+        "1.4.0",
+        "1.4.1",
+        "1.5.0",
+        "1.5.1",
+        "1.5.2",
+        "1.6.0",
+        "1.7.0",
+        "1.8.0",
+        "1.8.1",
+        "1.8.2",
+        "1.9.0"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 1.30.3",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-84wq-86v6-x5j6/GHSA-84wq-86v6-x5j6.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/PHPOffice/PhpSpreadsheet/security/advisories/GHSA-84wq-86v6-x5j6"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40863"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/PHPOffice/PhpSpreadsheet"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400",
+      "CWE-770"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-29T20:23:27Z",
+    "nvd_published_at": "2026-05-12T22:16:33Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

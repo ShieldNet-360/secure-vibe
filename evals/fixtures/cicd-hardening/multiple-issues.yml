@@ -1,0 +1,33 @@
+# Fixture: multiple-issues.yml
+#
+# Compound fixture deliberately stacking four distinct anti-patterns
+# in a single workflow so a single scan exercises multiple rules at
+# once:
+#   1. no top-level `permissions:` block
+#       -> gha-default-permissions-read
+#   2. action pinned by tag rather than SHA
+#       -> gha-pin-actions-by-sha (AST)
+#       (the checklist rule gha-pin-actions-by-sha is intentionally
+#        absent from expected_findings: its `(?!...)` negative
+#        lookahead is unsupported by Go's RE2 engine, so the rule
+#        does not currently compile / fire — see expected.json)
+#   3. remote-script execution step (downloaded installer piped to a shell)
+#       -> gha-no-curl-pipe-bash
+#   4. attacker-controllable issue-comment body interpolated into
+#      a shell command
+#       -> gha-no-untrusted-script-injection (regex) +
+#          gha-no-untrusted-script-injection (AST)
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install tool
+        run: curl -fsSL https://example.com/install.sh | sh
+      - name: echo the comment
+        run: |
+          echo "comment: ${{ github.event.comment.body }}"

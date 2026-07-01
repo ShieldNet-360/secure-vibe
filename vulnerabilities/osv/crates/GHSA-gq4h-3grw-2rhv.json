@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-gq4h-3grw-2rhv",
+  "published": "2026-05-07T20:56:21Z",
+  "modified": "2026-05-13T13:51:55.152295Z",
+  "aliases": [
+    "CVE-2026-44497"
+  ],
+  "summary": "Zebra has Consensus Divergence in Transparent Sighash Hash-Type Handling due to Stale Buffer",
+  "affected": [
+    {
+      "package": {
+        "name": "zebra-script",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebra-script"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.0.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 5.0.1",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-gq4h-3grw-2rhv/GHSA-gq4h-3grw-2rhv.json"
+      }
+    },
+    {
+      "package": {
+        "name": "zebrad",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebrad"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.4.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-gq4h-3grw-2rhv/GHSA-gq4h-3grw-2rhv.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/ZcashFoundation/zebra/security/advisories/GHSA-gq4h-3grw-2rhv"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44497"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/ZcashFoundation/zebra"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ZcashFoundation/zebra/releases/tag/v4.4.0"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-347"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T20:56:21Z",
+    "nvd_published_at": "2026-05-08T15:17:01Z",
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H"
+    },
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:H/SC:N/SI:H/SA:H"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

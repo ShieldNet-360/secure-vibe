@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-78fc-9688-w8xw",
+  "published": "2026-05-04T17:39:31Z",
+  "modified": "2026-05-08T19:34:46.952898Z",
+  "aliases": [
+    "CVE-2026-40076"
+  ],
+  "summary": "OpenMRS Module Upload Vulnerable to Path Traversal (Zip Slip)",
+  "affected": [
+    {
+      "package": {
+        "name": "org.openmrs.web:openmrs-web",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.openmrs.web/openmrs-web"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "2.7.8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-78fc-9688-w8xw/GHSA-78fc-9688-w8xw.json"
+      }
+    },
+    {
+      "package": {
+        "name": "org.openmrs.web:openmrs-web",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.openmrs.web/openmrs-web"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.8.0"
+            },
+            {
+              "last_affected": "2.8.5"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-78fc-9688-w8xw/GHSA-78fc-9688-w8xw.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/openmrs/openmrs-core/security/advisories/GHSA-78fc-9688-w8xw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40076"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/openmrs/openmrs-core"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-22"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-04T17:39:31Z",
+    "nvd_published_at": "2026-05-06T20:16:31Z",
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:N"
+    },
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/"
+    }
+  ],
+  "last_updated": "2026-05-08"
+}

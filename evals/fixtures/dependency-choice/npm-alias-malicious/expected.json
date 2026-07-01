@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-06-20",
+  "description": "Expected findings for the npm-alias-malicious fixture. The npm: alias 'harmless-helper': 'npm:event-stream@3.3.6' resolves to event-stream@3.3.6 (source: vulnerabilities/supply-chain/malicious-packages/npm.json). The declaration name 'harmless-helper' must NOT appear as a package; only the resolved target does.",
+  "expected_findings": [
+    {
+      "ecosystem": "npm",
+      "package": "event-stream",
+      "version": "3.3.6",
+      "kind": "malicious",
+      "source": "vulnerabilities/supply-chain/malicious-packages/npm.json"
+    }
+  ],
+  "expected_clean": ["lodash", "react"]
+}

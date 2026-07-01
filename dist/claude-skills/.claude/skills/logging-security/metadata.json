@@ -1,0 +1,34 @@
+{
+  "id": "logging-security",
+  "version": "1.0.0",
+  "title": "Logging Security",
+  "description": "Prevent secret/PII leaks in logs, log-injection attacks, missing audit trails, weak retention",
+  "category": "prevention",
+  "severity": "high",
+  "applies_to": [
+    "when generating logger calls or structured-logging schemas",
+    "when wiring log shippers, sinks, retention, and access controls",
+    "when reviewing requirements for audit logging"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 1000,
+    "compact": 1100,
+    "full": 2400
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "secret-detection",
+    "error-handling-security",
+    "compliance-awareness"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP Logging Cheat Sheet",
+    "CWE-532 — Insertion of Sensitive Information into Log File",
+    "CWE-117 — Improper Output Neutralization for Logs",
+    "NIST SP 800-92 (Guide to Computer Security Log Management)"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "description": "Control fixture: every package in this packages.lock.json is from the standard .NET / Newtonsoft.Json ecosystem and has no entry in vulnerabilities/supply-chain/malicious-packages/nuget.json or typosquat-db. scan_dependencies must return zero findings.",
+  "expected_findings": [],
+  "expected_clean": [
+    "Newtonsoft.Json",
+    "Microsoft.Extensions.Logging.Abstractions",
+    "Microsoft.Extensions.DependencyInjection.Abstractions"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "deserialization-security",
+  "language": "python",
+  "insecure_signals": [
+    "pickle\\.loads?\\(",
+    "eval\\("
+  ],
+  "secure_signals": [
+    "json\\.loads\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

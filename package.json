@@ -1,0 +1,14 @@
+{
+  "name": "@shieldnet360/secure-vibe",
+  "version": "0.0.0",
+  "description": "pre-commit hook shim for secure-code: pulls in the published @shieldnet360/secure-code-mcp package so its `secure-code-check gate` CLI is on PATH. Consumed only by .pre-commit-hooks.yaml (language: node); not published.",
+  "private": true,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shieldnet-360/secure-vibe.git"
+  },
+  "dependencies": {
+    "@shieldnet360/secure-code-mcp": "latest"
+  }
+}

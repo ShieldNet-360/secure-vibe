@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-2rgp-f66f-4499",
+  "published": "2026-05-13T15:33:24Z",
+  "modified": "2026-05-13T15:49:41.892620Z",
+  "aliases": [
+    "CVE-2026-45083"
+  ],
+  "summary": "Goobi viewer - Core: Unauthenticated Solr Streaming Expression Proxy",
+  "affected": [
+    {
+      "package": {
+        "name": "io.goobi.viewer:viewer-core",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/io.goobi.viewer/viewer-core"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "4.8.0"
+            },
+            {
+              "last_affected": "26.04"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-2rgp-f66f-4499/GHSA-2rgp-f66f-4499.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/intranda/goobi-viewer-core/security/advisories/GHSA-2rgp-f66f-4499"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/intranda/goobi-viewer-core/commit/326980f24ce1e7cfabf658dd5f615934ca68ebbd"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/intranda/goobi-viewer-core"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/intranda/goobi-viewer-core/releases/tag/v26.04.1"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-306"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-13T15:33:24Z",
+    "nvd_published_at": null,
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

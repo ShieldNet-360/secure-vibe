@@ -1,0 +1,75 @@
+schema_version: "1.0"
+name: "government"
+description: "Profile for FedRAMP / FISMA / DoD workloads under NIST SP 800-53 Rev. 5 baselines."
+last_updated: "2026-05-13"
+frameworks:
+  - "FedRAMP (Moderate baseline)"
+  - "FISMA / NIST SP 800-53 Rev. 5"
+  - "DoD CC SRG"
+  - "NIST SP 800-171 Rev. 2 (CUI)"
+skills:
+  - secret-detection
+  - supply-chain-security
+  - api-security
+  - auth-security
+  - crypto-misuse
+  - protocol-security
+  - database-security
+  - frontend-security
+  - cors-security
+  - logging-security
+  - error-handling-security
+  - container-security
+  - iac-security
+  - serverless-security
+  - mobile-security
+  - ml-security
+  - llm-app-security
+  - compliance-awareness
+  - iam-best-practices
+controls:
+  - control_id: "AC-2"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["auth-security", "iam-best-practices"]
+  - control_id: "AC-6"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["iam-best-practices", "serverless-security", "iac-security"]
+  - control_id: "AC-17"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["protocol-security", "auth-security"]
+  - control_id: "AU-2"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["logging-security"]
+  - control_id: "AU-12"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["logging-security"]
+  - control_id: "CM-7"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["container-security", "iac-security"]
+  - control_id: "IA-2"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["auth-security"]
+  - control_id: "IA-5"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["auth-security", "secret-detection"]
+  - control_id: "SA-11"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["supply-chain-security", "secret-detection"]
+  - control_id: "SC-8"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["protocol-security"]
+  - control_id: "SC-13"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["crypto-misuse"]
+  - control_id: "SC-28"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["crypto-misuse", "database-security"]
+  - control_id: "SI-2"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["supply-chain-security"]
+  - control_id: "SI-10"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["api-security", "database-security", "frontend-security"]
+  - control_id: "SI-11"
+    framework: "NIST SP 800-53 Rev. 5"
+    skills: ["error-handling-security"]

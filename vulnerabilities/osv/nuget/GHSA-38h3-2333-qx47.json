@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-38h3-2333-qx47",
+  "published": "2026-04-18T01:05:12Z",
+  "modified": "2026-05-05T16:00:07.372629Z",
+  "aliases": [
+    "CVE-2026-41078"
+  ],
+  "summary": "OpenTelemetry .NET has potential memory exhaustion via unbounded pooled-list sizing in Jaeger exporter conversion path",
+  "affected": [
+    {
+      "package": {
+        "name": "OpenTelemetry.Exporter.Jaeger",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/OpenTelemetry.Exporter.Jaeger"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "1.6.0-rc.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.0.0-rc2",
+        "1.0.0-rc3",
+        "1.0.0-rc4",
+        "1.0.1",
+        "1.1.0",
+        "1.1.0-beta1",
+        "1.1.0-beta2",
+        "1.1.0-beta3",
+        "1.1.0-beta4",
+        "1.1.0-rc1",
+        "1.2.0",
+        "1.2.0-alpha1",
+        "1.2.0-alpha2",
+        "1.2.0-alpha3",
+        "1.2.0-alpha4",
+        "1.2.0-beta1",
+        "1.2.0-rc1",
+        "1.2.0-rc2",
+        "1.2.0-rc3",
+        "1.2.0-rc4",
+        "1.2.0-rc5",
+        "1.3.0",
+        "1.3.1",
+        "1.3.2",
+        "1.4.0",
+        "1.5.0",
+        "1.5.1"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-38h3-2333-qx47/GHSA-38h3-2333-qx47.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet/security/advisories/GHSA-38h3-2333-qx47"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41078"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-400",
+      "CWE-770"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-18T01:05:12Z",
+    "nvd_published_at": "2026-04-23T19:17:28Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-05"
+}

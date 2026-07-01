@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Algorithms / primitives blocked for new code, with safer replacements.",
+  "blocked": [
+    {"name": "MD5", "cwe": 327, "use_case": "any cryptographic use", "replacement": "SHA-256 / SHA-3 / BLAKE3"},
+    {"name": "SHA-1", "cwe": 327, "use_case": "signatures, MAC, password hash", "replacement": "SHA-256 / SHA-3"},
+    {"name": "DES", "cwe": 327, "use_case": "block encryption", "replacement": "AES-256"},
+    {"name": "3DES", "cwe": 327, "use_case": "block encryption", "replacement": "AES-256-GCM"},
+    {"name": "RC4", "cwe": 327, "use_case": "stream cipher", "replacement": "ChaCha20-Poly1305"},
+    {"name": "Blowfish", "cwe": 327, "use_case": "block encryption", "replacement": "AES-256-GCM"},
+    {"name": "ECB mode", "cwe": 327, "use_case": "block cipher mode", "replacement": "GCM or AES-GCM-SIV"},
+    {"name": "CBC without HMAC", "cwe": 327, "use_case": "block cipher mode", "replacement": "AES-256-GCM or Encrypt-then-MAC with HMAC-SHA-256"},
+    {"name": "RSA <2048", "cwe": 326, "use_case": "asymmetric key size", "replacement": "RSA 3072+ or Ed25519 / ECDSA P-256"},
+    {"name": "DH <2048 / static DH", "cwe": 326, "use_case": "key exchange", "replacement": "X25519 / ECDHE"},
+    {"name": "PKCS1 v1.5 padding for encryption", "cwe": 780, "use_case": "RSA encryption", "replacement": "RSA-OAEP-SHA-256"},
+    {"name": "sha256(password)", "cwe": 916, "use_case": "password hashing", "replacement": "argon2id (m=64MiB, t=3, p=1)"},
+    {"name": "sha1(password)", "cwe": 916, "use_case": "password hashing", "replacement": "argon2id"},
+    {"name": "PBKDF2-SHA1", "cwe": 916, "use_case": "password hashing (legacy compat OK; new code argon2id)", "replacement": "argon2id"},
+    {"name": "TLS 1.0", "cwe": 327, "use_case": "transport security", "replacement": "TLS 1.2+ (1.3 preferred)"},
+    {"name": "TLS 1.1", "cwe": 327, "use_case": "transport security", "replacement": "TLS 1.2+ (1.3 preferred)"},
+    {"name": "SSLv2 / SSLv3", "cwe": 327, "use_case": "transport security", "replacement": "TLS 1.2+"},
+    {"name": "Math.random / random.random / rand()", "cwe": 338, "use_case": "any token/ID/nonce generation", "replacement": "crypto.getRandomValues / secrets / crypto/rand.Read / SecureRandom"},
+    {"name": "== / strcmp for secret comparison", "cwe": 208, "use_case": "MAC / token comparison", "replacement": "hmac.compare_digest / timingSafeEqual / subtle.ConstantTimeCompare"},
+    {"name": "JWT alg=none", "cwe": 327, "use_case": "JWT", "replacement": "Pin alg to RS256 / EdDSA / ES256 at verification"}
+  ]
+}

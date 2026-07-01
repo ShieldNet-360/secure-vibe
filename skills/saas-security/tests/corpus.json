@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the saas-security skill. Each fixture is a SaaS connector / multi-tenant data-access snippet; schema-driven means the runner smoke-validates shape while detect marks code violating a NEVER (hard-coded/shared SaaS token, missing tenant scoping, unverified webhook) and ignore marks code following the ALWAYS rules (secrets-manager tokens, tenant-scoped queries, verified webhook signatures).",
+  "fixtures": [
+    {
+      "id": "missing-tenant-scope-idor",
+      "text": "// GET /api/invoices/:id\nasync function getInvoice(req, res) {\n  // req.tenantId is available from the auth middleware but ignored\n  const invoice = await db.query('SELECT * FROM invoices WHERE id = $1', [req.params.id]);\n  res.json(invoice.rows[0]);\n}",
+      "expected": "detect",
+      "reason": "Query is scoped only by row id, not tenant_id, so any authenticated tenant can read another tenant's invoice (cross-tenant IDOR). CWE-284 Improper Access Control."
+    },
+    {
+      "id": "hardcoded-slack-bot-token",
+      "text": "import { WebClient } from '@slack/web-api';\n\nconst slack = new WebClient('xoxb-2451234567-2459876543210-AbCdEfGhIjKlMnOpQrStUvWx');\n\nexport function alertSecops(text) {\n  return slack.chat.postMessage({ channel: '#secops', text });\n}",
+      "expected": "detect",
+      "reason": "A real-format Slack bot token (xoxb-) is hard-coded in source; such tokens are mass-scanned on public repos within minutes. Violates the NEVER 'Hard-code a SaaS API token'. CWE-798 Use of Hard-coded Credentials."
+    },
+    {
+      "id": "shared-personal-jira-token",
+      "text": "# One personal Atlassian API token reused for every service integration\nJIRA_TOKEN = os.environ.get('SHARED_JIRA_PAT')  # same human's token used by jira-sync, hr-bot, ci-bot\n\ndef jira_call(path):\n    return requests.get(f'https://acme.atlassian.net{path}',\n                        auth=('alice@acme.com', JIRA_TOKEN))",
+      "expected": "detect",
+      "reason": "A single person-bound Atlassian token is shared across multiple integrations, inheriting the human's privileges and widening blast radius. Violates the NEVER 'Share a single personal API token across services'. CWE-284."
+    },
+    {
+      "id": "tenant-scoped-query",
+      "text": "// GET /api/invoices/:id\nasync function getInvoice(req, res) {\n  const invoice = await db.query(\n    'SELECT * FROM invoices WHERE id = $1 AND tenant_id = $2',\n    [req.params.id, req.tenantId]\n  );\n  if (!invoice.rows[0]) return res.status(404).end();\n  res.json(invoice.rows[0]);\n}",
+      "expected": "ignore",
+      "reason": "Query is constrained by both id and the authenticated tenant_id, so a tenant can only read its own rows. Enforces per-tenant isolation; no cross-tenant IDOR."
+    },
+    {
+      "id": "slack-token-from-secrets-manager",
+      "text": "import { WebClient } from '@slack/web-api';\nimport { getSecret } from './vault';\n\nexport async function alertSecops(text) {\n  const token = await getSecret('slack/bot-token'); // fetched from Vault at runtime\n  const slack = new WebClient(token);\n  return slack.chat.postMessage({ channel: '#alerts', text });\n}",
+      "expected": "ignore",
+      "reason": "The Slack token is loaded from a secrets manager at runtime, never inlined in source or the image. Follows the ALWAYS 'Store SaaS API tokens in a secrets manager' rule."
+    },
+    {
+      "id": "verified-hubspot-webhook",
+      "text": "import crypto from 'crypto';\n\nfunction verifyHubspot(req) {\n  const sig = req.headers['x-hubspot-signature-v3'];\n  const ts = req.headers['x-hubspot-request-timestamp'];\n  if (Date.now() - Number(ts) > 5 * 60 * 1000) return false; // 5-min window\n  const base = `${req.method}${req.url}${req.rawBody}${ts}`;\n  const expected = crypto.createHmac('sha256', process.env.HS_SECRET).update(base).digest('base64');\n  return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));\n}",
+      "expected": "ignore",
+      "reason": "Validates the HubSpot v3 HMAC signature and the timestamp window before trusting the request, using a constant-time compare and a secret from env. Follows the ALWAYS 'validate the signature and the timestamp window on every inbound request'."
+    }
+  ]
+}

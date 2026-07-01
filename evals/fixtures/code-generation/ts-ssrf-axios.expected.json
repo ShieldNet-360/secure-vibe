@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "ssrf-prevention",
+  "language": "typescript",
+  "insecure_signals": [
+    "axios\\.get\\(\\s*req\\.query",
+    "fetch\\(\\s*req\\.query"
+  ],
+  "secure_signals": [
+    "isAllowed|allowlist|allowList",
+    "new URL\\([^)]*\\)\\.hostname",
+    "isPrivateIp|ip-range-check"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-918"
+}

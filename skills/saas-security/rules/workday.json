@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Workday",
+  "description": "Workday OAuth 2.0, Integration System User (ISU) credentials, Report-as-a-Service URLs, and HRIS/Finance red flags.",
+  "token_patterns": [
+    {
+      "name": "Workday OAuth Refresh Token",
+      "regex": "(?i)workday[_\\-]?refresh[_\\-]?token[\\\"'\\s:=]+[A-Za-z0-9._\\-]{60,}",
+      "severity": "critical",
+      "hotwords": [
+        "workday",
+        "refresh_token",
+        "oauth"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    },
+    {
+      "name": "Workday ISU Password in config",
+      "regex": "(?i)(workday|wday)[_\\-]?isu[_\\-]?(password|secret)[\\\"'\\s:=]+[^\\s\\\"']{12,}",
+      "severity": "critical",
+      "hotwords": [
+        "workday",
+        "isu",
+        "integration_system_user"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    },
+    {
+      "name": "Workday Report-as-a-Service URL (often with embedded creds)",
+      "regex": "https://wd[0-9]+(?:-services|-impl-services)?\\.myworkday\\.com/ccx/service/customreport2/[A-Za-z0-9_\\-]+/[A-Za-z0-9_\\-/]+\\?format=(json|xml|csv)",
+      "severity": "high",
+      "hotwords": [
+        "myworkday.com",
+        "customreport2",
+        "raas"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "notes": "RaaS URLs are often called with Basic Auth \u2014 the URL alone is a target."
+    },
+    {
+      "name": "Workday Tenant Admin Password assignment",
+      "regex": "(?i)workday[_\\-]?(tenant|admin)[_\\-]?password[\\\"'\\s:=]+[^\\s\\\"']{10,}",
+      "severity": "critical",
+      "hotwords": [
+        "workday",
+        "tenant",
+        "admin_password"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "workday-isu-shared-across-integrations",
+      "severity": "high",
+      "title": "Single Integration System User used by multiple unrelated integrations",
+      "rationale": "ISUs grant broad domain access; sharing makes attribution impossible.",
+      "fix": "Provision one ISU per integration; bind via Integration System Security Group."
+    },
+    {
+      "id": "workday-isu-without-ip-restriction",
+      "severity": "high",
+      "title": "ISU configured without IP allowlist / API client allowlist",
+      "rationale": "ISU passwords leak through CI logs / vendor systems; IP restriction limits replay.",
+      "fix": "Maintain > User-Based Security Groups > restrict to Integration System Security Group with allowed source IPs configured at the tenant edge."
+    },
+    {
+      "id": "workday-mfa-not-enforced-admin",
+      "severity": "critical",
+      "title": "MFA not enforced for tenant-admin / HR-admin users",
+      "rationale": "Workday holds payroll, bank, comp \u2014 admin ATO = SOX-relevant incident.",
+      "fix": "Authentication > Multi-Factor Authentication \u2014 enforce for admin security groups."
+    },
+    {
+      "id": "workday-raas-public-without-auth",
+      "severity": "critical",
+      "title": "Custom Report exposed as RaaS without authentication",
+      "rationale": "Public RaaS URLs have been used to leak entire workforce datasets.",
+      "fix": "Each Custom Report's 'Enable as Web Service' must require an authenticated principal."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "workday-raas-bulk-call",
+      "severity": "high",
+      "title": "RaaS URL called returning > 10k rows in one request",
+      "rationale": "Tenant-wide RaaS pull is a top exfil shape for HCM / Finance data.",
+      "signal": "Tenant logs / API audit: customreport2 call with response row-count > 10000."
+    },
+    {
+      "id": "workday-security-group-mutation",
+      "severity": "high",
+      "title": "Security group / domain security policy modified",
+      "rationale": "Privilege-escalation step inside Workday.",
+      "signal": "Audit log: `Maintain Domain Security Policies` modification outside scheduled changes."
+    },
+    {
+      "id": "workday-isu-password-reset",
+      "severity": "high",
+      "title": "ISU password reset event",
+      "rationale": "Often follows compromise of CI-stored creds.",
+      "signal": "Audit log: `Reset Password` on user_type=Integration System User."
+    },
+    {
+      "id": "workday-mass-worker-load",
+      "severity": "high",
+      "title": "Mass worker / mass compensation EIB load by unusual principal",
+      "rationale": "EIB (Enterprise Interface Builder) loads can mutate every worker \u2014 used in fraud schemes.",
+      "signal": "Audit log: `Launch / Edit EIB Inbound` outside the integrations admin group."
+    }
+  ],
+  "references": [
+    "https://community.workday.com/sites/default/files/file-hosting/restapi/index.html",
+    "https://doc.workday.com/admin-guide/en-us/security.html",
+    "https://www.workday.com/en-us/products/platform-product-extensions/integrations.html"
+  ]
+}

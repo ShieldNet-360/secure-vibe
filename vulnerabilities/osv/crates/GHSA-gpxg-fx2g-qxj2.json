@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-gpxg-fx2g-qxj2",
+  "published": "2026-05-06T23:34:20Z",
+  "modified": "2026-05-06T23:49:30.988333Z",
+  "summary": "Kanidm: Stored HTML injection in \"passkey-enrolment\" partial via displayname \u2192 htmx-driven authenticated request forgery",
+  "affected": [
+    {
+      "package": {
+        "name": "kanidm",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/kanidm"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.9.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 1.9.2",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-gpxg-fx2g-qxj2/GHSA-gpxg-fx2g-qxj2.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/kanidm/kanidm/security/advisories/GHSA-gpxg-fx2g-qxj2"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/kanidm/kanidm"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-06T23:34:20Z",
+    "nvd_published_at": null,
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:U/C:H/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-06"
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "version": "2026.05.12.1",
+  "released_at": "2026-05-12T10:00:00Z",
+  "description": "Vulnerabilities sub-manifest. Lists every vulnerability data file with its current SHA-256 and size.",
+  "files": [
+    {
+      "path": "cve/code-relevant/cve_patterns.json",
+      "sha256": "03aa80dcf83f375a3c1f41279472a43350aa9edcb5b830eb2908241fc1258272",
+      "size": 65758
+    },
+    {
+      "path": "supply-chain/dependency-confusion/patterns.json",
+      "sha256": "2407aa64da2fe8c33fe6e9d0f1f878dcc51cbc44c4cac5a375b69c3747bde3a8",
+      "size": 4696
+    },
+    {
+      "path": "supply-chain/malicious-packages/crates.json",
+      "sha256": "7c613406298b352c0529964071d83083f398bf512f3c9f5f6c0efb4396786373",
+      "size": 5390
+    },
+    {
+      "path": "supply-chain/malicious-packages/docker.json",
+      "sha256": "7bcaa81d15cbbb3a49319b24e77443629d83b5c237f03c9c8f09bf196b09b6e2",
+      "size": 5901
+    },
+    {
+      "path": "supply-chain/malicious-packages/github-actions.json",
+      "sha256": "09a4963019228dcbb9cf74332c25f6c4d80ddb357efc61e501584d9d4055159e",
+      "size": 6710
+    },
+    {
+      "path": "supply-chain/malicious-packages/go.json",
+      "sha256": "c0e0855c524e3f7e7ea81b03ecf1ecc4883b4a06d6eb66263f07d4c1cd8d2077",
+      "size": 6542
+    },
+    {
+      "path": "supply-chain/malicious-packages/maven.json",
+      "sha256": "e33289e1d8569775dea428ce5834931b786e19b045c8e51752058f56197ddd20",
+      "size": 6055
+    },
+    {
+      "path": "supply-chain/malicious-packages/npm.json",
+      "sha256": "7fb5bc27a9e202a8938622b22df883d94d6b4e563c27de4ec4126a3d8428acae",
+      "size": 21729
+    },
+    {
+      "path": "supply-chain/malicious-packages/nuget.json",
+      "sha256": "e8cc155223c62549fcb9118febaec7c745243767471b2c2640972960d23923d8",
+      "size": 5464
+    },
+    {
+      "path": "supply-chain/malicious-packages/pypi.json",
+      "sha256": "9e97cf4d34bc865acda8756f52b76524202d96505f0bd35dc24699a75181ab0b",
+      "size": 18882
+    },
+    {
+      "path": "supply-chain/malicious-packages/rubygems.json",
+      "sha256": "c850aef348573cbb25a33cfca64810d20f24fb1ce0ce60e4390a4ff5c14eac80",
+      "size": 6084
+    },
+    {
+      "path": "supply-chain/typosquat-db/known_typosquats.json",
+      "sha256": "a02045115fa0d5d40fdd36c88d97a419710c167ed003935a221a6389033e61f5",
+      "size": 22290
+    }
+  ]
+}

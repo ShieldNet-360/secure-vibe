@@ -1,0 +1,17 @@
+{
+  "ground_truth": "generation",
+  "skill": "file-upload-security",
+  "language": "python",
+  "insecure_signals": [
+    "send_file\\(\\s*os\\.path\\.join\\(\\s*['\\\"]uploads['\\\"]\\s*,\\s*name",
+    "send_file\\([^)]*\\+\\s*name"
+  ],
+  "secure_signals": [
+    "secure_filename\\(",
+    "send_from_directory\\(",
+    "os\\.path\\.realpath\\(",
+    "\\.\\.\\s*(in|not)"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-22"
+}

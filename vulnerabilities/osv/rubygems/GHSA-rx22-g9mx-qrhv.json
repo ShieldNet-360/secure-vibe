@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-rx22-g9mx-qrhv",
+  "published": "2026-04-02T20:31:01Z",
+  "modified": "2026-05-13T16:38:43.804784Z",
+  "aliases": [
+    "CVE-2026-26962"
+  ],
+  "related": [
+    "CGA-99f4-28j2-7vxm"
+  ],
+  "summary": "Rack's improper unfolding of folded multipart headers preserves CRLF in parsed parameter values",
+  "affected": [
+    {
+      "package": {
+        "name": "rack",
+        "ecosystem": "RubyGems",
+        "purl": "pkg:gem/rack"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "3.2.0"
+            },
+            {
+              "fixed": "3.2.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.2.0",
+        "3.2.1",
+        "3.2.2",
+        "3.2.3",
+        "3.2.4",
+        "3.2.5"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-rx22-g9mx-qrhv/GHSA-rx22-g9mx-qrhv.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/rack/rack/security/advisories/GHSA-rx22-g9mx-qrhv"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-26962"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/rack/rack"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/rack/CVE-2026-26962.yml"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-93"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-02T20:31:01Z",
+    "nvd_published_at": "2026-04-02T18:16:26Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

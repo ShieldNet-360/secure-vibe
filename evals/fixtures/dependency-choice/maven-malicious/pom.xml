@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Maven POM fixture for the eval harness.
+
+     org.apache.commons:commons-text@1.9 is the Text4Shell range
+     (CVE-2022-42889) recorded in vulnerabilities/supply-chain/
+     malicious-packages/maven.json. junit:junit is a clean control
+     entry that should not be flagged. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example</groupId>
+  <artifactId>fixture</artifactId>
+  <version>0.0.1</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
+      <version>1.9</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

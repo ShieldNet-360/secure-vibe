@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-06-20",
+  "description": "Fixture: a go.sum where the malicious module github.com/jfrog/go-tools@v0.1.0 (source: vulnerabilities/supply-chain/malicious-packages/go.json) appears ONLY in a /go.mod line — its go.mod was read during minimal-version-selection but its code is NOT compiled into the build (it has no content h1: hash). It must therefore NOT be reported: a vuln in code that is not in the binary is a false positive. Before the parser fix, every /go.mod line was treated as a built dependency and this malicious module was flagged. The actually-built modules (testify, go-spew, yaml.v3) are clean.",
+  "expected_findings": [],
+  "expected_clean": ["github.com/stretchr/testify", "github.com/davecgh/go-spew", "gopkg.in/yaml.v3"]
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-3cv5-q585-h563",
+  "published": "2026-05-07T00:59:50Z",
+  "modified": "2026-05-14T21:03:57.481282Z",
+  "aliases": [
+    "CVE-2026-42593"
+  ],
+  "summary": "Gotenberg has arbitrary PDF read via stampExpression and watermarkExpression in merge, split, and convert routes",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gotenberg/gotenberg/v8",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/gotenberg/gotenberg/v8"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "8.31.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-3cv5-q585-h563/GHSA-3cv5-q585-h563.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/gotenberg/gotenberg/security/advisories/GHSA-3cv5-q585-h563"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42593"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/gotenberg/gotenberg"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-22",
+      "CWE-73"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T00:59:50Z",
+    "nvd_published_at": "2026-05-14T16:16:22Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

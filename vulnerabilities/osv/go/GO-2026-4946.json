@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GO-2026-4946",
+  "published": "2026-04-07T22:53:49Z",
+  "modified": "2026-05-15T10:59:22.987884341Z",
+  "aliases": [
+    "BIT-golang-2026-32281",
+    "CVE-2026-32281"
+  ],
+  "related": [
+    "CGA-mhq6-cw97-rcc6",
+    "RHSA-2026:7291",
+    "RHSA-2026:7385"
+  ],
+  "summary": "Inefficient policy validation in crypto/x509",
+  "affected": [
+    {
+      "package": {
+        "name": "stdlib",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/stdlib"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.25.9"
+            },
+            {
+              "introduced": "1.26.0-0"
+            },
+            {
+              "fixed": "1.26.2"
+            }
+          ]
+        }
+      ],
+      "ecosystem_specific": {
+        "imports": [
+          {
+            "path": "crypto/x509",
+            "symbols": [
+              "Certificate.Verify",
+              "policiesValid"
+            ]
+          }
+        ]
+      },
+      "database_specific": {
+        "source": "https://vuln.go.dev/ID/GO-2026-4946.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "FIX",
+      "url": "https://go.dev/cl/758061"
+    },
+    {
+      "type": "REPORT",
+      "url": "https://go.dev/issue/78281"
+    },
+    {
+      "type": "WEB",
+      "url": "https://groups.google.com/g/golang-announce/c/0uYbvbPZRWU"
+    }
+  ],
+  "database_specific": {
+    "review_status": "REVIEWED",
+    "url": "https://pkg.go.dev/vuln/GO-2026-4946"
+  },
+  "credits": [
+    {
+      "name": "Jakub Ciolek - https://ciolek.dev"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

@@ -1,0 +1,15 @@
+{
+  "ground_truth": "generation",
+  "skill": "secret-detection",
+  "language": "javascript",
+  "insecure_signals": [
+    "sk_live_[A-Za-z0-9]{16,}",
+    "sk_test_[A-Za-z0-9]{16,}"
+  ],
+  "secure_signals": [
+    "process\\.env\\.STRIPE",
+    "process\\.env\\.\\w+KEY"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-798"
+}

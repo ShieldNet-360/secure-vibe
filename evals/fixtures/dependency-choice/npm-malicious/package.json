@@ -1,0 +1,11 @@
+{
+  "name": "eval-fixture-npm-malicious",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Fixture: a clean-looking npm project with one historically-malicious package (event-stream@3.3.6) planted. Source: vulnerabilities/supply-chain/malicious-packages/npm.json -> 'event-stream'.",
+  "dependencies": {
+    "lodash": "4.17.21",
+    "react": "18.2.0",
+    "event-stream": "3.3.6"
+  }
+}

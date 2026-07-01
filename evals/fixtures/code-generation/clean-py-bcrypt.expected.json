@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "auth-security",
+  "language": "python",
+  "insecure_signals": [
+    "hashlib\\.(md5|sha1)\\(",
+    "\\bmd5\\("
+  ],
+  "secure_signals": [
+    "bcrypt\\.",
+    "checkpw\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

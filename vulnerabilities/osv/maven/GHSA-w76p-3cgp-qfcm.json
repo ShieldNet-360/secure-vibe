@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-w76p-3cgp-qfcm",
+  "published": "2026-05-04T18:30:31Z",
+  "modified": "2026-05-08T18:32:44.951655Z",
+  "aliases": [
+    "CVE-2026-42812"
+  ],
+  "summary": "Apache Polaris has an Improper Input Validation issue",
+  "affected": [
+    {
+      "package": {
+        "name": "org.apache.polaris:polaris-runtime-service",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.apache.polaris/polaris-runtime-service"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.0.0-incubating",
+        "1.0.1-incubating",
+        "1.1.0-incubating",
+        "1.2.0-incubating",
+        "1.3.0-incubating",
+        "1.4.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-w76p-3cgp-qfcm/GHSA-w76p-3cgp-qfcm.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42812"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/apache/polaris/commit/d6bbcc386e61d08ba5df1f820d0724816d84427b"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/apache/polaris"
+    },
+    {
+      "type": "WEB",
+      "url": "https://lists.apache.org/thread/wxd2wj3p0smvrk84msv317wg5tp3jtw9"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.openwall.com/lists/oss-security/2026/05/02/13"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-20"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-08T18:18:20Z",
+    "nvd_published_at": "2026-05-04T17:16:26Z",
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
+    },
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H"
+    }
+  ],
+  "last_updated": "2026-05-08"
+}

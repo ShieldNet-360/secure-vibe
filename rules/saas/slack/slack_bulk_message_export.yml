@@ -1,0 +1,25 @@
+schema_version: "1.0"
+title: Slack workspace / corporate export started
+id: 21005205-5de7-4a44-8380-c9df0a237454
+status: stable
+level: high
+description: |
+  Detects a Slack workspace export or Discovery API extraction
+  (`export_started`). Both mechanisms dump full channel/DM history and
+  should be tightly restricted to a managed compliance pipeline.
+references:
+  - https://api.slack.com/admins/audit-logs
+  - https://attack.mitre.org/techniques/T1530/
+tags:
+  - attack.t1530
+  - attack.collection
+logsource:
+  product: slack
+  service: audit_log
+detection:
+  selection:
+    action: export_started
+  condition: selection
+falsepositives:
+  - Scheduled compliance export executed by the IT-managed Discovery
+    integration.

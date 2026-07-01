@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.20.0)
+    rake (13.1.0)
+    pg (1.5.4)
+    listen (3.8.0)
+    tilt (2.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  minitest
+  pg
+  rake
+
+BUNDLED WITH
+   2.4.10

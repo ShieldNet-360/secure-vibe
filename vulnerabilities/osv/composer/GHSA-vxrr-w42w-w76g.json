@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-vxrr-w42w-w76g",
+  "published": "2026-05-06T21:38:16Z",
+  "modified": "2026-05-14T20:52:31.715224Z",
+  "aliases": [
+    "CVE-2026-42551"
+  ],
+  "summary": "Flight: HTTP method override enabled by default, facilitating CSRF escalation and middleware bypass",
+  "affected": [
+    {
+      "package": {
+        "name": "flightphp/core",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/flightphp/core"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.18.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "v1.0",
+        "v1.1",
+        "v1.1.10",
+        "v1.1.5",
+        "v1.2",
+        "v1.2.13",
+        "v1.2.14",
+        "v1.2.15",
+        "v1.2.17",
+        "v1.2.18",
+        "v1.2.19",
+        "v1.2.20",
+        "v1.2.21",
+        "v1.2.22",
+        "v1.3.0",
+        "v1.3.1",
+        "v1.3.2",
+        "v1.3.3",
+        "v1.3.4",
+        "v1.3.5",
+        "v1.3.7",
+        "v1.3.8",
+        "v1.3.9",
+        "v2.0.0",
+        "v2.0.1",
+        "v3.0.0",
+        "v3.0.1",
+        "v3.0.2",
+        "v3.1.0",
+        "v3.1.1",
+        "v3.10.0",
+        "v3.10.1",
+        "v3.11.0",
+        "v3.11.1",
+        "v3.12.0",
+        "v3.13.0",
+        "v3.13.1",
+        "v3.14.0",
+        "v3.15.0",
+        "v3.15.1",
+        "v3.15.2",
+        "v3.15.3",
+        "v3.16.0",
+        "v3.16.1",
+        "v3.17.0",
+        "v3.17.1",
+        "v3.17.2",
+        "v3.17.3",
+        "v3.17.4",
+        "v3.18.0",
+        "v3.2.0",
+        "v3.3.0",
+        "v3.4.0",
+        "v3.4.1",
+        "v3.4.2",
+        "v3.5.0",
+        "v3.5.2",
+        "v3.5.3",
+        "v3.6.0",
+        "v3.6.1",
+        "v3.6.2",
+        "v3.7.0",
+        "v3.7.1",
+        "v3.7.2",
+        "v3.8.0",
+        "v3.8.1",
+        "v3.9.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-vxrr-w42w-w76g/GHSA-vxrr-w42w-w76g.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/flightphp/core/security/advisories/GHSA-vxrr-w42w-w76g"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42551"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/flightphp/core/commit/b8dd23aaa828cb289fa3c84e75b2a3717cab50b0"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/flightphp/core"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/flightphp/core/releases/tag/v3.18.1"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-436"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-06T21:38:16Z",
+    "nvd_published_at": "2026-05-13T20:16:22Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

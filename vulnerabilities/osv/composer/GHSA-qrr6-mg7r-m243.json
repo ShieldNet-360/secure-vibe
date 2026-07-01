@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-qrr6-mg7r-m243",
+  "published": "2026-04-18T00:59:28Z",
+  "modified": "2026-05-12T17:10:19.254538Z",
+  "aliases": [
+    "CVE-2026-41570"
+  ],
+  "summary": "PHPUnit has Argument injection via newline in PHP INI values that are forwarded to child processes",
+  "affected": [
+    {
+      "package": {
+        "name": "phpunit/phpunit",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/phpunit/phpunit"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "12.5.21"
+            },
+            {
+              "fixed": "12.5.22"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "12.5.21"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-qrr6-mg7r-m243/GHSA-qrr6-mg7r-m243.json"
+      }
+    },
+    {
+      "package": {
+        "name": "phpunit/phpunit",
+        "ecosystem": "Packagist",
+        "purl": "pkg:composer/phpunit/phpunit"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "13.1.5"
+            },
+            {
+              "fixed": "13.1.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "13.1.5"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-qrr6-mg7r-m243/GHSA-qrr6-mg7r-m243.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/sebastianbergmann/phpunit/security/advisories/GHSA-qrr6-mg7r-m243"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41570"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/sebastianbergmann/phpunit/pull/6592"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/FriendsOfPHP/security-advisories/blob/master/phpunit/phpunit/CVE-2026-41570.yaml"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/sebastianbergmann/phpunit"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-88",
+      "CWE-93"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-18T00:59:28Z",
+    "nvd_published_at": "2026-05-08T15:16:40Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+    }
+  ],
+  "last_updated": "2026-05-12"
+}

@@ -1,0 +1,44 @@
+schema_version: "1.0"
+framework: "ISO/IEC 42001 (AI)"
+version: "ISO/IEC 42001:2023 (AI management system) — secure-development controls"
+last_updated: "2026-06-23"
+# Mapping scope: ISO/IEC 42001 is an AI MANAGEMENT-SYSTEM standard (governance,
+# risk, AI lifecycle, impact assessment). SecureVibe supports the slice that
+# concerns the SECURE DEVELOPMENT, verification and operation of AI systems and
+# of code written with AI assistance. Governance, impact-assessment and
+# organizational-accountability controls are an AIMS programme responsibility
+# and are intentionally not claimed here.
+controls:
+  - id: "A.6.1.2"
+    title: "Objectives for responsible development of AI systems"
+    description: "Responsible-development objectives (including security of the AI system) are identified and addressed during development."
+    skills: ["llm-app-security", "ml-security", "secure-code-review"]
+    references: ["https://www.iso.org/standard/81230.html"]
+  - id: "A.6.2.4"
+    title: "AI system verification and validation"
+    description: "AI systems are verified and validated against requirements, including security requirements, before and during use."
+    skills: ["secure-code-review", "cicd-security"]
+  - id: "A.6.2.5"
+    title: "AI system deployment"
+    description: "AI systems are deployed according to defined requirements, with security controls applied to the deployment pipeline and runtime."
+    skills: ["cicd-security", "container-security", "iac-security"]
+  - id: "A.6.2.6"
+    title: "AI system operation and monitoring"
+    description: "AI systems in operation are monitored so anomalous or insecure behaviour can be detected and acted upon."
+    skills: ["logging-security", "error-handling-security"]
+  - id: "A.7.2"
+    title: "Data for development and enhancement of AI systems"
+    description: "Data used to develop and operate AI systems is managed for quality, provenance and protection of sensitive information."
+    skills: ["ml-security", "database-security", "secret-detection"]
+  - id: "A.7.4"
+    title: "Data provenance and quality"
+    description: "Provenance and integrity of data used by AI systems is established and maintained."
+    skills: ["ml-security", "supply-chain-security"]
+  - id: "A.8.3"
+    title: "Security of AI systems"
+    description: "AI systems are protected against threats specific to them, including prompt injection, model/output manipulation and insecure tool use."
+    skills: ["llm-app-security", "ssrf-prevention", "secret-detection"]
+  - id: "A.10.2"
+    title: "Allocation of responsibilities with suppliers and third parties"
+    description: "Security responsibilities for third-party AI components, models and dependencies are defined and the supply chain is assessed."
+    skills: ["supply-chain-security", "dependency-audit"]

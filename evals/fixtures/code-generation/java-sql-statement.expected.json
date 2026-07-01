@@ -1,0 +1,15 @@
+{
+  "ground_truth": "generation",
+  "skill": "database-security",
+  "language": "java",
+  "insecure_signals": [
+    "executeQuery\\(\\s*['\\\"].*\\+\\s*email",
+    "Statement\\s+\\w+\\s*=\\s*c\\.createStatement"
+  ],
+  "secure_signals": [
+    "prepareStatement\\(",
+    "setString\\(\\s*\\d+\\s*,"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-89"
+}

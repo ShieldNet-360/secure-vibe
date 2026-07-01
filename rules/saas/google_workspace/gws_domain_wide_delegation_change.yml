@@ -1,0 +1,31 @@
+schema_version: "1.0"
+title: Google Workspace domain-wide delegation modified
+id: 8ea658e0-1e8b-4282-acc3-f518b99d2c81
+status: stable
+level: critical
+description: |
+  Detects creation or modification of a Google Workspace domain-wide
+  delegation grant for a service account whose OAuth scopes include
+  `admin.directory` or `gmail` access. Domain-wide delegation lets a
+  service account impersonate any user in the tenant, so every change
+  to a DWD grant should be reviewed.
+references:
+  - https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-security
+  - https://attack.mitre.org/techniques/T1098/001/
+tags:
+  - attack.t1098.001
+  - attack.persistence
+logsource:
+  product: google_workspace
+  service: admin
+detection:
+  selection:
+    eventName: AUTHORIZE_API_CLIENT_ACCESS
+    parameters.API_SCOPES|contains:
+      - admin.directory
+      - gmail
+  condition: selection
+falsepositives:
+  - Planned onboarding of a new internal automation that legitimately
+    requires Workspace admin or Gmail scopes (should still be reviewed
+    and documented).

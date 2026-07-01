@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Patterns to redact before logging exceptions or shipping them to third-party error trackers.",
+  "redact": [
+    {"name": "Authorization header", "regex": "(?i)(authorization\\s*[:=]\\s*)[^\\s,;]+", "replacement": "$1<redacted>"},
+    {"name": "Cookie header", "regex": "(?i)(cookie\\s*[:=]\\s*)[^\\n]+", "replacement": "$1<redacted>"},
+    {"name": "Set-Cookie header", "regex": "(?i)(set-cookie\\s*[:=]\\s*)[^\\n]+", "replacement": "$1<redacted>"},
+    {"name": "API key query param", "regex": "(?i)(api[_-]?key=)[^&\\s]+", "replacement": "$1<redacted>"},
+    {"name": "Password field", "regex": "(?i)(password\\\"?\\s*[:=]\\s*\\\"?)[^\\\"\\n,}\\s]+", "replacement": "$1<redacted>"},
+    {"name": "Token / secret JSON field", "regex": "(?i)(\\\"(token|secret|access_token|refresh_token|client_secret|private_key)\\\"\\s*:\\s*\\\")[^\\\"]+(\\\")", "replacement": "$1<redacted>$3"},
+    {"name": "Bearer token in URL", "regex": "(?i)(bearer\\s+)[A-Za-z0-9._~+/-]+", "replacement": "$1<redacted>"},
+    {"name": "PEM block", "regex": "(?s)-----BEGIN [A-Z ]+-----.*?-----END [A-Z ]+-----", "replacement": "<redacted-pem>"},
+    {"name": "Email-ish", "regex": "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}", "replacement": "<email>"},
+    {"name": "Credit-card like (Luhn 12-19 digits)", "regex": "\\b(?:\\d[ -]?){12,19}\\b", "replacement": "<cc>"},
+    {"name": "SSN-like 9-digit", "regex": "\\b\\d{3}-\\d{2}-\\d{4}\\b", "replacement": "<ssn>"},
+    {"name": "AWS access key", "regex": "AKIA[0-9A-Z]{16}", "replacement": "<aws-key>"}
+  ]
+}

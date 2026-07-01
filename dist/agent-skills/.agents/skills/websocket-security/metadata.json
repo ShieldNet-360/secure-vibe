@@ -1,0 +1,41 @@
+{
+  "id": "websocket-security",
+  "version": "1.0.0",
+  "title": "WebSocket Security",
+  "description": "Secure WebSocket endpoints: Origin validation, auth on handshake, message size/rate limits, wss-only, reconnection backoff",
+  "category": "prevention",
+  "severity": "high",
+  "applies_to": [
+    "when generating a WebSocket / Socket.IO / SignalR server",
+    "when wiring real-time messaging, presence, or collaborative editing",
+    "when reviewing /ws or wss:// endpoint exposure"
+  ],
+  "languages": [
+    "javascript",
+    "typescript",
+    "python",
+    "go",
+    "java",
+    "csharp",
+    "ruby",
+    "elixir"
+  ],
+  "token_budget": {
+    "minimal": 1200,
+    "compact": 1500,
+    "full": 2200
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "api-security",
+    "cors-security",
+    "auth-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP WebSocket Security Cheat Sheet",
+    "RFC 6455 — The WebSocket Protocol",
+    "CWE-1385: Missing Origin Validation in WebSockets",
+    "CWE-770: Allocation of Resources Without Limits or Throttling"
+  ]
+}

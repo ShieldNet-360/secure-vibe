@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-2c5c-chwr-9hqw",
+  "published": "2026-05-07T00:19:21Z",
+  "modified": "2026-05-14T20:47:33.533294Z",
+  "aliases": [
+    "CVE-2026-42582"
+  ],
+  "related": [
+    "CGA-hr83-cwqv-8752"
+  ],
+  "summary": "Netty HTTP/3 QPACK literal unbounded allocation",
+  "affected": [
+    {
+      "package": {
+        "name": "io.netty:netty-codec-http3",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/io.netty/netty-codec-http3"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.2.13.Final"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "4.2.10.Final",
+        "4.2.11.Final",
+        "4.2.12.Final",
+        "4.2.2.Final",
+        "4.2.3.Final",
+        "4.2.4.Final",
+        "4.2.5.Final",
+        "4.2.6.Final",
+        "4.2.7.Final",
+        "4.2.8.Final",
+        "4.2.9.Final"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 4.2.12.Final",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-2c5c-chwr-9hqw/GHSA-2c5c-chwr-9hqw.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/netty/netty/security/advisories/GHSA-2c5c-chwr-9hqw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42582"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/netty/netty"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-770",
+      "CWE-789"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T00:19:21Z",
+    "nvd_published_at": "2026-05-13T19:17:23Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

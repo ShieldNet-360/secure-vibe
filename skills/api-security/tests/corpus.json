@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Schema-driven corpus for api-security. No deterministic scanner covers BOLA/mass-assignment semantics, so the runner smoke-validates shape; the fixtures double as ground truth for the LLM eval harness (evals/).",
+  "fixtures": [
+    {
+      "id": "bola-id-from-path",
+      "text": "app.get('/api/orders/:id', async (req, res) => { res.json(await Order.findById(req.params.id)); });",
+      "expected": "detect",
+      "reason": "object fetched by caller-supplied id with no ownership check (BOLA / CWE-639)"
+    },
+    {
+      "id": "bola-ownership-scoped",
+      "text": "app.get('/api/orders/:id', async (req, res) => { res.json(await Order.findOne({ _id: req.params.id, userId: req.user.id })); });",
+      "expected": "ignore",
+      "reason": "query scoped to the authenticated owner"
+    },
+    {
+      "id": "mass-assignment-spread-body",
+      "text": "app.patch('/api/users/me', async (req, res) => { await User.updateOne({ _id: req.user.id }, { $set: req.body }); });",
+      "expected": "detect",
+      "reason": "whole request body written to the model — role/isAdmin can be injected (CWE-915)"
+    },
+    {
+      "id": "mass-assignment-picked-fields",
+      "text": "app.patch('/api/users/me', async (req, res) => { const { displayName, avatarUrl } = req.body; await User.updateOne({ _id: req.user.id }, { $set: { displayName, avatarUrl } }); });",
+      "expected": "ignore",
+      "reason": "explicit field allowlist"
+    },
+    {
+      "id": "unbounded-pagination",
+      "text": "app.get('/api/events', async (req, res) => { res.json(await Event.find().limit(parseInt(req.query.limit))); });",
+      "expected": "detect",
+      "reason": "caller-controlled limit with no cap — resource exhaustion (API4:2023)"
+    },
+    {
+      "id": "capped-pagination",
+      "text": "app.get('/api/events', async (req, res) => { const limit = Math.min(parseInt(req.query.limit) || 20, 100); res.json(await Event.find().limit(limit)); });",
+      "expected": "ignore",
+      "reason": "server-side cap on page size"
+    }
+  ]
+}

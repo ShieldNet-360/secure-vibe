@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Safe-default configuration for production GraphQL servers, applicable across Apollo Server, graphql-yoga, graphene, gqlgen, Hot Chocolate, etc.",
+  "references": [
+    "https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html",
+    "https://www.apollographql.com/docs/apollo-server/security/production-checklist/",
+    "https://escape.tech/graphql-armor/"
+  ],
+  "defaults": {
+    "max_query_depth": 8,
+    "max_query_complexity": 1000,
+    "max_alias_count": 15,
+    "max_directive_count": 50,
+    "max_token_count": 1000,
+    "max_operation_batch_size": 5,
+    "introspection_enabled_in_production": false,
+    "graphql_playground_enabled_in_production": false,
+    "persisted_queries_required_in_production": "recommended",
+    "field_level_authorization": "required",
+    "request_size_limit_bytes": 100000,
+    "request_timeout_seconds": 10,
+    "errors_redacted_for_clients": true,
+    "stacktrace_in_response": false,
+    "cors_origin_allowlist_only": true
+  },
+  "directives": {
+    "skip_include_run_before_auth": false,
+    "custom_directive_ordering_documented": "required"
+  },
+  "anti_patterns": [
+    {"id": "gql-introspection-in-prod", "severity": "medium", "cwe": 200, "rule": "Introspection enabled in production trivializes recon; disable in production builds"},
+    {"id": "gql-no-depth-limit", "severity": "high", "cwe": 400, "rule": "Missing max_query_depth allows exponential nested resource consumption"},
+    {"id": "gql-no-complexity-limit", "severity": "high", "cwe": 400, "rule": "Missing max_query_complexity allows fan-out DoS via wide selection sets"},
+    {"id": "gql-alias-amplification", "severity": "high", "cwe": 400, "rule": "Unlimited aliases enable N-fold amplification of a single resolver call"},
+    {"id": "gql-batched-mutation-no-limit", "severity": "high", "cwe": 770, "rule": "Unbounded operation batches enable login / password-reset / rate-limit bypass via N operations per request"},
+    {"id": "gql-field-authz-missing", "severity": "critical", "cwe": 285, "rule": "Endpoint-level auth without per-field auth leaks sensitive fields through a single permitted query"},
+    {"id": "gql-introspection-leak-on-error", "severity": "medium", "cwe": 209, "rule": "Apollo default errors include schema suggestions (didYouMean), which leak schema in production"},
+    {"id": "gql-jsonscalar-bypass", "severity": "high", "cwe": 20, "rule": "JSON / Scalar typed inputs bypass schema validation; validate JSON payloads explicitly"},
+    {"id": "gql-file-upload-unbounded", "severity": "high", "cwe": 434, "rule": "graphql-upload without size and MIME validation has historical CVEs and recurring DoS patterns"},
+    {"id": "gql-cache-by-url-only", "severity": "medium", "cwe": 524, "rule": "CDN cache keyed on URL serves cross-tenant data because GraphQL POSTs share the URL"}
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "description": "Gate-driven corpus for container-security: each fixture is a Dockerfile run through the same PolicyCheck the CI gate uses. detect = the gate must fail it at the floor; ignore = it must pass clean.",
+  "scanner": "gate",
+  "severity_floor": "medium",
+  "fixtures": [
+    {
+      "id": "latest-tag-root-curl-sh",
+      "filename": "Dockerfile",
+      "text": "FROM node:latest\nUSER root\nRUN curl http://example.com/install.sh | sh\n",
+      "expected": "detect",
+      "expected_rule": "dkr-no-curl-pipe-sh",
+      "reason": "the classic trifecta: unpinned base, root user, remote pipe-to-shell"
+    },
+    {
+      "id": "user-root-only",
+      "filename": "Dockerfile",
+      "text": "FROM node:18@sha256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890\nUSER root\nHEALTHCHECK CMD true\nCMD [\"node\", \"server.js\"]\n",
+      "expected": "detect",
+      "expected_rule": "dkr-non-root-user",
+      "reason": "pinned base but the final user is root"
+    },
+    {
+      "id": "latest-tag-only",
+      "filename": "Dockerfile",
+      "text": "FROM node:latest\nUSER 10001\nHEALTHCHECK CMD true\nCMD [\"node\", \"server.js\"]\n",
+      "expected": "detect",
+      "expected_rule": "dkr-explicit-latest-tag",
+      "reason": ":latest tag defeats reproducible builds"
+    },
+    {
+      "id": "add-remote-url",
+      "filename": "Dockerfile",
+      "text": "FROM node:18@sha256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890\nADD https://example.com/app.tar.gz /opt/app.tar.gz\nUSER 10001\nHEALTHCHECK CMD true\nCMD [\"node\", \"server.js\"]\n",
+      "expected": "detect",
+      "expected_rule": "dkr-no-add-remote",
+      "reason": "ADD from a remote URL bypasses checksum verification"
+    },
+    {
+      "id": "secret-in-env",
+      "filename": "Dockerfile",
+      "text": "FROM node:18@sha256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890\nENV AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY\nUSER 10001\nHEALTHCHECK CMD true\nCMD [\"node\", \"server.js\"]\n",
+      "expected": "detect",
+      "expected_rule": "dkr-no-secrets-in-env",
+      "reason": "credential baked into an image layer"
+    },
+    {
+      "id": "hardened-clean",
+      "filename": "Dockerfile",
+      "text": "FROM node:18@sha256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890\nUSER 10001\nRUN echo \"no remote fetch, no curl|sh\"\nHEALTHCHECK CMD true\nCMD [\"node\", \"server.js\"]\n",
+      "expected": "ignore",
+      "reason": "digest-pinned base, non-root user, no remote execution — must pass the gate"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "secure-code-review",
+  "language": "javascript",
+  "insecure_signals": [
+    "\\bexec\\(\\s*[`'\\\"].*\\$\\{",
+    "child_process\\.exec\\("
+  ],
+  "secure_signals": [
+    "execFile\\(",
+    "spawn\\(\\s*['\\\"]pdfinfo"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

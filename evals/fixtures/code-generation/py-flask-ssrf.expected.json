@@ -1,0 +1,17 @@
+{
+  "ground_truth": "generation",
+  "skill": "ssrf-prevention",
+  "language": "python",
+  "insecure_signals": [
+    "requests\\.get\\(\\s*request\\.(args|values|json)",
+    "requests\\.get\\(\\s*url\\s*\\)"
+  ],
+  "secure_signals": [
+    "allowlist|allow_list|is_allowed",
+    "ipaddress\\.",
+    "is_private",
+    "abort\\(4\\d\\d"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-918"
+}

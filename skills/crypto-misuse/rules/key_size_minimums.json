@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "framework": "NIST SP 800-57 Part 1 Rev. 5 (Recommendation for Key Management)",
+  "description": "Minimum acceptable key/parameter sizes for new code (effective 2026+).",
+  "minimums": {
+    "RSA_bits": 3072,
+    "DSA_bits": 3072,
+    "DH_bits": 3072,
+    "ECDSA_curve": ["P-256", "P-384", "P-521"],
+    "EdDSA_curve": ["Ed25519", "Ed448"],
+    "ECDH_curve": ["X25519", "X448", "P-256", "P-384"],
+    "AES_bits": 256,
+    "HMAC_underlying_hash": ["SHA-256", "SHA-384", "SHA-512", "SHA3-256", "SHA3-512"],
+    "password_kdf": {
+      "argon2id": {"memory_kib": 65536, "iterations": 3, "parallelism": 1, "salt_bytes": 16, "tag_bytes": 32},
+      "scrypt": {"N": 131072, "r": 8, "p": 1, "salt_bytes": 16, "dkLen_bytes": 32},
+      "bcrypt": {"cost": 12},
+      "pbkdf2": {"prf": "HMAC-SHA-256", "iterations": 600000, "salt_bytes": 16, "dkLen_bytes": 32}
+    },
+    "tls_version_minimum": "1.2",
+    "tls_version_preferred": "1.3",
+    "tls_cipher_suites_allowed": [
+      "TLS_AES_128_GCM_SHA256",
+      "TLS_AES_256_GCM_SHA384",
+      "TLS_CHACHA20_POLY1305_SHA256",
+      "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+      "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+      "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+      "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256"
+    ]
+  }
+}

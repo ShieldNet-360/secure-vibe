@@ -1,0 +1,40 @@
+schema_version: "1.0"
+framework: "OWASP MASVS-PLATFORM (v2.0) + Apple Platform Security Guide"
+last_updated: "2026-05-13"
+patterns:
+  - id: ios-ats-enabled
+    severity: critical
+    rule: "App Transport Security is on; NSAllowsArbitraryLoads=false; exceptions are per-host with NSIncludesSubdomains and NSExceptionRequiresForwardSecrecy=true"
+    cwe: 319
+  - id: ios-keychain-for-secrets
+    severity: critical
+    rule: "Secrets stored via SecItemAdd with kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly or stricter; not in UserDefaults / files / plist"
+    cwe: 312
+  - id: ios-keychain-access-group
+    severity: medium
+    rule: "kSecAttrAccessGroup scoped to the app's team-id prefix and unique suffix; not shared unless intentional"
+  - id: ios-pin-server-cert
+    severity: high
+    rule: "URLSessionDelegate didReceiveChallenge pins the server public key for prod backends"
+    cwe: 295
+  - id: ios-no-trust-all
+    severity: critical
+    rule: "URLSessionDelegate doesn't call .useCredential(URLCredential(trust: ...)) unconditionally"
+    cwe: 295
+  - id: ios-deviceCheck-appAttest
+    severity: medium
+    rule: "Sensitive operations attest the device via DeviceCheck or AppAttest before allowing"
+  - id: ios-wkwebview-no-universal-file
+    severity: high
+    rule: "WKWebView configuration does not allowFileAccessFromFileURLs / allowUniversalAccessFromFileURLs"
+    cwe: 200
+  - id: ios-biometric-binding
+    severity: high
+    rule: "LAContext / LocalAuthentication is paired with a key in the Secure Enclave; biometric prompt result is bound to a cryptographic challenge"
+  - id: ios-no-debug-logs-release
+    severity: medium
+    rule: "DEBUG-only logging macros (e.g., #if DEBUG print(...)) are stripped from Release configuration"
+  - id: ios-url-scheme-validate
+    severity: high
+    rule: "Custom URL schemes validate any incoming parameters before triggering navigation or auth state changes"
+    cwe: 939

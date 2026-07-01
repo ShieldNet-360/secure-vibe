@@ -1,0 +1,39 @@
+# Winget manifest for secure-vibe.
+#
+# To submit:
+#   1. Update PackageVersion to match the release tag.
+#   2. Replace InstallerUrl and InstallerSha256 with the MSI URL and SHA-256.
+#   3. Run: winget validate --manifest .
+#   4. Open a PR against microsoft/winget-pkgs with this file split into the
+#      three required manifest files (installer, defaultLocale, version).
+PackageIdentifier: shieldnet-360.secure-vibe
+PackageVersion: 0.0.0
+PackageLocale: en-US
+Publisher: Skills Library
+PublisherUrl: https://github.com/shieldnet-360/secure-vibe
+PublisherSupportUrl: https://github.com/shieldnet-360/secure-vibe/issues
+PackageName: secure-vibe
+PackageUrl: https://github.com/shieldnet-360/secure-vibe
+License: MIT
+LicenseUrl: https://github.com/shieldnet-360/secure-vibe/blob/main/LICENSE
+ShortDescription: Skills Library CLI for AI-assisted coding tools.
+Description: |
+  secure-vibe is the command-line interface for the open-source Skills
+  Library. It validates skill manifests, generates IDE-specific configuration
+  files for Claude Code / Cursor / Copilot / Codex / Windsurf / Cline / Devin,
+  and pulls signed updates of vulnerability data and detection rules.
+Moniker: secure-vibe
+Tags:
+  - security
+  - ai
+  - cli
+  - secure-vibe
+InstallerType: msi
+Installers:
+  - Architecture: x64
+    InstallerUrl: https://github.com/shieldnet-360/secure-vibe/releases/download/v0.0.0/secure-vibe.msi
+    InstallerSha256: REPLACE_WITH_MSI_SHA256
+    Scope: machine
+ReleaseDate: 2026-05-13
+ManifestType: singleton
+ManifestVersion: 1.6.0

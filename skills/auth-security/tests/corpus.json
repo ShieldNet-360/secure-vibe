@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Schema-driven corpus for auth-security. No deterministic scanner covers these semantic patterns yet, so the runner smoke-validates shape; the fixtures double as ground truth for the LLM eval harness (evals/) and become executable if a future scanner shape covers auth flows.",
+  "fixtures": [
+    {
+      "id": "plaintext-password-compare",
+      "text": "const ok = user.password === req.body.password;",
+      "expected": "detect",
+      "reason": "credential compared in plaintext — no hash verification (CWE-256)"
+    },
+    {
+      "id": "bcrypt-compare",
+      "text": "const ok = await bcrypt.compare(req.body.password, user.passwordHash);",
+      "expected": "ignore",
+      "reason": "constant-time hash comparison is the correct pattern"
+    },
+    {
+      "id": "jwt-none-algorithm",
+      "text": "jwt.verify(token, key, { algorithms: ['none', 'HS256'] });",
+      "expected": "detect",
+      "reason": "accepting alg=none disables signature verification (CWE-347)"
+    },
+    {
+      "id": "jwt-pinned-algorithm",
+      "text": "jwt.verify(token, key, { algorithms: ['RS256'] });",
+      "expected": "ignore",
+      "reason": "single pinned asymmetric algorithm"
+    },
+    {
+      "id": "session-fixation-no-regen",
+      "text": "app.post('/login', (req, res) => { req.session.userId = user.id; res.redirect('/'); });",
+      "expected": "detect",
+      "reason": "session id not regenerated after privilege change (CWE-384)"
+    },
+    {
+      "id": "session-regenerated-on-login",
+      "text": "app.post('/login', (req, res) => { req.session.regenerate(() => { req.session.userId = user.id; res.redirect('/'); }); });",
+      "expected": "ignore",
+      "reason": "session regenerated at the trust boundary"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "ground_truth": "generation",
+  "skill": "crypto-misuse",
+  "language": "java",
+  "insecure_signals": [
+    "getInstance\\(\\s*\"(DES|RC4|DESede|Blowfish)",
+    "/ECB/"
+  ],
+  "secure_signals": [
+    "getInstance\\(\\s*\"AES/(GCM|CBC)",
+    "GCMParameterSpec"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-327"
+}

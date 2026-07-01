@@ -1,0 +1,91 @@
+schema_version: "1.0"
+framework: "ISO/IEC 27001"
+version: "ISO/IEC 27001:2022 (Annex A) with ISO/IEC 27002:2022 controls"
+last_updated: "2026-06-23"
+# Mapping scope: the technological (clause 8) Annex A controls that secure
+# code-generation practices materially support, plus the cloud-services control
+# (5.23). Organizational, people, and physical controls are an ISMS programme
+# responsibility and are intentionally not claimed here — SecureVibe helps you
+# implement controls, it does not certify an ISMS.
+controls:
+  - id: "A.5.23"
+    title: "Information security for use of cloud services"
+    description: "Processes for acquisition, use, management and exit from cloud services are established per the organization's security requirements."
+    skills: ["saas-security", "serverless-security", "iac-security"]
+    references: ["https://www.iso.org/standard/27001"]
+  - id: "A.8.2"
+    title: "Privileged access rights"
+    description: "Allocation and use of privileged access rights is restricted and managed."
+    skills: ["iam-best-practices", "auth-security"]
+  - id: "A.8.3"
+    title: "Information access restriction"
+    description: "Access to information and other associated assets is restricted in line with the access control policy."
+    skills: ["auth-security", "iam-best-practices", "api-security"]
+  - id: "A.8.4"
+    title: "Access to source code"
+    description: "Read and write access to source code, development tools and software libraries is appropriately managed."
+    skills: ["secret-detection", "cicd-security"]
+  - id: "A.8.5"
+    title: "Secure authentication"
+    description: "Secure authentication technologies and procedures are implemented based on access restrictions and the access control policy."
+    skills: ["auth-security", "iam-best-practices"]
+  - id: "A.8.8"
+    title: "Management of technical vulnerabilities"
+    description: "Information about technical vulnerabilities of systems in use is obtained and exposure to such vulnerabilities is evaluated and addressed."
+    skills: ["supply-chain-security", "dependency-audit", "container-security"]
+  - id: "A.8.9"
+    title: "Configuration management"
+    description: "Configurations, including security configurations, of hardware, software, services and networks are established, documented, implemented, monitored and reviewed."
+    skills: ["iac-security", "container-security"]
+  - id: "A.8.12"
+    title: "Data leakage prevention"
+    description: "Data leakage prevention measures are applied to systems, networks and devices that process, store or transmit sensitive information."
+    skills: ["secret-detection", "logging-security"]
+  - id: "A.8.15"
+    title: "Logging"
+    description: "Logs that record activities, exceptions, faults and other relevant events are produced, stored, protected and analysed."
+    skills: ["logging-security", "error-handling-security"]
+  - id: "A.8.16"
+    title: "Monitoring activities"
+    description: "Networks, systems and applications are monitored for anomalous behaviour and appropriate actions are taken to evaluate potential security incidents."
+    skills: ["logging-security"]
+  - id: "A.8.20"
+    title: "Networks security"
+    description: "Networks and network devices are secured, managed and controlled to protect information in systems and applications."
+    skills: ["protocol-security", "cors-security"]
+  - id: "A.8.21"
+    title: "Security of network services"
+    description: "Security mechanisms, service levels and service requirements of network services are identified, implemented and monitored."
+    skills: ["api-security", "protocol-security"]
+  - id: "A.8.23"
+    title: "Web filtering"
+    description: "Access to external websites is managed to reduce exposure to malicious content."
+    skills: ["ssrf-prevention"]
+  - id: "A.8.24"
+    title: "Use of cryptography"
+    description: "Rules for the effective use of cryptography, including cryptographic key management, are defined and implemented."
+    skills: ["crypto-misuse"]
+  - id: "A.8.25"
+    title: "Secure development life cycle"
+    description: "Rules for the secure development of software and systems are established and applied."
+    skills: ["secure-code-review", "cicd-security"]
+  - id: "A.8.26"
+    title: "Application security requirements"
+    description: "Information security requirements are identified, specified and approved when developing or acquiring applications."
+    skills: ["api-security", "auth-security", "frontend-security"]
+  - id: "A.8.27"
+    title: "Secure system architecture and engineering principles"
+    description: "Principles for engineering secure systems are established, documented, maintained and applied to system development activities."
+    skills: ["secure-code-review", "ssrf-prevention", "deserialization-security"]
+  - id: "A.8.28"
+    title: "Secure coding"
+    description: "Secure coding principles are applied to software development."
+    skills: ["secure-code-review", "crypto-misuse", "deserialization-security", "ssrf-prevention", "file-upload-security"]
+  - id: "A.8.29"
+    title: "Security testing in development and acceptance"
+    description: "Security testing processes are defined and implemented in the development life cycle."
+    skills: ["cicd-security", "secure-code-review"]
+  - id: "A.8.31"
+    title: "Separation of development, test and production environments"
+    description: "Development, testing and production environments are separated and secured."
+    skills: ["iac-security", "cicd-security"]

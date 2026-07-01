@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-27w2-87xv-37c6",
+  "published": "2026-05-15T16:31:22Z",
+  "modified": "2026-05-15T16:46:22.992739Z",
+  "aliases": [
+    "CVE-2026-40092"
+  ],
+  "summary": "nimiq-keys: Unchecked Ed25519 signature length in TaggedPublicKey::verify causes remote node panic via DHT",
+  "affected": [
+    {
+      "package": {
+        "name": "nimiq-keys",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/nimiq-keys"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "0.2.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-27w2-87xv-37c6/GHSA-27w2-87xv-37c6.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/nimiq/core-rs-albatross/security/advisories/GHSA-27w2-87xv-37c6"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nimiq/core-rs-albatross/pull/3708"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nimiq/core-rs-albatross/commit/807ee8e99a7ccdc604d49971f292854bfa36754d"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/nimiq/core-rs-albatross"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/nimiq/core-rs-albatross/releases/tag/v1.4.0"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-252"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-15T16:31:22Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

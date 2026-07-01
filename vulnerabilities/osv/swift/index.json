@@ -1,0 +1,1547 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-16T05:44:33Z",
+  "generated_at": "2026-05-16T05:44:33Z",
+  "by_package": {
+    "github.com/apple/swift-corelibs-foundation": [
+      {
+        "id": "GHSA-239c-6cv2-wwx8",
+        "file": "GHSA-239c-6cv2-wwx8.json",
+        "summary": "Swift-corelibs-foundation denial of service in JSON decoding with JSONDecoder",
+        "aliases": [
+          "CVE-2022-1642"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/grpc/grpc-swift": [
+      {
+        "id": "GHSA-2jx2-qcm4-rf9h",
+        "file": "GHSA-2jx2-qcm4-rf9h.json",
+        "summary": "Incomplete Internal State Distinction in GRPCWebToHTTP2ServerCodec",
+        "aliases": [
+          "CVE-2021-36153"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-4rhq-vq24-88gw",
+        "file": "GHSA-4rhq-vq24-88gw.json",
+        "summary": "Uncontrolled Recursion in HTTP2ToRawGRPCServerCodec",
+        "aliases": [
+          "CVE-2021-36154"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-r6ww-5963-7r95",
+        "file": "GHSA-r6ww-5963-7r95.json",
+        "summary": "Denial of Service via reachable assertion",
+        "aliases": [
+          "CVE-2022-24777"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rxmj-hg9v-vp3p",
+        "file": "GHSA-rxmj-hg9v-vp3p.json",
+        "summary": "Uncontrolled Resource Consumption in LengthPrefixedMessageReader",
+        "aliases": [
+          "CVE-2021-36155"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/apple/container": [
+      {
+        "id": "GHSA-39g5-644c-qwcg",
+        "file": "GHSA-39g5-644c-qwcg.json",
+        "summary": "container: pf Rule Injection via Domain Name Argument in `container system dns create --localhost` Command",
+        "aliases": [],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-cq3j-qj2h-6rv3",
+        "file": "GHSA-cq3j-qj2h-6rv3.json",
+        "summary": "Container and Containerization archive extraction does not guard against escapes from extraction base directory.",
+        "aliases": [
+          "CVE-2026-20613"
+        ],
+        "severity": "low"
+      }
+    ],
+    "github.com/vapor/vapor": [
+      {
+        "id": "GHSA-3mwq-h3g6-ffhm",
+        "file": "GHSA-3mwq-h3g6-ffhm.json",
+        "summary": "Vapor's incorrect request error handling triggers server crash",
+        "aliases": [
+          "CVE-2023-44386"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-gcj9-jj38-hwmc",
+        "file": "GHSA-gcj9-jj38-hwmc.json",
+        "summary": "Vapor's Metrics integration could cause a system drain",
+        "aliases": [
+          "CVE-2021-21328"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-pqwh-c2f3-vxmq",
+        "file": "GHSA-pqwh-c2f3-vxmq.json",
+        "summary": "Untrusted data fed into `Data.init(base32Encoded:)` can result in exposing server memory and/or crash",
+        "aliases": [
+          "CVE-2021-32742"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qvxg-wjxc-r4gg",
+        "file": "GHSA-qvxg-wjxc-r4gg.json",
+        "summary": "Vapor vulnerable to denial of service in URLEncodedFormDecoder",
+        "aliases": [
+          "CVE-2022-31019"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-r6r4-5pr8-gjcp",
+        "file": "GHSA-r6r4-5pr8-gjcp.json",
+        "summary": "Vapor contains an integer overflow in URI leading to potential host spoofing",
+        "aliases": [
+          "CVE-2024-21631"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vcvg-xgr8-p5gq",
+        "file": "GHSA-vcvg-xgr8-p5gq.json",
+        "summary": "Arbitrary file read using percent-encoded relative paths in FileMiddleware",
+        "aliases": [
+          "CVE-2020-15230"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vj2m-9f5j-mpr5",
+        "file": "GHSA-vj2m-9f5j-mpr5.json",
+        "summary": "Vapor vulnerable to denial of service in HTTP Range Request of FileMiddleware",
+        "aliases": [
+          "CVE-2022-31005"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/vapor/leaf-kit": [
+      {
+        "id": "GHSA-4hfh-fch3-5q7p",
+        "file": "GHSA-4hfh-fch3-5q7p.json",
+        "summary": "Leaf-kit html escaping does not work on characters that are part of extended grapheme cluster",
+        "aliases": [
+          "CVE-2026-27120"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6jj5-j4j8-8473",
+        "file": "GHSA-6jj5-j4j8-8473.json",
+        "summary": "LeafKit's HTML escaping may be skipped for Collection values, enabling XSS",
+        "aliases": [
+          "CVE-2026-28499"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-rv3x-xq3r-8j9h",
+        "file": "GHSA-rv3x-xq3r-8j9h.json",
+        "summary": "LeafKit allows XSS with untrusted user input",
+        "aliases": [
+          "CVE-2021-37634"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "pubnub": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.pubnub:pubnub-kotlin": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.pubnub:pubnub": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/pubnub/go/v7": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/pubnub/go": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/pubnub/go/v6": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/pubnub/go/v5": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/pubnub/swift": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "pubnub/pubnub": [
+      {
+        "id": "GHSA-5844-q3fc-56rh",
+        "file": "GHSA-5844-q3fc-56rh.json",
+        "summary": "pubnub Insufficient Entropy vulnerability",
+        "aliases": [
+          "CVE-2023-26154",
+          "GO-2023-2385"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/facebook/zstd": [
+      {
+        "id": "GHSA-5c9c-6x87-f9vm",
+        "file": "GHSA-5c9c-6x87-f9vm.json",
+        "summary": "zstd vulnerable to buffer overrun",
+        "aliases": [
+          "CVE-2022-4899",
+          "PYSEC-2023-121"
+        ],
+        "severity": "high"
+      }
+    ],
+    "zstd": [
+      {
+        "id": "GHSA-5c9c-6x87-f9vm",
+        "file": "GHSA-5c9c-6x87-f9vm.json",
+        "summary": "zstd vulnerable to buffer overrun",
+        "aliases": [
+          "CVE-2022-4899",
+          "PYSEC-2023-121"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/apple/swift-nio-extras": [
+      {
+        "id": "GHSA-773g-x274-8qmf",
+        "file": "GHSA-773g-x274-8qmf.json",
+        "summary": "SwiftNIO Extras vulnerable to improper detection of complete HTTP body decompression",
+        "aliases": [
+          "CVE-2022-3252"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-773g-x274-8qmf",
+        "file": "GHSA-773g-x274-8qmf.json",
+        "summary": "SwiftNIO Extras vulnerable to improper detection of complete HTTP body decompression",
+        "aliases": [
+          "CVE-2022-3252"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-773g-x274-8qmf",
+        "file": "GHSA-773g-x274-8qmf.json",
+        "summary": "SwiftNIO Extras vulnerable to improper detection of complete HTTP body decompression",
+        "aliases": [
+          "CVE-2022-3252"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/apple/swift-nio": [
+      {
+        "id": "GHSA-7fj7-39wj-c64f",
+        "file": "GHSA-7fj7-39wj-c64f.json",
+        "summary": "SwiftNIO vulnerable to Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')",
+        "aliases": [
+          "CVE-2022-3215"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-7fj7-39wj-c64f",
+        "file": "GHSA-7fj7-39wj-c64f.json",
+        "summary": "SwiftNIO vulnerable to Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')",
+        "aliases": [
+          "CVE-2022-3215"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-7fj7-39wj-c64f",
+        "file": "GHSA-7fj7-39wj-c64f.json",
+        "summary": "SwiftNIO vulnerable to Improper Neutralization of CRLF Sequences in HTTP Headers ('HTTP Response Splitting')",
+        "aliases": [
+          "CVE-2022-3215"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-mgc4-wqv7-4pxm",
+        "file": "GHSA-mgc4-wqv7-4pxm.json",
+        "summary": "SwiftNIO vulnerable to HTTP request smuggling using malformed Transfer-Encoding header",
+        "aliases": [],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-mgc4-wqv7-4pxm",
+        "file": "GHSA-mgc4-wqv7-4pxm.json",
+        "summary": "SwiftNIO vulnerable to HTTP request smuggling using malformed Transfer-Encoding header",
+        "aliases": [],
+        "severity": "critical"
+      }
+    ],
+    "executorch": [
+      {
+        "id": "GHSA-84m3-f99p-cqx5",
+        "file": "GHSA-84m3-f99p-cqx5.json",
+        "summary": "ExecuTorch integer overflow vulnerability",
+        "aliases": [
+          "CVE-2025-30405"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-9m39-3mf3-xwch",
+        "file": "GHSA-9m39-3mf3-xwch.json",
+        "summary": "ExecuTorch heap buffer overflow vulnerability",
+        "aliases": [
+          "CVE-2025-54949"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-f9hx-c6jf-3qxm",
+        "file": "GHSA-f9hx-c6jf-3qxm.json",
+        "summary": "ExecuTorch out-of-bounds access vulnerability",
+        "aliases": [
+          "CVE-2025-54950"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-h952-963h-rv99",
+        "file": "GHSA-h952-963h-rv99.json",
+        "summary": "ExecuTorch vulnerable to Heap-based Buffer Overflow attack",
+        "aliases": [
+          "CVE-2025-30402"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-hj95-mhgf-jxc4",
+        "file": "GHSA-hj95-mhgf-jxc4.json",
+        "summary": "ExecuTorch integer overflow vulnerability",
+        "aliases": [
+          "CVE-2025-30404"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-xc7w-r669-48pf",
+        "file": "GHSA-xc7w-r669-48pf.json",
+        "summary": "ExecuTorch vulnerable to Heap-based Buffer Overflow",
+        "aliases": [
+          "CVE-2025-54951"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "org.pytorch:executorch-android": [
+      {
+        "id": "GHSA-84m3-f99p-cqx5",
+        "file": "GHSA-84m3-f99p-cqx5.json",
+        "summary": "ExecuTorch integer overflow vulnerability",
+        "aliases": [
+          "CVE-2025-30405"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-9m39-3mf3-xwch",
+        "file": "GHSA-9m39-3mf3-xwch.json",
+        "summary": "ExecuTorch heap buffer overflow vulnerability",
+        "aliases": [
+          "CVE-2025-54949"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-f9hx-c6jf-3qxm",
+        "file": "GHSA-f9hx-c6jf-3qxm.json",
+        "summary": "ExecuTorch out-of-bounds access vulnerability",
+        "aliases": [
+          "CVE-2025-54950"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-h952-963h-rv99",
+        "file": "GHSA-h952-963h-rv99.json",
+        "summary": "ExecuTorch vulnerable to Heap-based Buffer Overflow attack",
+        "aliases": [
+          "CVE-2025-30402"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-hj95-mhgf-jxc4",
+        "file": "GHSA-hj95-mhgf-jxc4.json",
+        "summary": "ExecuTorch integer overflow vulnerability",
+        "aliases": [
+          "CVE-2025-30404"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-xc7w-r669-48pf",
+        "file": "GHSA-xc7w-r669-48pf.json",
+        "summary": "ExecuTorch vulnerable to Heap-based Buffer Overflow",
+        "aliases": [
+          "CVE-2025-54951"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "github.com/pytorch/executorch": [
+      {
+        "id": "GHSA-84m3-f99p-cqx5",
+        "file": "GHSA-84m3-f99p-cqx5.json",
+        "summary": "ExecuTorch integer overflow vulnerability",
+        "aliases": [
+          "CVE-2025-30405"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-9m39-3mf3-xwch",
+        "file": "GHSA-9m39-3mf3-xwch.json",
+        "summary": "ExecuTorch heap buffer overflow vulnerability",
+        "aliases": [
+          "CVE-2025-54949"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-f9hx-c6jf-3qxm",
+        "file": "GHSA-f9hx-c6jf-3qxm.json",
+        "summary": "ExecuTorch out-of-bounds access vulnerability",
+        "aliases": [
+          "CVE-2025-54950"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-h952-963h-rv99",
+        "file": "GHSA-h952-963h-rv99.json",
+        "summary": "ExecuTorch vulnerable to Heap-based Buffer Overflow attack",
+        "aliases": [
+          "CVE-2025-30402"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-hj95-mhgf-jxc4",
+        "file": "GHSA-hj95-mhgf-jxc4.json",
+        "summary": "ExecuTorch integer overflow vulnerability",
+        "aliases": [
+          "CVE-2025-30404"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-xc7w-r669-48pf",
+        "file": "GHSA-xc7w-r669-48pf.json",
+        "summary": "ExecuTorch vulnerable to Heap-based Buffer Overflow",
+        "aliases": [
+          "CVE-2025-54951"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "github.com/beatt83/jose-swift": [
+      {
+        "id": "GHSA-88q6-jcjg-hvmw",
+        "file": "GHSA-88q6-jcjg-hvmw.json",
+        "summary": "jose-swift has JWT Signature Verification Bypass via None Algorithm",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "github.com/vapor/postgres-nio": [
+      {
+        "id": "GHSA-9cfh-vx93-84vv",
+        "file": "GHSA-9cfh-vx93-84vv.json",
+        "summary": "PostgresNIO processes unencrypted bytes from man-in-the-middle",
+        "aliases": [
+          "CVE-2023-31136"
+        ],
+        "severity": "low"
+      }
+    ],
+    "swift-crypto": [
+      {
+        "id": "GHSA-9m44-rr2w-ppp7",
+        "file": "GHSA-9m44-rr2w-ppp7.json",
+        "summary": "Swift Crypto: X-Wing HPKE Decapsulation Accepts Malformed Ciphertext Length",
+        "aliases": [
+          "CVE-2026-28815"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/weichsel/zipfoundation": [
+      {
+        "id": "GHSA-c2cc-3569-6jh2",
+        "file": "GHSA-c2cc-3569-6jh2.json",
+        "summary": "Path traversal in ZIPFoundation",
+        "aliases": [
+          "CVE-2023-39138"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/apple/swift-nio-http2": [
+      {
+        "id": "GHSA-ccw9-q5h2-8c2w",
+        "file": "GHSA-ccw9-q5h2-8c2w.json",
+        "summary": "swift-nio-http2 vulnerable to denial of service via invalid HTTP/2 HEADERS frame length",
+        "aliases": [
+          "CVE-2022-24666"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gpgx-whwh-r297",
+        "file": "GHSA-gpgx-whwh-r297.json",
+        "summary": "Duplicate advisory: swift-nio-http2 vulnerable to denial of service via ALTSVC or ORIGIN frames",
+        "aliases": [],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-pgfx-g6rc-8cjv",
+        "file": "GHSA-pgfx-g6rc-8cjv.json",
+        "summary": "swift-nio-http2 vulnerable to denial of service via ALTSVC or ORIGIN frames",
+        "aliases": [
+          "CVE-2022-24668"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-pv7r-9vjg-g3f9",
+        "file": "GHSA-pv7r-9vjg-g3f9.json",
+        "summary": "Duplicate advisory: swift-nio-http2 vulnerable to denial of service via invalid HTTP/2 HEADERS frame length",
+        "aliases": [],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-q36x-r5x4-h4q6",
+        "file": "GHSA-q36x-r5x4-h4q6.json",
+        "summary": "Denial of service via HTTP/2 HEADERS frames padding",
+        "aliases": [
+          "CVE-2022-0618"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-w3f6-pc54-gfw7",
+        "file": "GHSA-w3f6-pc54-gfw7.json",
+        "summary": "swift-nio-http2 vulnerable to denial of service via mishandled HPACK variable length integer encoding",
+        "aliases": [
+          "CVE-2022-24667"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wfvq-p7qf-vv64",
+        "file": "GHSA-wfvq-p7qf-vv64.json",
+        "summary": "Duplicate advisory: swift-nio-http2 vulnerable to denial of service via mishandled HPACK variable length integer encoding",
+        "aliases": [],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-xvr7-p2c6-j83w",
+        "file": "GHSA-xvr7-p2c6-j83w.json",
+        "summary": "swift-nio-http2 affected by HTTP/2 MadeYouReset vulnerability",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "github.com/apple/containerization": [
+      {
+        "id": "GHSA-cq3j-qj2h-6rv3",
+        "file": "GHSA-cq3j-qj2h-6rv3.json",
+        "summary": "Container and Containerization archive extraction does not guard against escapes from extraction base directory.",
+        "aliases": [
+          "CVE-2026-20613"
+        ],
+        "severity": "low"
+      }
+    ],
+    "github.com/shareup/wasm-interpreter-apple": [
+      {
+        "id": "GHSA-fmq6-4w57-2w3v",
+        "file": "GHSA-fmq6-4w57-2w3v.json",
+        "summary": "wasm3 uncontrolled memory allocation vulnerability",
+        "aliases": [
+          "CVE-2024-27529"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "pywasm3": [
+      {
+        "id": "GHSA-fmq6-4w57-2w3v",
+        "file": "GHSA-fmq6-4w57-2w3v.json",
+        "summary": "wasm3 uncontrolled memory allocation vulnerability",
+        "aliases": [
+          "CVE-2024-27529"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "wasm3": [
+      {
+        "id": "GHSA-fmq6-4w57-2w3v",
+        "file": "GHSA-fmq6-4w57-2w3v.json",
+        "summary": "wasm3 uncontrolled memory allocation vulnerability",
+        "aliases": [
+          "CVE-2024-27529"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/apple/swift-nio-ssl": [
+      {
+        "id": "GHSA-frg3-gpcx-968f",
+        "file": "GHSA-frg3-gpcx-968f.json",
+        "summary": "SwiftNIO SSL arbitrary code execution vulnerability",
+        "aliases": [
+          "CVE-2019-8849"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "github.com/marmelroy/zip": [
+      {
+        "id": "GHSA-g454-wj9r-jpg4",
+        "file": "GHSA-g454-wj9r-jpg4.json",
+        "summary": "Path traversal in Zip Swift",
+        "aliases": [
+          "CVE-2023-39135"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/migueldeicaza/swiftterm": [
+      {
+        "id": "GHSA-jq43-q8mx-r7mq",
+        "file": "GHSA-jq43-q8mx-r7mq.json",
+        "summary": "SwiftTerm Code Injection vulnerability",
+        "aliases": [
+          "CVE-2022-23465"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/swift-otel/swift-w3c-trace-context": [
+      {
+        "id": "GHSA-mvpq-2v8x-ww6g",
+        "file": "GHSA-mvpq-2v8x-ww6g.json",
+        "summary": "Swift W3C TraceContext vulnerable to a malformed HTTP header causing a crash",
+        "aliases": [
+          "CVE-2026-23886"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/swift-otel/swift-otel": [
+      {
+        "id": "GHSA-mvpq-2v8x-ww6g",
+        "file": "GHSA-mvpq-2v8x-ww6g.json",
+        "summary": "Swift W3C TraceContext vulnerable to a malformed HTTP header causing a crash",
+        "aliases": [
+          "CVE-2026-23886"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/awslabs/aws-sdk-swift": [
+      {
+        "id": "GHSA-pc9j-5v36-2mww",
+        "file": "GHSA-pc9j-5v36-2mww.json",
+        "summary": "AWS SDK for Swift adopted defense in depth enhancement for region parameter value",
+        "aliases": [],
+        "severity": "low"
+      }
+    ],
+    "golang.org/x/net": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.apache.tomcat:tomcat-coyote": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.apache.tomcat.embed:tomcat-embed-core": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.eclipse.jetty.http2:http2-common": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.eclipse.jetty.http2:http2-server": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.eclipse.jetty.http2:jetty-http2-common": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "org.eclipse.jetty.http2:jetty-http2-server": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.typesafe.akka:akka-http-core": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.typesafe.akka:akka-http-core_2.13": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.typesafe.akka:akka-http-core_2.12": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.typesafe.akka:akka-http-core_2.11": [
+      {
+        "id": "GHSA-qppj-fm5r-hxr3",
+        "file": "GHSA-qppj-fm5r-hxr3.json",
+        "summary": "HTTP/2 Stream Cancellation Attack",
+        "aliases": [
+          "BIT-apisix-2023-44487",
+          "BIT-aspnet-core-2023-44487",
+          "BIT-contour-2023-44487",
+          "BIT-dotnet-2023-44487",
+          "BIT-dotnet-sdk-2023-44487",
+          "BIT-envoy-2023-44487",
+          "BIT-golang-2023-44487",
+          "BIT-jenkins-2023-44487",
+          "BIT-kong-2023-44487",
+          "BIT-nginx-2023-44487",
+          "BIT-nginx-gateway-2023-44487",
+          "BIT-nginx-ingress-controller-2023-44487",
+          "BIT-node-2023-44487",
+          "BIT-node-min-2023-44487",
+          "BIT-solr-2023-44487",
+          "BIT-tomcat-2023-44487",
+          "BIT-varnish-2023-44487",
+          "CVE-2023-44487"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "cocoamqtt": [
+      {
+        "id": "GHSA-r3fr-7m74-q7g2",
+        "file": "GHSA-r3fr-7m74-q7g2.json",
+        "summary": "CocoaMQTT: Denial of Service via Reachable Assertion in `PUBLISH` Packet Parsing ",
+        "aliases": [
+          "CVE-2026-30867"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/swift-server/async-http-client": [
+      {
+        "id": "GHSA-v3r5-pjpm-mwgq",
+        "file": "GHSA-v3r5-pjpm-mwgq.json",
+        "summary": "Async HTTP Client has CRLF Injection vulnerability in HTTP request headers",
+        "aliases": [
+          "CVE-2023-0040"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v3r5-pjpm-mwgq",
+        "file": "GHSA-v3r5-pjpm-mwgq.json",
+        "summary": "Async HTTP Client has CRLF Injection vulnerability in HTTP request headers",
+        "aliases": [
+          "CVE-2023-0040"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v3r5-pjpm-mwgq",
+        "file": "GHSA-v3r5-pjpm-mwgq.json",
+        "summary": "Async HTTP Client has CRLF Injection vulnerability in HTTP request headers",
+        "aliases": [
+          "CVE-2023-0040"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v3r5-pjpm-mwgq",
+        "file": "GHSA-v3r5-pjpm-mwgq.json",
+        "summary": "Async HTTP Client has CRLF Injection vulnerability in HTTP request headers",
+        "aliases": [
+          "CVE-2023-0040"
+        ],
+        "severity": "high"
+      }
+    ],
+    "mongodb/mongodb": [
+      {
+        "id": "GHSA-vxvm-qww3-2fh7",
+        "file": "GHSA-vxvm-qww3-2fh7.json",
+        "summary": "MongoDB Driver may publish events containing authentication-related data",
+        "aliases": [
+          "CVE-2021-32050"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "mongodb": [
+      {
+        "id": "GHSA-vxvm-qww3-2fh7",
+        "file": "GHSA-vxvm-qww3-2fh7.json",
+        "summary": "MongoDB Driver may publish events containing authentication-related data",
+        "aliases": [
+          "CVE-2021-32050"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vxvm-qww3-2fh7",
+        "file": "GHSA-vxvm-qww3-2fh7.json",
+        "summary": "MongoDB Driver may publish events containing authentication-related data",
+        "aliases": [
+          "CVE-2021-32050"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vxvm-qww3-2fh7",
+        "file": "GHSA-vxvm-qww3-2fh7.json",
+        "summary": "MongoDB Driver may publish events containing authentication-related data",
+        "aliases": [
+          "CVE-2021-32050"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/mongodb/mongo-swift-driver": [
+      {
+        "id": "GHSA-vxvm-qww3-2fh7",
+        "file": "GHSA-vxvm-qww3-2fh7.json",
+        "summary": "MongoDB Driver may publish events containing authentication-related data",
+        "aliases": [
+          "CVE-2021-32050"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/apple/swift-asn1": [
+      {
+        "id": "GHSA-w8xv-rwgf-4fwh",
+        "file": "GHSA-w8xv-rwgf-4fwh.json",
+        "summary": "CVE-2025-0343: Swift ASN.1 can crash when parsing maliciously formed BER/DER",
+        "aliases": [
+          "CVE-2025-0343"
+        ],
+        "severity": "low"
+      }
+    ],
+    "github.com/sparkle-project/sparkle": [
+      {
+        "id": "GHSA-wc9m-r3v6-9p5h",
+        "file": "GHSA-wc9m-r3v6-9p5h.json",
+        "summary": "Sparkle Signing Checks Bypass",
+        "aliases": [
+          "BIT-java-2025-0509",
+          "BIT-java-min-2025-0509",
+          "BIT-jre-2025-0509",
+          "CVE-2025-0509"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/ibireme/yyjson": [
+      {
+        "id": "GHSA-whx6-m9j4-w2m2",
+        "file": "GHSA-whx6-m9j4-w2m2.json",
+        "summary": "yyjson has a Double Free vulnerability",
+        "aliases": [
+          "CVE-2024-25713"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/swift-server/swift-prometheus": [
+      {
+        "id": "GHSA-x768-cvr2-345r",
+        "file": "GHSA-x768-cvr2-345r.json",
+        "summary": "Un-sanitized metric name or labels can be used to take over exported metrics",
+        "aliases": [
+          "CVE-2024-28867"
+        ],
+        "severity": "medium"
+      }
+    ]
+  }
+}

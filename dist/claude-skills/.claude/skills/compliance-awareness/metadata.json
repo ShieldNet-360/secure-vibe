@@ -1,0 +1,34 @@
+{
+  "id": "compliance-awareness",
+  "version": "1.0.0",
+  "title": "Compliance Awareness",
+  "description": "Map generated code against OWASP, CWE, and SANS Top 25 controls for traceability",
+  "category": "compliance",
+  "severity": "medium",
+  "applies_to": [
+    "when generating code in regulated environments",
+    "when writing audit-relevant comments or documentation",
+    "when refactoring code that crosses compliance boundaries (PII, PHI, PCI scope)"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 400,
+    "compact": 700,
+    "full": 2000
+  },
+  "rules_path": "frameworks/",
+  "related_skills": [
+    "secure-code-review",
+    "api-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP Top 10 2021",
+    "CWE Top 25 2023",
+    "PCI DSS v4.0",
+    "HIPAA Security Rule",
+    "SOC 2 Trust Services Criteria"
+  ]
+}

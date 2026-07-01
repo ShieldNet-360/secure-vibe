@@ -1,0 +1,13 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "protocol-security",
+  "language": "python",
+  "insecure_signals": [
+    "verify\\s*=\\s*False"
+  ],
+  "secure_signals": [
+    "requests\\.(get|post)\\(\\s*f?['\\\"]https://",
+    "httpx\\."
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

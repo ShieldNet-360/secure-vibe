@@ -1,0 +1,13 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "crypto-misuse",
+  "language": "python",
+  "insecure_signals": [
+    "token|password|secret|crypto"
+  ],
+  "secure_signals": [
+    "random\\.(choice|sample|shuffle|randint)\\(",
+    "secrets\\.choice\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

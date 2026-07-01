@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "fixture": "oauth-implicit-flow.js",
+  "expected_findings": [
+    {
+      "rule": "oauth-implicit-flow-deprecated",
+      "line_hint": "response_type=token",
+      "source": "skills/auth-security/rules/oauth_flows.json",
+      "spec": "RFC 9700"
+    }
+  ],
+  "notes": "The 'loginSafe' helper uses Authorization Code + PKCE and must NOT be flagged."
+}

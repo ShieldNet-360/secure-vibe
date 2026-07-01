@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Safe JWT issuance and verification configuration.",
+  "allowed_algorithms": ["RS256", "RS384", "RS512", "ES256", "ES384", "EdDSA"],
+  "blocked_algorithms": ["none", "HS256-with-pubkey", "HS384-with-pubkey", "HS512-with-pubkey"],
+  "verify_claims": [
+    {"claim": "iss", "required": true, "rule": "Pin to a known issuer URL"},
+    {"claim": "aud", "required": true, "rule": "Must match this service's audience identifier"},
+    {"claim": "exp", "required": true, "rule": "Reject if absent or in the past (with no leeway > 60s)"},
+    {"claim": "nbf", "required": false, "rule": "Reject if present and in the future (with no leeway > 60s)"},
+    {"claim": "iat", "required": false, "rule": "Reject if claim is more than 1 day old when not refreshed"},
+    {"claim": "sub", "required": true, "rule": "Must identify the authenticated subject"},
+    {"claim": "jti", "required": false, "rule": "Track for replay prevention on high-value tokens"}
+  ],
+  "ttl": {
+    "access_token_max_seconds": 3600,
+    "refresh_token_max_seconds": 2592000,
+    "id_token_max_seconds": 3600
+  },
+  "key_management": {
+    "asymmetric_only": true,
+    "key_rotation_days": 90,
+    "jwks_endpoint_required": true,
+    "minimum_key_bits": 2048
+  },
+  "anti_patterns": [
+    {"id": "jwt-alg-none", "severity": "critical", "cwe": 327, "rule": "Reject 'none' algorithm at verification"},
+    {"id": "jwt-alg-confusion", "severity": "critical", "cwe": 287, "rule": "Verify with the algorithm matching the issuer's JWKS, not whatever alg the token declares"},
+    {"id": "jwt-secret-in-source", "severity": "critical", "cwe": 798, "rule": "HMAC keys live in a secret manager, not in source"},
+    {"id": "jwt-no-exp", "severity": "critical", "cwe": 613, "rule": "Always require exp; never issue tokens without expiration"},
+    {"id": "jwt-localstorage", "severity": "high", "cwe": 922, "rule": "Don't store JWTs in localStorage; use HttpOnly cookies"},
+    {"id": "jwt-no-aud", "severity": "high", "cwe": 287, "rule": "Always check aud to prevent token confusion across services"}
+  ]
+}

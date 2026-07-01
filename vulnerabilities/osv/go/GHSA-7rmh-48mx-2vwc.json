@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-7rmh-48mx-2vwc",
+  "published": "2026-05-08T22:38:50Z",
+  "modified": "2026-05-16T00:06:05.558543Z",
+  "aliases": [
+    "CVE-2026-44309"
+  ],
+  "related": [
+    "CGA-3ccp-gf5g-46gp"
+  ],
+  "summary": "gitsign verify accepts signatures over go-git-normalized bytes, enabling trust confusion on malformed commits",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/sigstore/gitsign",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/sigstore/gitsign"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.16.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-7rmh-48mx-2vwc/GHSA-7rmh-48mx-2vwc.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/sigstore/gitsign/security/advisories/GHSA-7rmh-48mx-2vwc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44309"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/sigstore/gitsign"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-295",
+      "CWE-347"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-08T22:38:50Z",
+    "nvd_published_at": "2026-05-15T17:16:47Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-16"
+}

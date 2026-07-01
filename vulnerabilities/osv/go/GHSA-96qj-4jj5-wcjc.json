@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-96qj-4jj5-wcjc",
+  "published": "2026-05-13T15:29:56Z",
+  "modified": "2026-05-16T00:06:22.420236Z",
+  "aliases": [
+    "CVE-2026-44774"
+  ],
+  "summary": "Traefik: Gateway API TraefikService backend accepts rest@internal, allowing unauthorized exposure of the REST provider despite providers.rest.insecure=false",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v3",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/traefik/traefik/v3"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.7.0"
+            },
+            {
+              "fixed": "3.7.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "3.7.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-96qj-4jj5-wcjc/GHSA-96qj-4jj5-wcjc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v3",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/traefik/traefik/v3"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.6.17"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 3.6.16",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-96qj-4jj5-wcjc/GHSA-96qj-4jj5-wcjc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik/v2",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/traefik/traefik/v2"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.11.46"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 2.11.45",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-96qj-4jj5-wcjc/GHSA-96qj-4jj5-wcjc.json"
+      }
+    },
+    {
+      "package": {
+        "name": "github.com/traefik/traefik",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/traefik/traefik"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "1.7.34"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-96qj-4jj5-wcjc/GHSA-96qj-4jj5-wcjc.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/security/advisories/GHSA-96qj-4jj5-wcjc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44774"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/traefik/traefik"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v2.11.46"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.6.17"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/traefik/traefik/releases/tag/v3.7.1"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-284"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-13T15:29:56Z",
+    "nvd_published_at": "2026-05-15T17:16:48Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:N/VI:N/VA:N/SC:L/SI:H/SA:H"
+    }
+  ],
+  "last_updated": "2026-05-16"
+}

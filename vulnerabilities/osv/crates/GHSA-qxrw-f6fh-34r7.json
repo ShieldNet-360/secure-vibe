@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-qxrw-f6fh-34r7",
+  "published": "2026-05-06T23:49:18Z",
+  "modified": "2026-05-07T00:03:51.724570Z",
+  "summary": "Lemmy resend-verification endpoint exposes registered email addresses to unauthenticated users",
+  "affected": [
+    {
+      "package": {
+        "name": "lemmy_api",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/lemmy_api"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "0.19.1-rc.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-qxrw-f6fh-34r7/GHSA-qxrw-f6fh-34r7.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/LemmyNet/lemmy/security/advisories/GHSA-qxrw-f6fh-34r7"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/LemmyNet/lemmy/commit/4afff1699d08920b9a9023e81b229d772b894d91"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/LemmyNet/lemmy"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-204"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-06T23:49:18Z",
+    "nvd_published_at": null,
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N/E:P"
+    }
+  ],
+  "last_updated": "2026-05-07"
+}

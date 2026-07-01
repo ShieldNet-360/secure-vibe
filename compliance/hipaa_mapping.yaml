@@ -1,0 +1,54 @@
+schema_version: "1.0"
+framework: "HIPAA"
+version: "Security Rule (45 CFR §164.308 – §164.312) — 2024"
+last_updated: "2026-05-13"
+controls:
+  - id: "164.308(a)(1)(ii)(A)"
+    title: "Risk Analysis"
+    description: "Conduct an accurate and thorough assessment of the potential risks and vulnerabilities to the confidentiality, integrity, and availability of ePHI."
+    skills: ["supply-chain-security"]
+    references: ["https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html"]
+  - id: "164.308(a)(3)(ii)(A)"
+    title: "Authorization and/or Supervision"
+    description: "Implement procedures for the authorization and/or supervision of workforce members who work with ePHI."
+    skills: ["auth-security", "iam-best-practices"]
+  - id: "164.308(a)(4)(ii)(B)"
+    title: "Access Authorization"
+    description: "Implement policies and procedures for granting access to ePHI."
+    skills: ["auth-security", "iam-best-practices", "api-security"]
+  - id: "164.308(a)(5)(ii)(C)"
+    title: "Log-in Monitoring"
+    description: "Procedures for monitoring log-in attempts and reporting discrepancies."
+    skills: ["logging-security", "auth-security"]
+  - id: "164.308(a)(5)(ii)(D)"
+    title: "Password Management"
+    description: "Procedures for creating, changing, and safeguarding passwords."
+    skills: ["auth-security", "crypto-misuse"]
+  - id: "164.312(a)(1)"
+    title: "Access Control"
+    description: "Implement technical policies and procedures for electronic information systems that maintain ePHI to allow access only to those persons or software programs that have been granted access rights."
+    skills: ["auth-security", "api-security", "database-security"]
+  - id: "164.312(a)(2)(iv)"
+    title: "Encryption and Decryption"
+    description: "Implement a mechanism to encrypt and decrypt ePHI."
+    skills: ["crypto-misuse", "database-security"]
+  - id: "164.312(b)"
+    title: "Audit Controls"
+    description: "Implement hardware, software, and/or procedural mechanisms that record and examine activity in information systems that contain or use ePHI."
+    skills: ["logging-security"]
+  - id: "164.312(c)(1)"
+    title: "Integrity Controls"
+    description: "Implement policies and procedures to protect ePHI from improper alteration or destruction."
+    skills: ["supply-chain-security", "logging-security"]
+  - id: "164.312(d)"
+    title: "Person or Entity Authentication"
+    description: "Implement procedures to verify that a person or entity seeking access to ePHI is the one claimed."
+    skills: ["auth-security"]
+  - id: "164.312(e)(1)"
+    title: "Transmission Security"
+    description: "Implement technical security measures to guard against unauthorized access to ePHI that is transmitted over an electronic network."
+    skills: ["protocol-security", "crypto-misuse"]
+  - id: "164.502(b)"
+    title: "Minimum Necessary"
+    description: "Reasonable efforts to limit ePHI to the minimum necessary."
+    skills: ["logging-security", "error-handling-security", "iam-best-practices"]

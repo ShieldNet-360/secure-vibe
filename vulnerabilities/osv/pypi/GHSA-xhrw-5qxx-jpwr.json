@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-xhrw-5qxx-jpwr",
+  "published": "2026-05-07T21:41:08Z",
+  "modified": "2026-05-16T00:10:47.469024Z",
+  "aliases": [
+    "CVE-2026-44641"
+  ],
+  "summary": "Microsoft APM CLI's plugin.json component paths escape plugin root and copy arbitrary host files during install",
+  "affected": [
+    {
+      "package": {
+        "name": "apm-cli",
+        "ecosystem": "PyPI",
+        "purl": "pkg:pypi/apm-cli"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.8.12"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.1.0",
+        "0.1.1",
+        "0.1.2",
+        "0.1.4",
+        "0.1.5",
+        "0.1.6",
+        "0.1.7",
+        "0.2.0",
+        "0.3.0",
+        "0.4.0",
+        "0.4.1",
+        "0.4.2",
+        "0.4.3",
+        "0.5.0",
+        "0.5.1",
+        "0.5.2",
+        "0.5.3",
+        "0.5.4",
+        "0.5.5",
+        "0.5.6",
+        "0.5.7",
+        "0.5.8",
+        "0.5.9",
+        "0.6.0",
+        "0.6.1",
+        "0.6.2",
+        "0.6.3",
+        "0.7.0",
+        "0.7.1",
+        "0.7.2",
+        "0.7.3",
+        "0.7.4",
+        "0.7.5",
+        "0.7.6",
+        "0.7.7",
+        "0.7.8",
+        "0.7.9",
+        "0.8.0",
+        "0.8.1",
+        "0.8.10",
+        "0.8.11",
+        "0.8.2",
+        "0.8.3",
+        "0.8.4",
+        "0.8.5",
+        "0.8.6",
+        "0.8.7",
+        "0.8.8",
+        "0.8.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 0.8.11",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-xhrw-5qxx-jpwr/GHSA-xhrw-5qxx-jpwr.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/microsoft/apm/security/advisories/GHSA-xhrw-5qxx-jpwr"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44641"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/microsoft/apm"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-22",
+      "CWE-73"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T21:41:08Z",
+    "nvd_published_at": "2026-05-15T17:16:47Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-16"
+}

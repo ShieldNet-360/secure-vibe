@@ -1,0 +1,28 @@
+schema_version: "1.0"
+framework: "OWASP Serverless Top 10 — Event injection"
+last_updated: "2026-05-13"
+patterns:
+  - id: sl-validate-api-gateway-event
+    severity: critical
+    rule: "API Gateway / HTTP API event bodies validated against JSON Schema before any business logic"
+    cwe: 20
+  - id: sl-validate-s3-event
+    severity: high
+    rule: "S3 event records validated; object key/path is treated as untrusted and never passed to a shell or path-join without sanitization"
+    cwe: 22
+  - id: sl-validate-sqs-event
+    severity: high
+    rule: "SQS event records validated; corrupt or poisoned messages are routed to DLQ and not retried indefinitely"
+  - id: sl-validate-eventbridge
+    severity: high
+    rule: "EventBridge event source ARN is checked against an allowlist"
+  - id: sl-no-dynamic-import
+    severity: critical
+    rule: "Function does not dynamically import modules / require() / eval() / Function() based on event content"
+    cwe: 95
+  - id: sl-sanitize-object-key
+    severity: high
+    rule: "S3 object keys are URL-decoded once, then validated against an allowlist of expected paths"
+  - id: sl-allowlist-source
+    severity: high
+    rule: "For functions wired to multiple triggers, check the eventSource discriminant explicitly and route by allowlist"

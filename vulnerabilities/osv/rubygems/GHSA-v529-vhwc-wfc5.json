@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-v529-vhwc-wfc5",
+  "published": "2026-04-23T14:12:02Z",
+  "modified": "2026-05-05T16:10:57.571193Z",
+  "aliases": [
+    "CVE-2026-42087"
+  ],
+  "summary": "OpenC3 COSMOS has SQL Injection in QuestDB Time-Series Database",
+  "affected": [
+    {
+      "package": {
+        "name": "openc3",
+        "ecosystem": "RubyGems",
+        "purl": "pkg:gem/openc3"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "6.7.0"
+            },
+            {
+              "fixed": "7.0.0-rc3"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "6.10.0",
+        "6.10.1",
+        "6.10.2",
+        "6.10.3",
+        "6.10.4",
+        "6.10.5",
+        "6.10.6",
+        "6.7.0",
+        "6.8.0",
+        "6.8.1",
+        "6.9.0",
+        "6.9.1",
+        "6.9.2",
+        "7.0.0.pre.rc1",
+        "7.0.0.pre.rc2"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-v529-vhwc-wfc5/GHSA-v529-vhwc-wfc5.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenC3/cosmos/security/advisories/GHSA-v529-vhwc-wfc5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42087"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenC3/cosmos/commit/9ba60c09c8836a37a2e4ea67ab35fe403e041415"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/OpenC3/cosmos"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/OpenC3/cosmos/releases/tag/v7.0.0-rc3"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-89"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-23T14:12:02Z",
+    "nvd_published_at": "2026-05-04T18:16:30Z",
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-05"
+}

@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "latest-only-builder.Dockerfile",
+  "description": "Only the builder stage uses :latest. The final stage is fully pinned, so the multi-stage rules should NOT fire.",
+  "expected_findings": []
+}

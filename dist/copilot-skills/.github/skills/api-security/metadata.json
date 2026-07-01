@@ -1,0 +1,34 @@
+{
+  "id": "api-security",
+  "version": "1.1.0",
+  "title": "API Security",
+  "description": "Apply OWASP API Top 10 patterns to authentication, authorization, and input validation",
+  "category": "prevention",
+  "severity": "high",
+  "applies_to": [
+    "when generating HTTP handlers",
+    "when generating GraphQL resolvers",
+    "when generating gRPC service methods",
+    "when reviewing API endpoint changes"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 750,
+    "compact": 1100,
+    "full": 2700
+  },
+  "rules_path": "checklists/",
+  "related_skills": [
+    "secure-code-review",
+    "secret-detection",
+    "ssrf-prevention"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP API Security Top 10 2023",
+    "OWASP Authentication Cheat Sheet",
+    "OAuth 2.0 Security Best Current Practice (RFC 9700)"
+  ]
+}

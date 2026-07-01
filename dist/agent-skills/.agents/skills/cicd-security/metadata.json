@@ -1,0 +1,38 @@
+{
+  "id": "cicd-security",
+  "version": "1.1.0",
+  "title": "CI/CD Pipeline Security",
+  "description": "Harden GitHub Actions, GitLab CI, and similar pipelines against supply-chain attacks, secret exfiltration, and pwn-request style abuses",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "when authoring or reviewing CI/CD workflow files",
+    "when adding a third-party action / image / script to a pipeline",
+    "when wiring cloud or registry credentials into CI",
+    "when triaging a suspected pipeline compromise"
+  ],
+  "languages": [
+    "yaml",
+    "shell",
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 1200,
+    "compact": 1500,
+    "full": 2200
+  },
+  "rules_path": "checklists/",
+  "related_skills": [
+    "supply-chain-security",
+    "secret-detection",
+    "container-security"
+  ],
+  "last_updated": "2026-06-21",
+  "sources": [
+    "OpenSSF Scorecard — Pinned-Dependencies / Token-Permissions",
+    "SLSA v1.0 Build Track",
+    "GitHub Security Lab — Preventing pwn requests",
+    "StepSecurity — tj-actions/changed-files attack analysis",
+    "CWE-1395: Dependency on Vulnerable Third-Party Component"
+  ]
+}

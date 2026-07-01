@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.7.5",
+  "id": "MAL-2026-2266",
+  "published": "2026-03-27T13:37:00Z",
+  "modified": "2026-03-27T14:33:26.201112Z",
+  "summary": "Malicious code in monolith-twirp-copilot-registry (RubyGems)",
+  "affected": [
+    {
+      "package": {
+        "name": "monolith-twirp-copilot-registry",
+        "ecosystem": "RubyGems",
+        "purl": "pkg:gem/monolith-twirp-copilot-registry"
+      },
+      "versions": [
+        "1.0.6"
+      ],
+      "database_specific": {
+        "source": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/rubygems/monolith-twirp-copilot-registry/MAL-2026-2266.json"
+      }
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "import_time": "2026-03-27T14:25:18.58585336Z",
+        "modified_time": "2026-03-27T13:37:00Z",
+        "sha256": "d1eb9592b2f976d7d487d44c8f45592b2953e5f51edfeee7242e020dfb64176f",
+        "source": "ossf-package-analysis",
+        "versions": [
+          "1.0.6"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "OpenSSF: Package Analysis",
+      "contact": [
+        "https://github.com/ossf/package-analysis",
+        "https://openssf.slack.com/channels/package_analysis"
+      ],
+      "type": "FINDER"
+    }
+  ],
+  "last_updated": "2026-03-27"
+}

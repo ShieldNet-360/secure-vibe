@@ -1,0 +1,13 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "crypto-misuse",
+  "language": "python",
+  "insecure_signals": [
+    "password|secret|credential"
+  ],
+  "secure_signals": [
+    "hashlib\\.(md5|sha1|sha256)\\(",
+    "blake2|crc32|xxhash"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

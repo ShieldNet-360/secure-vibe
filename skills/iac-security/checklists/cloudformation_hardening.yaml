@@ -1,0 +1,34 @@
+schema_version: "1.0"
+framework: "CIS AWS Foundations + AWS CloudFormation Security Best Practices"
+last_updated: "2026-05-13"
+patterns:
+  - id: cfn-no-no-echo-secret-in-output
+    severity: critical
+    rule: "Parameters marked NoEcho aren't referenced via !Ref in Outputs (Outputs are returned to API callers)"
+    cwe: 200
+  - id: cfn-template-validate
+    severity: medium
+    rule: "Run cfn-lint and cfn_nag in CI; fail PRs that introduce new findings"
+  - id: cfn-deletion-protection
+    severity: high
+    rule: "Stateful resources (RDS, DynamoDB, S3) set DeletionPolicy=Retain in production stacks"
+  - id: cfn-rollback-config
+    severity: medium
+    rule: "OnFailure=ROLLBACK for non-prod stacks; production stacks have explicit rollback triggers"
+  - id: cfn-iam-capabilities-acknowledged
+    severity: high
+    rule: "If template requires CAPABILITY_NAMED_IAM, IAM resources are reviewed for least privilege"
+    cwe: 269
+  - id: cfn-stacksets-org-roles
+    severity: high
+    rule: "StackSets deployments use AWS::Organizations service-managed permissions, not self-managed long-lived roles"
+  - id: cfn-dynamic-references
+    severity: critical
+    rule: "Passwords/keys use {{resolve:secretsmanager:...}} or {{resolve:ssm-secure:...}} — never literal in template"
+    cwe: 798
+  - id: cfn-changeset-required-prod
+    severity: high
+    rule: "Production deploys go through a reviewed ChangeSet (cloudformation deploy --no-execute-changeset)"
+  - id: cfn-condition-prod-vs-dev
+    severity: medium
+    rule: "Use Mappings/Conditions so prod isn't accidentally created with dev sizing or open security groups"

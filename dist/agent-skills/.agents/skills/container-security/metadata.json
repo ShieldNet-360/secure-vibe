@@ -1,0 +1,38 @@
+{
+  "id": "container-security",
+  "version": "1.5.1",
+  "title": "Container Security",
+  "description": "Hardening rules for Dockerfile, OCI images, Kubernetes manifests, and Helm charts",
+  "category": "hardening",
+  "severity": "high",
+  "applies_to": [
+    "when generating a Dockerfile or OCI image build",
+    "when generating Kubernetes / Helm / Kustomize manifests",
+    "when reviewing container changes in PR"
+  ],
+  "languages": [
+    "dockerfile",
+    "yaml",
+    "go",
+    "python"
+  ],
+  "token_budget": {
+    "minimal": 1800,
+    "compact": 2200,
+    "full": 3500
+  },
+  "rules_path": "checklists/",
+  "related_skills": [
+    "iac-security",
+    "secret-detection",
+    "iam-best-practices",
+    "electron-security"
+  ],
+  "last_updated": "2026-06-21",
+  "sources": [
+    "CIS Docker Benchmark v1.6",
+    "CIS Kubernetes Benchmark v1.9",
+    "NIST SP 800-190 Application Container Security Guide",
+    "OWASP Docker Top 10"
+  ]
+}

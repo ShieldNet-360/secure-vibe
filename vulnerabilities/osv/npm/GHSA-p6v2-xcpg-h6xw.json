@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-p6v2-xcpg-h6xw",
+  "published": "2026-05-15T17:41:37Z",
+  "modified": "2026-05-15T18:02:39.478422Z",
+  "aliases": [
+    "CVE-2026-45364"
+  ],
+  "summary": "Better Auth: Rate limiter keys IPv6 addresses individually and is bypassable via prefix rotation",
+  "affected": [
+    {
+      "package": {
+        "name": "better-auth",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/better-auth"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.4.17"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-p6v2-xcpg-h6xw/GHSA-p6v2-xcpg-h6xw.json"
+      }
+    },
+    {
+      "package": {
+        "name": "better-auth",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/better-auth"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.5.0-beta.1"
+            },
+            {
+              "fixed": "1.5.0-beta.9"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-p6v2-xcpg-h6xw/GHSA-p6v2-xcpg-h6xw.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/better-auth/better-auth/security/advisories/GHSA-p6v2-xcpg-h6xw"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/better-auth/better-auth/pull/7470"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/better-auth/better-auth/pull/7509"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/better-auth/better-auth/commit/43e719bcc0c223c7079fa0c611a9cf7ea1188254"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/better-auth/better-auth/commit/57af0f7b910dcf7b1a5c0615d10b9bd56bb69bef"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/better-auth/better-auth"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-307"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-15T17:41:37Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

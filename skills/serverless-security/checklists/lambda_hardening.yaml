@@ -1,0 +1,49 @@
+schema_version: "1.0"
+framework: "AWS Well-Architected Security Pillar (Serverless lens) + CIS AWS Foundations"
+last_updated: "2026-05-13"
+patterns:
+  - id: lam-dedicated-role
+    severity: high
+    rule: "Each function has its own IAM execution role; roles are not shared across functions"
+    cwe: 269
+  - id: lam-no-wildcard-policy
+    severity: critical
+    rule: "Function role does not include Action=*, Resource=*, or iam:*"
+    cwe: 269
+  - id: lam-timeout-set
+    severity: medium
+    rule: "Timeout is explicitly set; not the default and not the maximum"
+  - id: lam-reserved-concurrency
+    severity: high
+    rule: "Function has a reserved or provisioned concurrency cap to prevent bill blow-out"
+  - id: lam-secrets-from-manager
+    severity: critical
+    rule: "Secrets are pulled at cold start from Secrets Manager / Parameter Store / Vault — not plaintext env vars"
+    cwe: 798
+  - id: lam-env-kms-encrypted
+    severity: high
+    rule: "If environment variables are used, kms_key_arn is set to a customer-managed key"
+  - id: lam-dead-letter-queue
+    severity: medium
+    rule: "Asynchronous functions have a dead-letter queue or destination configured"
+  - id: lam-tracing-enabled
+    severity: medium
+    rule: "tracing_config Mode=Active (X-Ray) or OpenTelemetry layer attached"
+  - id: lam-no-function-url-noauth
+    severity: critical
+    rule: "Function URLs with AuthType=NONE are forbidden; use AWS_IAM or a Lambda authorizer"
+    cwe: 287
+  - id: lam-signed-image
+    severity: high
+    rule: "Container-image functions are pinned by digest and have code_signing_config_arn"
+  - id: lam-no-shell-on-input
+    severity: critical
+    rule: "User-derived strings never reach os.system / subprocess(shell=True) / child_process.exec"
+    cwe: 78
+  - id: lam-vpc-for-private-services
+    severity: medium
+    rule: "Functions that talk to private RDS / ElastiCache / internal services run inside a VPC"
+  - id: lam-no-long-lived-aws-keys
+    severity: critical
+    rule: "Function does not contain a static AWS access key; uses the execution role"
+    cwe: 798

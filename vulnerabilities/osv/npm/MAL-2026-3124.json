@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.7.5",
+  "id": "MAL-2026-3124",
+  "published": "2026-04-27T06:58:17Z",
+  "modified": "2026-05-15T11:22:44.811302Z",
+  "aliases": [
+    "GHSA-p9p8-h8cq-mhq7"
+  ],
+  "summary": "Malicious code in apple-internal-dev-check (npm)",
+  "affected": [
+    {
+      "package": {
+        "name": "apple-internal-dev-check",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/apple-internal-dev-check"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.0.0"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          },
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "source": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/npm/apple-internal-dev-check/MAL-2026-3124.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://github.com/advisories/GHSA-p9p8-h8cq-mhq7"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "import_time": "2026-04-28T00:48:37.071975431Z",
+        "modified_time": "2026-04-27T06:58:17Z",
+        "sha256": "b9be007ef6ea0b1d3d9ba50b8958b00bc0089155dfc001fdf4988da85469dcd5",
+        "source": "ossf-package-analysis",
+        "versions": [
+          "2.0.0"
+        ]
+      },
+      {
+        "import_time": "2026-04-30T22:23:09.772901354Z",
+        "modified_time": "2026-04-30T21:59:18Z",
+        "sha256": "95aeeda1c4b09aef606511b9d3f46c776a597189420959935831310789d5fcb5",
+        "source": "amazon-inspector",
+        "versions": [
+          "2.0.0"
+        ]
+      },
+      {
+        "id": "GHSA-p9p8-h8cq-mhq7",
+        "import_time": "2026-05-15T11:03:58.978025514Z",
+        "modified_time": "2026-05-15T10:40:55Z",
+        "ranges": [
+          {
+            "events": [
+              {
+                "introduced": "0"
+              }
+            ],
+            "type": "SEMVER"
+          }
+        ],
+        "sha256": "46ead9073f7db53f463a83ad97dec95ccc82f9af9c4908abcc8771168e800a91",
+        "source": "ghsa-malware"
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "actran@amazon.com"
+      ],
+      "type": "FINDER"
+    },
+    {
+      "name": "OpenSSF: Package Analysis",
+      "contact": [
+        "https://github.com/ossf/package-analysis",
+        "https://openssf.slack.com/channels/package_analysis"
+      ],
+      "type": "FINDER"
+    },
+    {
+      "name": "SafeDep",
+      "contact": [
+        "https://safedep.io"
+      ],
+      "type": "FINDER"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

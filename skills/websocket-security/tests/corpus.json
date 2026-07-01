@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the websocket-security skill. Fixtures are schema-driven WebSocket-server snippets where 'detect' marks code that violates a NEVER rule (missing Origin check / CSWSH, no auth on handshake, unsanitized message broadcast) and 'ignore' marks code that follows the matching ALWAYS rule (Origin allowlist, signed-token auth on the upgrade, escaped/validated messages before broadcast).",
+  "fixtures": [
+    {
+      "id": "missing-origin-check-cswsh",
+      "text": "const { WebSocketServer } = require('ws');\nconst http = require('http');\nconst server = http.createServer();\n// Cookie-authenticated upgrade, but no Origin check at all\nconst wss = new WebSocketServer({ server });\nwss.on('connection', (ws, req) => {\n  const user = sessionFromCookie(req.headers.cookie);\n  ws.send(JSON.stringify(user.privateFeed));\n});\nserver.listen(8080);",
+      "expected": "detect",
+      "reason": "Upgrade is authenticated by the session cookie but the Origin header is never validated, so attacker.com can open the socket with the victim's cookies and read their private feed. Violates NEVER 'Skip Origin validation'. CWE-1385 (Missing Origin Validation in WebSockets) — Cross-Site WebSocket Hijacking."
+    },
+    {
+      "id": "origin-allowlist-enforced",
+      "text": "const { WebSocketServer } = require('ws');\nconst http = require('http');\nconst ALLOWED = new Set(['https://app.example.com']);\nconst server = http.createServer();\nconst wss = new WebSocketServer({\n  server,\n  verifyClient: (info, done) => {\n    const origin = info.req.headers.origin;\n    done(ALLOWED.has(origin), 403, 'Forbidden origin');\n  }\n});\nwss.on('connection', (ws, req) => {\n  const user = sessionFromCookie(req.headers.cookie);\n  ws.send(JSON.stringify(user.privateFeed));\n});\nserver.listen(8080);",
+      "expected": "ignore",
+      "reason": "verifyClient checks the Origin header against an explicit allowlist and rejects (403) any other origin before the upgrade completes, blocking CSWSH. Follows ALWAYS 'Validate the Origin header on the WebSocket upgrade handshake against an allowlist'. Mitigates CWE-1385."
+    },
+    {
+      "id": "no-auth-on-handshake",
+      "text": "const { WebSocketServer } = require('ws');\nconst wss = new WebSocketServer({ port: 8081 });\nwss.on('connection', (ws) => {\n  // No auth on upgrade; trust an 'auth' message sent after connect\n  ws.on('message', (raw) => {\n    const msg = JSON.parse(raw);\n    if (msg.type === 'auth') { ws.userId = msg.userId; return; }\n    if (msg.type === 'read') { ws.send(getAccount(ws.userId)); }\n  });\n});",
+      "expected": "detect",
+      "reason": "The handshake performs no authentication; identity is taken from a client-supplied 'auth' message after connect, so any client can claim any userId and read accounts. Violates NEVER/ALWAYS 'Require authentication on the handshake itself, never trust an auth message after the upgrade'. CWE-306 (Missing Authentication for Critical Function)."
+    },
+    {
+      "id": "signed-token-auth-on-handshake",
+      "text": "const { WebSocketServer } = require('ws');\nconst jwt = require('jsonwebtoken');\nconst http = require('http');\nconst server = http.createServer();\nconst wss = new WebSocketServer({\n  server,\n  verifyClient: (info, done) => {\n    const proto = info.req.headers['sec-websocket-protocol'];\n    try {\n      info.req.user = jwt.verify(proto, process.env.WS_SIGNING_KEY, { maxAge: '10m' });\n      done(true);\n    } catch { done(false, 401, 'Unauthorized'); }\n  }\n});\nwss.on('connection', (ws, req) => { ws.userId = req.user.sub; });\nserver.listen(8082);",
+      "expected": "ignore",
+      "reason": "A short-lived (10-minute) signed JWT carried in the Sec-WebSocket-Protocol header is verified during the upgrade; unauthenticated upgrades are rejected with 401. Follows ALWAYS 'Require authentication on the handshake itself via a short-lived signed token'. Avoids CWE-306."
+    },
+    {
+      "id": "unsanitized-message-broadcast-xss",
+      "text": "const { WebSocketServer } = require('ws');\nconst wss = new WebSocketServer({ port: 8083 });\nwss.on('connection', (ws) => {\n  ws.on('message', (raw) => {\n    const { text } = JSON.parse(raw);\n    // Re-broadcast raw text; clients do chatDiv.innerHTML += text\n    for (const c of wss.clients) c.send(JSON.stringify({ html: text }));\n  });\n});",
+      "expected": "detect",
+      "reason": "User chat text is broadcast verbatim and rendered into innerHTML on every client, so a message like '<img src=x onerror=alert(document.cookie)>' executes in all viewers' browsers. Violates ALWAYS 'Treat each WebSocket message as a separate request for input validation'. CWE-79 (Stored / DOM XSS)."
+    },
+    {
+      "id": "sanitized-message-broadcast",
+      "text": "const { WebSocketServer } = require('ws');\nconst wss = new WebSocketServer({ port: 8084 });\nconst esc = (s) => String(s).replace(/[&<>\"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;' }[c]));\nwss.on('connection', (ws) => {\n  ws.on('message', (raw) => {\n    const { text } = JSON.parse(raw);\n    if (typeof text !== 'string' || text.length > 2000) return;\n    const safe = esc(text);\n    for (const c of wss.clients) c.send(JSON.stringify({ text: safe }));\n  });\n});",
+      "expected": "ignore",
+      "reason": "Each message is type/length-validated and HTML-escaped before broadcast, so injected markup is rendered inert as text. Follows ALWAYS 'Treat each WebSocket message as a separate request for input validation'. Mitigates CWE-79."
+    }
+  ]
+}

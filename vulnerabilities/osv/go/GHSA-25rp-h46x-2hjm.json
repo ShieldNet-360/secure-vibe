@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-25rp-h46x-2hjm",
+  "published": "2026-05-08T19:08:30Z",
+  "modified": "2026-05-16T00:09:33.371912Z",
+  "aliases": [
+    "CVE-2026-44588"
+  ],
+  "summary": "SiYuan: Electron Renderer RCE via decodeURIComponent-driven tooltip XSS in aria-label sink (incomplete fix for CVE-2026-34585)",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/siyuan-note/siyuan/kernel",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/siyuan-note/siyuan/kernel"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "0.0.0-20260421031503-96dfe0bea474"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-25rp-h46x-2hjm/GHSA-25rp-h46x-2hjm.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/siyuan-note/siyuan/security/advisories/GHSA-25rp-h46x-2hjm"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44588"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/siyuan-note/siyuan"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-116",
+      "CWE-1188",
+      "CWE-79"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-08T19:08:30Z",
+    "nvd_published_at": "2026-05-14T19:16:37Z",
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H"
+    }
+  ],
+  "last_updated": "2026-05-16"
+}

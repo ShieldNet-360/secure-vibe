@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "description": "Cargo.lock fixture with one known-malicious crate. `rustdecimal` legitimately matches BOTH the malicious-packages entry (CVE-2022-36315 — typosquat of `rust_decimal` that bundled a Linux credential-stealer payload, see vulnerabilities/supply-chain/malicious-packages/crates.json) AND the typosquat-db `serdee->serde` style row for `rustdecimal->rust_decimal`, so the scanner emits two findings for the same crate. `chrono` is a control entry that should not be flagged (chosen because it is not in the crates typosquat-db target list and so does not trip the typosquat self-match bug documented in pypi-malicious/expected.json).",
+  "expected_findings": [
+    {
+      "ecosystem": "crates",
+      "package": "rustdecimal",
+      "version": "1.0.0",
+      "kind": "malicious",
+      "source": "vulnerabilities/supply-chain/malicious-packages/crates.json"
+    },
+    {
+      "ecosystem": "crates",
+      "package": "rustdecimal",
+      "version": "1.0.0",
+      "kind": "typosquat",
+      "target": "rust_decimal",
+      "source": "vulnerabilities/supply-chain/typosquat-db/known_typosquats.json"
+    }
+  ],
+  "expected_clean": ["chrono"]
+}

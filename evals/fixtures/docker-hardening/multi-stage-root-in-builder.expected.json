@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "multi-stage-root-in-builder.Dockerfile",
+  "description": "USER root appears only in the builder stage; the final stage uses uid 10001. The AST pass should suppress dkr-non-root-user.",
+  "expected_findings": []
+}

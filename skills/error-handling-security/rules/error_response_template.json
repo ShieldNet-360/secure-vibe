@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Default external error response shape. Use across the entire API surface.",
+  "shape": {
+    "error": {
+      "code": "string (stable, machine-readable)",
+      "message": "string (short, human-readable, no PII / no internals)",
+      "request_id": "uuid",
+      "documentation_url": "string (optional)"
+    }
+  },
+  "status_codes": {
+    "400": "invalid_request — malformed input",
+    "401": "unauthenticated — credentials missing or invalid (same message)",
+    "403": "forbidden — authenticated but not authorized",
+    "404": "not_found — also used to obscure presence/absence of restricted records",
+    "409": "conflict — versioning / unique constraint without echoing constraint name",
+    "422": "validation_failed — schema violation; field list returned but no raw input echoed",
+    "429": "rate_limited",
+    "500": "internal_error — generic, with request_id only",
+    "503": "service_unavailable"
+  },
+  "never_include": [
+    "stack trace",
+    "exception class name (FQN)",
+    "SQL fragment or constraint name",
+    "filesystem path",
+    "internal hostname / IP",
+    "framework / library version (X-Powered-By, Server)",
+    "user-supplied input echoed back verbatim",
+    "Authorization / Cookie header values"
+  ]
+}

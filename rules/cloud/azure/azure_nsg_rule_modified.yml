@@ -1,0 +1,29 @@
+schema_version: "1.0"
+title: Azure NSG rule modified to allow internet ingress
+id: 8c9d0e1f-2a3b-4c5d-6e7f-8a9b0c1d2e3f
+status: stable
+level: high
+description: |
+  Detects creation or update of an Azure Network Security Group rule
+  whose source is "Internet" or 0.0.0.0/0 with an allow action.
+references:
+  - https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview
+  - https://attack.mitre.org/techniques/T1133/
+tags:
+  - attack.t1133
+  - attack.initial_access
+logsource:
+  product: azure
+  service: activitylogs
+detection:
+  selection:
+    OperationName.value: Microsoft.Network/networkSecurityGroups/securityRules/write
+    Properties.requestBody|contains:
+      - '"sourceAddressPrefix":"Internet"'
+      - '"sourceAddressPrefix":"*"'
+      - '"sourceAddressPrefix":"0.0.0.0/0"'
+    Properties.requestBody|contains|all:
+      - '"access":"Allow"'
+  condition: selection
+falsepositives:
+  - Public-facing load-balancer reconfiguration.

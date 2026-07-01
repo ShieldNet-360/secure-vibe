@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "description": "Control fixture: every package in this go.sum is from the Go stdlib/test toolchain and has no entry in vulnerabilities/supply-chain/malicious-packages/go.json or typosquat-db. scan_dependencies must return zero findings.",
+  "expected_findings": [],
+  "expected_clean": [
+    "github.com/davecgh/go-spew",
+    "github.com/pmezard/go-difflib",
+    "github.com/stretchr/objx",
+    "github.com/stretchr/testify",
+    "gopkg.in/check.v1",
+    "gopkg.in/yaml.v3"
+  ]
+}

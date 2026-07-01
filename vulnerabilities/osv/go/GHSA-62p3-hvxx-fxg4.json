@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-62p3-hvxx-fxg4",
+  "published": "2026-05-04T19:21:19Z",
+  "modified": "2026-05-14T21:04:58.454148Z",
+  "aliases": [
+    "CVE-2026-40893"
+  ],
+  "summary": "Gotenberg has an ExifTool Dangerous Tag Blocklist Bypass via Group-Prefixed Tag Names that Allows Arbitrary File Rename and Move",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/gotenberg/gotenberg/v8",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/github.com/gotenberg/gotenberg/v8"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "8.30.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-62p3-hvxx-fxg4/GHSA-62p3-hvxx-fxg4.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/gotenberg/gotenberg/security/advisories/GHSA-62p3-hvxx-fxg4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40893"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/gotenberg/gotenberg"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-20",
+      "CWE-73"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-04T19:21:19Z",
+    "nvd_published_at": "2026-05-14T16:16:20Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:L"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

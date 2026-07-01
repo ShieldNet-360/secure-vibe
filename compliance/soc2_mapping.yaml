@@ -1,0 +1,46 @@
+schema_version: "1.0"
+framework: "SOC 2"
+version: "Trust Services Criteria (2017, updated 2022)"
+last_updated: "2026-05-13"
+controls:
+  - id: "CC6.1"
+    title: "Logical and Physical Access Controls"
+    description: "The entity implements logical access security software, infrastructure, and architectures over protected information assets."
+    skills: ["auth-security", "iam-best-practices", "api-security"]
+    references: ["https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2"]
+  - id: "CC6.6"
+    title: "Boundary Protection"
+    description: "The entity implements logical access security measures to protect against threats from sources outside its system boundaries."
+    skills: ["protocol-security", "cors-security", "api-security"]
+  - id: "CC6.7"
+    title: "Restriction of Information Transmission, Movement, and Removal"
+    description: "The entity restricts the transmission, movement, and removal of information to authorized internal and external users."
+    skills: ["protocol-security", "crypto-misuse", "secret-detection"]
+  - id: "CC6.8"
+    title: "Protection Against Malicious Code"
+    description: "The entity implements controls to prevent or detect and act upon the introduction of unauthorized or malicious software."
+    skills: ["supply-chain-security", "container-security"]
+  - id: "CC7.1"
+    title: "Vulnerability Detection and Monitoring"
+    description: "The entity uses detection and monitoring procedures to identify changes to configurations that result in vulnerabilities."
+    skills: ["supply-chain-security", "container-security", "iac-security"]
+  - id: "CC7.2"
+    title: "System Monitoring"
+    description: "The entity monitors system components and the operation of those components for anomalies indicative of malicious acts, natural disasters, and errors."
+    skills: ["logging-security"]
+  - id: "CC7.3"
+    title: "Evaluation of Security Events"
+    description: "The entity evaluates security events to determine whether they could or have resulted in a failure of the entity to meet its objectives."
+    skills: ["logging-security", "error-handling-security"]
+  - id: "CC7.4"
+    title: "Security Incident Response"
+    description: "The entity responds to identified security incidents by executing a defined incident response program."
+    skills: ["logging-security", "error-handling-security"]
+  - id: "CC8.1"
+    title: "Change Management"
+    description: "The entity authorizes, designs, develops or acquires, configures, documents, tests, approves, and implements changes to infrastructure, data, software, and procedures."
+    skills: ["iac-security", "supply-chain-security"]
+  - id: "C1.1"
+    title: "Confidentiality of Information"
+    description: "The entity identifies and maintains confidential information to meet the entity's objectives related to confidentiality."
+    skills: ["crypto-misuse", "database-security", "secret-detection"]

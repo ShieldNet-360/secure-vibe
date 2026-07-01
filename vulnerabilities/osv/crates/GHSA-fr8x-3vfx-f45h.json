@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-fr8x-3vfx-f45h",
+  "published": "2026-05-05T19:27:51Z",
+  "modified": "2026-05-08T02:14:21.774072003Z",
+  "related": [
+    "CGA-c953-m3r2-f59c"
+  ],
+  "summary": "gix and gitoxide: unvalidated submodule name traverses out of .git/modules and redirects state() / open() to another repository",
+  "affected": [
+    {
+      "package": {
+        "name": "gitoxide",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/gitoxide"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.52.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 0.52.0",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-fr8x-3vfx-f45h/GHSA-fr8x-3vfx-f45h.json"
+      }
+    },
+    {
+      "package": {
+        "name": "gix",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/gix"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.83.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-fr8x-3vfx-f45h/GHSA-fr8x-3vfx-f45h.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/GitoxideLabs/gitoxide/security/advisories/GHSA-fr8x-3vfx-f45h"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/GitoxideLabs/gitoxide"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-22"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-05T19:27:51Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:P"
+    }
+  ],
+  "last_updated": "2026-05-08"
+}

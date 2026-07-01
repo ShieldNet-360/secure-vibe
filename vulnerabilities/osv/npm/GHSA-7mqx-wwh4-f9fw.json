@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-7mqx-wwh4-f9fw",
+  "published": "2026-05-13T20:02:15Z",
+  "modified": "2026-05-16T00:05:28.260538Z",
+  "aliases": [
+    "CVE-2025-64526"
+  ],
+  "summary": "Strapi has a rate limit bypass on users-permissions plugin via attacker-controlled email keying",
+  "affected": [
+    {
+      "package": {
+        "name": "@strapi/plugin-users-permissions",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/%40strapi/plugin-users-permissions"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "5.45.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 5.44.0",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-7mqx-wwh4-f9fw/GHSA-7mqx-wwh4-f9fw.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/strapi/strapi/security/advisories/GHSA-7mqx-wwh4-f9fw"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-64526"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/strapi/strapi/pull/24818"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/strapi/strapi/commit/5e0d243cba9830e6f791de6a94798bcde51468db"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/strapi/strapi"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/strapi/strapi/releases/tag/v5.45.0"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-307"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-13T20:02:15Z",
+    "nvd_published_at": "2026-05-14T19:16:29Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-05-16"
+}

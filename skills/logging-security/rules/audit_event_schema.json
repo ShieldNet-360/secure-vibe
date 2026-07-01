@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Required schema for audit-grade log records.",
+  "required_fields": [
+    {"name": "timestamp", "type": "string", "format": "RFC3339"},
+    {"name": "event", "type": "string", "examples": ["auth.login.success", "auth.login.failure", "auth.mfa.challenge", "auth.password.change", "rbac.role.grant", "rbac.role.revoke", "data.export", "admin.action"]},
+    {"name": "actor.subject_id", "type": "string", "description": "stable user/service identifier"},
+    {"name": "actor.session_id", "type": "string"},
+    {"name": "actor.ip", "type": "string"},
+    {"name": "actor.user_agent", "type": "string"},
+    {"name": "target.resource_type", "type": "string"},
+    {"name": "target.resource_id", "type": "string"},
+    {"name": "outcome", "type": "string", "enum": ["success", "failure", "denied"]},
+    {"name": "service", "type": "string"},
+    {"name": "trace_id", "type": "string"},
+    {"name": "request_id", "type": "string"}
+  ],
+  "retention": {
+    "audit_events_days": 365,
+    "operational_logs_days": 90,
+    "debug_logs_days": 14,
+    "pii_logs_days": "consent-bound; default 30"
+  },
+  "compliance_mapping": {
+    "SOC2": ["CC7.2", "CC7.3"],
+    "PCI-DSS": ["10.2", "10.3"],
+    "HIPAA": ["164.312(b)"],
+    "ISO27001": ["A.12.4.1", "A.12.4.3"]
+  }
+}

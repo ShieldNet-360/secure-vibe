@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.7.5",
+  "id": "MAL-2026-3714",
+  "published": "2026-05-13T13:08:38Z",
+  "modified": "2026-05-15T07:49:23.684092Z",
+  "summary": "Malicious code in hello-world-pkg-value-value-p (npm)",
+  "affected": [
+    {
+      "package": {
+        "name": "hello-world-pkg-value-value-p",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/hello-world-pkg-value-value-p"
+      },
+      "versions": [
+        "1.0.11",
+        "1.0.4"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "index.js",
+              "sha256": "5ee235e3056492d060dbdb038afd6c219e51f92d8328e15affae127f3f363c6e",
+              "tlsh": "d3e0ab722a752336683004606e1300b3e743f205a330f752f9fe872a2e90c84c825eec"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "hello-world-pkg-value-value-p-1.0.4.tgz",
+              "hashes": {
+                "sha1": "ff0d0ef532557d79d9200b22b15db38c2eb03d76",
+                "sha512_sri": "sha512-hTDe3h33rIsomPiwHzu8MuDZqx+gP5x8czB76QPwIRGDdv+lo5lsCqWBKL9UQoUx9YneK2xWFceWCadhgKmeOQ=="
+              }
+            }
+          ]
+        },
+        "source": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/npm/hello-world-pkg-value-value-p/MAL-2026-3714.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/hello-world-pkg-value-value-p/v/1.0.4"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "import_time": "2026-05-13T21:58:23.154926665Z",
+        "modified_time": "2026-05-13T13:08:38Z",
+        "sha256": "0df4b35a2af7f4d8b4fdcda0dcb3e872deddb6a320bf6af8405b27f42ff413db",
+        "source": "ossf-package-analysis",
+        "versions": [
+          "1.0.11"
+        ]
+      },
+      {
+        "id": "IN-MAL-2026-002759",
+        "import_time": "2026-05-15T07:37:19.280980693Z",
+        "modified_time": "2026-05-14T19:25:49Z",
+        "sha256": "d768990007f2926e3a58020102d277c3a604c6aa3bc70056cd466bc24437fc89",
+        "source": "amazon-inspector",
+        "versions": [
+          "1.0.4"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "actran@amazon.com"
+      ],
+      "type": "FINDER"
+    },
+    {
+      "name": "OpenSSF: Package Analysis",
+      "contact": [
+        "https://github.com/ossf/package-analysis",
+        "https://openssf.slack.com/channels/package_analysis"
+      ],
+      "type": "FINDER"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

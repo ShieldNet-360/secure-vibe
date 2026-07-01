@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-f5v4-2wr6-hqmg",
+  "published": "2026-04-24T15:39:37Z",
+  "modified": "2026-05-14T02:44:28.402997311Z",
+  "aliases": [
+    "CVE-2026-42189"
+  ],
+  "related": [
+    "CGA-v8mf-jm25-j44r"
+  ],
+  "summary": "russh has pre-auth DoS via unbounded allocation in its keyboard-interactive auth handler",
+  "affected": [
+    {
+      "package": {
+        "name": "russh",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/russh"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.60.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-f5v4-2wr6-hqmg/GHSA-f5v4-2wr6-hqmg.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/Eugeny/russh/security/advisories/GHSA-f5v4-2wr6-hqmg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42189"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/Eugeny/russh/commit/6c3c80a9b6d60763d6227d60fa8310e57172a4d1"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/Eugeny/russh"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/Eugeny/russh/releases/tag/v0.60.1"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-770",
+      "CWE-789"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-24T15:39:37Z",
+    "nvd_published_at": "2026-05-08T20:16:31Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

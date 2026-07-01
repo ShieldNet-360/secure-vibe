@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-438q-jx8f-cccv",
+  "published": "2026-05-07T20:55:28Z",
+  "modified": "2026-05-13T13:55:12.640633Z",
+  "aliases": [
+    "CVE-2026-44500"
+  ],
+  "summary": "Zebra Vulnerable to Allocation Amplification in Inbound Network Deserializers",
+  "affected": [
+    {
+      "package": {
+        "name": "zebra-network",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebra-network"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "6.0.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 5.0.2",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-438q-jx8f-cccv/GHSA-438q-jx8f-cccv.json"
+      }
+    },
+    {
+      "package": {
+        "name": "zebrad",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebrad"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.4.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-438q-jx8f-cccv/GHSA-438q-jx8f-cccv.json"
+      }
+    },
+    {
+      "package": {
+        "name": "zebra-chain",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/zebra-chain"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "7.0.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 6.0.3",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-438q-jx8f-cccv/GHSA-438q-jx8f-cccv.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/ZcashFoundation/zebra/security/advisories/GHSA-438q-jx8f-cccv"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44500"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/ZcashFoundation/zebra"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/ZcashFoundation/zebra/releases/tag/v4.4.0"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-770"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T20:55:28Z",
+    "nvd_published_at": "2026-05-08T15:17:01Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

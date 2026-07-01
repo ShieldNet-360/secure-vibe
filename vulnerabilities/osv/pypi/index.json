@@ -1,0 +1,1079 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-16T05:44:30Z",
+  "generated_at": "2026-05-16T05:44:30Z",
+  "by_package": {
+    "open-webui": [
+      {
+        "id": "GHSA-24c9-2m8q-qhmh",
+        "file": "GHSA-24c9-2m8q-qhmh.json",
+        "summary": "Open WebUI Vulnerable to SSRF via OAuth Profile Picture URL in _process_picture_url (oauth.py)",
+        "aliases": [
+          "CVE-2026-45338"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-26g9-27vm-x3q8",
+        "file": "GHSA-26g9-27vm-x3q8.json",
+        "summary": "Open WebUI: shared-chat branch ignores access_type, allowing unauthorized file deletion",
+        "aliases": [
+          "CVE-2026-45671"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-2r4p-jpmg-48f4",
+        "file": "GHSA-2r4p-jpmg-48f4.json",
+        "summary": "Open WebUI has an LDAP Empty Password Authentication Bypass",
+        "aliases": [
+          "CVE-2026-44551"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-3856-3vxq-m6fc",
+        "file": "GHSA-3856-3vxq-m6fc.json",
+        "summary": "Open WebUI has XSS via SVG in /api/v1/channels/webhooks/{webhook_id}/profile/image",
+        "aliases": [
+          "CVE-2026-45314"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-3wgj-c2hg-vm6q",
+        "file": "GHSA-3wgj-c2hg-vm6q.json",
+        "summary": "Open WebUI vulnerable to stored XSS via OAuth picture claim stored as SVG data URI in profile_image_url",
+        "aliases": [],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-3x8w-4f7p-xxc2",
+        "file": "GHSA-3x8w-4f7p-xxc2.json",
+        "summary": "Open WebUI: Redis Cache Keys tool_servers and terminal_servers Missing Instance Prefix Enable Cross-Instance Cache Poisoning",
+        "aliases": [
+          "CVE-2026-44552"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-45m8-cpm2-3v65",
+        "file": "GHSA-45m8-cpm2-3v65.json",
+        "summary": "Open WebUI: Stale Admin Role in Socket.IO Session Pool Enables Post-Demotion Cross-User Note Access",
+        "aliases": [
+          "CVE-2026-44553"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-482j-2pq6-q5w4",
+        "file": "GHSA-482j-2pq6-q5w4.json",
+        "summary": "Open WebUI: Jupyter code execution works despite `ENABLE_CODE_EXECUTION=false` \u2014 feature gate bypassed",
+        "aliases": [
+          "CVE-2026-45672"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-4g37-7p2c-38r9",
+        "file": "GHSA-4g37-7p2c-38r9.json",
+        "summary": "Open WebUI Vulnerable to IDOR: Retrieval API Bypasses Knowledge Base Access Controls",
+        "aliases": [
+          "CVE-2026-45398"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-4pcg-253r-rf9w",
+        "file": "GHSA-4pcg-253r-rf9w.json",
+        "summary": "Open WebUI's chat completion API allows tool restrictions to be bypassed",
+        "aliases": [
+          "CVE-2026-45350"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-4v7r-f4w8-8972",
+        "file": "GHSA-4v7r-f4w8-8972.json",
+        "summary": "Open WebUI has a full SSRF Vulnerability in the RAG Web Search Feature",
+        "aliases": [
+          "CVE-2026-45331"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-4vrc-m9ch-6m3r",
+        "file": "GHSA-4vrc-m9ch-6m3r.json",
+        "summary": "Open WebUI has stored XSS via the HTML renedering view",
+        "aliases": [
+          "CVE-2026-45303"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-5gc6-xhv4-2wg6",
+        "file": "GHSA-5gc6-xhv4-2wg6.json",
+        "summary": "Open WebUI has an IDOR vulnerability in the pin_channel_message API endpoint",
+        "aliases": [
+          "CVE-2026-45386"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-65pg-qhhw-mxwg",
+        "file": "GHSA-65pg-qhhw-mxwg.json",
+        "summary": "Open WebUI Vulnerable to Unauthenticated RAG Configuration Disclosure",
+        "aliases": [
+          "CVE-2026-45397"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6c2x-gcp3-gp73",
+        "file": "GHSA-6c2x-gcp3-gp73.json",
+        "summary": "Open WebUI vulnerable to Global Knowledge Base Enumeration via knowledge-bases Meta-Collection",
+        "aliases": [
+          "CVE-2026-44557"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-6gh2-q7cp-9qf6",
+        "file": "GHSA-6gh2-q7cp-9qf6.json",
+        "summary": "Open WebUI has Stored Cross-Site Scripting In Profile Picture",
+        "aliases": [
+          "CVE-2026-45299"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-7r82-qhg4-6wvj",
+        "file": "GHSA-7r82-qhg4-6wvj.json",
+        "summary": "Open WebUI has Knowledge Base Destruction and RAG Poisoning via Unauthorized Collection Overwrite",
+        "aliases": [
+          "CVE-2026-44554"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-7rjh-px4v-5w55",
+        "file": "GHSA-7rjh-px4v-5w55.json",
+        "summary": "Open WebUI's Channel Access Grants Bypass filter_allowed_access_grants",
+        "aliases": [
+          "CVE-2026-44558"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-8jjp-r2w2-4v22",
+        "file": "GHSA-8jjp-r2w2-4v22.json",
+        "summary": "Open WebUI: Low-privilege authenticated users can enumerate and stop global background tasks, causing system-wide chat disruption",
+        "aliases": [
+          "CVE-2026-45399"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-8w7q-q5jp-jvgx",
+        "file": "GHSA-8w7q-q5jp-jvgx.json",
+        "summary": "Open WebUI has a Server-Side Request Forgery (SSRF) bypass in `validate_url`",
+        "aliases": [
+          "CVE-2026-45400"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-9vvh-qmjx-p4q8",
+        "file": "GHSA-9vvh-qmjx-p4q8.json",
+        "summary": "Open WebUI's Base Model Routing Bypasses Access Control via Model Chaining",
+        "aliases": [
+          "CVE-2026-44555"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-c7wp-3qh5-55pv",
+        "file": "GHSA-c7wp-3qh5-55pv.json",
+        "summary": "Open WebUI Missing Access Check on Channel Members Endpoint for Standard Channels",
+        "aliases": [
+          "CVE-2026-44559"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-f776-fp4w-266c",
+        "file": "GHSA-f776-fp4w-266c.json",
+        "summary": "Open WebUI vulnerable to blind server side request forgery (SSRF) via the PDF generate function",
+        "aliases": [
+          "CVE-2026-45347"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-fq3v-xjjx-95rc",
+        "file": "GHSA-fq3v-xjjx-95rc.json",
+        "summary": "Open WebUI has Stored XSS in Pending User Overlay via Incorrect DOMPurify Application Order",
+        "aliases": [
+          "CVE-2026-44568"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-gf5m-wcrh-7928",
+        "file": "GHSA-gf5m-wcrh-7928.json",
+        "summary": "open-webui Vulnerable to Stored XSS via Model Description",
+        "aliases": [
+          "CVE-2026-44721"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gf5m-wcrh-7928",
+        "file": "GHSA-gf5m-wcrh-7928.json",
+        "summary": "open-webui Vulnerable to Stored XSS via Model Description",
+        "aliases": [
+          "CVE-2026-44721"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gfm2-xm6c-37qc",
+        "file": "GHSA-gfm2-xm6c-37qc.json",
+        "summary": "Open WebUI has Broken Access Control for Completions API",
+        "aliases": [
+          "CVE-2026-45349"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gm54-m39w-grjp",
+        "file": "GHSA-gm54-m39w-grjp.json",
+        "summary": "Open WebUI missing authorization check at the model update function - models from other users can be updated",
+        "aliases": [
+          "CVE-2026-45345"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-h2cw-7qw9-56xr",
+        "file": "GHSA-h2cw-7qw9-56xr.json",
+        "summary": "Open WebUI: Sharing models for others to use (read permission) also exposes model details (system prompt leakage)",
+        "aliases": [
+          "CVE-2026-45387"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-h36f-rqpx-j5wx",
+        "file": "GHSA-h36f-rqpx-j5wx.json",
+        "summary": "Open WebUI has Unauthorized File and Knowledge Base Content Access via RAG Vector Search",
+        "aliases": [
+          "CVE-2026-44560"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-h3ww-q6xx-w7x3",
+        "file": "GHSA-h3ww-q6xx-w7x3.json",
+        "summary": "Open WebUI: LDAP and OAuth First-User Race Condition Allows Multiple Admin Accounts",
+        "aliases": [
+          "CVE-2026-45675"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-hcwp-82g6-8wxc",
+        "file": "GHSA-hcwp-82g6-8wxc.json",
+        "summary": "Open WebUI has stored XSS via unsanitized Office/Excel/DOCX file preview rendering ({@html} without DOMPurify)",
+        "aliases": [
+          "CVE-2026-45318"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-hmgr-67hw-j2cq",
+        "file": "GHSA-hmgr-67hw-j2cq.json",
+        "summary": "Open WebUI: Deactivated Channel Members Retain Full Access to Group/DM Channels",
+        "aliases": [
+          "CVE-2026-44561"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-hp5m-24vp-vq2q",
+        "file": "GHSA-hp5m-24vp-vq2q.json",
+        "summary": "Open WebUI's responses passthrough endpoint lacks access control authorization",
+        "aliases": [
+          "CVE-2026-44556"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-hr43-rjmr-7wmm",
+        "file": "GHSA-hr43-rjmr-7wmm.json",
+        "summary": "Open WebUI's Mass Assignment via Pydantic extra='allow' Allows Creating Folders in Other Users' Accounts",
+        "aliases": [
+          "CVE-2026-44550"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-j6w6-986j-2m2m",
+        "file": "GHSA-j6w6-986j-2m2m.json",
+        "summary": "Open WebUI Vulnerable to Cross-Site Request Forgery (CSRF) via Image URL Manipulation",
+        "aliases": [
+          "CVE-2026-45317"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-jh9g-8jqw-m2qx",
+        "file": "GHSA-jh9g-8jqw-m2qx.json",
+        "summary": "Open WebUI Exposes System Prompt to Regular User [Non-Admin]",
+        "aliases": [
+          "CVE-2026-45351"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-jx2x-j75f-xq3j",
+        "file": "GHSA-jx2x-j75f-xq3j.json",
+        "summary": "Open WebUI: Read-Only Users Can Toggle Note Pin Status via Incorrect Permission Check (Write via Read-Only Access)",
+        "aliases": [
+          "CVE-2026-45316"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-m69w-p7m4-585j",
+        "file": "GHSA-m69w-p7m4-585j.json",
+        "summary": "Open WebUI: Unauthenticated endpoint can trigger embedding generation (cost/DoS)",
+        "aliases": [
+          "CVE-2026-45667"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-m8f9-9whg-f4xr",
+        "file": "GHSA-m8f9-9whg-f4xr.json",
+        "summary": "Open WebUI has stored XSS via attacker-controlled file extension in /api/v1/audio/transcriptions",
+        "aliases": [
+          "CVE-2026-45315"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-mqq6-cqcx-38vg",
+        "file": "GHSA-mqq6-cqcx-38vg.json",
+        "summary": "Open WebUI's Model Import Overwrites Any Model Without Ownership Check",
+        "aliases": [
+          "CVE-2026-44562"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-r472-mw7m-967f",
+        "file": "GHSA-r472-mw7m-967f.json",
+        "summary": "Open WebUI: Cross-User File Access via Unchecked file_id in Folder Knowledge and Knowledge-Base Attach Endpoints",
+        "aliases": [
+          "CVE-2026-45402"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-r8wh-8m7r-fh33",
+        "file": "GHSA-r8wh-8m7r-fh33.json",
+        "summary": "Open WebUI: Missing permission check in files API allows authenticated users to list, access and delete every uploaded file",
+        "aliases": [
+          "CVE-2026-45301"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rcvp-6fgw-c7fh",
+        "file": "GHSA-rcvp-6fgw-c7fh.json",
+        "summary": "Open WebUI's Ollama Model Access Control Bypass via /api/generate, /api/embed, /api/embeddings, and /api/show",
+        "aliases": [
+          "CVE-2026-44563"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-rh5x-h6pp-cjj6",
+        "file": "GHSA-rh5x-h6pp-cjj6.json",
+        "summary": "Open WebUI has a SSRF Bypass via HTTP Redirect Following in Web-Fetch and Image-Load Endpoints (not addressed by CVE-2025-65958)",
+        "aliases": [
+          "CVE-2026-45401"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rjmp-vjf2-qf4g",
+        "file": "GHSA-rjmp-vjf2-qf4g.json",
+        "summary": "Open WebUI: Mass Assignment via FeedbackForm extra=allow Allows Feedback User ID Spoofing and Evaluation Data Manipulation",
+        "aliases": [
+          "CVE-2026-45396"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-v6qf-75pr-p96m",
+        "file": "GHSA-v6qf-75pr-p96m.json",
+        "summary": "Open WebUI: Authenticated users can bypass model access control via exposed query parameter [AI-ASSISTED]",
+        "aliases": [
+          "CVE-2026-45365"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vrfh-rj4q-rmhr",
+        "file": "GHSA-vrfh-rj4q-rmhr.json",
+        "summary": "Read-Only Open WebUI Users Can Modify Collaborative Documents via Socket.IO",
+        "aliases": [
+          "CVE-2026-44564"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-wwhq-cx22-f7vv",
+        "file": "GHSA-wwhq-cx22-f7vv.json",
+        "summary": "Open WebUI has an IDOR vulnerability in the update_message_by_id API endpoint",
+        "aliases": [
+          "CVE-2026-45385"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-x3qm-p8hr-3c3h",
+        "file": "GHSA-x3qm-p8hr-3c3h.json",
+        "summary": "Open WebUI has an Indirect Object Reference (IDOR) in user notes",
+        "aliases": [
+          "CVE-2026-45666"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "pipecat-ai": [
+      {
+        "id": "GHSA-3363-2ph6-35wh",
+        "file": "GHSA-3363-2ph6-35wh.json",
+        "summary": "Pipecat: Path Traversal in Pipecat Runner `/files` Endpoint \u2014 Arbitrary File Read via `%2F`-Encoded Separator",
+        "aliases": [
+          "CVE-2026-44716"
+        ],
+        "severity": "high"
+      }
+    ],
+    "utcp-cli": [
+      {
+        "id": "GHSA-33p6-5jxp-p3x4",
+        "file": "GHSA-33p6-5jxp-p3x4.json",
+        "summary": "utcp-cli Vulnerable to Command Injection via Unsanitized Argument Substitution in CLI Communication Protocol",
+        "aliases": [
+          "CVE-2026-45369"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-5v57-8rxj-3p2r",
+        "file": "GHSA-5v57-8rxj-3p2r.json",
+        "summary": "python-utcp: Full Process Environment Exposed to CLI Subprocess - Secrets Leakage via Command Injection",
+        "aliases": [
+          "CVE-2026-45370"
+        ],
+        "severity": "high"
+      }
+    ],
+    "jupyterlab": [
+      {
+        "id": "GHSA-37w4-hwhx-4rc4",
+        "file": "GHSA-37w4-hwhx-4rc4.json",
+        "summary": "JupyterHub has an Extension Manager API/GUI Policy Discrepancy, allowing 3rd party (malicious) extensions install via POST request",
+        "aliases": [
+          "BIT-jupyterlab-2026-42266",
+          "CVE-2026-42266"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-mqcg-5x36-vfcg",
+        "file": "GHSA-mqcg-5x36-vfcg.json",
+        "summary": "JupyterLab's command linker attributes in HTML enable one-click command execution from untrusted content",
+        "aliases": [
+          "BIT-jupyter-base-notebook-2026-42557",
+          "BIT-jupyter-notebook-2026-42557",
+          "BIT-jupyterlab-2026-42557",
+          "CVE-2026-42557"
+        ],
+        "severity": "high"
+      }
+    ],
+    "utcp-http": [
+      {
+        "id": "GHSA-39j6-4867-gg4w",
+        "file": "GHSA-39j6-4867-gg4w.json",
+        "summary": "utcp-http vulnerable to SSRF via attacker-controlled OpenAPI servers[0].url in HTTP communication protocol",
+        "aliases": [
+          "CVE-2026-44661"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "archivebox": [
+      {
+        "id": "GHSA-3h23-7824-pj8r",
+        "file": "GHSA-3h23-7824-pj8r.json",
+        "summary": "ArchiveBox Vulnerable to RCE via unvalidated per-crawl config overrides in AddView",
+        "aliases": [
+          "CVE-2026-42601"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "dulwich": [
+      {
+        "id": "GHSA-4j5j-58j7-6c3w",
+        "file": "GHSA-4j5j-58j7-6c3w.json",
+        "summary": "Dulwich Arbitrary code execution via commit with directory path starting with .git",
+        "aliases": [
+          "CVE-2014-9706",
+          "PYSEC-2015-34"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "open-webu": [
+      {
+        "id": "GHSA-57q6-fvp4-pqmm",
+        "file": "GHSA-57q6-fvp4-pqmm.json",
+        "summary": "Open WebUI's API key endpoint restrictions bypassed via `x-api-key` header \u2014 full message processing on restricted endpoints",
+        "aliases": [
+          "CVE-2026-45339"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "ethyca-fides": [
+      {
+        "id": "GHSA-5qrq-9645-g5g2",
+        "file": "GHSA-5qrq-9645-g5g2.json",
+        "summary": "ethyca-fides has a DOM-based XSS vulnerability in fides.js via fides_description override",
+        "aliases": [
+          "CVE-2026-44541"
+        ],
+        "severity": "high"
+      }
+    ],
+    "playwrightcapture": [
+      {
+        "id": "GHSA-687h-xw6f-q2qw",
+        "file": "GHSA-687h-xw6f-q2qw.json",
+        "summary": "Playwright Capture permits access to local files and internal network resources during page capture",
+        "aliases": [
+          "CVE-2026-44439"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "weblate": [
+      {
+        "id": "GHSA-6wxc-8mgq-w26m",
+        "file": "GHSA-6wxc-8mgq-w26m.json",
+        "summary": "Weblate: Stored HTML injection in editor search preview",
+        "aliases": [
+          "CVE-2026-45106"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.microsoft.kiota:microsoft-kiota-abstractions": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "microsoft.kiota.abstractions": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "microsoft-kiota-http": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "kiota-typescript": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/microsoft/kiota-http-go": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "pyquorum": [
+      {
+        "id": "GHSA-7r92-3jgr-r65q",
+        "file": "GHSA-7r92-3jgr-r65q.json",
+        "summary": "pyquorum: Timing side\u2011channel in mul_mod",
+        "aliases": [
+          "CVE-2026-44368"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "dbt-mcp": [
+      {
+        "id": "GHSA-7xgw-6qf3-7w59",
+        "file": "GHSA-7xgw-6qf3-7w59.json",
+        "summary": "dbt MCP Server Logs Tool Arguments Including SQL Queries and Credentials in Plaintext Without Redaction When File Logging Is Enabled",
+        "aliases": [
+          "CVE-2026-44969"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-jj54-r8gm-2fcf",
+        "file": "GHSA-jj54-r8gm-2fcf.json",
+        "summary": "dbt MCP Server Transmits All MCP Tool Arguments Including Raw SQL and --vars Credentials to dbt Labs Telemetry by Default Without Redaction",
+        "aliases": [
+          "CVE-2026-44970"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-xpww-f6pm-cfhq",
+        "file": "GHSA-xpww-f6pm-cfhq.json",
+        "summary": "dbt MCP Server has an Argument Injection in dbt CLI Tool Wrappers via node_selection and resource_type Parameters",
+        "aliases": [
+          "CVE-2026-44968"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "changedetection-io": [
+      {
+        "id": "GHSA-8757-69j2-hx56",
+        "file": "GHSA-8757-69j2-hx56.json",
+        "summary": "changedetection.io has an Arbitrary Local File Read via a crafted backup restore",
+        "aliases": [
+          "CVE-2026-43891"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-v7cp-2cx9-x793",
+        "file": "GHSA-v7cp-2cx9-x793.json",
+        "summary": "changedetection.io project has an XXE vulnerability",
+        "aliases": [
+          "CVE-2026-41895"
+        ],
+        "severity": "high"
+      }
+    ],
+    "ciguard": [
+      {
+        "id": "GHSA-8cxw-cc62-q28v",
+        "file": "GHSA-8cxw-cc62-q28v.json",
+        "summary": "ciguard: discover_pipeline_files follows symlinks out of scan root",
+        "aliases": [
+          "CVE-2026-44220"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-jrm4-4pcf-4763",
+        "file": "GHSA-jrm4-4pcf-4763.json",
+        "summary": "ciguard: Container image runs as root (no USER directive)",
+        "aliases": [
+          "CVE-2026-44218"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-xw8c-rrvx-f7xq",
+        "file": "GHSA-xw8c-rrvx-f7xq.json",
+        "summary": "ciguard: SCA HTTP client reads response body without size cap",
+        "aliases": [
+          "CVE-2026-44219"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "python-liquid": [
+      {
+        "id": "GHSA-8p4x-wr7x-3788",
+        "file": "GHSA-8p4x-wr7x-3788.json",
+        "summary": "python-liquid: Absolute paths escape filesystem loader search path",
+        "aliases": [
+          "CVE-2026-45017"
+        ],
+        "severity": "high"
+      }
+    ],
+    "diffusers": [
+      {
+        "id": "GHSA-98h9-4798-4q5v",
+        "file": "GHSA-98h9-4798-4q5v.json",
+        "summary": "Diffusers has a `trust_remote_code` bypass via `custom_pipeline` and local custom components",
+        "aliases": [
+          "CVE-2026-44513"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-j7w6-vpvq-j3gm",
+        "file": "GHSA-j7w6-vpvq-j3gm.json",
+        "summary": "Diffusers has a `trust_remote_code` bypass via `custom_pipeline` and local custom components",
+        "aliases": [
+          "CVE-2026-44827"
+        ],
+        "severity": "high"
+      }
+    ],
+    "ckan": [
+      {
+        "id": "GHSA-cg4x-64p3-x59h",
+        "file": "GHSA-cg4x-64p3-x59h.json",
+        "summary": "CKAN has Unauthenticated Authorization Bypass in `datastore_search_sql`",
+        "aliases": [
+          "CVE-2026-42032"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-cg4x-64p3-x59h",
+        "file": "GHSA-cg4x-64p3-x59h.json",
+        "summary": "CKAN has Unauthenticated Authorization Bypass in `datastore_search_sql`",
+        "aliases": [
+          "CVE-2026-42032"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-h7j7-3rx6-xvcg",
+        "file": "GHSA-h7j7-3rx6-xvcg.json",
+        "summary": "CKAN has Unauthenticated SQL Injection and Authorization Bypass in `datastore_search_sql`",
+        "aliases": [
+          "CVE-2026-42031"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-h7j7-3rx6-xvcg",
+        "file": "GHSA-h7j7-3rx6-xvcg.json",
+        "summary": "CKAN has Unauthenticated SQL Injection and Authorization Bypass in `datastore_search_sql`",
+        "aliases": [
+          "CVE-2026-42031"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-mcvf-jxcw-vj73",
+        "file": "GHSA-mcvf-jxcw-vj73.json",
+        "summary": "CKAN has CSRF exemption primed by anonymous requests",
+        "aliases": [
+          "CVE-2026-41255"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-mcvf-jxcw-vj73",
+        "file": "GHSA-mcvf-jxcw-vj73.json",
+        "summary": "CKAN has CSRF exemption primed by anonymous requests",
+        "aliases": [
+          "CVE-2026-41255"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-mpfm-fpgx-647q",
+        "file": "GHSA-mpfm-fpgx-647q.json",
+        "summary": "CKAN has no certificate validation on STMP connection",
+        "aliases": [
+          "CVE-2026-41132"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-mpfm-fpgx-647q",
+        "file": "GHSA-mpfm-fpgx-647q.json",
+        "summary": "CKAN has no certificate validation on STMP connection",
+        "aliases": [
+          "CVE-2026-41132"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "pyload-ng": [
+      {
+        "id": "GHSA-fcjq-435v-jx94",
+        "file": "GHSA-fcjq-435v-jx94.json",
+        "summary": "pyLoad is vulnerable to stored XSS in Downloads view via unsanitized link URL in packages.js template literal",
+        "aliases": [
+          "CVE-2026-45348"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-w727-595x-pc3r",
+        "file": "GHSA-w727-595x-pc3r.json",
+        "summary": "pyLoad Has Incomplete Fix for CVE-2026-33509 -storage_folder Bypass via Session Directory in pyLoad",
+        "aliases": [
+          "CVE-2026-45306"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "misp-modules": [
+      {
+        "id": "GHSA-fhq3-2gf3-8f3j",
+        "file": "GHSA-fhq3-2gf3-8f3j.json",
+        "summary": "misp-modules has nsafe remote resource fetching in expansion",
+        "aliases": [
+          "CVE-2026-44363"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-j4rh-7jcr-qm69",
+        "file": "GHSA-j4rh-7jcr-qm69.json",
+        "summary": "misp-modules website - Missing CSRF protection in the website home blueprint",
+        "aliases": [
+          "CVE-2026-44364"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "docling-graph": [
+      {
+        "id": "GHSA-fqph-j6v6-jvgx",
+        "file": "GHSA-fqph-j6v6-jvgx.json",
+        "summary": "docling-graph has SSRF via Missing Internal IP Validation in URLInputHandler",
+        "aliases": [
+          "CVE-2026-44520"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "ha-mcp": [
+      {
+        "id": "GHSA-g39v-cvjh-8fpf",
+        "file": "GHSA-g39v-cvjh-8fpf.json",
+        "summary": "Home Assistant MCP Server: YAML config backups written under www/ are served unauthenticated at /local/",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "apache-airflow-providers-elasticsearch": [
+      {
+        "id": "GHSA-g3jr-4jrm-jvqv",
+        "file": "GHSA-g3jr-4jrm-jvqv.json",
+        "summary": "Apache Airflow Providers Elasticsearch: Elasticsearch task-log handlers leak credentials embedded in the host URL",
+        "aliases": [
+          "CVE-2026-41018"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "twisted": [
+      {
+        "id": "GHSA-grgv-6hw6-v9g4",
+        "file": "GHSA-grgv-6hw6-v9g4.json",
+        "summary": "Twisted has a Denial of Service (DoS) in twisted.names via Crafted DNS Compression Pointer Chains",
+        "aliases": [
+          "CVE-2026-42304"
+        ],
+        "severity": "high"
+      }
+    ],
+    "authlib": [
+      {
+        "id": "GHSA-jj8c-mmj3-mmgv",
+        "file": "GHSA-jj8c-mmj3-mmgv.json",
+        "summary": "Authlib: Cross-site request forging when using cache",
+        "aliases": [
+          "CVE-2026-41425"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "aegra-api": [
+      {
+        "id": "GHSA-m98r-6667-4wq7",
+        "file": "GHSA-m98r-6667-4wq7.json",
+        "summary": "Aegra has cross-user run injection in /threads/{thread_id}/runs (IDOR)",
+        "aliases": [
+          "CVE-2026-44504"
+        ],
+        "severity": "high"
+      }
+    ],
+    "urllib3": [
+      {
+        "id": "GHSA-mf9v-mfxr-j63j",
+        "file": "GHSA-mf9v-mfxr-j63j.json",
+        "summary": "urllib3: Decompression-bomb safeguards bypassed in parts of the streaming API",
+        "aliases": [
+          "CVE-2026-44432"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-qccp-gfcp-xxvc",
+        "file": "GHSA-qccp-gfcp-xxvc.json",
+        "summary": "urllib3: Sensitive headers forwarded across origins in proxied low-level redirects",
+        "aliases": [
+          "CVE-2026-44431"
+        ],
+        "severity": "high"
+      }
+    ],
+    "apm-cli": [
+      {
+        "id": "GHSA-mq5j-pw29-jcv3",
+        "file": "GHSA-mq5j-pw29-jcv3.json",
+        "summary": "Microsoft APM: Windows absolute-path tar member overwrite during legacy-bundle probing in `apm install`",
+        "aliases": [
+          "CVE-2026-46383"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-xhrw-5qxx-jpwr",
+        "file": "GHSA-xhrw-5qxx-jpwr.json",
+        "summary": "Microsoft APM CLI's plugin.json component paths escape plugin root and copy arbitrary host files during install",
+        "aliases": [
+          "CVE-2026-44641"
+        ],
+        "severity": "high"
+      }
+    ],
+    "notebook": [
+      {
+        "id": "GHSA-mqcg-5x36-vfcg",
+        "file": "GHSA-mqcg-5x36-vfcg.json",
+        "summary": "JupyterLab's command linker attributes in HTML enable one-click command execution from untrusted content",
+        "aliases": [
+          "BIT-jupyter-base-notebook-2026-42557",
+          "BIT-jupyter-notebook-2026-42557",
+          "BIT-jupyterlab-2026-42557",
+          "CVE-2026-42557"
+        ],
+        "severity": "high"
+      }
+    ],
+    "python-multipart": [
+      {
+        "id": "GHSA-pp6c-gr5w-3c5g",
+        "file": "GHSA-pp6c-gr5w-3c5g.json",
+        "summary": "python-multipart has Denial of Service via unbounded multipart part headers",
+        "aliases": [
+          "CVE-2026-42561"
+        ],
+        "severity": "high"
+      }
+    ],
+    "pytorch-lightning": [
+      {
+        "id": "GHSA-w37p-236h-pfx3",
+        "file": "GHSA-w37p-236h-pfx3.json",
+        "summary": "Compromise of PyTorch Lightning PyPi Package Versions",
+        "aliases": [
+          "CVE-2026-44484"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-w37p-236h-pfx3",
+        "file": "GHSA-w37p-236h-pfx3.json",
+        "summary": "Compromise of PyTorch Lightning PyPi Package Versions",
+        "aliases": [
+          "CVE-2026-44484"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "apache-airflow-providers-opensearch": [
+      {
+        "id": "GHSA-xccp-97wp-3gjg",
+        "file": "GHSA-xccp-97wp-3gjg.json",
+        "summary": "Apache Airflow Providers OpenSearch: OpenSearch task-log handler leaks credentials embedded in the host URL",
+        "aliases": [
+          "CVE-2026-43826"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "tronpath": [
+      {
+        "id": "MAL-2026-3742",
+        "file": "MAL-2026-3742.json",
+        "summary": "Malicious code in tronpath (PyPI)",
+        "aliases": []
+      }
+    ],
+    "sol-batch-transfer-sdk": [
+      {
+        "id": "MAL-2026-3743",
+        "file": "MAL-2026-3743.json",
+        "summary": "Malicious code in sol-batch-transfer-sdk (PyPI)",
+        "aliases": []
+      }
+    ],
+    "jatinangor-teleport-testing-zer0id": [
+      {
+        "id": "MAL-2026-3746",
+        "file": "MAL-2026-3746.json",
+        "summary": "Malicious code in jatinangor-teleport-testing-zer0id (PyPI)",
+        "aliases": []
+      }
+    ],
+    "natazx": [
+      {
+        "id": "MAL-2026-3778",
+        "file": "MAL-2026-3778.json",
+        "summary": "Malicious code in natazx (PyPI)",
+        "aliases": []
+      }
+    ],
+    "venv-utils": [
+      {
+        "id": "MAL-2026-3803",
+        "file": "MAL-2026-3803.json",
+        "summary": "Malicious code in venv-utils (PyPI)",
+        "aliases": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+schema_version: "1.0"
+framework: "OWASP API Security Top 10 2023 + OAuth 2.0 BCP"
+last_updated: "2026-05-12"
+patterns:
+  - id: api-auth-required-default
+    severity: critical
+    rule: "Default to authenticated routes; explicitly mark public routes"
+    enforcement: "Use a middleware that requires auth unless route is annotated public"
+  - id: api-bola-object-auth
+    severity: critical
+    rule: "Object-level authorization: confirm subject has access to specific resource ID, not just any resource of that type"
+    cwe: 639
+  - id: api-jwt-pin-alg
+    severity: critical
+    rule: "Pin JWT algorithm at verification; never accept 'none'"
+  - id: api-jwt-short-ttl
+    severity: high
+    rule: "Access tokens have TTL ≤ 1 hour; use refresh tokens for longer sessions"
+  - id: api-rate-limit-auth
+    severity: high
+    rule: "Auth endpoints (login, password reset, OAuth callback) have stricter rate limits than business endpoints"
+  - id: api-no-credentials-in-url
+    severity: critical
+    rule: "Tokens and credentials are never passed in query strings (they leak to logs and Referer headers)"
+  - id: api-mfa-for-admin
+    severity: high
+    rule: "Administrative actions require MFA or step-up authentication"
+  - id: api-no-mass-assignment
+    severity: high
+    rule: "Whitelist fields when binding request body to ORM models"
+    cwe: 915

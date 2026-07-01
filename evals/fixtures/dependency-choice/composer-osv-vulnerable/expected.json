@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-06-20",
+  "description": "End-to-end composer.lock -> OSV path. drupal/node_view_permissions@1.6.0 is in the affected range (<1.7.0) of DRUPAL-CONTRIB-2026-034 / CVE-2026-8491, so the offline OSV index emits one osv-advisory finding. monolog/monolog@2.9.1 is a benign control with no advisory in the index. Source: vulnerabilities/osv/composer/DRUPAL-CONTRIB-2026-034.json.",
+  "expected_findings": [
+    {
+      "ecosystem": "composer",
+      "package": "drupal/node_view_permissions",
+      "version": "1.6.0",
+      "kind": "osv",
+      "source": "vulnerabilities/osv/composer/DRUPAL-CONTRIB-2026-034.json"
+    }
+  ],
+  "expected_clean": ["monolog/monolog"]
+}

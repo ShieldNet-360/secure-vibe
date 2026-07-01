@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Structural invariants every generated IAM policy must satisfy.",
+  "invariants": [
+    {
+      "id": "iam-no-action-star-on-resource-star",
+      "severity": "critical",
+      "cwe": 269,
+      "rule": "A statement with Action='*' or '<service>:*' must not pair with Resource='*'. Wildcards on both axes equate to AdministratorAccess.",
+      "applies_to": ["aws_iam_policy", "aws_iam_role_policy", "aws_iam_user_policy"]
+    },
+    {
+      "id": "iam-explicit-deny-wins",
+      "severity": "high",
+      "rule": "Statements include an explicit Deny for cross-service privilege escalation actions (iam:PassRole, iam:CreateAccessKey, iam:UpdateAssumeRolePolicy) unless the role legitimately needs them.",
+      "cwe": 285
+    },
+    {
+      "id": "iam-passrole-pinned",
+      "severity": "critical",
+      "cwe": 269,
+      "rule": "Any iam:PassRole grant lists concrete role ARNs under Resource. Resource='*' on PassRole is a known privilege-escalation primitive."
+    },
+    {
+      "id": "iam-assumerole-externalid",
+      "severity": "critical",
+      "cwe": 441,
+      "rule": "Cross-account trust policies (sts:AssumeRole from a Principal in a different account) include Condition.StringEquals['sts:ExternalId'] with a unique-per-consumer value. Mitigates Confused Deputy."
+    },
+    {
+      "id": "iam-mfa-required-for-privileged",
+      "severity": "high",
+      "rule": "Any role granting administrative or sensitive actions (iam:*, ec2:Terminate*, rds:Delete*, kms:Decrypt on production keys, secretsmanager:GetSecretValue) requires aws:MultiFactorAuthPresent: true in its trust or permission policy."
+    },
+    {
+      "id": "iam-session-duration-bounded",
+      "severity": "medium",
+      "rule": "MaxSessionDuration is set to ≤ 3600 (1h) for human-assumable roles and ≤ 43200 (12h) for break-glass roles."
+    },
+    {
+      "id": "iam-tags-required",
+      "severity": "medium",
+      "rule": "Every IAM principal carries tags: owner, environment, purpose. Used by SCPs and cost allocation."
+    },
+    {
+      "id": "iam-no-inline-on-shared",
+      "severity": "low",
+      "rule": "Prefer managed policies for shared permission sets so changes propagate; inline policies are acceptable for one-off, single-principal scopes."
+    },
+    {
+      "id": "iam-no-aws-managed-administratoraccess",
+      "severity": "critical",
+      "rule": "AWS-managed AdministratorAccess (arn:aws:iam::aws:policy/AdministratorAccess) is not attached to any routine identity; only to a break-glass role with monitoring."
+    },
+    {
+      "id": "iam-runtime-no-iam-mutations",
+      "severity": "high",
+      "rule": "Runtime workload roles (the role a pod / Lambda / EC2 actually assumes) do not include iam:Create*, iam:Update*, iam:Delete*, iam:Put*, sts:* (other than AssumeRole on a narrow set of ARNs)."
+    },
+    {
+      "id": "iam-condition-source-ip-or-vpc",
+      "severity": "medium",
+      "rule": "Sensitive grants are constrained by aws:SourceIp, aws:SourceVpc, or aws:SourceVpce when the workload runs in a known network boundary."
+    },
+    {
+      "id": "iam-secret-access-key-rotated",
+      "severity": "high",
+      "cwe": 798,
+      "rule": "If long-lived access keys exist, the policy/automation rotates them every ≤ 90 days and deactivates keys unused for ≥ 90 days."
+    }
+  ]
+}

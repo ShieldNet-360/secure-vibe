@@ -1,0 +1,68 @@
+schema_version: "1.0"
+framework: "CIS AWS Foundations + Terraform Best Practices"
+last_updated: "2026-05-13"
+patterns:
+  - id: tf-pin-providers
+    severity: high
+    rule: "Every required_providers entry pins to an exact or pessimistic version constraint"
+    cwe: 1357
+  - id: tf-remote-backend-encrypted
+    severity: critical
+    rule: "Backend is remote (s3/gcs/azurerm/remote), with encrypt=true and KMS or CMEK"
+  - id: tf-state-locking
+    severity: high
+    rule: "State has locking (DynamoDB table for S3, native lock for managed backends)"
+  - id: tf-no-hardcoded-creds
+    severity: critical
+    rule: "Providers receive credentials from environment, OIDC, or aws_assume_role — never inline keys"
+    cwe: 798
+  - id: tf-no-tfstate-in-repo
+    severity: critical
+    rule: ".gitignore excludes terraform.tfstate, terraform.tfstate.backup, *.tfvars (real values), .terraform/, crash.log"
+  - id: tf-sensitive-vars
+    severity: high
+    rule: "Variables holding secrets are marked sensitive = true"
+  - id: tf-default-tags
+    severity: medium
+    rule: "Provider has a default_tags block including owner, environment, cost-center"
+  - id: tf-storage-encrypted
+    severity: high
+    rule: "aws_s3_bucket has aws_s3_bucket_server_side_encryption_configuration with kms_master_key_id; aws_ebs_volume has encrypted=true; aws_db_instance has storage_encrypted=true with kms_key_id"
+    cwe: 311
+  - id: tf-security-group-no-world-admin
+    severity: critical
+    rule: "Security groups don't open 22/3389/3306/5432/1433/6379/27017 to 0.0.0.0/0"
+    cwe: 284
+  - id: tf-iam-no-wildcard
+    severity: critical
+    rule: "IAM policies do not use Action=* with Resource=*; aws_iam_policy_document.statement.actions is a concrete list"
+    cwe: 269
+  - id: tf-drift-detection
+    severity: medium
+    rule: "A scheduled drift detection job exists (Terraform Cloud, Atlantis, or scheduled CI plan)"
+  - id: tf-no-skip-tls
+    severity: critical
+    rule: "Provider configuration does not set insecure=true or skip_tls_verify=true"
+  - id: tf-no-local-state-prod
+    severity: high
+    rule: "Production workspaces use a remote backend, not local"
+  - id: pulumi-secrets-encrypted
+    severity: critical
+    rule: "Pulumi config secrets use pulumi config set --secret, never plain --plaintext for credentials"
+  - id: cfn-no-hardcoded-secrets
+    severity: critical
+    rule: "CloudFormation templates use AWS::SecretsManager::Secret / dynamic references, not literal passwords"
+  # Salvaged from the deprecated infrastructure-security skill (PR: deprecate-infrastructure-security).
+  # These are AWS resource-level controls the generic terraform rules above did not cover.
+  - id: tf-s3-block-public
+    severity: critical
+    rule: "Every aws_s3_bucket has a companion aws_s3_bucket_public_access_block with block_public_acls, block_public_policy, ignore_public_acls, and restrict_public_buckets all set to true"
+    cwe: 284
+  - id: tf-rds-not-public
+    severity: high
+    rule: "aws_db_instance / aws_rds_cluster set publicly_accessible=false unless an internet-facing design is explicitly documented"
+    cwe: 284
+  - id: tf-cloudtrail-enabled
+    severity: high
+    rule: "An aws_cloudtrail trail exists with is_multi_region_trail=true and enable_log_file_validation=true so control-plane activity is auditable across all regions"
+    cwe: 778

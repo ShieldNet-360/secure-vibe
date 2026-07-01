@@ -1,0 +1,54 @@
+schema_version: "1.0"
+name: "healthcare"
+description: "Profile for healthcare / ePHI workloads under HIPAA Security & Privacy Rules."
+last_updated: "2026-05-13"
+frameworks:
+  - "HIPAA Security Rule (45 CFR §164.308 – §164.312)"
+  - "HIPAA Privacy Rule"
+  - "HITRUST CSF v11"
+  - "NIST SP 800-66 Rev. 2"
+skills:
+  - secret-detection
+  - supply-chain-security
+  - api-security
+  - auth-security
+  - crypto-misuse
+  - protocol-security
+  - database-security
+  - logging-security
+  - error-handling-security
+  - container-security
+  - iac-security
+  - mobile-security
+  - ml-security
+  - llm-app-security
+  - compliance-awareness
+  - iam-best-practices
+controls:
+  - control_id: "HIPAA 164.308(a)(3)"
+    framework: "HIPAA Security Rule"
+    skills: ["auth-security", "iam-best-practices"]
+  - control_id: "HIPAA 164.308(a)(5)(ii)(D)"
+    framework: "HIPAA Security Rule"
+    skills: ["auth-security"]
+  - control_id: "HIPAA 164.312(a)(1)"
+    framework: "HIPAA Security Rule"
+    skills: ["auth-security", "api-security", "database-security"]
+  - control_id: "HIPAA 164.312(a)(2)(iv)"
+    framework: "HIPAA Security Rule"
+    skills: ["crypto-misuse", "database-security"]
+  - control_id: "HIPAA 164.312(b)"
+    framework: "HIPAA Security Rule"
+    skills: ["logging-security"]
+  - control_id: "HIPAA 164.312(c)(1)"
+    framework: "HIPAA Security Rule"
+    skills: ["supply-chain-security", "logging-security"]
+  - control_id: "HIPAA 164.312(d)"
+    framework: "HIPAA Security Rule"
+    skills: ["auth-security"]
+  - control_id: "HIPAA 164.312(e)(1)"
+    framework: "HIPAA Security Rule"
+    skills: ["protocol-security", "crypto-misuse"]
+  - control_id: "HIPAA 164.502(b)"
+    framework: "HIPAA Privacy Rule"
+    skills: ["logging-security", "error-handling-security"]

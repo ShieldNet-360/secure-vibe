@@ -1,0 +1,49 @@
+schema_version: "1.0"
+framework: "ISO/IEC 27701 (Privacy)"
+version: "ISO/IEC 27701:2019 — privacy-by-design technical controls (partial)"
+last_updated: "2026-06-23"
+# Mapping scope: ISO/IEC 27701 extends ISO/IEC 27001/27002 into a Privacy
+# Information Management System (PIMS). Most of it is privacy GOVERNANCE — lawful
+# basis, consent, data-subject rights, DPIAs, records of processing, controller/
+# processor agreements — which a programme owns, not code. SecureVibe supports
+# the "privacy by design and by default" (clause 7.4) technical controls and the
+# data-protection mechanics (encryption, access control, logging of PII). This is
+# an honest partial mapping, not a PIMS certification.
+controls:
+  - id: "A.7.4.1"
+    title: "Limit collection"
+    description: "Collection of PII is limited to what is relevant, proportional and necessary for the identified purposes."
+    skills: ["secure-code-review", "database-security"]
+    references: ["https://www.iso.org/standard/71670.html"]
+  - id: "A.7.4.4"
+    title: "PII minimization"
+    description: "PII processed is minimized, including by de-identifying PII as soon as it is no longer necessary to identify principals."
+    skills: ["database-security", "secure-code-review", "crypto-misuse"]
+  - id: "A.7.4.5"
+    title: "PII de-identification and deletion at the end of processing"
+    description: "PII is deleted or de-identified once the purpose of processing has expired or there is no longer a legal requirement to keep it."
+    skills: ["crypto-misuse", "database-security"]
+  - id: "A.7.4.6"
+    title: "Temporary files"
+    description: "Temporary files and copies created during processing are disposed of within a documented period to avoid uncontrolled PII retention."
+    skills: ["secret-detection", "file-upload-security"]
+  - id: "A.7.4.7"
+    title: "Retention"
+    description: "PII is retained no longer than necessary for the purposes for which it is processed."
+    skills: ["database-security", "logging-security"]
+  - id: "A.7.4.8"
+    title: "Disposal"
+    description: "Secure disposal of PII is performed so it cannot be recovered when no longer required."
+    skills: ["database-security", "crypto-misuse"]
+  - id: "A.7.4.9"
+    title: "PII transmission controls"
+    description: "PII transmitted over networks is subject to appropriate controls, including encryption, to ensure it reaches the intended destination."
+    skills: ["crypto-misuse", "protocol-security"]
+  - id: "27002.8.24-pii"
+    title: "Cryptographic protection of PII"
+    description: "Cryptography and key/secret management are applied so PII is protected in storage and transmission and keys are not exposed."
+    skills: ["crypto-misuse", "secret-detection"]
+  - id: "27002.8.15-pii"
+    title: "Logging of PII access without leaking PII"
+    description: "Access to PII is logged for accountability while ensuring logs themselves do not leak PII or secrets."
+    skills: ["logging-security", "secret-detection"]

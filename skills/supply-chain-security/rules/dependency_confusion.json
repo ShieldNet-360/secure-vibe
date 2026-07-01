@@ -1,0 +1,134 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-12",
+  "description": "Internal namespace patterns, private registry indicators, and dependency-confusion heuristics. Any public-registry package matching one of these patterns is treated as a shadowing attack until proven otherwise.",
+  "namespaces": [
+    {
+      "pattern": "@yourco/*",
+      "ecosystem": "npm",
+      "description": "Replace 'yourco' with your organization's npm scope; ensure .npmrc routes the scope to the internal registry via `@yourco:registry=https://npm.internal.example.com/`."
+    },
+    {
+      "pattern": "@yourco-*/*",
+      "ecosystem": "npm",
+      "description": "Hyphenated scope variants like @yourco-internal/*"
+    },
+    {
+      "pattern": "com.yourco.*",
+      "ecosystem": "maven",
+      "description": "Replace with your organization's Java group ID; the resolver must prefer the internal repository before Maven Central."
+    },
+    {
+      "pattern": "yourco-*",
+      "ecosystem": "pypi",
+      "description": "Replace with your organization's PyPI prefix; configure pip.conf with --extra-index-url and prefer the internal index."
+    },
+    {
+      "pattern": "yourco_*",
+      "ecosystem": "pypi",
+      "description": "Underscore variant; PyPI normalizes hyphens and underscores so attackers can publish either form."
+    },
+    {
+      "pattern": "github.com/yourco/*",
+      "ecosystem": "go",
+      "description": "Replace with your organization's Go module path; set GOPRIVATE=github.com/yourco/* so the public proxy is bypassed for internal modules."
+    },
+    {
+      "pattern": "yourco-*",
+      "ecosystem": "crates",
+      "description": "Replace with your organization's crates prefix; cargo by default has no scopes, so prefix conventions matter."
+    }
+  ],
+  "private_registry_indicators": [
+    {
+      "ecosystem": "npm",
+      "config_file": ".npmrc",
+      "required_lines": [
+        "@yourco:registry=https://npm.internal.example.com/",
+        "//npm.internal.example.com/:_authToken=${INTERNAL_NPM_TOKEN}"
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "config_file": "pip.conf",
+      "required_lines": [
+        "[global]",
+        "index-url = https://pypi.internal.example.com/simple/",
+        "extra-index-url = https://pypi.org/simple/"
+      ]
+    },
+    {
+      "ecosystem": "go",
+      "env_vars": {
+        "GOPRIVATE": "github.com/yourco/*",
+        "GONOSUMCHECK": "false",
+        "GOPROXY": "https://proxy.internal.example.com,direct"
+      }
+    },
+    {
+      "ecosystem": "maven",
+      "config_file": "settings.xml",
+      "required_elements": ["<mirror>", "<repository><id>internal</id>"]
+    },
+    {
+      "ecosystem": "crates",
+      "config_file": ".cargo/config.toml",
+      "required_sections": ["[registries.internal]", "[source.crates-io]"]
+    }
+  ],
+  "heuristics": [
+    {
+      "id": "public-shadows-internal",
+      "description": "A public registry contains a package with the same name as an internal one. Treat as confusion attack regardless of version.",
+      "severity": "critical",
+      "action": "block"
+    },
+    {
+      "id": "fresh-package-on-internal-name",
+      "description": "Internal-namespace package was first published to the public registry within the last 90 days.",
+      "severity": "critical",
+      "action": "block"
+    },
+    {
+      "id": "version-spike",
+      "description": "Public package has a version dramatically higher than the internal one (e.g., 99.99.99) to win resolution.",
+      "severity": "critical",
+      "action": "block",
+      "thresholds": {
+        "version_jump_major": 5
+      }
+    },
+    {
+      "id": "no-registry-override",
+      "description": "Project uses an internal-namespace package but has no .npmrc / pip.conf / GOPRIVATE override pinning that namespace to an internal source.",
+      "severity": "high",
+      "action": "warn"
+    },
+    {
+      "id": "missing-lockfile-registry-pin",
+      "description": "Lockfile references a package by name only; no explicit registry URL pinning.",
+      "severity": "medium",
+      "action": "warn"
+    },
+    {
+      "id": "scope-name-leak-in-public-code",
+      "description": "Code published to a public repo references an internal-namespace package without configuring the public consumer to resolve it.",
+      "severity": "medium",
+      "action": "warn"
+    }
+  ],
+  "known_incidents": [
+    {
+      "name": "Birsan dependency confusion (2021)",
+      "summary": "Researcher Alex Birsan published lookalike packages for internal namespaces of Apple, Microsoft, Tesla, Yelp and 35+ other companies; received code execution callbacks from corporate networks.",
+      "references": ["https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610"],
+      "affected_ecosystems": ["npm", "pypi", "rubygems"]
+    },
+    {
+      "name": "Amazon AWS-CLI confusion (2022)",
+      "summary": "Lookalike PyPI uploads targeted internal AWS-CLI namespaces; demonstrated the pattern extends to enterprise CLI tooling.",
+      "affected_ecosystems": ["pypi"]
+    }
+  ],
+  "mitigation_guide": "https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610"
+}

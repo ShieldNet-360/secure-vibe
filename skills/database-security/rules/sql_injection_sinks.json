@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Code-level sinks that build SQL strings from variables. Flag any of these when the variable is user-influenced.",
+  "sinks": [
+    {
+      "name": "Python f-string SQL",
+      "patterns": [
+        "execute\\s*\\(\\s*f['\\\"]",
+        "cursor\\.execute\\s*\\(\\s*['\\\"][^'\\\"]*%s[^'\\\"]*['\\\"]\\s*\\%\\s*\\(",
+        "\\.raw\\s*\\(\\s*f['\\\"]"
+      ],
+      "severity": "critical",
+      "cwe": 89,
+      "languages": ["python"]
+    },
+    {
+      "name": "JS/TS template literal SQL",
+      "patterns": [
+        "\\.query\\s*\\(\\s*`[^`]*\\$\\{",
+        "pg\\.query\\s*\\(\\s*`[^`]*\\$\\{",
+        "mysql\\.query\\s*\\(\\s*`[^`]*\\$\\{",
+        "knex\\.raw\\s*\\(\\s*`[^`]*\\$\\{"
+      ],
+      "severity": "critical",
+      "cwe": 89,
+      "languages": ["javascript", "typescript"]
+    },
+    {
+      "name": "Go fmt.Sprintf to db.Exec/Query",
+      "patterns": [
+        "db\\.(Exec|Query|QueryRow)\\s*\\(\\s*fmt\\.Sprintf\\(",
+        "tx\\.(Exec|Query|QueryRow)\\s*\\(\\s*fmt\\.Sprintf\\("
+      ],
+      "severity": "critical",
+      "cwe": 89,
+      "languages": ["go"]
+    },
+    {
+      "name": "Java string concat in Statement",
+      "patterns": [
+        "createStatement\\s*\\(\\s*\\)\\s*\\.execute(Query|Update)?\\s*\\(\\s*['\\\"][^'\\\"]*['\\\"]\\s*\\+",
+        "Statement\\s+\\w+\\s*=\\s*\\w+\\.createStatement"
+      ],
+      "severity": "critical",
+      "cwe": 89,
+      "languages": ["java", "kotlin"],
+      "recommendation": "Use PreparedStatement with positional parameters instead"
+    },
+    {
+      "name": "Ruby AR sanitize bypass",
+      "patterns": [
+        "\\.where\\s*\\(\\s*['\\\"][^'\\\"]*#\\{",
+        "find_by_sql\\s*\\(\\s*['\\\"][^'\\\"]*#\\{"
+      ],
+      "severity": "critical",
+      "cwe": 89,
+      "languages": ["ruby"]
+    },
+    {
+      "name": "Order-by from request",
+      "patterns": [
+        "ORDER\\s+BY\\s+\\$\\{",
+        "order\\s*\\(\\s*request\\.",
+        "\\.order_by\\s*\\(\\s*request\\."
+      ],
+      "severity": "high",
+      "cwe": 89,
+      "recommendation": "Map sort key to a hard-coded allowlist of column names"
+    },
+    {
+      "name": "Identifier interpolation",
+      "patterns": [
+        "FROM\\s+\\$\\{",
+        "JOIN\\s+\\$\\{",
+        "INTO\\s+\\$\\{",
+        "TABLE\\s+\\$\\{"
+      ],
+      "severity": "high",
+      "cwe": 89,
+      "recommendation": "Table / column names cannot be parameterized; allowlist them"
+    }
+  ]
+}

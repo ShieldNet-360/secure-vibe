@@ -1,0 +1,27 @@
+schema_version: "1.0"
+title: Google Workspace Data Export (Vault) initiated
+id: 141684fc-4766-427f-946e-08412442ad5d
+status: stable
+level: critical
+description: |
+  Detects use of the Google Workspace Data Export Tool, which can
+  extract an entire tenant's mail and Drive content. Legitimate use is
+  rare and should be limited to a small set of named IT-administrator
+  accounts.
+references:
+  - https://developers.google.com/admin-sdk/reports/v1/appendix/activity/admin-security
+  - https://support.google.com/a/answer/100458
+  - https://attack.mitre.org/techniques/T1530/
+tags:
+  - attack.t1530
+  - attack.collection
+logsource:
+  product: google_workspace
+  service: admin
+detection:
+  selection:
+    eventName: DATA_EXPORT_CREATED
+  condition: selection
+falsepositives:
+  - Scheduled tenant-wide backup or e-discovery export executed by a
+    known IT administrator within an approved change window.

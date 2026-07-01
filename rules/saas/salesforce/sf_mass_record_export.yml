@@ -1,0 +1,28 @@
+schema_version: "1.0"
+title: Salesforce report export of more than 50k rows
+id: 25ae3ce1-7d27-4830-a829-a5b35a169f22
+status: stable
+level: high
+description: |
+  Detects a Salesforce report export (`REPORT_EXPORT`) that returns
+  more than 50,000 rows. Most legitimate reports run on the order of a
+  few thousand rows; bulk CSV exports of this size are a common
+  exfiltration shape after account takeover.
+references:
+  - https://help.salesforce.com/s/articleView?id=sf.event_monitoring.htm
+  - https://attack.mitre.org/techniques/T1530/
+tags:
+  - attack.t1530
+  - attack.collection
+logsource:
+  product: salesforce
+  service: event_monitoring
+detection:
+  selection:
+    EventType: REPORT_EXPORT
+  threshold:
+    NUM_ROWS|gt: 50000
+  condition: selection and threshold
+falsepositives:
+  - Scheduled large reports (e.g. finance month-end extracts) run by a
+    known service account or BI integration.

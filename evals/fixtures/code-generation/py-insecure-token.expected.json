@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "crypto-misuse",
+  "language": "python",
+  "insecure_signals": [
+    "random\\.(randint|random|choice|randrange)\\(",
+    "\\brandom\\.seed\\("
+  ],
+  "secure_signals": [
+    "secrets\\.token",
+    "secrets\\.choice",
+    "os\\.urandom\\("
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-330"
+}

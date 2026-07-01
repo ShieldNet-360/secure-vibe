@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-wfr5-454p-mjc2",
+  "published": "2026-05-08T20:48:02Z",
+  "modified": "2026-05-08T21:04:45.614581Z",
+  "aliases": [
+    "CVE-2026-44213"
+  ],
+  "summary": "OpenTelemetry.Exporter.Instana bypasses TLS certificate validation when a proxy is configured",
+  "affected": [
+    {
+      "package": {
+        "name": "OpenTelemetry.Exporter.Instana",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/OpenTelemetry.Exporter.Instana"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.1.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.0.0",
+        "1.0.1",
+        "1.0.2",
+        "1.0.3",
+        "1.0.4",
+        "1.0.5",
+        "1.0.6",
+        "1.0.7"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 1.0.7",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-wfr5-454p-mjc2/GHSA-wfr5-454p-mjc2.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet-contrib/security/advisories/GHSA-wfr5-454p-mjc2"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet-contrib"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-295"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-08T20:48:02Z",
+    "nvd_published_at": null,
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-08"
+}

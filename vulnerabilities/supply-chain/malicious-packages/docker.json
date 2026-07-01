@@ -1,0 +1,242 @@
+{
+  "schema_version": "1.0",
+  "ecosystem": "docker",
+  "last_updated": "2026-06-21T12:00:00Z",
+  "description": "Documented malicious or compromised Docker Hub images and container supply-chain incidents. Major themes: cryptominer images, typosquats of official images, TeamTNT-era credential-stealer images, and shared-cache layer poisoning.",
+  "entries": [
+    {
+      "name": "alpine-typosquat-cluster",
+      "versions_affected": [
+        "various"
+      ],
+      "type": "typosquat",
+      "severity": "high",
+      "discovered": "2022-09-08",
+      "description": "Cluster of Alpine-base typosquats (e.g. `alpinex`, `alp1ne`, `alphine`) carrying reverse shells and cryptominers. Particularly dangerous in CI: dockerfile `FROM alpinex:latest` slips past visual review.",
+      "references": [
+        "https://blog.aquasec.com/dockerhub-typosquatting-supply-chain",
+        "https://blog.sonatype.com/dockerhub-typosquatting-trends"
+      ],
+      "indicators": [
+        "FROM alpinex",
+        "CI typosquat"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "docker-build-cache-poisoning-pattern",
+      "versions_affected": [
+        "pattern"
+      ],
+      "type": "build_cache_poisoning",
+      "severity": "high",
+      "discovered": "2024-04-30",
+      "description": "Pattern: Docker Build Cloud / BuildKit shared remote cache, when not scoped per-namespace, allows one tenant's malicious layer to be reused by another tenant's build. Documented as a class of supply-chain attack against shared CI caches.",
+      "references": [
+        "https://docs.docker.com/build/cache/",
+        "https://blog.aquasec.com/docker-buildkit-cache-poisoning"
+      ],
+      "indicators": [
+        "shared cache",
+        "BuildKit"
+      ],
+      "attack_type": "build_cache_poisoning"
+    },
+    {
+      "name": "kinsing-xmrig-image-family",
+      "versions_affected": [
+        "various"
+      ],
+      "type": "malicious_image",
+      "severity": "critical",
+      "discovered": "2020-08-25",
+      "description": "Kinsing malware family operated several Docker Hub images targeting exposed Docker daemons (port 2375). Combined XMRig mining, AWS credential theft, and lateral movement into Kubernetes.",
+      "references": [
+        "https://www.trendmicro.com/en_us/research/20/i/kinsing-cryptocurrency-mining-malware-targets-exposed-docker.html"
+      ],
+      "indicators": [
+        "Kinsing",
+        "exposed Docker daemon"
+      ],
+      "attack_type": "malicious_image"
+    },
+    {
+      "name": "mysqlserver",
+      "versions_affected": [
+        "all"
+      ],
+      "type": "typosquat",
+      "severity": "high",
+      "discovered": "2020-06-22",
+      "description": "Typosquat of the official `mysql` image. Carried an XMRig miner that auto-started on container run. Pulled 1.4M+ times before removal.",
+      "references": [
+        "https://blog.aquasec.com/container-security-cryptomining-docker-hub"
+      ],
+      "indicators": [
+        "mysql typosquat",
+        "XMRig miner"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "nginx-typosquat-image",
+      "versions_affected": [
+        "all"
+      ],
+      "type": "typosquat",
+      "severity": "high",
+      "discovered": "2022-03-11",
+      "description": "Typosquats of the official `nginx` image (e.g. `nginx-alpine` posted by an unverified publisher, `n1ginx`, `nginxserver`) carrying cryptominers and reverse shells. Triggered Docker Verified Publisher tightening.",
+      "references": [
+        "https://blog.aquasec.com/dockerhub-typosquatting-supply-chain"
+      ],
+      "indicators": [
+        "nginx typosquat",
+        "Verified Publisher"
+      ],
+      "attack_type": "typosquat"
+    },
+    {
+      "name": "sysdig-2023-malicious-image-cluster",
+      "versions_affected": [
+        "1,652 images"
+      ],
+      "type": "malicious_image",
+      "severity": "critical",
+      "discovered": "2023-12-19",
+      "description": "Sysdig 2023 analysis found 1,652 malicious Docker images on Docker Hub: cryptominers, reverse shells, web shells, and TeamTNT-style cloud-credential stealers. Average lifetime ~1 week before takedown.",
+      "references": [
+        "https://sysdig.com/blog/analysis-of-supply-chain-attacks-through-public-docker-images/"
+      ],
+      "indicators": [
+        "mass malicious campaign"
+      ],
+      "attack_type": "malicious_image"
+    },
+    {
+      "name": "teamtnt-credstealer",
+      "versions_affected": [
+        "various"
+      ],
+      "type": "malicious_image",
+      "severity": "critical",
+      "discovered": "2021-05-24",
+      "description": "TeamTNT pushed dozens of Docker images carrying AWS credential stealers (kubelet/kube-config grep), XMRig miners, and lateral-movement tooling. Targeted exposed Docker APIs and misconfigured Kubernetes clusters.",
+      "references": [
+        "https://www.trendmicro.com/en_us/research/21/e/teamtnt-operations-continue-to-evolve.html",
+        "https://blog.aquasec.com/teamtnt-cloud-cryptojacking-docker"
+      ],
+      "indicators": [
+        "AWS credential theft",
+        "XMRig miner",
+        "TeamTNT"
+      ],
+      "attack_type": "malicious_image"
+    },
+    {
+      "name": "unit42-20m-cryptojacking-cluster",
+      "versions_affected": [
+        "*"
+      ],
+      "type": "malicious_code",
+      "severity": "high",
+      "discovered": "2022-04-21",
+      "description": "Cluster of Docker Hub accounts distributing cryptojacking images documented by Palo Alto Unit 42 (~20 million pulls in aggregate). Images install dependencies, clone XMRig from its official GitHub repo, build the Monero miner from source, and run it; some tags bundle alternate miners so the attacker can match the victim's hardware. The shared signal across the family is a hardcoded wallet address / mining-pool credential.",
+      "references": [
+        "https://unit42.paloaltonetworks.com/malicious-cryptojacking-images/"
+      ],
+      "indicators": [
+        "publisher accounts: azurenql, 021982, dockerxmrig, ggcloud1, ggcloud2",
+        "clones and builds XMRig from source at image build/run time",
+        "hardcoded Monero wallet address or mining-pool credentials",
+        "10,000+ pulls per image"
+      ],
+      "attack_type": "cryptominer"
+    },
+    {
+      "name": "xmrig-cryptominer-cluster",
+      "versions_affected": [
+        "multiple"
+      ],
+      "type": "cryptomining",
+      "severity": "high",
+      "discovered": "2018-06-13",
+      "description": "Aqua Security found 30+ Docker Hub images pulling XMRig cryptominers on `docker run`. Several were typosquats of `xmrig/xmrig`, `docker`, `ubuntu`, etc. Total downloads in the millions before takedowns.",
+      "references": [
+        "https://blog.aquasec.com/container-security-cryptomining-docker-hub",
+        "https://blog.sysdig.com/docker-hub-cryptominer-supply-chain/"
+      ],
+      "indicators": [
+        "XMRig cryptominer"
+      ],
+      "attack_type": "cryptomining"
+    },
+    {
+      "name": "dero-miner-container-worm",
+      "versions_affected": [
+        "multiple"
+      ],
+      "type": "cryptominer",
+      "severity": "high",
+      "discovered": "2025-05-21",
+      "description": "Kaspersky (Securelist) documented a self-spreading Dero cryptocurrency miner that propagates through Docker daemons exposing the API on port 2375. After compromising a host it runs two UPX-packed Go binaries masquerading as legitimate software: 'nginx' (a propagation/persistence module that uses masscan to find more exposed 2375 endpoints and spawns new ubuntu:18.04 containers with --restart always) and 'cloud' (the Dero miner). It needs no central C2, making the worm resilient; the same wallet/node infrastructure was reused from 2023-2024 Kubernetes cryptojacking campaigns.",
+      "references": [
+        "https://securelist.com/dero-miner-infects-containers-through-docker-api/116546/",
+        "https://thehackernews.com/2025/05/new-self-spreading-malware-infects.html"
+      ],
+      "indicators": [
+        "Docker API exposed on port 2375",
+        "UPX-packed Go binaries at /usr/bin/nginx and /usr/bin/cloud",
+        "masscan -p 2375 scanning for new victims",
+        "containers spawned with 'ubuntu:18.04 /bin/bash' and --restart always",
+        "C2/update domains d.windowsupdatesupport[.]link and h.windowsupdatesupport[.]link",
+        "Dero wallet dero1qyy8xjrdjcn2dvr6pwe40jrl3evv9vam6tpx537vux60xxkx6hs7zqgde993y"
+      ],
+      "attack_type": "cryptominer"
+    },
+    {
+      "name": "kazutod-tene-ten-resource-hijack",
+      "versions_affected": [
+        "kazutod/tene:ten"
+      ],
+      "type": "malicious_image",
+      "severity": "high",
+      "discovered": "2025-04-01",
+      "description": "Darktrace and Cado Security Labs (April 2025) analysed the Docker Hub image kazutod/tene:ten, which runs a Python script ten.py hidden in the image layers behind multi-layer obfuscation. Rather than mining with XMRig, the de-obfuscated payload connects to teneo.pro (a Web3 data-network startup) to farm reward points by faking heartbeats \u2014 a resource-/account-abuse twist on cryptojacking.",
+      "references": [
+        "https://gbhackers.com/new-malware-hijacks-docker-images/",
+        "https://cybersecuritynews.com/new-malware-hijacking-docker-images/"
+      ],
+      "indicators": [
+        "image kazutod/tene:ten",
+        "embedded obfuscated ten.py in image layers",
+        "connects to teneo.pro to farm reward points (not direct coin mining)",
+        "multi-layer obfuscation to evade detection"
+      ],
+      "attack_type": "cryptominer"
+    },
+    {
+      "name": "graboid-cryptojacking-worm",
+      "versions_affected": [
+        "pocosow/centos:7.6.1810",
+        "gakeaws/nginx:8.9",
+        "gakeaws/mysql"
+      ],
+      "type": "malicious_image",
+      "severity": "high",
+      "discovered": "2019-10-16",
+      "description": "Unit42 (2019-10-16) documented Graboid, the first-ever cryptojacking WORM spread via Docker Hub images. Malicious images pocosow/centos:7.6.1810 (10,000+ pulls) and gakeaws/nginx:8.9 (6,500+; gakeaws/mysql identical) deploy a Monero (XMRig) miner and self-propagate: a compromised host pulls 4 shell scripts from C2, then randomly picks targets from a list of 2,000+ unsecured Docker daemons and deploys the malicious container remotely.",
+      "references": [
+        "https://unit42.paloaltonetworks.com/graboid-first-ever-cryptojacking-worm-found-in-images-on-docker-hub/"
+      ],
+      "indicators": [
+        "images pocosow/centos:7.6.1810, gakeaws/nginx:8.9, gakeaws/mysql",
+        "spreads via unsecured Docker daemons (exposed API)",
+        "pulls 4 shell scripts from C2",
+        "Monero miner; ~250s mining periods",
+        "randomly targets a 2,000+ host list"
+      ],
+      "attack_type": "cryptominer"
+    }
+  ]
+}

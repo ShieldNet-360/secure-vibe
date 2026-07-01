@@ -1,0 +1,17 @@
+{
+  "description": "Curated malicious-package DB size over time. One snapshot per refresh date (UTC). Appended by scripts/gen-stats.py; used by the homepage to show growth over a window.",
+  "snapshots": [
+    {
+      "date": "2026-06-21",
+      "total": 2022
+    },
+    {
+      "date": "2026-06-22",
+      "total": 3006
+    },
+    {
+      "date": "2026-06-23",
+      "total": 3623
+    }
+  ]
+}

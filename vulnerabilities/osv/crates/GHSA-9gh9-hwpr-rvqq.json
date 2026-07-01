@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-9gh9-hwpr-rvqq",
+  "published": "2026-04-22T18:31:45Z",
+  "modified": "2026-05-08T01:35:11.027845Z",
+  "aliases": [
+    "CVE-2026-35352"
+  ],
+  "summary": "uutils coreutils has a Time-of-Check to Time-of-Use (TOCTOU) race condition",
+  "affected": [
+    {
+      "package": {
+        "name": "coreutils",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/coreutils"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "0.8.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-9gh9-hwpr-rvqq/GHSA-9gh9-hwpr-rvqq.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35352"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/uutils/coreutils/issues/10020"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/uutils/coreutils"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.openwall.com/lists/oss-security/2026/05/04/4"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.openwall.com/lists/oss-security/2026/05/04/5"
+    },
+    {
+      "type": "WEB",
+      "url": "http://www.openwall.com/lists/oss-security/2026/05/04/6"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-367"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-30T17:09:11Z",
+    "nvd_published_at": "2026-04-22T17:16:37Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+    }
+  ],
+  "last_updated": "2026-05-08"
+}

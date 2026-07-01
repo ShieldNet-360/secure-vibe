@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-rpj4-7x2v-wjrf",
+  "published": "2026-05-15T17:47:10Z",
+  "modified": "2026-05-15T18:03:45.060796Z",
+  "aliases": [
+    "CVE-2026-45548"
+  ],
+  "summary": "Budibase: SSRF in AI Extract File Automation Step via Missing IP Blacklist Validation",
+  "affected": [
+    {
+      "package": {
+        "name": "@budibase/server",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/%40budibase/server"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.34.8"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-rpj4-7x2v-wjrf/GHSA-rpj4-7x2v-wjrf.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/Budibase/budibase/security/advisories/GHSA-rpj4-7x2v-wjrf"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/Budibase/budibase"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/Budibase/budibase/releases/tag/3.38.4"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-918"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-15T17:47:10Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

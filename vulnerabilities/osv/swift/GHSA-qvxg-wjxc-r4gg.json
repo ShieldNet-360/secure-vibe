@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.7.3",
+  "id": "GHSA-qvxg-wjxc-r4gg",
+  "published": "2023-06-07T16:11:16Z",
+  "modified": "2023-11-08T04:09:22.722331Z",
+  "aliases": [
+    "CVE-2022-31019"
+  ],
+  "summary": "Vapor vulnerable to denial of service in URLEncodedFormDecoder",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/vapor/vapor",
+        "ecosystem": "SwiftURL",
+        "purl": "pkg:swift/github.com/vapor/vapor"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "4.61.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/06/GHSA-qvxg-wjxc-r4gg/GHSA-qvxg-wjxc-r4gg.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/vapor/vapor/security/advisories/GHSA-qvxg-wjxc-r4gg"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-31019"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/vapor/vapor/commit/6c63226a4ab82ce53730eb1afb9ca63866fcf033"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/vapor/vapor"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-120",
+      "CWE-121",
+      "CWE-674"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2023-06-07T16:11:16Z",
+    "nvd_published_at": "2022-06-09T13:15:00Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2023-11-08"
+}

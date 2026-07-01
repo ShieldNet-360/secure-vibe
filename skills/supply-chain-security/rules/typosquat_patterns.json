@@ -1,0 +1,250 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Heuristics and corpora for detecting typosquats. The CLI computes Levenshtein distance against the top-1000 list per ecosystem, applies character substitution and homoglyph checks, and consults the known_typosquats corpus for fast hits.",
+  "rules": [
+    {
+      "id": "levenshtein-2",
+      "description": "Reject candidate packages within Levenshtein distance 2 of a top-1000 package",
+      "ecosystems": ["npm", "pypi", "crates", "go"],
+      "threshold": 2,
+      "exempt_authors": []
+    },
+    {
+      "id": "levenshtein-1-strict",
+      "description": "Single edit away from a top-100 package is almost always a typosquat; treat as critical",
+      "ecosystems": ["npm", "pypi", "crates", "go"],
+      "threshold": 1,
+      "severity": "critical"
+    },
+    {
+      "id": "char-swap",
+      "description": "Detect adjacent-character transposition (axios -> axois, lodash -> lodahs)",
+      "ecosystems": ["npm", "pypi", "crates", "go"],
+      "threshold": 1
+    },
+    {
+      "id": "char-substitution",
+      "description": "Detect single-character substitutions across commonly-confused pairs",
+      "ecosystems": ["npm", "pypi", "crates", "go"],
+      "substitutions": [
+        ["l", "1"],
+        ["l", "i"],
+        ["i", "l"],
+        ["i", "1"],
+        ["o", "0"],
+        ["0", "o"],
+        ["m", "n"],
+        ["n", "m"],
+        ["s", "z"],
+        ["z", "s"],
+        ["u", "v"],
+        ["v", "u"]
+      ]
+    },
+    {
+      "id": "homoglyph",
+      "description": "Detect Unicode-confusable homoglyph substitutions (rеact with Cyrillic 'е' instead of Latin 'e')",
+      "ecosystems": ["npm", "pypi"],
+      "confusables": [
+        ["e", "е"],
+        ["a", "а"],
+        ["o", "о"],
+        ["c", "с"],
+        ["p", "р"],
+        ["x", "х"],
+        ["y", "у"],
+        ["i", "і"]
+      ]
+    },
+    {
+      "id": "suffix-impersonation",
+      "description": "Detect packages mimicking another with a generic suffix appended",
+      "ecosystems": ["npm", "pypi", "crates", "go"],
+      "suspicious_suffixes": ["-js", "-lib", "-core", "-utils", "-tools", "-helper", "-fork", "-node", "-async", "-sync", "-cli", "-sdk"]
+    },
+    {
+      "id": "prefix-impersonation",
+      "description": "Detect packages mimicking another with a generic prefix prepended",
+      "ecosystems": ["npm", "pypi", "crates", "go"],
+      "suspicious_prefixes": ["node-", "py-", "lib-", "go-", "rs-", "real-", "true-", "official-"]
+    },
+    {
+      "id": "scope-strip",
+      "description": "Detect unscoped versions of widely-used scoped packages (@types/react vs types-react)",
+      "ecosystems": ["npm"],
+      "examples": [
+        {"scoped": "@types/react", "squat": "types-react"},
+        {"scoped": "@babel/core", "squat": "babel-core-pkg"},
+        {"scoped": "@angular/core", "squat": "angular-core"}
+      ]
+    },
+    {
+      "id": "punycode-domain",
+      "description": "Detect names that decode through punycode to popular names",
+      "ecosystems": ["npm", "pypi"],
+      "match": "starts_with:xn--"
+    }
+  ],
+  "top_targets": {
+    "npm": [
+      "react", "axios", "lodash", "express", "vue", "next", "webpack",
+      "typescript", "eslint", "prettier", "babel", "jest", "mocha",
+      "chalk", "commander", "yargs", "dotenv", "uuid", "moment",
+      "react-dom", "react-native", "redux", "rxjs", "underscore",
+      "request", "node-fetch", "minimist", "debug", "ms", "tslib",
+      "vite", "rollup", "esbuild", "swc", "turbo",
+      "vitest", "playwright", "cypress", "puppeteer",
+      "axios-retry", "got", "undici", "ws", "socket.io",
+      "fastify", "koa", "hapi", "nestjs",
+      "sequelize", "prisma", "mongoose", "knex",
+      "zod", "yup", "joi", "ajv", "luxon", "date-fns",
+      "ramda", "immer", "immutable",
+      "@types/node", "@types/react", "@babel/core",
+      "cross-env", "rimraf", "glob", "semver", "husky",
+      "styled-components", "tailwindcss", "postcss", "autoprefixer"
+    ],
+    "pypi": [
+      "requests", "urllib3", "numpy", "pandas", "django", "flask",
+      "scipy", "matplotlib", "tensorflow", "torch", "boto3",
+      "setuptools", "pip", "wheel", "pyyaml", "cryptography",
+      "pytest", "sqlalchemy", "celery", "click", "fastapi",
+      "uvicorn", "pydantic", "httpx", "aiohttp", "beautifulsoup4",
+      "lxml", "pillow", "redis", "psutil",
+      "jinja2", "werkzeug", "itsdangerous", "markupsafe",
+      "openai", "anthropic", "langchain", "transformers", "huggingface-hub",
+      "scikit-learn", "xgboost", "lightgbm", "polars", "pyarrow",
+      "protobuf", "grpcio", "twisted",
+      "colorama", "tqdm", "rich", "typer", "loguru",
+      "requests-oauthlib", "oauthlib", "pyjwt", "passlib", "bcrypt",
+      "alembic", "motor", "pymongo", "psycopg2", "psycopg2-binary",
+      "black", "flake8", "ruff", "mypy", "pre-commit"
+    ],
+    "crates": [
+      "serde", "tokio", "clap", "anyhow", "reqwest", "log",
+      "syn", "quote", "rand", "regex", "futures", "thiserror",
+      "tracing", "uuid", "chrono", "hyper", "axum", "actix-web",
+      "rocket", "warp", "tonic", "prost", "diesel", "sqlx",
+      "sea-orm", "polars", "arrow", "once_cell", "lazy_static",
+      "parking_lot", "crossbeam", "rayon", "bytes", "itertools",
+      "smallvec", "hashbrown", "toml", "serde_json", "serde_yaml",
+      "bincode", "rmp-serde", "ring", "rustls", "openssl", "sha2",
+      "hex", "base64", "flate2", "zstd", "image", "tempfile"
+    ],
+    "go": [
+      "github.com/spf13/cobra",
+      "github.com/spf13/viper",
+      "github.com/stretchr/testify",
+      "github.com/gin-gonic/gin",
+      "github.com/go-chi/chi",
+      "github.com/sirupsen/logrus",
+      "gopkg.in/yaml.v3",
+      "google.golang.org/grpc",
+      "github.com/pkg/errors",
+      "github.com/aws/aws-sdk-go",
+      "github.com/prometheus/client_golang",
+      "github.com/aws/aws-sdk-go-v2",
+      "github.com/go-sql-driver/mysql",
+      "github.com/lib/pq",
+      "github.com/jackc/pgx",
+      "github.com/jmoiron/sqlx",
+      "github.com/redis/go-redis",
+      "github.com/elastic/go-elasticsearch",
+      "github.com/google/uuid",
+      "github.com/golang-jwt/jwt",
+      "github.com/gorilla/mux",
+      "github.com/gorilla/websocket",
+      "github.com/labstack/echo",
+      "github.com/valyala/fasthttp",
+      "github.com/uber-go/zap",
+      "go.uber.org/zap",
+      "k8s.io/client-go",
+      "k8s.io/api",
+      "k8s.io/apimachinery",
+      "sigs.k8s.io/controller-runtime",
+      "github.com/kubernetes-sigs/yaml",
+      "github.com/hashicorp/terraform-plugin-sdk",
+      "github.com/hashicorp/vault/api",
+      "github.com/hashicorp/consul/api",
+      "github.com/grpc-ecosystem/grpc-gateway",
+      "github.com/pkg/sftp",
+      "golang.org/x/crypto",
+      "golang.org/x/net",
+      "github.com/etcd-io/etcd"
+    ]
+  },
+  "known_typosquats": [
+    {
+      "ecosystem": "npm",
+      "name": "crossenv",
+      "target": "cross-env",
+      "discovered": "2017-08-01",
+      "attack_type": "credential_harvest",
+      "references": ["https://blog.npmjs.org/post/163723642530/crossenv-malware-on-the-npm-registry"]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "babelcli",
+      "target": "babel-cli",
+      "discovered": "2018-07-12",
+      "attack_type": "credential_harvest"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "electorn",
+      "target": "electron",
+      "discovered": "2018-09-04",
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "noblox.js-proxy",
+      "target": "noblox.js",
+      "discovered": "2021-10-26",
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "urllib",
+      "target": "urllib3",
+      "discovered": "2017-09-15",
+      "attack_type": "credential_harvest"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "djanga",
+      "target": "django",
+      "discovered": "2017-09-15",
+      "attack_type": "credential_harvest"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "python-sqlite",
+      "target": "sqlite3 (stdlib)",
+      "discovered": "2018-10-04",
+      "attack_type": "backdoor"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "requesys",
+      "target": "requests",
+      "discovered": "2022-07-30",
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "colorsama",
+      "target": "colorama",
+      "discovered": "2022-11-09",
+      "attack_type": "data_exfiltration"
+    },
+    {
+      "ecosystem": "crates",
+      "name": "rustdecimal",
+      "target": "rust_decimal",
+      "discovered": "2022-05-10",
+      "attack_type": "data_exfiltration",
+      "references": ["https://blog.rust-lang.org/2022/05/10/cve-2022-36113.html"]
+    }
+  ]
+}

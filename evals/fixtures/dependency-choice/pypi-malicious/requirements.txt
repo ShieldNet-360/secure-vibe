@@ -1,0 +1,5 @@
+# Fixture: includes 'ctx', a real PyPI package compromised in 2022.
+# Source: vulnerabilities/supply-chain/malicious-packages/pypi.json -> 'ctx'.
+# Real users should pin to a non-malicious version and review releases.
+ctx==0.2.2
+requests==2.31.0

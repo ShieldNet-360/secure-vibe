@@ -1,0 +1,37 @@
+{
+  "id": "auth-security",
+  "version": "1.0.0",
+  "title": "Authentication \u0026 Authorization Security",
+  "description": "JWT, OAuth 2.0 / OIDC, session management, CSRF, password hashing, and MFA enforcement",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "when generating login / signup / password-reset flows",
+    "when generating JWT issuance or verification",
+    "when generating OAuth 2.0 / OIDC client or server code",
+    "when wiring session cookies, CSRF tokens, MFA"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 1000,
+    "compact": 1300,
+    "full": 2700
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "api-security",
+    "crypto-misuse",
+    "secret-detection"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP Authentication Cheat Sheet",
+    "OWASP Session Management Cheat Sheet",
+    "RFC 6749 — OAuth 2.0",
+    "RFC 7519 — JSON Web Token",
+    "RFC 9700 — OAuth 2.0 Security BCP",
+    "NIST SP 800-63B (Authenticator Assurance)"
+  ]
+}

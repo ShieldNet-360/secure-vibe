@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-37gx-xxp4-5rgx",
+  "published": "2026-04-14T23:30:27Z",
+  "modified": "2026-05-07T09:26:25.159037926Z",
+  "aliases": [
+    "BIT-dotnet-2026-33116",
+    "BIT-dotnet-sdk-2026-33116",
+    "CVE-2026-33116"
+  ],
+  "related": [
+    "CGA-qq7f-cmwq-26wf"
+  ],
+  "summary": "Microsoft Security Advisory CVE-2026-33116 \u2013 .NET, .NET Framework, and Visual Studio Denial of Service Vulnerability ",
+  "affected": [
+    {
+      "package": {
+        "name": "System.Security.Cryptography.Xml",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/System.Security.Cryptography.Xml"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.6"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.5",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-37gx-xxp4-5rgx/GHSA-37gx-xxp4-5rgx.json"
+      }
+    },
+    {
+      "package": {
+        "name": "System.Security.Cryptography.Xml",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/System.Security.Cryptography.Xml"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "9.0.0"
+            },
+            {
+              "fixed": "9.0.15"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "9.0.0",
+        "9.0.1",
+        "9.0.10",
+        "9.0.11",
+        "9.0.12",
+        "9.0.13",
+        "9.0.14",
+        "9.0.2",
+        "9.0.3",
+        "9.0.4",
+        "9.0.5",
+        "9.0.6",
+        "9.0.7",
+        "9.0.8",
+        "9.0.9"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 9.0.14",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-37gx-xxp4-5rgx/GHSA-37gx-xxp4-5rgx.json"
+      }
+    },
+    {
+      "package": {
+        "name": "System.Security.Cryptography.Xml",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/System.Security.Cryptography.Xml"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "8.0.0"
+            },
+            {
+              "fixed": "8.0.3"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "8.0.0",
+        "8.0.1",
+        "8.0.2"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 8.0.2",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-37gx-xxp4-5rgx/GHSA-37gx-xxp4-5rgx.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/dotnet/runtime/security/advisories/GHSA-37gx-xxp4-5rgx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-33116"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dotnet/announcements/issues/392"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/dotnet/runtime"
+    },
+    {
+      "type": "WEB",
+      "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-33116"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-20",
+      "CWE-400",
+      "CWE-835"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-14T23:30:27Z",
+    "nvd_published_at": "2026-04-14T18:17:33Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-07"
+}

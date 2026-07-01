@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-3363-2ph6-35wh",
+  "published": "2026-05-15T16:55:04Z",
+  "modified": "2026-05-15T17:05:12.628738Z",
+  "aliases": [
+    "CVE-2026-44716"
+  ],
+  "summary": "Pipecat: Path Traversal in Pipecat Runner `/files` Endpoint \u2014 Arbitrary File Read via `%2F`-Encoded Separator",
+  "affected": [
+    {
+      "package": {
+        "name": "pipecat-ai",
+        "ecosystem": "PyPI",
+        "purl": "pkg:pypi/pipecat-ai"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0.0.90"
+            },
+            {
+              "fixed": "1.2.0"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.0.100",
+        "0.0.101",
+        "0.0.102",
+        "0.0.103",
+        "0.0.104",
+        "0.0.105",
+        "0.0.106",
+        "0.0.107",
+        "0.0.108",
+        "0.0.90",
+        "0.0.91",
+        "0.0.92",
+        "0.0.93",
+        "0.0.94",
+        "0.0.95",
+        "0.0.96",
+        "0.0.97",
+        "0.0.98",
+        "0.0.99",
+        "1.0.0",
+        "1.1.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-3363-2ph6-35wh/GHSA-3363-2ph6-35wh.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/pipecat-ai/pipecat/security/advisories/GHSA-3363-2ph6-35wh"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pipecat-ai/pipecat/pull/4417"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pipecat-ai/pipecat/commit/7519c26ac5508573c35fa3a9c4717b013993d129"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/pipecat-ai/pipecat"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/pipecat-ai/pipecat/releases/tag/v1.2.0"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-22"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-15T16:55:04Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

@@ -1,0 +1,1290 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-16T05:44:32Z",
+  "generated_at": "2026-05-16T05:44:32Z",
+  "by_package": {
+    "webauthn-rs-core": [
+      {
+        "id": "GHSA-22w3-693w-x895",
+        "file": "GHSA-22w3-693w-x895.json",
+        "summary": "webauthn-rs-core/webauthn-authenticator-rs: Origin validation mismatch possible when subdomains are allowed",
+        "aliases": [],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-22w3-693w-x895",
+        "file": "GHSA-22w3-693w-x895.json",
+        "summary": "webauthn-rs-core/webauthn-authenticator-rs: Origin validation mismatch possible when subdomains are allowed",
+        "aliases": [],
+        "severity": "low"
+      }
+    ],
+    "webauthn-authenticator-rs": [
+      {
+        "id": "GHSA-22w3-693w-x895",
+        "file": "GHSA-22w3-693w-x895.json",
+        "summary": "webauthn-rs-core/webauthn-authenticator-rs: Origin validation mismatch possible when subdomains are allowed",
+        "aliases": [],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-22w3-693w-x895",
+        "file": "GHSA-22w3-693w-x895.json",
+        "summary": "webauthn-rs-core/webauthn-authenticator-rs: Origin validation mismatch possible when subdomains are allowed",
+        "aliases": [],
+        "severity": "low"
+      }
+    ],
+    "nimiq-keys": [
+      {
+        "id": "GHSA-27w2-87xv-37c6",
+        "file": "GHSA-27w2-87xv-37c6.json",
+        "summary": "nimiq-keys: Unchecked Ed25519 signature length in TaggedPublicKey::verify causes remote node panic via DHT",
+        "aliases": [
+          "CVE-2026-40092"
+        ],
+        "severity": "high"
+      }
+    ],
+    "zebra-rpc": [
+      {
+        "id": "GHSA-29x4-r6jv-ff4w",
+        "file": "GHSA-29x4-r6jv-ff4w.json",
+        "summary": "Zebra Vulnerable to Denial of Service via Interrupted JSON-RPC Requests from Authenticated Clients",
+        "aliases": [
+          "CVE-2026-41585"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "zebrad": [
+      {
+        "id": "GHSA-29x4-r6jv-ff4w",
+        "file": "GHSA-29x4-r6jv-ff4w.json",
+        "summary": "Zebra Vulnerable to Denial of Service via Interrupted JSON-RPC Requests from Authenticated Clients",
+        "aliases": [
+          "CVE-2026-41585"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-438q-jx8f-cccv",
+        "file": "GHSA-438q-jx8f-cccv.json",
+        "summary": "Zebra Vulnerable to Allocation Amplification in Inbound Network Deserializers",
+        "aliases": [
+          "CVE-2026-44500"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-452v-w3gx-72wg",
+        "file": "GHSA-452v-w3gx-72wg.json",
+        "summary": "Zebra has rk Identity Point Panic in Transaction Verification",
+        "aliases": [
+          "CVE-2026-41584"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-8m29-fpq5-89jj",
+        "file": "GHSA-8m29-fpq5-89jj.json",
+        "summary": "Zebra Vulnerable to Consensus Divergence in Transparent Sighash Hash-Type Handling",
+        "aliases": [
+          "CVE-2026-41583"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-cwfq-rfcr-8hmp",
+        "file": "GHSA-cwfq-rfcr-8hmp.json",
+        "summary": "Zebra's Transparent SIGHASH_SINGLE Handling Diverges from zcashd for Corresponding Outputs",
+        "aliases": [],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-gq4h-3grw-2rhv",
+        "file": "GHSA-gq4h-3grw-2rhv.json",
+        "summary": "Zebra has Consensus Divergence in Transparent Sighash Hash-Type Handling due to Stale Buffer",
+        "aliases": [
+          "CVE-2026-44497"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-h9hm-m2xj-4rq9",
+        "file": "GHSA-h9hm-m2xj-4rq9.json",
+        "summary": "Zebra has Permanent Block Discovery Halt via Gossip Queue Saturation and Syncer Poisoning",
+        "aliases": [
+          "CVE-2026-44499"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-jv4h-j224-23cc",
+        "file": "GHSA-jv4h-j224-23cc.json",
+        "summary": "Zebra's Block Validator Undercounts Coinbase and P2SH Sigops",
+        "aliases": [
+          "CVE-2026-44498"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-pvmv-cwg8-v6c8",
+        "file": "GHSA-pvmv-cwg8-v6c8.json",
+        "summary": "Zebra v4.4.0 still accepts V5 SIGHASH_SINGLE without a corresponding output",
+        "aliases": [],
+        "severity": "critical"
+      }
+    ],
+    "thrift": [
+      {
+        "id": "GHSA-2f9f-gq7v-9h6m",
+        "file": "GHSA-2f9f-gq7v-9h6m.json",
+        "summary": "Apache Thrift has a Memory Allocation with Excessive Size Value Vulnerability",
+        "aliases": [
+          "BIT-thrift-2026-43868",
+          "CVE-2026-43868"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "rpassword": [
+      {
+        "id": "GHSA-2p6r-x3vv-xqm2",
+        "file": "GHSA-2p6r-x3vv-xqm2.json",
+        "summary": "rpassword affected by partial password reveal when input is interrupted ",
+        "aliases": [],
+        "severity": "low"
+      }
+    ],
+    "grid": [
+      {
+        "id": "GHSA-38c5-483c-4qqp",
+        "file": "GHSA-38c5-483c-4qqp.json",
+        "summary": "Grid: Integer Overflow in Grid::expand_rows Leads to Safe-API Undefined Behavior",
+        "aliases": [
+          "CVE-2026-42199"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "lemmy_api_common": [
+      {
+        "id": "GHSA-3jvj-v6w2-h948",
+        "file": "GHSA-3jvj-v6w2-h948.json",
+        "summary": "Lemmy has SSRF in /api/v3/post via Webmention dispatch",
+        "aliases": [
+          "CVE-2026-42180"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-h6hf-9846-xwrq",
+        "file": "GHSA-h6hf-9846-xwrq.json",
+        "summary": "Lemmy has SSRF and internal image disclosure in post link metadata via unvalidated og:image",
+        "aliases": [
+          "CVE-2026-42181"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "hickory-proto": [
+      {
+        "id": "GHSA-3v94-mw7p-v465",
+        "file": "GHSA-3v94-mw7p-v465.json",
+        "summary": "hickory-proto: NSEC3 closest-encloser proof validation enters unbounded loop on cross-zone responses",
+        "aliases": [
+          "RUSTSEC-2026-0118",
+          "RUSTSEC-2026-0120"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-q2qq-hmj6-3wpp",
+        "file": "GHSA-q2qq-hmj6-3wpp.json",
+        "summary": "hickory-proto vulnerable to CPU exhaustion during message encoding due to O(n\u00b2) name compression",
+        "aliases": [
+          "RUSTSEC-2026-0119"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "RUSTSEC-2026-0118",
+        "file": "RUSTSEC-2026-0118.json",
+        "summary": "NSEC3 closest-encloser proof validation enters unbounded loop on cross-zone responses",
+        "aliases": [
+          "GHSA-3v94-mw7p-v465",
+          "RUSTSEC-2026-0120"
+        ]
+      },
+      {
+        "id": "RUSTSEC-2026-0119",
+        "file": "RUSTSEC-2026-0119.json",
+        "summary": "CPU exhaustion during message encoding due to O(n\u00b2) name compression",
+        "aliases": [
+          "GHSA-q2qq-hmj6-3wpp"
+        ]
+      }
+    ],
+    "hickory-net": [
+      {
+        "id": "GHSA-3v94-mw7p-v465",
+        "file": "GHSA-3v94-mw7p-v465.json",
+        "summary": "hickory-proto: NSEC3 closest-encloser proof validation enters unbounded loop on cross-zone responses",
+        "aliases": [
+          "RUSTSEC-2026-0118",
+          "RUSTSEC-2026-0120"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "RUSTSEC-2026-0120",
+        "file": "RUSTSEC-2026-0120.json",
+        "summary": "NSEC3 closest-encloser proof validation enters unbounded loop on cross-zone responses",
+        "aliases": [
+          "GHSA-3v94-mw7p-v465",
+          "RUSTSEC-2026-0118"
+        ]
+      }
+    ],
+    "anchor-lang": [
+      {
+        "id": "GHSA-429q-fhh4-r6hj",
+        "file": "GHSA-429q-fhh4-r6hj.json",
+        "summary": "Anchor: `InterfaceAccount` allows account substitution between unexpected types",
+        "aliases": [],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-c6rc-8jpp-2fgc",
+        "file": "GHSA-c6rc-8jpp-2fgc.json",
+        "summary": "Anchor: Program<'info, System> is not properly validated",
+        "aliases": [
+          "CVE-2026-45137"
+        ],
+        "severity": "high"
+      }
+    ],
+    "zebra-network": [
+      {
+        "id": "GHSA-438q-jx8f-cccv",
+        "file": "GHSA-438q-jx8f-cccv.json",
+        "summary": "Zebra Vulnerable to Allocation Amplification in Inbound Network Deserializers",
+        "aliases": [
+          "CVE-2026-44500"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "zebra-chain": [
+      {
+        "id": "GHSA-438q-jx8f-cccv",
+        "file": "GHSA-438q-jx8f-cccv.json",
+        "summary": "Zebra Vulnerable to Allocation Amplification in Inbound Network Deserializers",
+        "aliases": [
+          "CVE-2026-44500"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-452v-w3gx-72wg",
+        "file": "GHSA-452v-w3gx-72wg.json",
+        "summary": "Zebra has rk Identity Point Panic in Transaction Verification",
+        "aliases": [
+          "CVE-2026-41584"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "russh": [
+      {
+        "id": "GHSA-45x7-px36-x8w8",
+        "file": "GHSA-45x7-px36-x8w8.json",
+        "summary": "Prefix Truncation Attack against ChaCha20-Poly1305 and Encrypt-then-MAC aka Terrapin",
+        "aliases": [
+          "CVE-2023-48795",
+          "GO-2023-2402"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-f5v4-2wr6-hqmg",
+        "file": "GHSA-f5v4-2wr6-hqmg.json",
+        "summary": "russh has pre-auth DoS via unbounded allocation in its keyboard-interactive auth handler",
+        "aliases": [
+          "CVE-2026-42189"
+        ],
+        "severity": "high"
+      }
+    ],
+    "golang.org/x/crypto": [
+      {
+        "id": "GHSA-45x7-px36-x8w8",
+        "file": "GHSA-45x7-px36-x8w8.json",
+        "summary": "Prefix Truncation Attack against ChaCha20-Poly1305 and Encrypt-then-MAC aka Terrapin",
+        "aliases": [
+          "CVE-2023-48795",
+          "GO-2023-2402"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-45x7-px36-x8w8",
+        "file": "GHSA-45x7-px36-x8w8.json",
+        "summary": "Prefix Truncation Attack against ChaCha20-Poly1305 and Encrypt-then-MAC aka Terrapin",
+        "aliases": [
+          "CVE-2023-48795",
+          "GO-2023-2402"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "paramiko": [
+      {
+        "id": "GHSA-45x7-px36-x8w8",
+        "file": "GHSA-45x7-px36-x8w8.json",
+        "summary": "Prefix Truncation Attack against ChaCha20-Poly1305 and Encrypt-then-MAC aka Terrapin",
+        "aliases": [
+          "CVE-2023-48795",
+          "GO-2023-2402"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "tough": [
+      {
+        "id": "GHSA-4v58-8p28-2rq3",
+        "file": "GHSA-4v58-8p28-2rq3.json",
+        "summary": "awslabs/tough is Missing Delegated Metadata Validation",
+        "aliases": [
+          "CVE-2026-6967"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-8m7c-8m39-rv4x",
+        "file": "GHSA-8m7c-8m39-rv4x.json",
+        "summary": "awslabs/tough Delegated Roles have a Signature Threshold Bypass",
+        "aliases": [
+          "CVE-2026-6966"
+        ],
+        "severity": "high"
+      }
+    ],
+    "tuftool": [
+      {
+        "id": "GHSA-4v58-8p28-2rq3",
+        "file": "GHSA-4v58-8p28-2rq3.json",
+        "summary": "awslabs/tough is Missing Delegated Metadata Validation",
+        "aliases": [
+          "CVE-2026-6967"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-8m7c-8m39-rv4x",
+        "file": "GHSA-8m7c-8m39-rv4x.json",
+        "summary": "awslabs/tough Delegated Roles have a Signature Threshold Bypass",
+        "aliases": [
+          "CVE-2026-6966"
+        ],
+        "severity": "high"
+      }
+    ],
+    "kanidm": [
+      {
+        "id": "GHSA-53hj-r94p-8c8f",
+        "file": "GHSA-53hj-r94p-8c8f.json",
+        "summary": "Kanidm has non-constant-time comparison of OAuth2 client_secret",
+        "aliases": [],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-gpxg-fx2g-qxj2",
+        "file": "GHSA-gpxg-fx2g-qxj2.json",
+        "summary": "Kanidm: Stored HTML injection in \"passkey-enrolment\" partial via displayname \u2192 htmx-driven authenticated request forgery",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "imageproc": [
+      {
+        "id": "GHSA-5qv7-j6w5-fr4m",
+        "file": "GHSA-5qv7-j6w5-fr4m.json",
+        "summary": "imageproc has fragile bounds check when sampling from image",
+        "aliases": [
+          "RUSTSEC-2026-0115"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5qv7-j6w5-fr4m",
+        "file": "GHSA-5qv7-j6w5-fr4m.json",
+        "summary": "imageproc has fragile bounds check when sampling from image",
+        "aliases": [
+          "RUSTSEC-2026-0115"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-5qv7-j6w5-fr4m",
+        "file": "GHSA-5qv7-j6w5-fr4m.json",
+        "summary": "imageproc has fragile bounds check when sampling from image",
+        "aliases": [
+          "RUSTSEC-2026-0115"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qg8r-f7x3-25f7",
+        "file": "GHSA-qg8r-f7x3-25f7.json",
+        "summary": "imageproc: Out-of-bounds read via NaN coordinates in bilinear/bicubic sampling",
+        "aliases": [
+          "RUSTSEC-2026-0117"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qg8r-f7x3-25f7",
+        "file": "GHSA-qg8r-f7x3-25f7.json",
+        "summary": "imageproc: Out-of-bounds read via NaN coordinates in bilinear/bicubic sampling",
+        "aliases": [
+          "RUSTSEC-2026-0117"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qg8r-f7x3-25f7",
+        "file": "GHSA-qg8r-f7x3-25f7.json",
+        "summary": "imageproc: Out-of-bounds read via NaN coordinates in bilinear/bicubic sampling",
+        "aliases": [
+          "RUSTSEC-2026-0117"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qg8r-f7x3-25f7",
+        "file": "GHSA-qg8r-f7x3-25f7.json",
+        "summary": "imageproc: Out-of-bounds read via NaN coordinates in bilinear/bicubic sampling",
+        "aliases": [
+          "RUSTSEC-2026-0117"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-w5p8-4jcx-2j6r",
+        "file": "GHSA-w5p8-4jcx-2j6r.json",
+        "summary": "imageproc: integer overflow in kernel size check leads to out-of-bounds read",
+        "aliases": [
+          "RUSTSEC-2026-0116"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-w5p8-4jcx-2j6r",
+        "file": "GHSA-w5p8-4jcx-2j6r.json",
+        "summary": "imageproc: integer overflow in kernel size check leads to out-of-bounds read",
+        "aliases": [
+          "RUSTSEC-2026-0116"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-w5p8-4jcx-2j6r",
+        "file": "GHSA-w5p8-4jcx-2j6r.json",
+        "summary": "imageproc: integer overflow in kernel size check leads to out-of-bounds read",
+        "aliases": [
+          "RUSTSEC-2026-0116"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-w5p8-4jcx-2j6r",
+        "file": "GHSA-w5p8-4jcx-2j6r.json",
+        "summary": "imageproc: integer overflow in kernel size check leads to out-of-bounds read",
+        "aliases": [
+          "RUSTSEC-2026-0116"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "RUSTSEC-2026-0115",
+        "file": "RUSTSEC-2026-0115.json",
+        "summary": "Fragile bounds check when sampling from image",
+        "aliases": [
+          "GHSA-5qv7-j6w5-fr4m"
+        ]
+      },
+      {
+        "id": "RUSTSEC-2026-0116",
+        "file": "RUSTSEC-2026-0116.json",
+        "summary": "Improper check of an invariant resulting in incorrect bounds checks",
+        "aliases": [
+          "GHSA-w5p8-4jcx-2j6r"
+        ]
+      },
+      {
+        "id": "RUSTSEC-2026-0117",
+        "file": "RUSTSEC-2026-0117.json",
+        "summary": "Fragile bounds check when sampling from image",
+        "aliases": [
+          "GHSA-qg8r-f7x3-25f7"
+        ]
+      }
+    ],
+    "deepseek-tui": [
+      {
+        "id": "GHSA-72w5-pf8h-xfp4",
+        "file": "GHSA-72w5-pf8h-xfp4.json",
+        "summary": "DeepSeek TUI: task_create Insecure Defaults Enable RCE via Prompt Injection in Project Files",
+        "aliases": [
+          "CVE-2026-45374"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-88gh-2526-gfrr",
+        "file": "GHSA-88gh-2526-gfrr.json",
+        "summary": "DeepSeek TUI has SSRF\u200c IPV6 bypass",
+        "aliases": [
+          "CVE-2026-45373"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-96ff-gc8g-wpvg",
+        "file": "GHSA-96ff-gc8g-wpvg.json",
+        "summary": "DeepSeek TUI has SSRF via HTTP Redirect Bypass in fetch_url Tool",
+        "aliases": [
+          "CVE-2026-45310"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-96ff-gc8g-wpvg",
+        "file": "GHSA-96ff-gc8g-wpvg.json",
+        "summary": "DeepSeek TUI has SSRF via HTTP Redirect Bypass in fetch_url Tool",
+        "aliases": [
+          "CVE-2026-45310"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wx44-2q6h-j6p8",
+        "file": "GHSA-wx44-2q6h-j6p8.json",
+        "summary": "DeepSeek TUI: run_tests Tool Enables RCE via Malicious Repository Without Approval",
+        "aliases": [
+          "CVE-2026-45311"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-wx44-2q6h-j6p8",
+        "file": "GHSA-wx44-2q6h-j6p8.json",
+        "summary": "DeepSeek TUI: run_tests Tool Enables RCE via Malicious Repository Without Approval",
+        "aliases": [
+          "CVE-2026-45311"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "nix": [
+      {
+        "id": "GHSA-76w9-p8mg-j927",
+        "file": "GHSA-76w9-p8mg-j927.json",
+        "summary": "Out-of-bounds Write in nix",
+        "aliases": [
+          "CVE-2021-45707",
+          "GHSA-wgrg-5h56-jg27",
+          "RUSTSEC-2021-0119"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-76w9-p8mg-j927",
+        "file": "GHSA-76w9-p8mg-j927.json",
+        "summary": "Out-of-bounds Write in nix",
+        "aliases": [
+          "CVE-2021-45707",
+          "GHSA-wgrg-5h56-jg27",
+          "RUSTSEC-2021-0119"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-76w9-p8mg-j927",
+        "file": "GHSA-76w9-p8mg-j927.json",
+        "summary": "Out-of-bounds Write in nix",
+        "aliases": [
+          "CVE-2021-45707",
+          "GHSA-wgrg-5h56-jg27",
+          "RUSTSEC-2021-0119"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-wgrg-5h56-jg27",
+        "file": "GHSA-wgrg-5h56-jg27.json",
+        "summary": "Out-of-bounds write in nix::unistd::getgrouplist",
+        "aliases": [
+          "CVE-2021-45707",
+          "GHSA-76w9-p8mg-j927",
+          "RUSTSEC-2021-0119"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wgrg-5h56-jg27",
+        "file": "GHSA-wgrg-5h56-jg27.json",
+        "summary": "Out-of-bounds write in nix::unistd::getgrouplist",
+        "aliases": [
+          "CVE-2021-45707",
+          "GHSA-76w9-p8mg-j927",
+          "RUSTSEC-2021-0119"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wgrg-5h56-jg27",
+        "file": "GHSA-wgrg-5h56-jg27.json",
+        "summary": "Out-of-bounds write in nix::unistd::getgrouplist",
+        "aliases": [
+          "CVE-2021-45707",
+          "GHSA-76w9-p8mg-j927",
+          "RUSTSEC-2021-0119"
+        ],
+        "severity": "high"
+      }
+    ],
+    "tauri": [
+      {
+        "id": "GHSA-7gmj-67g7-phm9",
+        "file": "GHSA-7gmj-67g7-phm9.json",
+        "summary": "Tauri has an Origin Confusion Issue that Allows Remote Pages to Invoke Local-Only IPC Commands",
+        "aliases": [
+          "CVE-2026-42184"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "kanidmd_lib": [
+      {
+        "id": "GHSA-84jc-3hj2-hwc7",
+        "file": "GHSA-84jc-3hj2-hwc7.json",
+        "summary": "kanidmd_lib: Image upload validators run before authorization; PNG validator panics on malformed input",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "oxidize-pdf": [
+      {
+        "id": "GHSA-88q9-cmp2-c2vq",
+        "file": "GHSA-88q9-cmp2-c2vq.json",
+        "summary": "oxidize-pdf: NaN/inf bypass in colour content-stream emission causes PDF rejection (DoS)",
+        "aliases": [],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-88q9-cmp2-c2vq",
+        "file": "GHSA-88q9-cmp2-c2vq.json",
+        "summary": "oxidize-pdf: NaN/inf bypass in colour content-stream emission causes PDF rejection (DoS)",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "oxidizepdf.net": [
+      {
+        "id": "GHSA-88q9-cmp2-c2vq",
+        "file": "GHSA-88q9-cmp2-c2vq.json",
+        "summary": "oxidize-pdf: NaN/inf bypass in colour content-stream emission causes PDF rejection (DoS)",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "rmcp": [
+      {
+        "id": "GHSA-89vp-x53w-74fx",
+        "file": "GHSA-89vp-x53w-74fx.json",
+        "summary": "rmcp Streamable HTTP server transport has a DNS rebinding vulnerability",
+        "aliases": [
+          "CVE-2026-42559",
+          "GHSA-fvh2-gm75-j4j7",
+          "RUSTSEC-2026-0140"
+        ],
+        "severity": "high"
+      }
+    ],
+    "zebra-script": [
+      {
+        "id": "GHSA-8m29-fpq5-89jj",
+        "file": "GHSA-8m29-fpq5-89jj.json",
+        "summary": "Zebra Vulnerable to Consensus Divergence in Transparent Sighash Hash-Type Handling",
+        "aliases": [
+          "CVE-2026-41583"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-gq4h-3grw-2rhv",
+        "file": "GHSA-gq4h-3grw-2rhv.json",
+        "summary": "Zebra has Consensus Divergence in Transparent Sighash Hash-Type Handling due to Stale Buffer",
+        "aliases": [
+          "CVE-2026-44497"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-pvmv-cwg8-v6c8",
+        "file": "GHSA-pvmv-cwg8-v6c8.json",
+        "summary": "Zebra v4.4.0 still accepts V5 SIGHASH_SINGLE without a corresponding output",
+        "aliases": [],
+        "severity": "critical"
+      }
+    ],
+    "lemmy_api": [
+      {
+        "id": "GHSA-95q8-x6r6-672m",
+        "file": "GHSA-95q8-x6r6-672m.json",
+        "summary": "Lemmy may expose private community data through community, saved, liked, and modlog API views",
+        "aliases": [],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-jmxc-hhwx-gvv3",
+        "file": "GHSA-jmxc-hhwx-gvv3.json",
+        "summary": "Private Lemmy instances expose multi-community metadata without authentication",
+        "aliases": [],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-qxrw-f6fh-34r7",
+        "file": "GHSA-qxrw-f6fh-34r7.json",
+        "summary": "Lemmy resend-verification endpoint exposes registered email addresses to unauthenticated users",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "deepseek-tui-cli": [
+      {
+        "id": "GHSA-96ff-gc8g-wpvg",
+        "file": "GHSA-96ff-gc8g-wpvg.json",
+        "summary": "DeepSeek TUI has SSRF via HTTP Redirect Bypass in fetch_url Tool",
+        "aliases": [
+          "CVE-2026-45310"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wx44-2q6h-j6p8",
+        "file": "GHSA-wx44-2q6h-j6p8.json",
+        "summary": "DeepSeek TUI: run_tests Tool Enables RCE via Malicious Repository Without Approval",
+        "aliases": [
+          "CVE-2026-45311"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "smallbitvec": [
+      {
+        "id": "GHSA-97wc-2hqc-cjgr",
+        "file": "GHSA-97wc-2hqc-cjgr.json",
+        "summary": "smallbitvec: Integer overflow in safe API leads to heap buffer overflow",
+        "aliases": [
+          "CVE-2026-44983"
+        ],
+        "severity": "high"
+      }
+    ],
+    "coreutils": [
+      {
+        "id": "GHSA-9gh9-hwpr-rvqq",
+        "file": "GHSA-9gh9-hwpr-rvqq.json",
+        "summary": "uutils coreutils has a Time-of-Check to Time-of-Use (TOCTOU) race condition",
+        "aliases": [
+          "CVE-2026-35352"
+        ],
+        "severity": "high"
+      }
+    ],
+    "gix": [
+      {
+        "id": "GHSA-f26g-jm89-4g65",
+        "file": "GHSA-f26g-jm89-4g65.json",
+        "summary": "gitoxide: CommandForbiddenInModulesConfiguration Bypass in gix_submodule::File::update() Enables Arbitrary Command Execution via .gitmodules",
+        "aliases": [],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-fr8x-3vfx-f45h",
+        "file": "GHSA-fr8x-3vfx-f45h.json",
+        "summary": "gix and gitoxide: unvalidated submodule name traverses out of .git/modules and redirects state() / open() to another repository",
+        "aliases": [],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-p3hw-mv63-rf9w",
+        "file": "GHSA-p3hw-mv63-rf9w.json",
+        "summary": "gix's submodule name validation bypass + trust inheritance flaw enables path traversal and credential disclosure",
+        "aliases": [],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-pg4w-g64p-qwhj",
+        "file": "GHSA-pg4w-g64p-qwhj.json",
+        "summary": "gix and gitoxide's symlinked .gitmodules are followed and parsed from outside of the repository",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "gix-fs": [
+      {
+        "id": "GHSA-f89h-2fjh-2r9q",
+        "file": "GHSA-f89h-2fjh-2r9q.json",
+        "summary": "gix-fs: Symlink prefix-reuse allows worktree escape during checkout",
+        "aliases": [
+          "CVE-2026-44471"
+        ],
+        "severity": "high"
+      }
+    ],
+    "diesel-async": [
+      {
+        "id": "GHSA-ff9q-rm55-q7qr",
+        "file": "GHSA-ff9q-rm55-q7qr.json",
+        "summary": "diesel-async may expose uninitialized padding bytes for MySQL temporal columns",
+        "aliases": [],
+        "severity": "low"
+      },
+      {
+        "id": "RUSTSEC-2026-0138",
+        "file": "RUSTSEC-2026-0138.json",
+        "summary": "Unsound access to padding bytes while serializing date/time values using the Mysql backend",
+        "aliases": []
+      }
+    ],
+    "astral-tokio-tar": [
+      {
+        "id": "GHSA-fp55-jw48-c537",
+        "file": "GHSA-fp55-jw48-c537.json",
+        "summary": "astral-tokio-tar is Vulnerable to PAX Header Desynchronization",
+        "aliases": [
+          "RUSTSEC-2026-0112"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-xx64-wwv2-hcqq",
+        "file": "GHSA-xx64-wwv2-hcqq.json",
+        "summary": "astral-tokio-tar: `unpack_in` can chmod arbitrary directories by following symlinks",
+        "aliases": [
+          "RUSTSEC-2026-0113"
+        ],
+        "severity": "low"
+      }
+    ],
+    "rust-zserio": [
+      {
+        "id": "GHSA-fpf5-4jw8-67x8",
+        "file": "GHSA-fpf5-4jw8-67x8.json",
+        "summary": "rust-zserio has Unbounded Memory Allocation",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "gitoxide": [
+      {
+        "id": "GHSA-fr8x-3vfx-f45h",
+        "file": "GHSA-fr8x-3vfx-f45h.json",
+        "summary": "gix and gitoxide: unvalidated submodule name traverses out of .git/modules and redirects state() / open() to another repository",
+        "aliases": [],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-pg4w-g64p-qwhj",
+        "file": "GHSA-pg4w-g64p-qwhj.json",
+        "summary": "gix and gitoxide's symlinked .gitmodules are followed and parsed from outside of the repository",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "sequoia-git": [
+      {
+        "id": "GHSA-g27r-r6ph-vf5r",
+        "file": "GHSA-g27r-r6ph-vf5r.json",
+        "summary": "sequoia-git has broken hard revocation handling",
+        "aliases": [
+          "RUSTSEC-2026-0109"
+        ],
+        "severity": "low"
+      }
+    ],
+    "mysten-metrics": [
+      {
+        "id": "GHSA-g38r-8gmr-ghrf",
+        "file": "GHSA-g38r-8gmr-ghrf.json",
+        "summary": "`mysten-metrics` was removed from crates.io for malicious code",
+        "aliases": [
+          "RUSTSEC-2026-0107"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "RUSTSEC-2026-0107",
+        "file": "RUSTSEC-2026-0107.json",
+        "summary": "`mysten-metrics` was removed from crates.io for malicious code",
+        "aliases": [
+          "GHSA-g38r-8gmr-ghrf"
+        ]
+      }
+    ],
+    "steamworks": [
+      {
+        "id": "GHSA-g588-cjg3-6g78",
+        "file": "GHSA-g588-cjg3-6g78.json",
+        "summary": "Steamworks game clients/servers using P2P authentication vulnerable to denial of service",
+        "aliases": [
+          "RUSTSEC-2026-0121"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "RUSTSEC-2026-0121",
+        "file": "RUSTSEC-2026-0121.json",
+        "summary": "Denial of service in Steamworks game clients/servers using P2P authentication",
+        "aliases": [
+          "GHSA-g588-cjg3-6g78"
+        ]
+      }
+    ],
+    "diesel": [
+      {
+        "id": "GHSA-h5x4-m2qf-r4f2",
+        "file": "GHSA-h5x4-m2qf-r4f2.json",
+        "summary": "Diesel's SQLite backend has possible UTF-8 corruption",
+        "aliases": [
+          "RUSTSEC-2026-0111"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "RUSTSEC-2026-0134",
+        "file": "RUSTSEC-2026-0134.json",
+        "summary": "Unsound access to padding bytes while serializing date/time values using the Mysql backend",
+        "aliases": []
+      },
+      {
+        "id": "RUSTSEC-2026-0135",
+        "file": "RUSTSEC-2026-0135.json",
+        "summary": "Unsound transmute while debug/display printing batch Insert statements in Diesel's SQLite backend",
+        "aliases": []
+      },
+      {
+        "id": "RUSTSEC-2026-0136",
+        "file": "RUSTSEC-2026-0136.json",
+        "summary": "Command injection in Diesel's implementation of `COPY FROM`/`COPY TO`",
+        "aliases": []
+      },
+      {
+        "id": "RUSTSEC-2026-0137",
+        "file": "RUSTSEC-2026-0137.json",
+        "summary": "Possible unaligned data access for implementations of `SqliteAggregate`",
+        "aliases": []
+      }
+    ],
+    "openssl": [
+      {
+        "id": "GHSA-hppc-g8h3-xhp3",
+        "file": "GHSA-hppc-g8h3-xhp3.json",
+        "summary": "rust-openssl: Unchecked callback length in PSK/cookie trampolines leaks adjacent memory to peer",
+        "aliases": [
+          "CVE-2026-41898"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-xp3w-r5p5-63rr",
+        "file": "GHSA-xp3w-r5p5-63rr.json",
+        "summary": "rust-openssl has undefined behavior in X509Ref::ocsp_responders for certificates with non-UTF-8 OCSP URLs",
+        "aliases": [
+          "CVE-2026-42327"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-xv59-967r-8726",
+        "file": "GHSA-xv59-967r-8726.json",
+        "summary": "rust-openssl vulnerable to heap buffer overflow when encrypting with AES key-wrap-with-padding",
+        "aliases": [
+          "CVE-2026-44662"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "gix-validate": [
+      {
+        "id": "GHSA-p3hw-mv63-rf9w",
+        "file": "GHSA-p3hw-mv63-rf9w.json",
+        "summary": "gix's submodule name validation bypass + trust inheritance flaw enables path traversal and credential disclosure",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "wasmtime": [
+      {
+        "id": "GHSA-p8xm-42r7-89xg",
+        "file": "GHSA-p8xm-42r7-89xg.json",
+        "summary": "wasmtime has a panic when allocating a table exceeding the size of the host's address space",
+        "aliases": [
+          "CVE-2026-44216",
+          "RUSTSEC-2026-0114"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-p8xm-42r7-89xg",
+        "file": "GHSA-p8xm-42r7-89xg.json",
+        "summary": "wasmtime has a panic when allocating a table exceeding the size of the host's address space",
+        "aliases": [
+          "CVE-2026-44216",
+          "RUSTSEC-2026-0114"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "RUSTSEC-2026-0114",
+        "file": "RUSTSEC-2026-0114.json",
+        "summary": "Panic when allocating a table exceeding the size of the host's address space",
+        "aliases": [
+          "CVE-2026-44216",
+          "GHSA-p8xm-42r7-89xg"
+        ]
+      }
+    ],
+    "libcrux-sha3": [
+      {
+        "id": "GHSA-q29p-9pfr-j652",
+        "file": "GHSA-q29p-9pfr-j652.json",
+        "summary": "libcrux-sha3: Incorrect output from SHAKE squeeze functions",
+        "aliases": [
+          "RUSTSEC-2026-0074"
+        ],
+        "severity": "high"
+      }
+    ],
+    "ldap3_proto": [
+      {
+        "id": "GHSA-qcxq-75wr-5cm8",
+        "file": "GHSA-qcxq-75wr-5cm8.json",
+        "summary": "ldap3_proto has LDAP Filter stack exhaustion",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "sui-execution-cut": [
+      {
+        "id": "GHSA-qprh-m6p3-hwxc",
+        "file": "GHSA-qprh-m6p3-hwxc.json",
+        "summary": "`sui-execution-cut` was removed from crates.io for malicious code",
+        "aliases": [
+          "RUSTSEC-2026-0108"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "RUSTSEC-2026-0108",
+        "file": "RUSTSEC-2026-0108.json",
+        "summary": "`sui-execution-cut` was removed from crates.io for malicious code",
+        "aliases": [
+          "GHSA-qprh-m6p3-hwxc"
+        ]
+      }
+    ],
+    "scim_proto": [
+      {
+        "id": "GHSA-r5fr-9gmv-jggh",
+        "file": "GHSA-r5fr-9gmv-jggh.json",
+        "summary": "scim_proton and kanidm_proto have an authenticated process abort via SCIM filter stack exhaustion",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "kanidm_proto": [
+      {
+        "id": "GHSA-r5fr-9gmv-jggh",
+        "file": "GHSA-r5fr-9gmv-jggh.json",
+        "summary": "scim_proton and kanidm_proto have an authenticated process abort via SCIM filter stack exhaustion",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "rkyv": [
+      {
+        "id": "GHSA-vfvv-c25p-m7mm",
+        "file": "GHSA-vfvv-c25p-m7mm.json",
+        "summary": "rkyv: Panic safety bugs in `InlineVec::clear` and `SerVec::clear` enable arbitrary code execution",
+        "aliases": [],
+        "severity": "medium"
+      },
+      {
+        "id": "RUSTSEC-2026-0122",
+        "file": "RUSTSEC-2026-0122.json",
+        "summary": "Potential use-after-free due to lack of panic safety in `InlineVec::clear` and `SerVec::clear`",
+        "aliases": []
+      }
+    ],
+    "gix-pack": [
+      {
+        "id": "GHSA-x494-mj8g-cj27",
+        "file": "GHSA-x494-mj8g-cj27.json",
+        "summary": "gix-pack has multiple DoS vectors: unchecked indexing panics and uncapped OOM allocations from crafted pack data",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "thin-vec": [
+      {
+        "id": "GHSA-xphw-cqx3-667j",
+        "file": "GHSA-xphw-cqx3-667j.json",
+        "summary": "thin-vec: Use-After-Free and Double Free in IntoIter::drop When Element Drop Panics",
+        "aliases": [
+          "CVE-2026-6654",
+          "RUSTSEC-2026-0103"
+        ],
+        "severity": "high"
+      }
+    ],
+    "rustdx": [
+      {
+        "id": "RUSTSEC-2026-0123",
+        "file": "RUSTSEC-2026-0123.json",
+        "summary": "Out-of-bounds read in `bytes_helper` public safe functions",
+        "aliases": []
+      }
+    ],
+    "libcrux-chacha20poly1305": [
+      {
+        "id": "RUSTSEC-2026-0124",
+        "file": "RUSTSEC-2026-0124.json",
+        "summary": "Potential Panic on Overlong Ciphertext Buffer",
+        "aliases": []
+      }
+    ],
+    "libcrux-ml-dsa": [
+      {
+        "id": "RUSTSEC-2026-0125",
+        "file": "RUSTSEC-2026-0125.json",
+        "summary": "Signature Verification on AVX2 Platforms Mishandles Edge Case",
+        "aliases": []
+      },
+      {
+        "id": "RUSTSEC-2026-0126",
+        "file": "RUSTSEC-2026-0126.json",
+        "summary": "AVX2 Implementation Did Not Fully Reduce Intermediate Values",
+        "aliases": []
+      }
+    ],
+    "accessor": [
+      {
+        "id": "RUSTSEC-2026-0127",
+        "file": "RUSTSEC-2026-0127.json",
+        "summary": "Integer overflow in `array::ReadWrite::new()` leading to potential memory corruption",
+        "aliases": []
+      }
+    ],
+    "emap": [
+      {
+        "id": "RUSTSEC-2026-0128",
+        "file": "RUSTSEC-2026-0128.json",
+        "summary": "Double-free and use-after-free in `Keys::next()`",
+        "aliases": []
+      }
+    ],
+    "dahl-salso": [
+      {
+        "id": "RUSTSEC-2026-0129",
+        "file": "RUSTSEC-2026-0129.json",
+        "summary": "Buffer overflow in `Clusterings::from_i32_column_major_order()`",
+        "aliases": []
+      }
+    ],
+    "caja": [
+      {
+        "id": "RUSTSEC-2026-0130",
+        "file": "RUSTSEC-2026-0130.json",
+        "summary": "Out-of-bounds read/write in `Index` and `IndexMut` implementations",
+        "aliases": []
+      }
+    ],
+    "bitchomp": [
+      {
+        "id": "RUSTSEC-2026-0131",
+        "file": "RUSTSEC-2026-0131.json",
+        "summary": "Double-free in `Chomp::inner()`",
+        "aliases": []
+      }
+    ],
+    "ssdeep": [
+      {
+        "id": "RUSTSEC-2026-0132",
+        "file": "RUSTSEC-2026-0132.json",
+        "summary": "Potential out-of-bounds write via public `Context` fields",
+        "aliases": []
+      }
+    ],
+    "auto_vec": [
+      {
+        "id": "RUSTSEC-2026-0133",
+        "file": "RUSTSEC-2026-0133.json",
+        "summary": "Invalid pointer arithmetic in `iter()` and `iter_mut()`",
+        "aliases": []
+      }
+    ],
+    "metacall": [
+      {
+        "id": "RUSTSEC-2026-0139",
+        "file": "RUSTSEC-2026-0139.json",
+        "summary": "Null-pointer dereference and double-free via safe APIs",
+        "aliases": []
+      }
+    ],
+    "dynoxide-rs": [
+      {
+        "id": "RUSTSEC-2026-0140",
+        "file": "RUSTSEC-2026-0140.json",
+        "summary": "DNS rebinding and cross-origin CSRF in dynoxide's MCP HTTP transport",
+        "aliases": [
+          "CVE-2026-42559",
+          "GHSA-89vp-x53w-74fx",
+          "GHSA-fvh2-gm75-j4j7"
+        ],
+        "severity": "high"
+      }
+    ],
+    "lettre": [
+      {
+        "id": "RUSTSEC-2026-0141",
+        "file": "RUSTSEC-2026-0141.json",
+        "summary": "TLS hostname verification disabled when using Boring TLS backend",
+        "aliases": [
+          "GHSA-4pj9-g833-qx53"
+        ]
+      }
+    ],
+    "mutringbuf": [
+      {
+        "id": "RUSTSEC-2026-0142",
+        "file": "RUSTSEC-2026-0142.json",
+        "summary": "Double-free in `vmem` storage reachable from safe Rust (predecessor of `oneringbuf`)",
+        "aliases": []
+      }
+    ],
+    "oneringbuf": [
+      {
+        "id": "RUSTSEC-2026-0143",
+        "file": "RUSTSEC-2026-0143.json",
+        "summary": "Double-free in `vmem` storage reachable from safe Rust",
+        "aliases": []
+      }
+    ]
+  }
+}

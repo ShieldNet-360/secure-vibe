@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the electron-security skill. This skill is schema-driven: no deterministic gate scanner judges these fixtures, so each fixture is hand-labeled against the SKILL.md ALWAYS/NEVER rules — 'detect' means the Electron code breaks the renderer trust boundary (nodeIntegration on, IPC shell/path injection), 'ignore' means it locks the boundary (contextIsolation+sandbox, argument arrays, allowlists).",
+  "fixtures": [
+    {
+      "id": "nodeintegration-window-detect",
+      "text": "const win = new BrowserWindow({\n  width: 1200,\n  height: 800,\n  webPreferences: {\n    nodeIntegration: true,\n    contextIsolation: false,\n  },\n});\nwin.loadURL('https://reports.example.com/dashboard');",
+      "expected": "detect",
+      "reason": "Loads remote content into a window with nodeIntegration:true and contextIsolation:false, violating NEVER 'Set nodeIntegration:true, disable contextIsolation'. CWE-1188 (Insecure Default) / CWE-693; any XSS in the remote page becomes full host RCE."
+    },
+    {
+      "id": "nodeintegration-window-ignore",
+      "text": "const win = new BrowserWindow({\n  width: 1200,\n  height: 800,\n  webPreferences: {\n    nodeIntegration: false,\n    contextIsolation: true,\n    sandbox: true,\n    preload: path.join(__dirname, 'preload.js'),\n  },\n});\nwin.loadURL('https://reports.example.com/dashboard');",
+      "expected": "ignore",
+      "reason": "Configures the window with nodeIntegration:false, contextIsolation:true, and sandbox:true, exposing capability only via a preload — satisfying ALWAYS 'Configure every BrowserWindow with nodeIntegration:false, contextIsolation:true, sandbox:true'. The renderer cannot reach Node; no CWE-1188 exposure."
+    },
+    {
+      "id": "ipc-shell-exec-detect",
+      "text": "ipcMain.handle('open-container-logs', (event, name) => {\n  // name comes from the renderer\n  return new Promise((resolve, reject) => {\n    exec(`docker logs ${name}`, (err, stdout) => {\n      if (err) return reject(err);\n      resolve(stdout);\n    });\n  });\n});",
+      "expected": "detect",
+      "reason": "Concatenates renderer-supplied input into a shell string for child_process.exec, violating NEVER 'Concatenate renderer input into a shell string'. CWE-78 (OS Command Injection); a name of \"x; rm -rf ~\" runs arbitrary commands."
+    },
+    {
+      "id": "ipc-shell-exec-ignore",
+      "text": "ipcMain.handle('open-container-logs', (event, name) => {\n  // validate then pass as an argument array — no shell\n  if (typeof name !== 'string' || !/^[A-Za-z0-9_-]+$/.test(name)) {\n    throw new Error('invalid container name');\n  }\n  return new Promise((resolve, reject) => {\n    execFile('docker', ['logs', name], (err, stdout) => {\n      if (err) return reject(err);\n      resolve(stdout);\n    });\n  });\n});",
+      "expected": "ignore",
+      "reason": "Type-checks and allowlists the IPC argument, then uses execFile with an argument array (no shell), satisfying ALWAYS 'Validate every IPC argument' and 'Spawn child processes with execFile/spawn and an argument array'. No CWE-78 exposure."
+    },
+    {
+      "id": "ipc-path-traversal-detect",
+      "text": "const BASE = app.getPath('userData');\nipcMain.handle('read-note', (event, filePath) => {\n  // filePath comes from the renderer\n  return fs.promises.readFile(BASE + '/' + filePath, 'utf8');\n});",
+      "expected": "detect",
+      "reason": "Concatenates a renderer-supplied path onto the base directory with no traversal check, violating NEVER 'Concatenate a renderer-supplied path for fs read/write'. CWE-22 (Path Traversal); a filePath of \"../../../../etc/passwd\" reads arbitrary files."
+    },
+    {
+      "id": "ipc-path-traversal-ignore",
+      "text": "const BASE = app.getPath('userData');\nipcMain.handle('read-note', (event, filePath) => {\n  // confine the resolved path inside BASE\n  const resolved = path.resolve(BASE, filePath);\n  if (!resolved.startsWith(BASE + path.sep)) {\n    throw new Error('path escapes base directory');\n  }\n  return fs.promises.readFile(resolved, 'utf8');\n});",
+      "expected": "ignore",
+      "reason": "Resolves the path and verifies it startsWith(base + path.sep), rejecting traversal, satisfying ALWAYS 'Confine filesystem paths: path.resolve(base, input) then verify startsWith(base + path.sep)'. No CWE-22 exposure."
+    }
+  ]
+}

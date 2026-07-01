@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the database-security skill. This skill is schema-driven: no deterministic gate scanner judges these fixtures, so each fixture is hand-labeled against the SKILL.md ALWAYS/NEVER rules — 'detect' means the code is genuinely SQL-injectable or runs as a DB superuser, 'ignore' means it uses parameterized queries / an allowlist / a least-privilege user.",
+  "fixtures": [
+    {
+      "id": "string-concat-query-detect",
+      "text": "def get_user(conn, name):\n    cur = conn.cursor()\n    # build the lookup query\n    cur.execute(\"SELECT id, email FROM users WHERE name = '\" + name + \"'\")\n    return cur.fetchone()",
+      "expected": "detect",
+      "reason": "Concatenates user input directly into the SQL string, violating NEVER 'Concatenate user input into SQL'. CWE-89 (SQL Injection); a name of \"' OR '1'='1\" dumps the table."
+    },
+    {
+      "id": "string-concat-query-ignore",
+      "text": "def get_user(conn, name):\n    cur = conn.cursor()\n    # parameterized — driver binds the value\n    cur.execute(\"SELECT id, email FROM users WHERE name = %s\", (name,))\n    return cur.fetchone()",
+      "expected": "ignore",
+      "reason": "Passes the value as a bound parameter (psycopg2 %s placeholder, not a format string), satisfying ALWAYS 'Use parameterized queries'. No CWE-89 exposure — the driver escapes correctly."
+    },
+    {
+      "id": "fstring-orm-raw-detect",
+      "text": "// Node + Sequelize\nasync function searchProducts(sequelize, term) {\n  const rows = await sequelize.query(\n    `SELECT * FROM products WHERE title LIKE '%${term}%'`\n  );\n  return rows;\n}",
+      "expected": "detect",
+      "reason": "Uses the ORM raw query method with template-literal interpolation of user input, violating NEVER 'Use ORM raw query methods with f-string interpolation'. CWE-89 (SQL Injection) via the term parameter."
+    },
+    {
+      "id": "fstring-orm-raw-ignore",
+      "text": "// Node + Sequelize\nasync function searchProducts(sequelize, term) {\n  const rows = await sequelize.query(\n    'SELECT * FROM products WHERE title LIKE :pattern',\n    { replacements: { pattern: `%${term}%` } }\n  );\n  return rows;\n}",
+      "expected": "ignore",
+      "reason": "Uses Sequelize's named-replacement binding so the term is passed as a parameter, satisfying ALWAYS 'Use the ORM's safe query API'. The LIKE wildcards are part of the bound value; no CWE-89 exposure."
+    },
+    {
+      "id": "dynamic-order-by-detect",
+      "text": "func ListOrders(db *sql.DB, sortCol string) (*sql.Rows, error) {\n    // sort column comes from the ?sort= query param\n    q := \"SELECT id, total FROM orders ORDER BY \" + sortCol\n    return db.Query(q)\n}",
+      "expected": "detect",
+      "reason": "Interpolates a user-supplied identifier (sort column) — which can't be parameterized — straight into SQL with no allowlist, violating ALWAYS 'Validate that identifier columns ... come from a hard-coded allowlist'. CWE-89 (SQL Injection) via the ORDER BY clause."
+    },
+    {
+      "id": "dynamic-order-by-ignore",
+      "text": "func ListOrders(db *sql.DB, sortCol string) (*sql.Rows, error) {\n    // identifiers can't be bound — validate against an allowlist\n    allowed := map[string]bool{\"id\": true, \"total\": true, \"created_at\": true}\n    if !allowed[sortCol] {\n        sortCol = \"id\"\n    }\n    q := \"SELECT id, total FROM orders ORDER BY \" + sortCol\n    return db.Query(q)\n}",
+      "expected": "ignore",
+      "reason": "Constrains the sort column to a hard-coded allowlist before building the query, satisfying ALWAYS 'Validate that identifier columns ... come from a hard-coded allowlist'. No attacker-controlled value reaches the SQL; no CWE-89 exposure."
+    }
+  ]
+}

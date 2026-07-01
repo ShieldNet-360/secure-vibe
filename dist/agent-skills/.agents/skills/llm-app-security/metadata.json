@@ -1,0 +1,40 @@
+{
+  "id": "llm-app-security",
+  "version": "1.0.0",
+  "title": "LLM Application Security",
+  "description": "Securing an app feature that calls an LLM with prompts: prompt injection (direct \u0026 indirect), prompt-construction boundaries, RAG context segregation, output handling, system-prompt \u0026 secret leakage, tool allowlists, cost limits",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "when generating code that sends a prompt to an LLM API",
+    "when building a RAG pipeline or feeding retrieved / tool content back into a prompt",
+    "when rendering or executing LLM output (UI, SQL, shell, file, HTTP)",
+    "when exposing an LLM-backed endpoint to users"
+  ],
+  "languages": [
+    "python",
+    "javascript",
+    "typescript",
+    "go",
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 900,
+    "compact": 1200,
+    "full": 2400
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "ml-security",
+    "secret-detection",
+    "api-security",
+    "frontend-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP Top 10 for LLM Applications 2025",
+    "OWASP Top 10 for Agentic Applications",
+    "MITRE ATLAS (Adversarial Threat Landscape for AI Systems)",
+    "CWE-1426, CWE-77, CWE-89"
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "vendor": "Atlassian Cloud (Jira & Confluence)",
+  "description": "Atlassian Cloud security for Jira Software, Jira Service Management, Confluence, and Atlassian Connect/Forge apps. Covers API tokens, OAuth 2.0 (3LO), Connect JWT, Server/DC personal access tokens, and space/project sharing misconfigurations.",
+  "token_patterns": [
+    {
+      "name": "Atlassian API Token (Cloud \u2014 current)",
+      "regex": "ATATT3xFfGF0[A-Za-z0-9_\\-]{180,}",
+      "severity": "critical",
+      "hotwords": [
+        "atlassian",
+        "jira",
+        "confluence",
+        "api_token"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "ATATT3xFfGF0",
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Atlassian API Token (Cloud \u2014 newer scoped)",
+      "regex": "ATCTT3xFfGF0[A-Za-z0-9_\\-]{180,}",
+      "severity": "critical",
+      "hotwords": [
+        "atlassian",
+        "jira",
+        "confluence",
+        "api_token",
+        "scoped"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": false,
+      "prefix": "ATCTT3xFfGF0",
+      "entropy_min": 4.0
+    },
+    {
+      "name": "Jira / Confluence Personal Access Token (Server / DC)",
+      "regex": "(?i)(jira|confluence)[_\\-]?(pat|personal[_\\-]?access[_\\-]?token)[\\\"'\\s:=]+[A-Za-z0-9+/=]{24,}",
+      "severity": "high",
+      "hotwords": [
+        "jira",
+        "confluence",
+        "pat",
+        "bearer"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "entropy_min": 3.5
+    },
+    {
+      "name": "Atlassian Connect JWT (asymmetric)",
+      "regex": "eyJ[A-Za-z0-9_\\-]{20,}\\.[A-Za-z0-9_\\-]{20,}\\.[A-Za-z0-9_\\-]{20,}",
+      "severity": "medium",
+      "hotwords": [
+        "atlassian",
+        "connect",
+        "iss",
+        "jwt"
+      ],
+      "hotword_window": 200,
+      "hotword_boost": 2,
+      "require_hotword": true,
+      "notes": "JWT pattern is broad; require an Atlassian-context hotword to avoid generic JWT false positives."
+    }
+  ],
+  "misconfigurations": [
+    {
+      "id": "atlassian-anonymous-access",
+      "severity": "high",
+      "title": "Confluence / Jira space configured for anonymous access",
+      "rationale": "Public-internet-readable spaces leak roadmaps, vuln tickets, and PII repeatedly in the public record.",
+      "fix": "In each Confluence space: Space settings > Permissions > remove 'Anonymous' user. For Jira: Project settings > Permissions > remove 'Anyone' from 'Browse Projects'."
+    },
+    {
+      "id": "atlassian-default-public-pages",
+      "severity": "high",
+      "title": "Confluence global default permission allows public access",
+      "rationale": "Global default page access overrides space-level intentions if not flipped.",
+      "fix": "Atlassian admin > Confluence > Global permissions > set Anonymous Access to off."
+    },
+    {
+      "id": "atlassian-personal-api-token-shared",
+      "severity": "high",
+      "title": "Single personal API token used by multiple integrations",
+      "rationale": "Atlassian Cloud API tokens are bound to a human account. Sharing across services means token leak compromises the human's full account.",
+      "fix": "Issue one token per integration via a dedicated bot user, or migrate to OAuth 2.0 (3LO) Connected Apps with scoped permissions."
+    },
+    {
+      "id": "atlassian-no-mfa-admin",
+      "severity": "critical",
+      "title": "MFA not enforced for site-admin / org-admin accounts",
+      "rationale": "Atlassian site admins can install apps with elevated privilege; ATO is catastrophic.",
+      "fix": "admin.atlassian.com > Security > Two-step verification policy \u2014 enforce for all members of Site-admins and Organization Admins groups."
+    },
+    {
+      "id": "atlassian-third-party-app-unrestricted",
+      "severity": "medium",
+      "title": "Forge/Connect app installation allowed by any user",
+      "rationale": "Malicious or compromised Marketplace apps are a recurring SaaS supply-chain vector.",
+      "fix": "admin.atlassian.com > Apps > require admin approval for app installation."
+    },
+    {
+      "id": "atlassian-scriptrunner-unsigned",
+      "severity": "high",
+      "title": "ScriptRunner / Behaviours scripts installed without code review",
+      "rationale": "These run with Jira admin privilege and can mutate any issue, project, or user.",
+      "fix": "Gate ScriptRunner changes through PR review; export current scripts via the REST API and version-control them."
+    }
+  ],
+  "admin_red_flags": [
+    {
+      "id": "atlassian-bulk-issue-export",
+      "severity": "high",
+      "title": "Bulk Jira issue / Confluence page export by an unusual principal",
+      "rationale": "Export-as-CSV / export-as-PDF for a whole project is a classic exfil step.",
+      "signal": "Audit log: `Export issues` or `Export space` actions outside business hours / by non-owners."
+    },
+    {
+      "id": "atlassian-permission-scheme-mutation",
+      "severity": "high",
+      "title": "Permission scheme modified to grant 'Browse' to 'Anyone'",
+      "rationale": "ATO actors widen permissions to make later silent data theft easier.",
+      "signal": "Audit log: `Permission scheme updated` with `grants` containing `anonymous` or `group=anyone`."
+    },
+    {
+      "id": "atlassian-new-app-install",
+      "severity": "medium",
+      "title": "New Marketplace app installed",
+      "rationale": "Track install events; correlate with abnormal API-call patterns within 24h.",
+      "signal": "Audit log: `App installed` events; alert on installs by anyone outside the IT admin group."
+    },
+    {
+      "id": "atlassian-api-token-mass-creation",
+      "severity": "high",
+      "title": "Multiple API tokens created for the same user within a short window",
+      "rationale": "Repeated token creation often follows credential phishing.",
+      "signal": "id.atlassian.com audit: `api_token_created` count per account > 3 in 24h."
+    }
+  ],
+  "references": [
+    "https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/",
+    "https://developer.atlassian.com/cloud/jira/platform/oauth-2-3lo-apps/",
+    "https://support.atlassian.com/security-and-access-policies/",
+    "https://www.atlassian.com/trust"
+  ]
+}

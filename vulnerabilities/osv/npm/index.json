@@ -1,0 +1,967 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-16T05:44:28Z",
+  "generated_at": "2026-05-16T05:44:28Z",
+  "by_package": {
+    "@strapi/content-type-builder": [
+      {
+        "id": "GHSA-3xcq-8mjw-h6mx",
+        "file": "GHSA-3xcq-8mjw-h6mx.json",
+        "summary": "Strapi Vulnerable to SQL Injection in Content Type Builder",
+        "aliases": [
+          "CVE-2026-22599"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "@strapi/plugin-content-type-builder": [
+      {
+        "id": "GHSA-3xcq-8mjw-h6mx",
+        "file": "GHSA-3xcq-8mjw-h6mx.json",
+        "summary": "Strapi Vulnerable to SQL Injection in Content Type Builder",
+        "aliases": [
+          "CVE-2026-22599"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "@budibase/server": [
+      {
+        "id": "GHSA-44m2-crh7-f4q2",
+        "file": "GHSA-44m2-crh7-f4q2.json",
+        "summary": "Budibase: `PUT /api/datasources/:datasourceId` is protected only by `TABLE/READ` permission instead of builder access, allowing any authenticated app user to overwrite datasource connection parameters including host, port, and URL",
+        "aliases": [
+          "CVE-2026-45717"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-fgqv-jh4g-pvg2",
+        "file": "GHSA-fgqv-jh4g-pvg2.json",
+        "summary": "Budibase: SSRF Bypass via HTTP Redirect in REST Datasource Integration",
+        "aliases": [
+          "CVE-2026-45715"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rpj4-7x2v-wjrf",
+        "file": "GHSA-rpj4-7x2v-wjrf.json",
+        "summary": "Budibase: SSRF in AI Extract File Automation Step via Missing IP Blacklist Validation",
+        "aliases": [
+          "CVE-2026-45548"
+        ],
+        "severity": "high"
+      }
+    ],
+    "@strapi/plugin-users-permissions": [
+      {
+        "id": "GHSA-7mqx-wwh4-f9fw",
+        "file": "GHSA-7mqx-wwh4-f9fw.json",
+        "summary": "Strapi has a rate limit bypass on users-permissions plugin via attacker-controlled email keying",
+        "aliases": [
+          "CVE-2025-64526"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-hvp3-26wx-g2w4",
+        "file": "GHSA-hvp3-26wx-g2w4.json",
+        "summary": "Strapi: Password Reset Does Not Revoke Existing Refresh Sessions",
+        "aliases": [
+          "CVE-2026-22706"
+        ],
+        "severity": "low"
+      }
+    ],
+    "nuxt-og-image": [
+      {
+        "id": "GHSA-c2rm-g55x-8hr5",
+        "file": "GHSA-c2rm-g55x-8hr5.json",
+        "summary": "nuxt-og-image SSRF \u2014 bypass of GHSA-pqhr-mp3f-hrpp / v6.2.5 fix (IPv6 + redirect)",
+        "aliases": [
+          "CVE-2026-44589"
+        ],
+        "severity": "low"
+      }
+    ],
+    "@joplin/onenote-converter": [
+      {
+        "id": "GHSA-gcmj-c9gg-9vh6",
+        "file": "GHSA-gcmj-c9gg-9vh6.json",
+        "summary": "@joplin/onenote-converter: Path traversal in OneNote importer allows overwriting arbitrary files",
+        "aliases": [
+          "CVE-2026-22810"
+        ],
+        "severity": "high"
+      }
+    ],
+    "open-webui": [
+      {
+        "id": "GHSA-gf5m-wcrh-7928",
+        "file": "GHSA-gf5m-wcrh-7928.json",
+        "summary": "open-webui Vulnerable to Stored XSS via Model Description",
+        "aliases": [
+          "CVE-2026-44721"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-gf5m-wcrh-7928",
+        "file": "GHSA-gf5m-wcrh-7928.json",
+        "summary": "open-webui Vulnerable to Stored XSS via Model Description",
+        "aliases": [
+          "CVE-2026-44721"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-p4fx-23fq-jfg6",
+        "file": "GHSA-p4fx-23fq-jfg6.json",
+        "summary": "Open WebUI: Missing `workspace.tools` Authorization Check on Tool Update Endpoint Allows Privilege Escalation to Code Execution",
+        "aliases": [
+          "CVE-2026-45395"
+        ],
+        "severity": "high"
+      }
+    ],
+    "@strapi/admin": [
+      {
+        "id": "GHSA-hvp3-26wx-g2w4",
+        "file": "GHSA-hvp3-26wx-g2w4.json",
+        "summary": "Strapi: Password Reset Does Not Revoke Existing Refresh Sessions",
+        "aliases": [
+          "CVE-2026-22706"
+        ],
+        "severity": "low"
+      }
+    ],
+    "flowise": [
+      {
+        "id": "GHSA-m99r-2hxc-cp3q",
+        "file": "GHSA-m99r-2hxc-cp3q.json",
+        "summary": "Flowise has an MCP Security Bypass that Enables RCE",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "flowise-components": [
+      {
+        "id": "GHSA-m99r-2hxc-cp3q",
+        "file": "GHSA-m99r-2hxc-cp3q.json",
+        "summary": "Flowise has an MCP Security Bypass that Enables RCE",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "better-auth": [
+      {
+        "id": "GHSA-p6v2-xcpg-h6xw",
+        "file": "GHSA-p6v2-xcpg-h6xw.json",
+        "summary": "Better Auth: Rate limiter keys IPv6 addresses individually and is bypassable via prefix rotation",
+        "aliases": [
+          "CVE-2026-45364"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-p6v2-xcpg-h6xw",
+        "file": "GHSA-p6v2-xcpg-h6xw.json",
+        "summary": "Better Auth: Rate limiter keys IPv6 addresses individually and is bypassable via prefix rotation",
+        "aliases": [
+          "CVE-2026-45364"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-wxw3-q3m9-c3jr",
+        "file": "GHSA-wxw3-q3m9-c3jr.json",
+        "summary": "Better Auth: OAuth callback accepts mismatched `state` when cookie-backed state storage is used without PKCE",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "@strapi/upload": [
+      {
+        "id": "GHSA-pcw7-5633-82vv",
+        "file": "GHSA-pcw7-5633-82vv.json",
+        "summary": "Strapi Upload Plugin MIME Validation Bypass via Content API",
+        "aliases": [
+          "CVE-2026-22707"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "@strapi/strapi": [
+      {
+        "id": "GHSA-rjg2-95x7-8qmx",
+        "file": "GHSA-rjg2-95x7-8qmx.json",
+        "summary": "Strapi may leak sensitive data via relational filtering due to lack of query sanitization",
+        "aliases": [
+          "CVE-2026-27886"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "frontend-vue-next": [
+      {
+        "id": "MAL-2025-49410",
+        "file": "MAL-2025-49410.json",
+        "summary": "Malicious code in frontend-vue-next (npm)",
+        "aliases": []
+      }
+    ],
+    "apple-internal-dev-check": [
+      {
+        "id": "MAL-2026-3124",
+        "file": "MAL-2026-3124.json",
+        "summary": "Malicious code in apple-internal-dev-check (npm)",
+        "aliases": [
+          "GHSA-p9p8-h8cq-mhq7"
+        ]
+      }
+    ],
+    "agents-a365-runtime": [
+      {
+        "id": "MAL-2026-3149",
+        "file": "MAL-2026-3149.json",
+        "summary": "Malicious code in agents-a365-runtime (npm)",
+        "aliases": [
+          "GHSA-98v9-9pjp-6p9m"
+        ]
+      }
+    ],
+    "apple-cktool-api-v2": [
+      {
+        "id": "MAL-2026-3150",
+        "file": "MAL-2026-3150.json",
+        "summary": "Malicious code in apple-cktool-api-v2 (npm)",
+        "aliases": [
+          "GHSA-ff63-6wjc-q735"
+        ]
+      }
+    ],
+    "apple-cloud-infrastructure-monitor": [
+      {
+        "id": "MAL-2026-3151",
+        "file": "MAL-2026-3151.json",
+        "summary": "Malicious code in apple-cloud-infrastructure-monitor (npm)",
+        "aliases": [
+          "GHSA-gr3q-f7jp-gr5c"
+        ]
+      }
+    ],
+    "apple-coredata-internal-service": [
+      {
+        "id": "MAL-2026-3152",
+        "file": "MAL-2026-3152.json",
+        "summary": "Malicious code in apple-coredata-internal-service (npm)",
+        "aliases": [
+          "GHSA-h7g3-2m9j-5r36"
+        ]
+      }
+    ],
+    "apple-infra-final-escape": [
+      {
+        "id": "MAL-2026-3153",
+        "file": "MAL-2026-3153.json",
+        "summary": "Malicious code in apple-infra-final-escape (npm)",
+        "aliases": [
+          "GHSA-whv7-rqc3-rvhc"
+        ]
+      }
+    ],
+    "apple-infra-gcp-leak": [
+      {
+        "id": "MAL-2026-3154",
+        "file": "MAL-2026-3154.json",
+        "summary": "Malicious code in apple-infra-gcp-leak (npm)",
+        "aliases": [
+          "GHSA-wvgf-2hjr-hcw7"
+        ]
+      }
+    ],
+    "apple-infra-network-v2": [
+      {
+        "id": "MAL-2026-3155",
+        "file": "MAL-2026-3155.json",
+        "summary": "Malicious code in apple-infra-network-v2 (npm)",
+        "aliases": [
+          "GHSA-4mpf-c2vv-xfj5"
+        ]
+      }
+    ],
+    "apple-infra-ultimate-bypass": [
+      {
+        "id": "MAL-2026-3156",
+        "file": "MAL-2026-3156.json",
+        "summary": "Malicious code in apple-infra-ultimate-bypass (npm)",
+        "aliases": [
+          "GHSA-x5g9-r6x2-jpfv"
+        ]
+      }
+    ],
+    "apple-internal-auth-v3": [
+      {
+        "id": "MAL-2026-3157",
+        "file": "MAL-2026-3157.json",
+        "summary": "Malicious code in apple-internal-auth-v3 (npm)",
+        "aliases": [
+          "GHSA-r59g-3q6c-f5v6"
+        ]
+      }
+    ],
+    "apple-internal-pki-trust": [
+      {
+        "id": "MAL-2026-3158",
+        "file": "MAL-2026-3158.json",
+        "summary": "Malicious code in apple-internal-pki-trust (npm)",
+        "aliases": [
+          "GHSA-mc4h-h4q5-8hw9"
+        ]
+      }
+    ],
+    "apple-internal-pki-trust-v5": [
+      {
+        "id": "MAL-2026-3159",
+        "file": "MAL-2026-3159.json",
+        "summary": "Malicious code in apple-internal-pki-trust-v5 (npm)",
+        "aliases": [
+          "GHSA-cgj9-rq56-vc54"
+        ]
+      }
+    ],
+    "apple-internal-pki-utils": [
+      {
+        "id": "MAL-2026-3160",
+        "file": "MAL-2026-3160.json",
+        "summary": "Malicious code in apple-internal-pki-utils (npm)",
+        "aliases": [
+          "GHSA-wpjx-fcmm-7p5h"
+        ]
+      }
+    ],
+    "apple-internal-telemetry-service": [
+      {
+        "id": "MAL-2026-3161",
+        "file": "MAL-2026-3161.json",
+        "summary": "Malicious code in apple-internal-telemetry-service (npm)",
+        "aliases": [
+          "GHSA-g2w3-7m75-fpwv"
+        ]
+      }
+    ],
+    "apple-pki-cert-validator": [
+      {
+        "id": "MAL-2026-3162",
+        "file": "MAL-2026-3162.json",
+        "summary": "Malicious code in apple-pki-cert-validator (npm)",
+        "aliases": [
+          "GHSA-9rmm-mp3q-456f"
+        ]
+      }
+    ],
+    "npm-global-util": [
+      {
+        "id": "MAL-2026-3163",
+        "file": "MAL-2026-3163.json",
+        "summary": "Malicious code in npm-global-util (npm)",
+        "aliases": [
+          "GHSA-56m6-68r8-r7p4"
+        ]
+      }
+    ],
+    "apple-security-internal-scanner-v3": [
+      {
+        "id": "MAL-2026-3188",
+        "file": "MAL-2026-3188.json",
+        "summary": "Malicious code in apple-security-internal-scanner-v3 (npm)",
+        "aliases": [
+          "GHSA-fqqh-jjx6-5vcg"
+        ]
+      }
+    ],
+    "@design-system-coopeuch/web": [
+      {
+        "id": "MAL-2026-3653",
+        "file": "MAL-2026-3653.json",
+        "summary": "Malicious code in @design-system-coopeuch/web (npm)",
+        "aliases": []
+      }
+    ],
+    "ethers-common": [
+      {
+        "id": "MAL-2026-3707",
+        "file": "MAL-2026-3707.json",
+        "summary": "Malicious code in ethers-common (npm)",
+        "aliases": []
+      }
+    ],
+    "ethers-io": [
+      {
+        "id": "MAL-2026-3708",
+        "file": "MAL-2026-3708.json",
+        "summary": "Malicious code in ethers-io (npm)",
+        "aliases": []
+      }
+    ],
+    "hardhat-core": [
+      {
+        "id": "MAL-2026-3713",
+        "file": "MAL-2026-3713.json",
+        "summary": "Malicious code in hardhat-core (npm)",
+        "aliases": []
+      }
+    ],
+    "hello-world-pkg-value-value-p": [
+      {
+        "id": "MAL-2026-3714",
+        "file": "MAL-2026-3714.json",
+        "summary": "Malicious code in hello-world-pkg-value-value-p (npm)",
+        "aliases": []
+      }
+    ],
+    "solc-helper": [
+      {
+        "id": "MAL-2026-3715",
+        "file": "MAL-2026-3715.json",
+        "summary": "Malicious code in solc-helper (npm)",
+        "aliases": []
+      }
+    ],
+    "truffle-helper": [
+      {
+        "id": "MAL-2026-3716",
+        "file": "MAL-2026-3716.json",
+        "summary": "Malicious code in truffle-helper (npm)",
+        "aliases": []
+      }
+    ],
+    "truffle-js": [
+      {
+        "id": "MAL-2026-3717",
+        "file": "MAL-2026-3717.json",
+        "summary": "Malicious code in truffle-js (npm)",
+        "aliases": []
+      }
+    ],
+    "web3-core-js": [
+      {
+        "id": "MAL-2026-3719",
+        "file": "MAL-2026-3719.json",
+        "summary": "Malicious code in web3-core-js (npm)",
+        "aliases": []
+      }
+    ],
+    "npmjs_solc-helper": [
+      {
+        "id": "MAL-2026-3723",
+        "file": "MAL-2026-3723.json",
+        "summary": "Malicious code in npmjs_solc-helper (npm)",
+        "aliases": []
+      }
+    ],
+    "@convera/ui-shared": [
+      {
+        "id": "MAL-2026-3724",
+        "file": "MAL-2026-3724.json",
+        "summary": "Malicious code in @convera/ui-shared (npm)",
+        "aliases": []
+      }
+    ],
+    "node-ipc": [
+      {
+        "id": "MAL-2026-3744",
+        "file": "MAL-2026-3744.json",
+        "summary": "Malicious code in node-ipc (npm)",
+        "aliases": []
+      }
+    ],
+    "@aiscene/aiserver": [
+      {
+        "id": "MAL-2026-3747",
+        "file": "MAL-2026-3747.json",
+        "summary": "Malicious code in @aiscene/aiserver (npm)",
+        "aliases": []
+      }
+    ],
+    "@pelmnaads/naads-common-logger": [
+      {
+        "id": "MAL-2026-3748",
+        "file": "MAL-2026-3748.json",
+        "summary": "Malicious code in @pelmnaads/naads-common-logger (npm)",
+        "aliases": []
+      }
+    ],
+    "@webapp-next/store": [
+      {
+        "id": "MAL-2026-3749",
+        "file": "MAL-2026-3749.json",
+        "summary": "Malicious code in @webapp-next/store (npm)",
+        "aliases": []
+      }
+    ],
+    "bigint.fs": [
+      {
+        "id": "MAL-2026-3750",
+        "file": "MAL-2026-3750.json",
+        "summary": "Malicious code in bigint.fs (npm)",
+        "aliases": []
+      }
+    ],
+    "cache-poisoning-pwn-demo": [
+      {
+        "id": "MAL-2026-3751",
+        "file": "MAL-2026-3751.json",
+        "summary": "Malicious code in cache-poisoning-pwn-demo (npm)",
+        "aliases": []
+      }
+    ],
+    "cdp-core": [
+      {
+        "id": "MAL-2026-3752",
+        "file": "MAL-2026-3752.json",
+        "summary": "Malicious code in cdp-core (npm)",
+        "aliases": []
+      }
+    ],
+    "chai-as-regulated": [
+      {
+        "id": "MAL-2026-3753",
+        "file": "MAL-2026-3753.json",
+        "summary": "Malicious code in chai-as-regulated (npm)",
+        "aliases": []
+      }
+    ],
+    "chalk-pack": [
+      {
+        "id": "MAL-2026-3754",
+        "file": "MAL-2026-3754.json",
+        "summary": "Malicious code in chalk-pack (npm)",
+        "aliases": []
+      }
+    ],
+    "chalk-utils": [
+      {
+        "id": "MAL-2026-3755",
+        "file": "MAL-2026-3755.json",
+        "summary": "Malicious code in chalk-utils (npm)",
+        "aliases": []
+      }
+    ],
+    "cheerio-tool": [
+      {
+        "id": "MAL-2026-3756",
+        "file": "MAL-2026-3756.json",
+        "summary": "Malicious code in cheerio-tool (npm)",
+        "aliases": []
+      }
+    ],
+    "claw-subagent-service": [
+      {
+        "id": "MAL-2026-3757",
+        "file": "MAL-2026-3757.json",
+        "summary": "Malicious code in claw-subagent-service (npm)",
+        "aliases": []
+      }
+    ],
+    "dotenvv-tool": [
+      {
+        "id": "MAL-2026-3758",
+        "file": "MAL-2026-3758.json",
+        "summary": "Malicious code in dotenvv-tool (npm)",
+        "aliases": []
+      }
+    ],
+    "env-threads": [
+      {
+        "id": "MAL-2026-3759",
+        "file": "MAL-2026-3759.json",
+        "summary": "Malicious code in env-threads (npm)",
+        "aliases": []
+      }
+    ],
+    "ethers-abstract-signer": [
+      {
+        "id": "MAL-2026-3760",
+        "file": "MAL-2026-3760.json",
+        "summary": "Malicious code in ethers-abstract-signer (npm)",
+        "aliases": []
+      }
+    ],
+    "ethers-signing-key": [
+      {
+        "id": "MAL-2026-3761",
+        "file": "MAL-2026-3761.json",
+        "summary": "Malicious code in ethers-signing-key (npm)",
+        "aliases": []
+      }
+    ],
+    "exxpress-tool": [
+      {
+        "id": "MAL-2026-3762",
+        "file": "MAL-2026-3762.json",
+        "summary": "Malicious code in exxpress-tool (npm)",
+        "aliases": []
+      }
+    ],
+    "exxpress-utils": [
+      {
+        "id": "MAL-2026-3763",
+        "file": "MAL-2026-3763.json",
+        "summary": "Malicious code in exxpress-utils (npm)",
+        "aliases": []
+      }
+    ],
+    "glob-helper": [
+      {
+        "id": "MAL-2026-3764",
+        "file": "MAL-2026-3764.json",
+        "summary": "Malicious code in glob-helper (npm)",
+        "aliases": []
+      }
+    ],
+    "joi-pack": [
+      {
+        "id": "MAL-2026-3765",
+        "file": "MAL-2026-3765.json",
+        "summary": "Malicious code in joi-pack (npm)",
+        "aliases": []
+      }
+    ],
+    "nock-helper": [
+      {
+        "id": "MAL-2026-3766",
+        "file": "MAL-2026-3766.json",
+        "summary": "Malicious code in nock-helper (npm)",
+        "aliases": []
+      }
+    ],
+    "node-ci-utils": [
+      {
+        "id": "MAL-2026-3767",
+        "file": "MAL-2026-3767.json",
+        "summary": "Malicious code in node-ci-utils (npm)",
+        "aliases": []
+      }
+    ],
+    "npmjs_web3-util": [
+      {
+        "id": "MAL-2026-3768",
+        "file": "MAL-2026-3768.json",
+        "summary": "Malicious code in npmjs_web3-util (npm)",
+        "aliases": []
+      }
+    ],
+    "prettier-lint-lenz": [
+      {
+        "id": "MAL-2026-3769",
+        "file": "MAL-2026-3769.json",
+        "summary": "Malicious code in prettier-lint-lenz (npm)",
+        "aliases": []
+      }
+    ],
+    "prisma-callback": [
+      {
+        "id": "MAL-2026-3770",
+        "file": "MAL-2026-3770.json",
+        "summary": "Malicious code in prisma-callback (npm)",
+        "aliases": []
+      }
+    ],
+    "request-logger-canary": [
+      {
+        "id": "MAL-2026-3771",
+        "file": "MAL-2026-3771.json",
+        "summary": "Malicious code in request-logger-canary (npm)",
+        "aliases": []
+      }
+    ],
+    "rimraf-utils": [
+      {
+        "id": "MAL-2026-3772",
+        "file": "MAL-2026-3772.json",
+        "summary": "Malicious code in rimraf-utils (npm)",
+        "aliases": []
+      }
+    ],
+    "sysbin": [
+      {
+        "id": "MAL-2026-3773",
+        "file": "MAL-2026-3773.json",
+        "summary": "Malicious code in sysbin (npm)",
+        "aliases": []
+      }
+    ],
+    "ts-build-optimize": [
+      {
+        "id": "MAL-2026-3774",
+        "file": "MAL-2026-3774.json",
+        "summary": "Malicious code in ts-build-optimize (npm)",
+        "aliases": []
+      }
+    ],
+    "tsliverhome": [
+      {
+        "id": "MAL-2026-3775",
+        "file": "MAL-2026-3775.json",
+        "summary": "Malicious code in tsliverhome (npm)",
+        "aliases": []
+      }
+    ],
+    "typography-stylecss": [
+      {
+        "id": "MAL-2026-3776",
+        "file": "MAL-2026-3776.json",
+        "summary": "Malicious code in typography-stylecss (npm)",
+        "aliases": []
+      }
+    ],
+    "vue-template-compiler-plugin": [
+      {
+        "id": "MAL-2026-3777",
+        "file": "MAL-2026-3777.json",
+        "summary": "Malicious code in vue-template-compiler-plugin (npm)",
+        "aliases": []
+      }
+    ],
+    "alicloud-pop-core": [
+      {
+        "id": "MAL-2026-3779",
+        "file": "MAL-2026-3779.json",
+        "summary": "Malicious code in alicloud-pop-core (npm)",
+        "aliases": [
+          "GHSA-mm75-x3w9-c25r"
+        ]
+      }
+    ],
+    "aliyun-internal-config": [
+      {
+        "id": "MAL-2026-3780",
+        "file": "MAL-2026-3780.json",
+        "summary": "Malicious code in aliyun-internal-config (npm)",
+        "aliases": [
+          "GHSA-67cr-79v2-fp32"
+        ]
+      }
+    ],
+    "atlassian-jenkins-helper-utils": [
+      {
+        "id": "MAL-2026-3781",
+        "file": "MAL-2026-3781.json",
+        "summary": "Malicious code in atlassian-jenkins-helper-utils (npm)",
+        "aliases": [
+          "GHSA-fv63-2mmg-59wx"
+        ]
+      }
+    ],
+    "atlassian-marathon-asset-pipeline": [
+      {
+        "id": "MAL-2026-3782",
+        "file": "MAL-2026-3782.json",
+        "summary": "Malicious code in atlassian-marathon-asset-pipeline (npm)",
+        "aliases": [
+          "GHSA-9gpq-xqfp-fc5x"
+        ]
+      }
+    ],
+    "babel-6-compatibility": [
+      {
+        "id": "MAL-2026-3783",
+        "file": "MAL-2026-3783.json",
+        "summary": "Malicious code in babel-6-compatibility (npm)",
+        "aliases": [
+          "GHSA-g73c-gvfg-p745"
+        ]
+      }
+    ],
+    "babel-6-compatibility-utils": [
+      {
+        "id": "MAL-2026-3784",
+        "file": "MAL-2026-3784.json",
+        "summary": "Malicious code in babel-6-compatibility-utils (npm)",
+        "aliases": [
+          "GHSA-v7j4-27f9-8w4v"
+        ]
+      }
+    ],
+    "browser-interaction-time-demo": [
+      {
+        "id": "MAL-2026-3785",
+        "file": "MAL-2026-3785.json",
+        "summary": "Malicious code in browser-interaction-time-demo (npm)",
+        "aliases": [
+          "GHSA-664m-cw9c-fqgv"
+        ]
+      }
+    ],
+    "browser-interaction-time-utils": [
+      {
+        "id": "MAL-2026-3786",
+        "file": "MAL-2026-3786.json",
+        "summary": "Malicious code in browser-interaction-time-utils (npm)",
+        "aliases": [
+          "GHSA-39gr-8vr4-pr2p"
+        ]
+      }
+    ],
+    "frank-at-alibaba-internal": [
+      {
+        "id": "MAL-2026-3787",
+        "file": "MAL-2026-3787.json",
+        "summary": "Malicious code in frank-at-alibaba-internal (npm)",
+        "aliases": [
+          "GHSA-hgq6-j7x3-3p37"
+        ]
+      }
+    ],
+    "jenkins-for-jira": [
+      {
+        "id": "MAL-2026-3788",
+        "file": "MAL-2026-3788.json",
+        "summary": "Malicious code in jenkins-for-jira (npm)",
+        "aliases": [
+          "GHSA-5wcf-4xgg-jf7f"
+        ]
+      }
+    ],
+    "jenkins-forge-app": [
+      {
+        "id": "MAL-2026-3789",
+        "file": "MAL-2026-3789.json",
+        "summary": "Malicious code in jenkins-forge-app (npm)",
+        "aliases": [
+          "GHSA-vx6x-92w6-f9gc"
+        ]
+      }
+    ],
+    "jenkins-forge-utils": [
+      {
+        "id": "MAL-2026-3790",
+        "file": "MAL-2026-3790.json",
+        "summary": "Malicious code in jenkins-forge-utils (npm)",
+        "aliases": [
+          "GHSA-4w53-v6c9-xmmg"
+        ]
+      }
+    ],
+    "json-pretty-logs": [
+      {
+        "id": "MAL-2026-3791",
+        "file": "MAL-2026-3791.json",
+        "summary": "Malicious code in json-pretty-logs (npm)",
+        "aliases": [
+          "GHSA-4gww-8cvc-jcx5"
+        ]
+      }
+    ],
+    "marathon-assets": [
+      {
+        "id": "MAL-2026-3792",
+        "file": "MAL-2026-3792.json",
+        "summary": "Malicious code in marathon-assets (npm)",
+        "aliases": [
+          "GHSA-vm5r-rvm8-p85f"
+        ]
+      }
+    ],
+    "simple-date-diff-utils": [
+      {
+        "id": "MAL-2026-3793",
+        "file": "MAL-2026-3793.json",
+        "summary": "Malicious code in simple-date-diff-utils (npm)",
+        "aliases": [
+          "GHSA-v86f-6r8q-pw54"
+        ]
+      }
+    ],
+    "dowload_ebok_also_an_octopus_by_maggie_tokuda_hall_ah2ip": [
+      {
+        "id": "MAL-2026-3794",
+        "file": "MAL-2026-3794.json",
+        "summary": "Malicious code in dowload_ebok_also_an_octopus_by_maggie_tokuda_hall_ah2ip (npm)",
+        "aliases": [
+          "GHSA-5h56-6f6c-4m4f"
+        ]
+      }
+    ],
+    "dowload_ebok_como_leer_el_futbol_by_ruud_gullit_8qd97": [
+      {
+        "id": "MAL-2026-3795",
+        "file": "MAL-2026-3795.json",
+        "summary": "Malicious code in dowload_ebok_como_leer_el_futbol_by_ruud_gullit_8qd97 (npm)",
+        "aliases": [
+          "GHSA-26wq-8rv4-pr98"
+        ]
+      }
+    ],
+    "dowload_ebok_los_enemigos_del_comercio_by_antonio_escohotado_6t2l4": [
+      {
+        "id": "MAL-2026-3796",
+        "file": "MAL-2026-3796.json",
+        "summary": "Malicious code in dowload_ebok_los_enemigos_del_comercio_by_antonio_escohotado_6t2l4 (npm)",
+        "aliases": [
+          "GHSA-r33v-27px-qhf6"
+        ]
+      }
+    ],
+    "dowload_ebok_stalking_jack_the_ripper_by_kerri_maniscalco_james_patterson_b529t": [
+      {
+        "id": "MAL-2026-3797",
+        "file": "MAL-2026-3797.json",
+        "summary": "Malicious code in dowload_ebok_stalking_jack_the_ripper_by_kerri_maniscalco_james_patterson_b529t (npm)",
+        "aliases": [
+          "GHSA-gx89-7jf6-wf89"
+        ]
+      }
+    ],
+    "dowload_ebok_terra_incognita_urania_by_ian_mcdonald_um4vu": [
+      {
+        "id": "MAL-2026-3798",
+        "file": "MAL-2026-3798.json",
+        "summary": "Malicious code in dowload_ebok_terra_incognita_urania_by_ian_mcdonald_um4vu (npm)",
+        "aliases": [
+          "GHSA-46mf-fcf5-frhf"
+        ]
+      }
+    ],
+    "dowload_ebok_the_testament_of_solomon_by_king_solomon_frederick_cornwallis_conybeare_5201c": [
+      {
+        "id": "MAL-2026-3799",
+        "file": "MAL-2026-3799.json",
+        "summary": "Malicious code in dowload_ebok_the_testament_of_solomon_by_king_solomon_frederick_cornwallis_conybeare_5201c (npm)",
+        "aliases": [
+          "GHSA-cgc9-hq34-3978"
+        ]
+      }
+    ],
+    "dowload_ebok_the_upside_of_unrequited_by_becky_albertalli_2jgmw": [
+      {
+        "id": "MAL-2026-3800",
+        "file": "MAL-2026-3800.json",
+        "summary": "Malicious code in dowload_ebok_the_upside_of_unrequited_by_becky_albertalli_2jgmw (npm)",
+        "aliases": [
+          "GHSA-p3hv-ff6m-fcxx"
+        ]
+      }
+    ],
+    "the_secret_of_running_by_hans_van_dijk_ron_van_megen_02jsk": [
+      {
+        "id": "MAL-2026-3801",
+        "file": "MAL-2026-3801.json",
+        "summary": "Malicious code in the_secret_of_running_by_hans_van_dijk_ron_van_megen_02jsk (npm)",
+        "aliases": [
+          "GHSA-gqq6-4xhc-x38f"
+        ]
+      }
+    ],
+    "@datatrain/passenger-v3": [
+      {
+        "id": "MAL-2026-3802",
+        "file": "MAL-2026-3802.json",
+        "summary": "Malicious code in @datatrain/passenger-v3 (npm)",
+        "aliases": []
+      }
+    ]
+  }
+}

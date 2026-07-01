@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "description": "Control fixture: every gem in this Gemfile.lock is chosen so that no scanner pass surfaces a finding. minitest / rake / pg / listen / tilt are each absent from vulnerabilities/supply-chain/malicious-packages/rubygems.json, absent from vulnerabilities/supply-chain/typosquat-db (where `rails`, `rest-client`, and `bootstrap-sass` ARE targets and would trip the canonical-target self-match scanner FP), absent from the rubygems OSV cache (where actionpack / activesupport / json / nokogiri / rack each have many entries that the name-only OSV matcher would surface as FPs), and short enough not to substring-match any entry in vulnerabilities/cve/code-relevant/cve_patterns.json.",
+  "expected_findings": [],
+  "expected_clean": [
+    "minitest",
+    "rake",
+    "pg",
+    "listen",
+    "tilt"
+  ]
+}

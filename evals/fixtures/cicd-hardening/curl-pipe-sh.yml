@@ -1,0 +1,14 @@
+# Fixture: 'curl ... | sh' executes whatever the remote server returns
+# at job-time. If the URL ever moves, gets MITM'd, or the owner is
+# compromised, code runs as the workflow with secrets in scope. See
+# skills/cicd-security/checklists/github_actions_hardening.yaml rule
+# 'curl-pipe-sh'.
+name: CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+      - run: curl -sSL https://example.com/install.sh | sh
+      - run: ./build.sh

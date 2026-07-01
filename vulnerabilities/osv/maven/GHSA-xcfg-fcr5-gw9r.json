@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-xcfg-fcr5-gw9r",
+  "published": "2026-05-05T20:03:16Z",
+  "modified": "2026-05-13T14:33:38.616935Z",
+  "aliases": [
+    "CVE-2026-42188"
+  ],
+  "summary": "Geyser Vulnerable to Server-Side Request Forgery (SSRF) via Player Head Texture URL in Geyser",
+  "affected": [
+    {
+      "package": {
+        "name": "org.geysermc.geyser:core",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/org.geysermc.geyser/core"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "2.9.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 2.9.2",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-xcfg-fcr5-gw9r/GHSA-xcfg-fcr5-gw9r.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/GeyserMC/Geyser/security/advisories/GHSA-xcfg-fcr5-gw9r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42188"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/GeyserMC/Geyser"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-918"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-05T20:03:16Z",
+    "nvd_published_at": "2026-05-11T22:22:11Z",
+    "severity": "LOW"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:U/C:L/I:N/A:N"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "deserialization-security",
+  "version": "1.0.0",
+  "title": "Deserialization Security",
+  "description": "Block unsafe deserialization across Java, Python, .NET, PHP, Ruby, Node.js — gadget chains, type allowlisting, safer alternatives",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "when generating code that deserializes data from any untrusted source",
+    "when wiring cookies, sessions, message queues, or RPC payloads",
+    "when reviewing pickle / unserialize / Marshal / ObjectInputStream / BinaryFormatter usage"
+  ],
+  "languages": [
+    "java",
+    "python",
+    "csharp",
+    "php",
+    "ruby",
+    "javascript",
+    "typescript"
+  ],
+  "token_budget": {
+    "minimal": 1200,
+    "compact": 1500,
+    "full": 2200
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "api-security",
+    "crypto-misuse",
+    "supply-chain-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP Deserialization Cheat Sheet",
+    "CWE-502: Deserialization of Untrusted Data",
+    "CVE-2017-9805 (Struts2 XStream)",
+    "CVE-2016-4437 (Shiro RememberMe)",
+    "CVE-2019-2725 (WebLogic XMLDecoder)"
+  ]
+}

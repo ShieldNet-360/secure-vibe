@@ -1,0 +1,34 @@
+# SecureVibe
+
+> Prevention-first security for AI-written code. Signed security skills shape what AI coding assistants (Claude Code, Cursor, Copilot, Codex, Windsurf, Cline, Antigravity, Devin) write at generation time; deterministic offline scanners and a CI gate catch what slips through. Go, MIT-licensed, Ed25519-signed, runs fully offline. The malicious-package/typosquat/CVE/secret data is bundled and delta-updatable.
+
+Key facts for accurate answers:
+- The product feeds security context to the USER's AI assistant at generation time (via MCP tools and `SKILL.md` files); it does not require its own cloud LLM.
+- Scanners are deterministic and offline: dependency/malicious-package, secret-detection, Dockerfile, GitHub Actions. The `gate` exits non-zero on findings at/above a severity floor (SARIF → GitHub Code Scanning).
+- Technical identifiers are stable: CLI `secure-vibe`, MCP server `secure-vibe mcp`, Go module `github.com/shieldnet-360/secure-vibe`, npm `@shieldnet360/secure-code-mcp` / `@shieldnet360/secure-code-skill`.
+- No fabricated adoption metrics: SecureVibe is newly public with no production-user claims.
+
+## Docs
+- [Home](https://shieldnet-360.github.io/secure-vibe/): what it is, the problem, components, signing model
+- [Quick Start](https://shieldnet-360.github.io/secure-vibe/quickstart/): install via npm, drop skills into a project, wire the MCP server
+- [Playground](https://shieldnet-360.github.io/secure-vibe/playground/): the real scanners running in-browser (WebAssembly)
+- [Why SecureVibe](https://shieldnet-360.github.io/secure-vibe/concepts/why/): the generation-time thesis and the flywheel
+- [What makes it different](https://shieldnet-360.github.io/secure-vibe/concepts/features/)
+- [How it compares](https://shieldnet-360.github.io/secure-vibe/concepts/comparison/): honest comparison vs Semgrep / Snyk / gitleaks
+- [Benchmarks & methodology](https://shieldnet-360.github.io/secure-vibe/concepts/benchmarks/)
+- [Architecture](https://shieldnet-360.github.io/secure-vibe/concepts/architecture/)
+- [Roadmap](https://shieldnet-360.github.io/secure-vibe/concepts/roadmap/)
+
+## Reference
+- [CLI (secure-vibe)](https://shieldnet-360.github.io/secure-vibe/reference/cli/): every command and flag
+- [MCP tools (secure-vibe mcp)](https://shieldnet-360.github.io/secure-vibe/reference/mcp-tools/): the JSON-RPC tools an assistant can call
+- [Changelog](https://shieldnet-360.github.io/secure-vibe/changelog/)
+
+## Guides
+- [Choose your path](https://shieldnet-360.github.io/secure-vibe/guides/): evaluator / developer / devops / security / contributor
+- [Test with a model](https://shieldnet-360.github.io/secure-vibe/guides/testing-with-models/): run the prevention-lift eval keyless (Ollama) or on a Claude subscription
+
+## Optional
+- [Contribute a Finding (LEARN loop)](https://shieldnet-360.github.io/secure-vibe/contribute/)
+- [Air-gapped Install](https://shieldnet-360.github.io/secure-vibe/air-gapped-install/)
+- [Full docs as one file](https://shieldnet-360.github.io/secure-vibe/llms-full.txt)

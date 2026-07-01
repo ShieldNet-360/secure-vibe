@@ -1,0 +1,35 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      event-stream:
+        specifier: 3.3.6
+        version: 3.3.6
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+
+packages:
+
+  'event-stream@3.3.6':
+    resolution: {integrity: sha512-fixturehashfixturehashfixturehashfixtureha==}
+
+  'lodash@4.17.21':
+    resolution: {integrity: sha512-fixturehashfixturehashfixturehashfixtureha==}
+    engines: {node: '>=8'}
+
+  'react@18.2.0':
+    resolution: {integrity: sha512-fixturehashfixturehashfixturehashfixtureha==}
+
+snapshots:
+
+  'event-stream@3.3.6': {}

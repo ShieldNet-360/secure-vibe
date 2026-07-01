@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "description": "Control fixture: a v3 package-lock.json with mainstream npm packages chosen to clear all four scanner passes. semver / minimatch / acorn / ajv are each absent from vulnerabilities/supply-chain/typosquat-db/known_typosquats.json's npm target list (express/react/lodash were avoided because they ARE typosquat targets and would trip the canonical-target self-match scanner FP), absent from the npm OSV cache, and short enough that they do not substring-match any entry in vulnerabilities/cve/code-relevant/cve_patterns.json (glob was avoided because it is a prefix of `globalprotect` in CVE-2024-3400). scan_dependencies must return zero findings on this fixture.",
+  "expected_findings": [],
+  "expected_clean": [
+    "semver",
+    "minimatch",
+    "acorn",
+    "ajv"
+  ]
+}

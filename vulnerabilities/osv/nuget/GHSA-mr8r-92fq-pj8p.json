@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-mr8r-92fq-pj8p",
+  "published": "2026-04-23T21:40:29Z",
+  "modified": "2026-04-28T10:44:19.113248595Z",
+  "aliases": [
+    "CVE-2026-40891"
+  ],
+  "related": [
+    "CGA-px7w-f925-vh5p"
+  ],
+  "summary": "OpenTelemetry dotnet: Unbounded `grpc-status-details-bin` parsing in OTLP/gRPC retry handling",
+  "affected": [
+    {
+      "package": {
+        "name": "OpenTelemetry.Exporter.OpenTelemetryProtocol",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/OpenTelemetry.Exporter.OpenTelemetryProtocol"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "1.13.1"
+            },
+            {
+              "fixed": "1.15.3"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.13.1",
+        "1.14.0",
+        "1.15.0",
+        "1.15.1",
+        "1.15.2"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-mr8r-92fq-pj8p/GHSA-mr8r-92fq-pj8p.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet/security/advisories/GHSA-mr8r-92fq-pj8p"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40891"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet/pull/5980"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet/pull/7064"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-789"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-23T21:40:29Z",
+    "nvd_published_at": "2026-04-23T18:16:28Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-04-28"
+}

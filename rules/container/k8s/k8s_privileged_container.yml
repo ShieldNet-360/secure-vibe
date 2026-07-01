@@ -1,0 +1,35 @@
+schema_version: "1.0"
+title: Kubernetes privileged container created
+id: cc33dd44-ee55-4ff6-7890-abcdef123456
+status: stable
+level: high
+description: |
+  Detects creation of a Pod with `securityContext.privileged: true` or
+  with `hostPID`, `hostNetwork`, or `hostIPC` enabled. Privileged
+  containers can break out to the underlying node.
+references:
+  - https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+  - https://attack.mitre.org/techniques/T1611/
+tags:
+  - attack.t1611
+  - attack.privilege_escalation
+logsource:
+  product: k8s
+  service: audit
+detection:
+  selection:
+    objectRef.resource: pods
+    verb:
+      - create
+      - update
+    requestObject.spec.containers.securityContext.privileged: true
+  selection_host:
+    objectRef.resource: pods
+    verb:
+      - create
+      - update
+    requestObject.spec.hostPID: true
+  condition: 1 of selection*
+falsepositives:
+  - System DaemonSets (node-exporter, csi drivers) that legitimately
+    need privileged containers.

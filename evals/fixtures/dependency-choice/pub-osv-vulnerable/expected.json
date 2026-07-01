@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-06-20",
+  "description": "End-to-end pubspec.lock -> OSV path. http@0.13.2 is in the affected range (<0.13.3) of GHSA-4rgh-jx4f-qfcq (header injection), so the offline pub OSV index emits one osv-advisory finding. meta@1.8.0 is a benign control with no advisory in the index. Source: vulnerabilities/osv/pub/GHSA-4rgh-jx4f-qfcq.json.",
+  "expected_findings": [
+    {
+      "ecosystem": "pub",
+      "package": "http",
+      "version": "0.13.2",
+      "kind": "osv",
+      "source": "vulnerabilities/osv/pub/GHSA-4rgh-jx4f-qfcq.json"
+    }
+  ],
+  "expected_clean": ["meta"]
+}

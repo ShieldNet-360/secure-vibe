@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-x3r2-fj3r-g5mv",
+  "published": "2026-05-12T15:09:08Z",
+  "modified": "2026-05-13T16:39:07.230156Z",
+  "aliases": [
+    "CVE-2026-45091"
+  ],
+  "summary": "sealed-env: TOTP secret embedded in unseal token payload (enterprise mode)",
+  "affected": [
+    {
+      "package": {
+        "name": "sealed-env",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/sealed-env"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.1.0-alpha.4"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-x3r2-fj3r-g5mv/GHSA-x3r2-fj3r-g5mv.json"
+      }
+    },
+    {
+      "package": {
+        "name": "io.github.davidalmeidac:sealed-env-core",
+        "ecosystem": "Maven",
+        "purl": "pkg:maven/io.github.davidalmeidac/sealed-env-core"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.1.0-alpha.4"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.1.0-alpha.1",
+        "0.1.0-alpha.2",
+        "0.1.0-alpha.3"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-x3r2-fj3r-g5mv/GHSA-x3r2-fj3r-g5mv.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/davidalmeidac/sealed-env/security/advisories/GHSA-x3r2-fj3r-g5mv"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45091"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/davidalmeidac/sealed-env"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-200",
+      "CWE-522"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-12T15:09:08Z",
+    "nvd_published_at": "2026-05-12T14:17:08Z",
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

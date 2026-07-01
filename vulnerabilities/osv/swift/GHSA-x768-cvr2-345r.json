@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.7.3",
+  "id": "GHSA-x768-cvr2-345r",
+  "published": "2024-03-29T19:05:26Z",
+  "modified": "2024-03-29T19:26:44.778170Z",
+  "aliases": [
+    "CVE-2024-28867"
+  ],
+  "related": [
+    "CVE-2024-28867"
+  ],
+  "summary": "Un-sanitized metric name or labels can be used to take over exported metrics",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/swift-server/swift-prometheus",
+        "ecosystem": "SwiftURL",
+        "purl": "pkg:swift/github.com/swift-server/swift-prometheus"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "2.0.0-alpha.1"
+            },
+            {
+              "fixed": "2.0.0-alpha.2"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.0.0-alpha.1"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2024/03/GHSA-x768-cvr2-345r/GHSA-x768-cvr2-345r.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/swift-server/swift-prometheus/security/advisories/GHSA-x768-cvr2-345r"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-28867"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/swift-server/swift-prometheus/commit/bfcd4bbfabe11aae4b035424ee9724582e288501"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/swift-server/swift-prometheus"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-74"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2024-03-29T19:05:26Z",
+    "nvd_published_at": "2024-03-29T15:15:11Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N"
+    }
+  ],
+  "last_updated": "2024-03-29"
+}

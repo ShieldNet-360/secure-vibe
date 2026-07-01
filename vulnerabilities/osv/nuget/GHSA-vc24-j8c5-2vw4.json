@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-vc24-j8c5-2vw4",
+  "published": "2026-04-29T18:30:51Z",
+  "modified": "2026-05-08T19:47:36.949588Z",
+  "aliases": [
+    "CVE-2026-41483"
+  ],
+  "summary": "OpenTelemetry.Resources.Azure has an unbounded HTTP response body read",
+  "affected": [
+    {
+      "package": {
+        "name": "OpenTelemetry.Resources.Azure",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/OpenTelemetry.Resources.Azure"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.15.1-beta.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 1.15.0-beta.1",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-vc24-j8c5-2vw4/GHSA-vc24-j8c5-2vw4.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet-contrib/security/advisories/GHSA-vc24-j8c5-2vw4"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41483"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet-contrib/pull/4121"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet-contrib/commit/9d8a364af919f62c088edd641c554cb720198964"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/open-telemetry/opentelemetry-dotnet-contrib"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-770"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-29T18:30:51Z",
+    "nvd_published_at": "2026-05-06T22:16:25Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-08"
+}

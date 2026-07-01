@@ -1,0 +1,25 @@
+# Fixture: self-hosted-runner.yml
+#
+# Workflow that runs on a self-hosted runner. There is no rule in
+# the current github_actions_hardening.yaml checklist that targets
+# self-hosted-runner risk directly, so this fixture is included
+# (a) as a baseline for future rule expansion and (b) to confirm
+# the scanner does NOT regress and start emitting spurious
+# self-hosted findings before such a rule is reviewed in.
+#
+# The workflow itself is otherwise hardened: read-only permissions,
+# SHA-pinned actions, no remote-script execution, no untrusted-
+# expression injection.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: [self-hosted, linux, x64]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - run: make build

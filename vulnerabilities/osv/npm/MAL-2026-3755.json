@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.7.5",
+  "id": "MAL-2026-3755",
+  "published": "2026-05-14T19:24:57Z",
+  "modified": "2026-05-15T07:51:52.920361Z",
+  "summary": "Malicious code in chalk-utils (npm)",
+  "affected": [
+    {
+      "package": {
+        "name": "chalk-utils",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/chalk-utils"
+      },
+      "versions": [
+        "1.0.4",
+        "2.0.0",
+        "1.0.3"
+      ],
+      "database_specific": {
+        "cwes": [
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          },
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          },
+          {
+            "cweId": "CWE-506",
+            "description": "The product contains code that appears to be malicious in nature.",
+            "name": "Embedded Malicious Code"
+          }
+        ],
+        "indicators": {
+          "evidence_files": [
+            {
+              "path": "postinstall.js",
+              "sha256": "6ac41974ce61de899439008088ad972e7ab2ac161b3abf61fcd6796f28a941d9",
+              "tlsh": "0452e994aaa9021c596382bbd75775b40499e90b35c1e8b4f78f03489f0974d2ef33bb"
+            },
+            {
+              "path": "package.json",
+              "sha256": "cf18b5e5515b45acb020b8e99d6407ee69256f682a2bf7c7cb3ba51514bb7d00",
+              "tlsh": "dcd02b308a128e3320c417531b1b414569b14d5701047c5c33cb015c47aa3b698ff60e"
+            }
+          ],
+          "package_integrity": [
+            {
+              "filename": "chalk-utils-1.0.4.tgz",
+              "hashes": {
+                "sha1": "9afc6d4dbaa55bd4c89830bb42221d0c6ded9d5f",
+                "sha512_sri": "sha512-n7DleCpMvzvH8B5KIqK6gXN0Rdf+Gt5jZFmokPNtfpGYnZwWctnM2uqYKyqxg0OSs485+eyJzlJXq39Ep87TDw=="
+              }
+            }
+          ]
+        },
+        "source": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/npm/chalk-utils/MAL-2026-3755.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/chalk-utils/v/1.0.4"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/chalk-utils/v/2.0.0"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://www.npmjs.com/package/chalk-utils/v/1.0.3"
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "id": "IN-MAL-2026-002670",
+        "import_time": "2026-05-15T07:37:15.664565703Z",
+        "modified_time": "2026-05-14T19:24:58Z",
+        "sha256": "91db66ecd03074751b8ba9161392a616bb388110f87bde3bba527b072060d047",
+        "source": "amazon-inspector",
+        "versions": [
+          "1.0.4"
+        ]
+      },
+      {
+        "id": "IN-MAL-2026-002671",
+        "import_time": "2026-05-15T07:37:15.693339695Z",
+        "modified_time": "2026-05-14T19:24:58Z",
+        "sha256": "abf624d09ac235b4070c91a31cdc049ee53620da917208668be8003956368687",
+        "source": "amazon-inspector",
+        "versions": [
+          "2.0.0"
+        ]
+      },
+      {
+        "id": "IN-MAL-2026-002669",
+        "import_time": "2026-05-15T07:37:15.628977132Z",
+        "modified_time": "2026-05-14T19:24:57Z",
+        "sha256": "d0fe2974289b691a9f5541068f2e399aecb14a719779202ff5999652ffe351db",
+        "source": "amazon-inspector",
+        "versions": [
+          "1.0.3"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "Amazon Inspector",
+      "contact": [
+        "actran@amazon.com"
+      ],
+      "type": "FINDER"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

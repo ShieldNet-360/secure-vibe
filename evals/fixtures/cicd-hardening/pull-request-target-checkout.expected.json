@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "pull-request-target-checkout.yml",
+  "description": "`pull_request_target` combined with `actions/checkout` of the PR head, plus no top-level `permissions:` block. Two findings: gha-pr-target-no-untrusted-checkout (AST PWN-request detector) and gha-default-permissions-read.",
+  "expected_findings": [
+    {
+      "rule": "gha-default-permissions-read",
+      "ecosystem": "github-actions",
+      "source": "skills/cicd-security/SKILL.md"
+    },
+    {
+      "rule": "gha-pr-target-no-untrusted-checkout",
+      "ecosystem": "github-actions",
+      "source": "skills/cicd-security/SKILL.md"
+    }
+  ]
+}

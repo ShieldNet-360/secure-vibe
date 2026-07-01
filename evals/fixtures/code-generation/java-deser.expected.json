@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "deserialization-security",
+  "language": "java",
+  "insecure_signals": [
+    "new ObjectInputStream\\(",
+    "\\.readObject\\("
+  ],
+  "secure_signals": [
+    "readValue\\(",
+    "ObjectMapper",
+    "ValidatingObjectInputStream|setObjectInputFilter"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-502"
+}

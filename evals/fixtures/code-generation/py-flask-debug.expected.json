@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation",
+  "skill": "error-handling-security",
+  "language": "python",
+  "insecure_signals": [
+    "debug\\s*=\\s*True"
+  ],
+  "secure_signals": [
+    "debug\\s*=\\s*False",
+    "gunicorn|waitress|uwsgi"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-489"
+}

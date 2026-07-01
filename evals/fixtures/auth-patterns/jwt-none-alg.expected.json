@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "fixture": "jwt-none-alg.py",
+  "expected_findings": [
+    {
+      "rule": "jwt-algorithms-required",
+      "line_hint": "jwt.decode(token, \"shared-secret\", verify=True)",
+      "source": "skills/auth-security/rules/jwt_safe_config.json"
+    }
+  ],
+  "notes": "The 'safe' helper at the bottom of the file is intentionally clean and must NOT be flagged."
+}

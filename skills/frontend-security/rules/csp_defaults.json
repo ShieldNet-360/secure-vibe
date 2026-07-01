@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Recommended Content-Security-Policy directive defaults for new web apps. Refine per-app from these defaults.",
+  "directives": {
+    "default-src": ["'self'"],
+    "script-src": ["'self'", "'nonce-{request-nonce}'"],
+    "style-src": ["'self'", "'nonce-{request-nonce}'"],
+    "img-src": ["'self'", "data:", "https:"],
+    "font-src": ["'self'", "https:"],
+    "connect-src": ["'self'"],
+    "object-src": ["'none'"],
+    "frame-ancestors": ["'none'"],
+    "base-uri": ["'self'"],
+    "form-action": ["'self'"],
+    "upgrade-insecure-requests": [],
+    "block-all-mixed-content": [],
+    "report-uri": ["/csp-report"]
+  },
+  "headers": {
+    "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "accelerometer=(), camera=(), geolocation=(), microphone=(), payment=(), usb=()",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cross-Origin-Embedder-Policy": "require-corp",
+    "Cross-Origin-Resource-Policy": "same-site"
+  },
+  "cookie_defaults": {
+    "Secure": true,
+    "HttpOnly": true,
+    "SameSite": "Lax",
+    "prefix": "__Host-"
+  },
+  "trusted_types": {
+    "csp_directive": "require-trusted-types-for 'script'; trusted-types app-policy default"
+  }
+}

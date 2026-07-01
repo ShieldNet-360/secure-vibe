@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the serverless-security skill. Fixtures are schema-driven Lambda/serverless snippets where 'detect' marks code that violates a NEVER rule (wildcard IAM, plaintext-env secrets, unvalidated event injection) and 'ignore' marks code that follows the matching ALWAYS rule (least-privilege role, Secrets Manager with caching, schema-validated events).",
+  "fixtures": [
+    {
+      "id": "iam-wildcard-role",
+      "text": "# serverless.yml\nprovider:\n  name: aws\n  runtime: python3.12\n  iam:\n    role:\n      statements:\n        - Effect: Allow\n          Action: \"*\"\n          Resource: \"*\"\nfunctions:\n  processOrder:\n    handler: handler.process",
+      "expected": "detect",
+      "reason": "Grants Action '*' on Resource '*' to the function role (wildcard/admin IAM). Violates NEVER 'Use *:* action/resource on a function role'. CWE-250 (Execution with Unnecessary Privileges); OWASP Serverless Top 10 SAS-2 (broken authz / over-privilege)."
+    },
+    {
+      "id": "iam-least-privilege-role",
+      "text": "# serverless.yml\nprovider:\n  name: aws\n  runtime: python3.12\nfunctions:\n  processOrder:\n    handler: handler.process\n    iamRoleStatements:\n      - Effect: Allow\n        Action:\n          - dynamodb:PutItem\n        Resource:\n          - arn:aws:dynamodb:us-east-1:111122223333:table/Orders",
+      "expected": "ignore",
+      "reason": "Per-function role scoped to a single action (dynamodb:PutItem) on one named table ARN. Follows ALWAYS 'minimum permissions needed, never share roles'. Least privilege per AWS Well-Architected Security Pillar; no CWE-250 over-privilege."
+    },
+    {
+      "id": "secret-in-plaintext-env",
+      "text": "# serverless.yml\nfunctions:\n  charge:\n    handler: billing.charge\n    environment:\n      STRIPE_SECRET_KEY: sk_live_51HxQ2eF8mZ0a1bWcKpdQ9rT\n      DB_PASSWORD: Sup3rSecretP@ss",
+      "expected": "detect",
+      "reason": "Live API key and DB password hard-coded in plaintext Lambda environment variables. Violates NEVER 'Put secrets in environment variables in plaintext'. CWE-798 (Use of Hard-coded Credentials) / CWE-312 (Cleartext Storage of Sensitive Information)."
+    },
+    {
+      "id": "secret-from-secrets-manager-cached",
+      "text": "import boto3, json, time\n_client = boto3.client('secretsmanager')\n_cache = {}\ndef get_secret(name, ttl=300):\n    hit = _cache.get(name)\n    if hit and time.time() - hit[1] < ttl:\n        return hit[0]\n    val = json.loads(_client.get_secret_value(SecretId=name)['SecretString'])\n    _cache[name] = (val, time.time())\n    return val\nSTRIPE_KEY = get_secret('prod/stripe')['secret_key']\ndef handler(event, ctx):\n    return charge(STRIPE_KEY, event)",
+      "expected": "ignore",
+      "reason": "Secret pulled at cold-start from AWS Secrets Manager with a TTL cache; no plaintext secret in env or code. Follows ALWAYS 'Pull secrets at cold-start from a secret manager with caching'. Avoids CWE-798/CWE-312."
+    },
+    {
+      "id": "event-injection-no-validation",
+      "text": "import os\ndef handler(event, context):\n    # S3 ObjectCreated event — key trusted blindly\n    key = event['Records'][0]['s3']['object']['key']\n    os.system('convert /tmp/' + key + ' /tmp/out.png')\n    return {'statusCode': 200}",
+      "expected": "detect",
+      "reason": "Untrusted S3 object key concatenated into os.system with no schema validation, allowing command injection (e.g. key 'a;rm -rf /'). Violates NEVER 'Skip validation of S3/SQS/EventBridge event payloads' and 'Pass user-controlled strings to os.system'. CWE-78 (OS Command Injection); OWASP Serverless event injection."
+    },
+    {
+      "id": "event-schema-validated",
+      "text": "import subprocess\nfrom jsonschema import validate, ValidationError\nSCHEMA = {'type': 'object', 'required': ['key'], 'properties': {'key': {'type': 'string', 'pattern': '^[a-zA-Z0-9_-]+\\\\.png$'}}}\ndef handler(event, context):\n    rec = event['Records'][0]['s3']['object']\n    try:\n        validate(rec, SCHEMA)\n    except ValidationError:\n        return {'statusCode': 400, 'body': 'bad event'}\n    subprocess.run(['convert', '/tmp/' + rec['key'], '/tmp/out.png'], shell=False, check=True)\n    return {'statusCode': 200}",
+      "expected": "ignore",
+      "reason": "Event payload validated against a strict JSON schema (alphanumeric .png only) before use, and the key is passed as an argv element with shell=False (no shell). Follows ALWAYS 'Validate every event payload against a schema before any code that touches it'. No CWE-78."
+    }
+  ]
+}

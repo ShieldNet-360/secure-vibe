@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-9mv3-2cwr-p262",
+  "published": "2026-04-23T14:55:41Z",
+  "modified": "2026-05-05T16:05:11.047352Z",
+  "aliases": [
+    "BIT-aspnet-core-2026-40372",
+    "CVE-2026-40372"
+  ],
+  "summary": "Microsoft Security Advisory CVE-2026-40372 \u2013 ASP.NET Core Elevation of Privilege",
+  "affected": [
+    {
+      "package": {
+        "name": "Microsoft.AspNetCore.DataProtection",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/Microsoft.AspNetCore.DataProtection"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "10.0.0"
+            },
+            {
+              "fixed": "10.0.7"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "10.0.0",
+        "10.0.1",
+        "10.0.2",
+        "10.0.3",
+        "10.0.4",
+        "10.0.5",
+        "10.0.6"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 10.0.6",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-9mv3-2cwr-p262/GHSA-9mv3-2cwr-p262.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-9mv3-2cwr-p262"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40372"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dotnet/announcements/issues/395"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/dotnet/aspnetcore"
+    },
+    {
+      "type": "WEB",
+      "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-40372"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-347"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-23T14:55:41Z",
+    "nvd_published_at": "2026-04-21T20:16:59Z",
+    "severity": "CRITICAL"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-05"
+}

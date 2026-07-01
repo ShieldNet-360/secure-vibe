@@ -1,0 +1,23 @@
+{
+  "version": "0.0.0",
+  "description": "Skills Library CLI for AI-assisted coding tools.",
+  "homepage": "https://github.com/shieldnet-360/secure-vibe",
+  "license": "MIT",
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/shieldnet-360/secure-vibe/releases/download/v0.0.0/secure-vibe-windows-amd64.exe#/secure-vibe.exe",
+      "hash": "REPLACE_WITH_WINDOWS_AMD64_SHA256"
+    }
+  },
+  "bin": "secure-vibe.exe",
+  "checkver": {
+    "github": "https://github.com/shieldnet-360/secure-vibe"
+  },
+  "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/shieldnet-360/secure-vibe/releases/download/v$version/secure-vibe-windows-amd64.exe#/secure-vibe.exe"
+      }
+    }
+  }
+}

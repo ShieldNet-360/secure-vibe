@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-14",
+  "fixture": "metadata-endpoint.py",
+  "expected_findings": [
+    {
+      "rule": "ssrf-metadata-endpoint-allowed",
+      "line_hint": "requests.get(f\"http://{host}/latest/meta-data/\"",
+      "source": "skills/ssrf-prevention/rules/cloud_metadata_endpoints.json"
+    }
+  ],
+  "notes": "The 'fetch_remote_safe' helper consults a metadata blocklist and must NOT be flagged."
+}

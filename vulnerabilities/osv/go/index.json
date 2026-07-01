@@ -1,0 +1,1197 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-16T05:44:31Z",
+  "generated_at": "2026-05-16T05:44:31Z",
+  "by_package": {
+    "github.com/siyuan-note/siyuan/kernel": [
+      {
+        "id": "GHSA-25rp-h46x-2hjm",
+        "file": "GHSA-25rp-h46x-2hjm.json",
+        "summary": "SiYuan: Electron Renderer RCE via decodeURIComponent-driven tooltip XSS in aria-label sink (incomplete fix for CVE-2026-34585)",
+        "aliases": [
+          "CVE-2026-44588"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-27qc-m5gf-jv5r",
+        "file": "GHSA-27qc-m5gf-jv5r.json",
+        "summary": "SiYuan Bazaar marketplace renders unescaped package `name` and `version` metadata, allowing stored XSS and Electron code execution",
+        "aliases": [
+          "CVE-2026-45375"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-2h64-c999-c9r6",
+        "file": "GHSA-2h64-c999-c9r6.json",
+        "summary": "SiYuan Affected by Stored XSS via Attribute View Name to Electron Renderer RCE",
+        "aliases": [
+          "CVE-2026-44670"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-6r88-8v7q-q4p2",
+        "file": "GHSA-6r88-8v7q-q4p2.json",
+        "summary": "SiYuan: Broken access control in `/api/tag/getTag` \u2014 Reader role can mutate `Conf.Tag.Sort` and persist to disk",
+        "aliases": [
+          "CVE-2026-45147"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-fmh9-gpqh-g53g",
+        "file": "GHSA-fmh9-gpqh-g53g.json",
+        "summary": "SiYuan has broken access control in `/api/search/{searchAsset,searchTag,searchWidget,searchTemplate}` publish-mode",
+        "aliases": [
+          "CVE-2026-45148"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-gmmv-4cc5-wr9r",
+        "file": "GHSA-gmmv-4cc5-wr9r.json",
+        "summary": "SiYuan publish-mode Reader can mutate Conf and SQL index via 8 ungated APIs",
+        "aliases": [
+          "CVE-2026-45371"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/gotenberg/gotenberg/v8": [
+      {
+        "id": "GHSA-2pmr-289p-44r3",
+        "file": "GHSA-2pmr-289p-44r3.json",
+        "summary": "Gotenberg's DNS rebinding bypasses SSRF validation on Chromium URL conversion routes",
+        "aliases": [
+          "CVE-2026-42592"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-3cv5-q585-h563",
+        "file": "GHSA-3cv5-q585-h563.json",
+        "summary": "Gotenberg has arbitrary PDF read via stampExpression and watermarkExpression in merge, split, and convert routes",
+        "aliases": [
+          "CVE-2026-42593"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-4vmc-gm8v-m35h",
+        "file": "GHSA-4vmc-gm8v-m35h.json",
+        "summary": "Gotenberg vulnerable to unauthenticated SSRF via default deny-list bypass in downloadFrom and webhook",
+        "aliases": [
+          "CVE-2026-42596"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-62p3-hvxx-fxg4",
+        "file": "GHSA-62p3-hvxx-fxg4.json",
+        "summary": "Gotenberg has an ExifTool Dangerous Tag Blocklist Bypass via Group-Prefixed Tag Names that Allows Arbitrary File Rename and Move",
+        "aliases": [
+          "CVE-2026-40893"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-7v3r-m9c8-r855",
+        "file": "GHSA-7v3r-m9c8-r855.json",
+        "summary": "Gotenberg's ExifTool group-prefix syntax bypasses dangerous-tag blocklist",
+        "aliases": [
+          "CVE-2026-42590"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-chwh-f6gm-r836",
+        "file": "GHSA-chwh-f6gm-r836.json",
+        "summary": "Gotenberg: Server-Side Request Forgery via Chromium URL Endpoint with Redirect-Based Deny-List Bypass",
+        "aliases": [
+          "CVE-2026-42595"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-g924-cjx7-2rjw",
+        "file": "GHSA-g924-cjx7-2rjw.json",
+        "summary": "Gotenberg allows Chromium URL conversion routes to read arbitrary files under /tmp via file:// scheme",
+        "aliases": [
+          "CVE-2026-42597"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-r33j-c622-r6qp",
+        "file": "GHSA-r33j-c622-r6qp.json",
+        "summary": "Gotenberg has an unauthenticated denial of service via echo.Context pool reuse in webhook async goroutine",
+        "aliases": [
+          "CVE-2026-42594"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rm4c-xj6x-49mw",
+        "file": "GHSA-rm4c-xj6x-49mw.json",
+        "summary": "Gotenberg has a Server-Side Request Forgery (SSRF) Issue",
+        "aliases": [
+          "CVE-2026-42591"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rqgh-gxv4-6657",
+        "file": "GHSA-rqgh-gxv4-6657.json",
+        "summary": "Gotenberg has Unauthenticated RCE via ExifTool Metadata Key Injection",
+        "aliases": [
+          "CVE-2026-42589"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "github.com/fleetdm/fleet/v4": [
+      {
+        "id": "GHSA-2rc4-7jc6-qffh",
+        "file": "GHSA-2rc4-7jc6-qffh.json",
+        "summary": "Fleet has a Windows MDM management endpoint authentication bypass",
+        "aliases": [
+          "CVE-2026-23998"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-9vcr-g537-3w5v",
+        "file": "GHSA-9vcr-g537-3w5v.json",
+        "summary": "Fleet vulnerable to OS command injection in software packages",
+        "aliases": [
+          "CVE-2026-26191"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-ffg9-j72f-j6xm",
+        "file": "GHSA-ffg9-j72f-j6xm.json",
+        "summary": "Fleet Windows MDM Azure AD JWT Authentication Bypass",
+        "aliases": [
+          "CVE-2026-24899"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-j8h8-75h3-jg53",
+        "file": "GHSA-j8h8-75h3-jg53.json",
+        "summary": "Fleet has a rate limiting bypass via untrusted client IP headers",
+        "aliases": [
+          "CVE-2026-24000"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-mxmp-wr3w-rvqx",
+        "file": "GHSA-mxmp-wr3w-rvqx.json",
+        "summary": "Fleet: IP spoofing allows bypassing API rate limiting",
+        "aliases": [
+          "CVE-2026-46356"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-x67p-9m2r-fxqv",
+        "file": "GHSA-x67p-9m2r-fxqv.json",
+        "summary": "Fleet server may terminate unexpectedly when handling certain gRPC requests",
+        "aliases": [
+          "CVE-2026-26062"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/bettercap/bettercap/v2": [
+      {
+        "id": "GHSA-322p-rrj6-j44g",
+        "file": "GHSA-322p-rrj6-j44g.json",
+        "summary": "bettercap Has an Integer Coercion Error in the ippReadChunkedBody Function",
+        "aliases": [
+          "CVE-2026-8275"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-jcqv-2g3v-gm88",
+        "file": "GHSA-jcqv-2g3v-gm88.json",
+        "summary": "bettercap Has an Integer Coercion Error in modules/mysql_server/mysql_server.go",
+        "aliases": [
+          "CVE-2026-8276"
+        ],
+        "severity": "low"
+      }
+    ],
+    "github.com/dunglas/frankenphp": [
+      {
+        "id": "GHSA-3g8v-8r37-cgjm",
+        "file": "GHSA-3g8v-8r37-cgjm.json",
+        "summary": "FrankenPHP: Unsafe Unicode Handling in CGI Path Splitting Allows Execution of Non-PHP Files",
+        "aliases": [
+          "CVE-2026-45062"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/hatchet-dev/hatchet": [
+      {
+        "id": "GHSA-55gc-6fmc-fpx9",
+        "file": "GHSA-55gc-6fmc-fpx9.json",
+        "summary": "Hatchet affected by cross-tenant information disclosure in `listTasksByDAGIds`",
+        "aliases": [
+          "CVE-2026-42572"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/rancher/rancher": [
+      {
+        "id": "GHSA-5v3h-x4wf-5c35",
+        "file": "GHSA-5v3h-x4wf-5c35.json",
+        "summary": "Rancher Extensions have arbitrary file access via path traversal",
+        "aliases": [
+          "CVE-2026-25705"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-5v3h-x4wf-5c35",
+        "file": "GHSA-5v3h-x4wf-5c35.json",
+        "summary": "Rancher Extensions have arbitrary file access via path traversal",
+        "aliases": [
+          "CVE-2026-25705"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-5v3h-x4wf-5c35",
+        "file": "GHSA-5v3h-x4wf-5c35.json",
+        "summary": "Rancher Extensions have arbitrary file access via path traversal",
+        "aliases": [
+          "CVE-2026-25705"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-5v3h-x4wf-5c35",
+        "file": "GHSA-5v3h-x4wf-5c35.json",
+        "summary": "Rancher Extensions have arbitrary file access via path traversal",
+        "aliases": [
+          "CVE-2026-25705"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/distribution/distribution/v3": [
+      {
+        "id": "GHSA-6pjf-3r9x-m592",
+        "file": "GHSA-6pjf-3r9x-m592.json",
+        "summary": "Distribution's tag deletion bypasses `storage.delete.enabled` configuration",
+        "aliases": [
+          "CVE-2026-41888"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/distribution/distribution": [
+      {
+        "id": "GHSA-6pjf-3r9x-m592",
+        "file": "GHSA-6pjf-3r9x-m592.json",
+        "summary": "Distribution's tag deletion bypasses `storage.delete.enabled` configuration",
+        "aliases": [
+          "CVE-2026-41888"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/rancher/fleet": [
+      {
+        "id": "GHSA-765j-qfrp-hm3j",
+        "file": "GHSA-765j-qfrp-hm3j.json",
+        "summary": "Fleet: Helm impersonation bypass of `RESTClientGetter` retains `cluster-admin` during template rendering",
+        "aliases": [
+          "CVE-2026-41050"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-765j-qfrp-hm3j",
+        "file": "GHSA-765j-qfrp-hm3j.json",
+        "summary": "Fleet: Helm impersonation bypass of `RESTClientGetter` retains `cluster-admin` during template rendering",
+        "aliases": [
+          "CVE-2026-41050"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-765j-qfrp-hm3j",
+        "file": "GHSA-765j-qfrp-hm3j.json",
+        "summary": "Fleet: Helm impersonation bypass of `RESTClientGetter` retains `cluster-admin` during template rendering",
+        "aliases": [
+          "CVE-2026-41050"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-765j-qfrp-hm3j",
+        "file": "GHSA-765j-qfrp-hm3j.json",
+        "summary": "Fleet: Helm impersonation bypass of `RESTClientGetter` retains `cluster-admin` during template rendering",
+        "aliases": [
+          "CVE-2026-41050"
+        ],
+        "severity": "critical"
+      },
+      {
+        "id": "GHSA-765j-qfrp-hm3j",
+        "file": "GHSA-765j-qfrp-hm3j.json",
+        "summary": "Fleet: Helm impersonation bypass of `RESTClientGetter` retains `cluster-admin` during template rendering",
+        "aliases": [
+          "CVE-2026-41050"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "github.com/sigstore/gitsign": [
+      {
+        "id": "GHSA-7c37-gx6w-8vc5",
+        "file": "GHSA-7c37-gx6w-8vc5.json",
+        "summary": "gitsign --verify panics on empty-certificate PKCS7 and exits 0, bypassing exit-code callers",
+        "aliases": [
+          "CVE-2026-44310"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-7rmh-48mx-2vwc",
+        "file": "GHSA-7rmh-48mx-2vwc.json",
+        "summary": "gitsign verify accepts signatures over go-git-normalized bytes, enabling trust confusion on malformed commits",
+        "aliases": [
+          "CVE-2026-44309"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "com.microsoft.kiota:microsoft-kiota-abstractions": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "microsoft.kiota.abstractions": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "microsoft-kiota-http": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "kiota-typescript": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/microsoft/kiota-http-go": [
+      {
+        "id": "GHSA-7j59-v9qr-6fq9",
+        "file": "GHSA-7j59-v9qr-6fq9.json",
+        "summary": "Kiota abstractions RedirectHandler leaks Cookie/Proxy-Authorization headers on cross-host redirect",
+        "aliases": [
+          "CVE-2026-44503"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/modelcontextprotocol/registry": [
+      {
+        "id": "GHSA-95c3-6vvw-4mrq",
+        "file": "GHSA-95c3-6vvw-4mrq.json",
+        "summary": "MCP Registry's GitHub OIDC tokens are replayable across registry deployments due to shared audience",
+        "aliases": [
+          "CVE-2026-44428"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-r48c-v28r-pf6v",
+        "file": "GHSA-r48c-v28r-pf6v.json",
+        "summary": "MCP Registry has an unauthenticated SSRF: HTTP namespace verification dials 6to4 / NAT64 / site-local IPv6 addresses, bypassing private-address allowlist",
+        "aliases": [
+          "CVE-2026-44430"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-rqv2-m695-f8j4",
+        "file": "GHSA-rqv2-m695-f8j4.json",
+        "summary": "MCP Registry vulnerable to stored XSS in catalogue UI via attribute-quote breakout in publisher-controlled `websiteUrl`",
+        "aliases": [
+          "CVE-2026-44429"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-v8vw-gw5j-w7m6",
+        "file": "GHSA-v8vw-gw5j-w7m6.json",
+        "summary": "MCP Registry has open redirect via protocol-relative path in trailing-slash middleware",
+        "aliases": [
+          "CVE-2026-44427"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/traefik/traefik/v3": [
+      {
+        "id": "GHSA-96qj-4jj5-wcjc",
+        "file": "GHSA-96qj-4jj5-wcjc.json",
+        "summary": "Traefik: Gateway API TraefikService backend accepts rest@internal, allowing unauthorized exposure of the REST provider despite providers.rest.insecure=false",
+        "aliases": [
+          "CVE-2026-44774"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-96qj-4jj5-wcjc",
+        "file": "GHSA-96qj-4jj5-wcjc.json",
+        "summary": "Traefik: Gateway API TraefikService backend accepts rest@internal, allowing unauthorized exposure of the REST provider despite providers.rest.insecure=false",
+        "aliases": [
+          "CVE-2026-44774"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-p6hg-qh38-555r",
+        "file": "GHSA-p6hg-qh38-555r.json",
+        "summary": "Traefik's errors middleware forwards Authorization and Cookie headers to separate error page service",
+        "aliases": [
+          "CVE-2026-41181"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-p6hg-qh38-555r",
+        "file": "GHSA-p6hg-qh38-555r.json",
+        "summary": "Traefik's errors middleware forwards Authorization and Cookie headers to separate error page service",
+        "aliases": [
+          "CVE-2026-41181"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/traefik/traefik/v2": [
+      {
+        "id": "GHSA-96qj-4jj5-wcjc",
+        "file": "GHSA-96qj-4jj5-wcjc.json",
+        "summary": "Traefik: Gateway API TraefikService backend accepts rest@internal, allowing unauthorized exposure of the REST provider despite providers.rest.insecure=false",
+        "aliases": [
+          "CVE-2026-44774"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-p6hg-qh38-555r",
+        "file": "GHSA-p6hg-qh38-555r.json",
+        "summary": "Traefik's errors middleware forwards Authorization and Cookie headers to separate error page service",
+        "aliases": [
+          "CVE-2026-41181"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/traefik/traefik": [
+      {
+        "id": "GHSA-96qj-4jj5-wcjc",
+        "file": "GHSA-96qj-4jj5-wcjc.json",
+        "summary": "Traefik: Gateway API TraefikService backend accepts rest@internal, allowing unauthorized exposure of the REST provider despite providers.rest.insecure=false",
+        "aliases": [
+          "CVE-2026-44774"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "gogs.io/gogs": [
+      {
+        "id": "GHSA-9hxg-w7qf-hh93",
+        "file": "GHSA-9hxg-w7qf-hh93.json",
+        "summary": "Gogs Directory Traversal",
+        "aliases": [
+          "CVE-2018-20303"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/authzed/spicedb": [
+      {
+        "id": "GHSA-9m7r-g8hg-x3vr",
+        "file": "GHSA-9m7r-g8hg-x3vr.json",
+        "summary": "SpiceDB: LookupResources with Multiple Entrypoints across Different Definitions Can Return Incomplete Results",
+        "aliases": [
+          "CVE-2025-65111",
+          "GO-2025-4151"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-jf4f-rr2c-9m58",
+        "file": "GHSA-jf4f-rr2c-9m58.json",
+        "summary": "SpiceDB's SPICEDB_DATASTORE_CONN_URI is leaked on startup logs",
+        "aliases": [
+          "CVE-2026-40091"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-pm3x-jrhh-qcr7",
+        "file": "GHSA-pm3x-jrhh-qcr7.json",
+        "summary": "SpiceDB WriteRelationships fails silently if payload is too big",
+        "aliases": [
+          "CVE-2025-64529",
+          "GO-2025-4120"
+        ],
+        "severity": "low"
+      }
+    ],
+    "github.com/gtsteffaniak/filebrowser": [
+      {
+        "id": "GHSA-fwj3-42wh-8673",
+        "file": "GHSA-fwj3-42wh-8673.json",
+        "summary": "FileBrowser Public Share DELETE API Path Traversal Allows Unauthenticated Arbitrary File Deletion",
+        "aliases": [
+          "CVE-2026-44542"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "github.com/enchant97/note-mark/backend": [
+      {
+        "id": "GHSA-g49p-4qxj-88v3",
+        "file": "GHSA-g49p-4qxj-88v3.json",
+        "summary": "Note Mark: Arbitrary File Write via Path Traversal in Asset Names Leads to Remote Code Execution",
+        "aliases": [
+          "CVE-2026-44522"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-q6mh-rqwh-g786",
+        "file": "GHSA-q6mh-rqwh-g786.json",
+        "summary": "Note Mark has a JWT Secret Weakness that allows Full Account Takeover via Token Forgery",
+        "aliases": [
+          "CVE-2026-44523"
+        ],
+        "severity": "critical"
+      }
+    ],
+    "github.com/slack-go/slack": [
+      {
+        "id": "GHSA-gxhx-2686-5h9g",
+        "file": "GHSA-gxhx-2686-5h9g.json",
+        "summary": "slack-go `SecretsVerifier` accepts empty signing secret without precondition",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "github.com/loft-sh/devspace": [
+      {
+        "id": "GHSA-hqwm-7x7x-8379",
+        "file": "GHSA-hqwm-7x7x-8379.json",
+        "summary": "DevSpace UI Server WebSocket CheckOrigin does not validate source",
+        "aliases": [
+          "CVE-2026-42283"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/shellhub-io/shellhub": [
+      {
+        "id": "GHSA-j72x-xfwg-783f",
+        "file": "GHSA-j72x-xfwg-783f.json",
+        "summary": "ShellHub has cross-tenant IDOR in `GET /api/devices/:uid` that discloses device data of any namespace",
+        "aliases": [
+          "CVE-2026-44424"
+        ],
+        "severity": "medium"
+      },
+      {
+        "id": "GHSA-vwx9-7qcf-gg7f",
+        "file": "GHSA-vwx9-7qcf-gg7f.json",
+        "summary": "ShellHub has cross-tenant IDOR in `GET /api/namespaces/:tenant` via API Key bypasses  membership check",
+        "aliases": [
+          "CVE-2026-44426"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "goshs.de/goshs/v2": [
+      {
+        "id": "GHSA-mxg3-432p-mr72",
+        "file": "GHSA-mxg3-432p-mr72.json",
+        "summary": "goshs: SSH host key verification disabled, allowing transparent MITM of every tunnelled HTTP request",
+        "aliases": [],
+        "severity": "high"
+      }
+    ],
+    "github.com/open-telemetry/opentelemetry-collector-contrib/extension/azureauthextension": [
+      {
+        "id": "GHSA-pjv4-3c63-699f",
+        "file": "GHSA-pjv4-3c63-699f.json",
+        "summary": "opentelemetry-collector-contrib's azureauthextension Authenticate method does not validate bearer tokens, allowing auth bypass via replay",
+        "aliases": [
+          "CVE-2026-42602"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/kata-containers/kata-containers": [
+      {
+        "id": "GHSA-q49m-57vm-c8cc",
+        "file": "GHSA-q49m-57vm-c8cc.json",
+        "summary": "Kata Container has CopyFile Policy Subversion via Symlinks",
+        "aliases": [
+          "CVE-2026-41326"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/go-git/go-billy/v5": [
+      {
+        "id": "GHSA-qw64-3x98-g7q2",
+        "file": "GHSA-qw64-3x98-g7q2.json",
+        "summary": "go-billy has path traversal vulnerabilities",
+        "aliases": [
+          "CVE-2026-44973"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/go-git/go-billy/v6": [
+      {
+        "id": "GHSA-qw64-3x98-g7q2",
+        "file": "GHSA-qw64-3x98-g7q2.json",
+        "summary": "go-billy has path traversal vulnerabilities",
+        "aliases": [
+          "CVE-2026-44973"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/arnika-project/arnika": [
+      {
+        "id": "GHSA-rc6v-5rmx-w5mv",
+        "file": "GHSA-rc6v-5rmx-w5mv.json",
+        "summary": "arnika is affected by medium-severity issues in UDP rotation, PQC handling, and KMS TLS",
+        "aliases": [],
+        "severity": "medium"
+      }
+    ],
+    "github.com/zitadel/zitadel": [
+      {
+        "id": "GHSA-rxvx-hhpj-q6px",
+        "file": "GHSA-rxvx-hhpj-q6px.json",
+        "summary": "ZITADEL has LDAP Filter Injection in Login Flow",
+        "aliases": [
+          "CVE-2026-44671"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rxvx-hhpj-q6px",
+        "file": "GHSA-rxvx-hhpj-q6px.json",
+        "summary": "ZITADEL has LDAP Filter Injection in Login Flow",
+        "aliases": [
+          "CVE-2026-44671"
+        ],
+        "severity": "high"
+      },
+      {
+        "id": "GHSA-rxvx-hhpj-q6px",
+        "file": "GHSA-rxvx-hhpj-q6px.json",
+        "summary": "ZITADEL has LDAP Filter Injection in Login Flow",
+        "aliases": [
+          "CVE-2026-44671"
+        ],
+        "severity": "high"
+      }
+    ],
+    "github.com/kubetail-org/kubetail/modules/dashboard": [
+      {
+        "id": "GHSA-v8j7-hp7c-738f",
+        "file": "GHSA-v8j7-hp7c-738f.json",
+        "summary": "Kubetail has a Cross-Site WebSocket Hijacking issue that allows attacker to read Kubernetes logs from authenticated users",
+        "aliases": [
+          "CVE-2026-44514"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/kubetail-org/kubetail/modules/cli": [
+      {
+        "id": "GHSA-v8j7-hp7c-738f",
+        "file": "GHSA-v8j7-hp7c-738f.json",
+        "summary": "Kubetail has a Cross-Site WebSocket Hijacking issue that allows attacker to read Kubernetes logs from authenticated users",
+        "aliases": [
+          "CVE-2026-44514"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "github.com/openbao/openbao": [
+      {
+        "id": "GHSA-vv66-6rp4-wr4f",
+        "file": "GHSA-vv66-6rp4-wr4f.json",
+        "summary": "OpenBao's Namespace Deletion May Not Delete Data Properly",
+        "aliases": [
+          "CVE-2026-42186"
+        ],
+        "severity": "low"
+      }
+    ],
+    "github.com/gittuf/gittuf": [
+      {
+        "id": "GHSA-vxvc-cg7j-rwqj",
+        "file": "GHSA-vxvc-cg7j-rwqj.json",
+        "summary": "gittuf's policy can be rolled back to prior valid versions",
+        "aliases": [
+          "CVE-2026-44544"
+        ],
+        "severity": "medium"
+      }
+    ],
+    "go.etcd.io/etcd/v3": [
+      {
+        "id": "GHSA-x35m-3gp4-4fh5",
+        "file": "GHSA-x35m-3gp4-4fh5.json",
+        "summary": "etcd RBAC bypass allows unauthorized data access via PrevKv/lease attachment in nested transaction Put requests",
+        "aliases": [
+          "CVE-2026-44283"
+        ],
+        "severity": "low"
+      },
+      {
+        "id": "GHSA-x35m-3gp4-4fh5",
+        "file": "GHSA-x35m-3gp4-4fh5.json",
+        "summary": "etcd RBAC bypass allows unauthorized data access via PrevKv/lease attachment in nested transaction Put requests",
+        "aliases": [
+          "CVE-2026-44283"
+        ],
+        "severity": "low"
+      }
+    ],
+    "go.etcd.io/etcd": [
+      {
+        "id": "GHSA-x35m-3gp4-4fh5",
+        "file": "GHSA-x35m-3gp4-4fh5.json",
+        "summary": "etcd RBAC bypass allows unauthorized data access via PrevKv/lease attachment in nested transaction Put requests",
+        "aliases": [
+          "CVE-2026-44283"
+        ],
+        "severity": "low"
+      }
+    ],
+    "stdlib": [
+      {
+        "id": "GO-2025-3955",
+        "file": "GO-2025-3955.json",
+        "summary": "CrossOriginProtection insecure bypass patterns not limited to exact matches in net/http",
+        "aliases": [
+          "BIT-golang-2025-47910",
+          "CVE-2025-47910"
+        ]
+      },
+      {
+        "id": "GO-2025-4006",
+        "file": "GO-2025-4006.json",
+        "summary": "Excessive CPU consumption in ParseAddress in net/mail",
+        "aliases": [
+          "BIT-golang-2025-61725",
+          "CVE-2025-61725"
+        ]
+      },
+      {
+        "id": "GO-2025-4007",
+        "file": "GO-2025-4007.json",
+        "summary": "Quadratic complexity when checking name constraints in crypto/x509",
+        "aliases": [
+          "BIT-golang-2025-58187",
+          "CVE-2025-58187"
+        ]
+      },
+      {
+        "id": "GO-2025-4008",
+        "file": "GO-2025-4008.json",
+        "summary": "ALPN negotiation error contains attacker controlled information in crypto/tls",
+        "aliases": [
+          "BIT-golang-2025-58189",
+          "CVE-2025-58189"
+        ]
+      },
+      {
+        "id": "GO-2025-4009",
+        "file": "GO-2025-4009.json",
+        "summary": "Quadratic complexity when parsing some invalid inputs in encoding/pem",
+        "aliases": [
+          "BIT-golang-2025-61723",
+          "CVE-2025-61723"
+        ]
+      },
+      {
+        "id": "GO-2025-4010",
+        "file": "GO-2025-4010.json",
+        "summary": "Insufficient validation of bracketed IPv6 hostnames in net/url",
+        "aliases": [
+          "BIT-golang-2025-47912",
+          "CVE-2025-47912"
+        ]
+      },
+      {
+        "id": "GO-2025-4011",
+        "file": "GO-2025-4011.json",
+        "summary": "Parsing DER payload can cause memory exhaustion in encoding/asn1",
+        "aliases": [
+          "BIT-golang-2025-58185",
+          "CVE-2025-58185"
+        ]
+      },
+      {
+        "id": "GO-2025-4012",
+        "file": "GO-2025-4012.json",
+        "summary": "Lack of limit when parsing cookies can cause memory exhaustion in net/http",
+        "aliases": [
+          "BIT-golang-2025-58186",
+          "CVE-2025-58186"
+        ]
+      },
+      {
+        "id": "GO-2025-4013",
+        "file": "GO-2025-4013.json",
+        "summary": "Panic when validating certificates with DSA public keys in crypto/x509",
+        "aliases": [
+          "BIT-golang-2025-58188",
+          "CVE-2025-58188"
+        ]
+      },
+      {
+        "id": "GO-2025-4014",
+        "file": "GO-2025-4014.json",
+        "summary": "Unbounded allocation when parsing GNU sparse map in archive/tar",
+        "aliases": [
+          "BIT-golang-2025-58183",
+          "CVE-2025-58183"
+        ]
+      },
+      {
+        "id": "GO-2025-4015",
+        "file": "GO-2025-4015.json",
+        "summary": "Excessive CPU consumption in Reader.ReadResponse in net/textproto",
+        "aliases": [
+          "BIT-golang-2025-61724",
+          "CVE-2025-61724"
+        ]
+      },
+      {
+        "id": "GO-2025-4155",
+        "file": "GO-2025-4155.json",
+        "summary": "Excessive resource consumption when printing error string for host certificate validation in crypto/x509",
+        "aliases": [
+          "BIT-golang-2025-61729",
+          "CVE-2025-61729"
+        ]
+      },
+      {
+        "id": "GO-2025-4175",
+        "file": "GO-2025-4175.json",
+        "summary": "Improper application of excluded DNS name constraints when verifying wildcard names in crypto/x509",
+        "aliases": [
+          "BIT-golang-2025-61727",
+          "CVE-2025-61727"
+        ]
+      },
+      {
+        "id": "GO-2026-4337",
+        "file": "GO-2026-4337.json",
+        "summary": "Unexpected session resumption in crypto/tls",
+        "aliases": [
+          "BIT-golang-2025-68121",
+          "CVE-2025-68121"
+        ]
+      },
+      {
+        "id": "GO-2026-4340",
+        "file": "GO-2026-4340.json",
+        "summary": "Handshake messages may be processed at the incorrect encryption level in crypto/tls",
+        "aliases": [
+          "BIT-golang-2025-61730",
+          "CVE-2025-61730"
+        ]
+      },
+      {
+        "id": "GO-2026-4341",
+        "file": "GO-2026-4341.json",
+        "summary": "Memory exhaustion in query parameter parsing in net/url",
+        "aliases": [
+          "BIT-golang-2025-61726",
+          "CVE-2025-61726"
+        ]
+      },
+      {
+        "id": "GO-2026-4342",
+        "file": "GO-2026-4342.json",
+        "summary": "Excessive CPU consumption when building archive index in archive/zip",
+        "aliases": [
+          "BIT-golang-2025-61728",
+          "CVE-2025-61728"
+        ]
+      },
+      {
+        "id": "GO-2026-4403",
+        "file": "GO-2026-4403.json",
+        "summary": "Improper access to parent directory of root in os",
+        "aliases": [
+          "BIT-golang-2025-22873",
+          "CVE-2025-22873"
+        ]
+      },
+      {
+        "id": "GO-2026-4599",
+        "file": "GO-2026-4599.json",
+        "summary": "Incorrect enforcement of email constraints in crypto/x509",
+        "aliases": [
+          "BIT-golang-2026-27137",
+          "CVE-2026-27137"
+        ]
+      },
+      {
+        "id": "GO-2026-4600",
+        "file": "GO-2026-4600.json",
+        "summary": "Panic in name constraint checking for malformed certificates in crypto/x509",
+        "aliases": [
+          "BIT-golang-2026-27138",
+          "CVE-2026-27138"
+        ]
+      },
+      {
+        "id": "GO-2026-4601",
+        "file": "GO-2026-4601.json",
+        "summary": "Incorrect parsing of IPv6 host literals in net/url",
+        "aliases": [
+          "BIT-golang-2026-25679",
+          "CVE-2026-25679"
+        ]
+      },
+      {
+        "id": "GO-2026-4602",
+        "file": "GO-2026-4602.json",
+        "summary": "FileInfo can escape from a Root in os",
+        "aliases": [
+          "BIT-golang-2026-27139",
+          "CVE-2026-27139"
+        ]
+      },
+      {
+        "id": "GO-2026-4603",
+        "file": "GO-2026-4603.json",
+        "summary": "URLs in meta content attribute actions are not escaped in html/template",
+        "aliases": [
+          "BIT-golang-2026-27142",
+          "CVE-2026-27142"
+        ]
+      },
+      {
+        "id": "GO-2026-4864",
+        "file": "GO-2026-4864.json",
+        "summary": "TOCTOU permits root escape on Linux via Root.Chmod in os in internal/syscall/unix",
+        "aliases": [
+          "BIT-golang-2026-32282",
+          "CVE-2026-32282"
+        ]
+      },
+      {
+        "id": "GO-2026-4865",
+        "file": "GO-2026-4865.json",
+        "summary": "JsBraceDepth Context Tracking Bugs (XSS) in html/template",
+        "aliases": [
+          "BIT-golang-2026-32289",
+          "CVE-2026-32289"
+        ]
+      },
+      {
+        "id": "GO-2026-4866",
+        "file": "GO-2026-4866.json",
+        "summary": "Case-sensitive excludedSubtrees name constraints cause Auth Bypass in crypto/x509",
+        "aliases": [
+          "BIT-golang-2026-33810",
+          "CVE-2026-33810"
+        ]
+      },
+      {
+        "id": "GO-2026-4869",
+        "file": "GO-2026-4869.json",
+        "summary": "Unbounded allocation for old GNU sparse in archive/tar",
+        "aliases": [
+          "BIT-golang-2026-32288",
+          "CVE-2026-32288"
+        ]
+      },
+      {
+        "id": "GO-2026-4870",
+        "file": "GO-2026-4870.json",
+        "summary": "Unauthenticated TLS 1.3 KeyUpdate record can cause persistent connection retention and DoS in crypto/tls",
+        "aliases": [
+          "BIT-golang-2026-32283",
+          "CVE-2026-32283"
+        ]
+      },
+      {
+        "id": "GO-2026-4946",
+        "file": "GO-2026-4946.json",
+        "summary": "Inefficient policy validation in crypto/x509",
+        "aliases": [
+          "BIT-golang-2026-32281",
+          "CVE-2026-32281"
+        ]
+      }
+    ],
+    "golang.org/x/crypto": [
+      {
+        "id": "GO-2025-4134",
+        "file": "GO-2025-4134.json",
+        "summary": "Unbounded memory consumption in golang.org/x/crypto/ssh",
+        "aliases": [
+          "CVE-2025-58181",
+          "GHSA-j5w8-q4qc-rx2x"
+        ]
+      },
+      {
+        "id": "GO-2025-4135",
+        "file": "GO-2025-4135.json",
+        "summary": "Malformed constraint may cause denial of service in golang.org/x/crypto/ssh/agent",
+        "aliases": [
+          "CVE-2025-47914",
+          "GHSA-f6x5-jh6r-wrfv"
+        ]
+      }
+    ],
+    "toolchain": [
+      {
+        "id": "GO-2026-4338",
+        "file": "GO-2026-4338.json",
+        "summary": "Unexpected code execution when invoking toolchain in cmd/go",
+        "aliases": [
+          "BIT-golang-2025-68119",
+          "CVE-2025-68119"
+        ]
+      },
+      {
+        "id": "GO-2026-4339",
+        "file": "GO-2026-4339.json",
+        "summary": "Arbitrary file write using cgo pkg-config directive in cmd/go",
+        "aliases": [
+          "BIT-golang-2025-61731",
+          "CVE-2025-61731"
+        ]
+      },
+      {
+        "id": "GO-2026-4433",
+        "file": "GO-2026-4433.json",
+        "summary": "Potential code smuggling via doc comments in cmd/cgo",
+        "aliases": [
+          "BIT-golang-2025-61732",
+          "CVE-2025-61732"
+        ]
+      },
+      {
+        "id": "GO-2026-4867",
+        "file": "GO-2026-4867.json",
+        "summary": "Miscompilation allows memory corruption via CONVNOP-wrapped array copy in cmd/compile",
+        "aliases": [
+          "BIT-golang-2026-27144",
+          "CVE-2026-27144"
+        ]
+      },
+      {
+        "id": "GO-2026-4868",
+        "file": "GO-2026-4868.json",
+        "summary": "Missing bound checks can lead to memory corruption in safe Go in cmd/compile",
+        "aliases": [
+          "BIT-golang-2026-27143",
+          "CVE-2026-27143"
+        ]
+      }
+    ],
+    "golang.org/x/net": [
+      {
+        "id": "GO-2026-4440",
+        "file": "GO-2026-4440.json",
+        "summary": "Quadratic parsing complexity in golang.org/x/net/html",
+        "aliases": [
+          "CVE-2025-47911",
+          "GHSA-w4gw-w5jq-g9jh"
+        ]
+      },
+      {
+        "id": "GO-2026-4441",
+        "file": "GO-2026-4441.json",
+        "summary": "Infinite parsing loop in golang.org/x/net",
+        "aliases": [
+          "CVE-2025-58190"
+        ]
+      },
+      {
+        "id": "GO-2026-4559",
+        "file": "GO-2026-4559.json",
+        "summary": "Sending certain HTTP/2 frames can cause a server to panic in golang.org/x/net",
+        "aliases": [
+          "CVE-2026-27141"
+        ]
+      }
+    ],
+    "golang.org/x/image": [
+      {
+        "id": "GO-2026-4815",
+        "file": "GO-2026-4815.json",
+        "summary": "OOM from malicious IFD offset in golang.org/x/image/tiff",
+        "aliases": [
+          "CVE-2026-33809",
+          "GHSA-44p7-9xx4-hf2g"
+        ]
+      },
+      {
+        "id": "GO-2026-4961",
+        "file": "GO-2026-4961.json",
+        "summary": "Panic when decoding large WEBP image on 32-bit platforms in golang.org/x/image",
+        "aliases": [
+          "CVE-2026-33813"
+        ]
+      }
+    ]
+  }
+}

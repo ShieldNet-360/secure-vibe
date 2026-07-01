@@ -1,0 +1,155 @@
+name: npm publish
+
+# Publishes the consolidated SecureVibe binary to npm as:
+#   @shieldnet360/secure-vibe                      (launcher + library data)
+#   @shieldnet360/secure-vibe-<os>-<arch>  x5      (per-platform `secure-vibe` binary)
+#
+# SecureVibe is ONE Go binary (`secure-vibe`) — CLI scanners, the `gate`, `init`,
+# `secure-vibe mcp` (MCP server), and `secure-vibe dev …`. The binaries are rebuilt
+# from the tagged source in this run (not downloaded from the GitHub release).
+# Platform packages are published BEFORE the main package because the main
+# package lists them as optionalDependencies.
+#
+# Provenance: the repo is PUBLIC, so every package is published with
+# `--provenance` (Sigstore/OIDC, keyless). npm records a signed attestation
+# linking each package@version to the exact workflow run + commit that built it,
+# verifiable on npmjs.com. Requires `id-token: write` (below) and the package
+# `repository` field (set in the skeleton + build.mjs).
+#
+# Manual by design (matches the repo's draft -> sign -> publish release flow);
+# also runs when a GitHub release is published. Both paths resolve the version
+# from the tag (npm version = tag without the leading "v").
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Git tag to publish (e.g. v0.10.1). npm version = tag without the leading 'v'."
+        required: true
+        type: string
+  release:
+    types: [released]
+
+permissions:
+  contents: read
+  id-token: write  # required for `npm publish --provenance` (Sigstore attestation)
+
+jobs:
+  publish:
+    name: Build, smoke-test, and publish to npm
+    runs-on: ubuntu-latest
+    env:
+      # Secrets are not allowed in `if:` conditions directly; surface presence
+      # as an env flag so the publish step can no-op when the token is unset
+      # (the build + smoke-test steps still run and validate the packaging).
+      HAS_NPM_TOKEN: ${{ secrets.NPM_TOKEN != '' }}
+    steps:
+      - name: Resolve tag and version
+        id: ver
+        shell: bash
+        env:
+          TAG_INPUT: ${{ inputs.tag }}
+          TAG_RELEASE: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          tag="${TAG_INPUT:-$TAG_RELEASE}"
+          if [ -z "$tag" ]; then
+            echo "::error::no tag provided (workflow_dispatch input or release tag)"
+            exit 1
+          fi
+          version="${tag#v}"
+          if ! printf '%s' "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+([-+].+)?$'; then
+            echo "::error::resolved version '$version' is not semver (from tag '$tag')"
+            exit 1
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Publishing npm version $version (tag $tag)"
+
+      - name: Checkout the tag
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          ref: ${{ steps.ver.outputs.tag }}
+
+      - name: Set up Go
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6
+        with:
+          go-version: "1.22"
+          cache: true
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Cross-compile secure-vibe for every target
+        shell: bash
+        env:
+          CGO_ENABLED: "0"
+          SOURCE_DATE_EPOCH: "0"
+          TAG: ${{ steps.ver.outputs.tag }}
+        run: |
+          set -euo pipefail
+          mkdir -p npm-binaries
+          ldflags="-s -w -X github.com/shieldnet-360/secure-vibe/cmd/secure-vibe/cmd.CLIVersion=${TAG}"
+          for pair in linux/amd64 linux/arm64 darwin/amd64 darwin/arm64 windows/amd64; do
+            goos="${pair%/*}"; goarch="${pair#*/}"
+            ext=""; [ "$goos" = "windows" ] && ext=".exe"
+            GOOS="$goos" GOARCH="$goarch" go build \
+              -trimpath -ldflags "$ldflags" \
+              -o "npm-binaries/secure-vibe-${goos}-${goarch}${ext}" ./cmd/secure-vibe
+            echo "built secure-vibe for ${goos}/${goarch}"
+          done
+
+      - name: Assemble npm packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          node npm/build.mjs --binaries npm-binaries --root . --version "${{ steps.ver.outputs.version }}" --out npm/dist
+          # Refuse to publish an incomplete set: build.mjs only WARNS and drops a
+          # platform if its binary is missing/misnamed, which would ship a release
+          # that's broken for that os/cpu. All 5 platform packages must be present.
+          count=$(find npm/dist -maxdepth 1 -type d -name 'secure-vibe-*' | wc -l | tr -d ' ')
+          if [ "$count" -ne 5 ]; then
+            echo "::error::assembled $count/5 platform packages — a binary is missing or misnamed; refusing to publish a partial set"
+            exit 1
+          fi
+          echo "all 5 platform packages assembled"
+
+      - name: Smoke-test (build host pkg + initialize handshake + gate)
+        run: node npm/smoke-test.mjs
+
+      - name: Publish to npm (platform packages first, then the main package)
+        if: ${{ env.HAS_NPM_TOKEN == 'true' }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Idempotent: skip any package@version already on npm so a re-run after
+          # a mid-set failure completes the publish instead of dying on E409
+          # ("cannot publish over existing version"). npm publishes are
+          # irreversible, so a partial first publish must be resumable.
+          publish_if_new() {
+            local dir="$1" name version
+            name="$(node -p "JSON.parse(require('fs').readFileSync('${dir%/}/package.json','utf8')).name")"
+            version="$(node -p "JSON.parse(require('fs').readFileSync('${dir%/}/package.json','utf8')).version")"
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "skip $name@$version (already on npm)"
+            else
+              echo "publishing $name@$version"
+              npm publish "$dir" --access public --provenance
+            fi
+          }
+          # Platform packages must exist before the main package (which lists
+          # them as optionalDependencies) so a first install resolves cleanly.
+          for d in npm/dist/secure-vibe-*/; do
+            publish_if_new "$d"
+          done
+          publish_if_new npm/dist/secure-vibe
+
+      - name: Token not configured (no-op)
+        if: ${{ env.HAS_NPM_TOKEN != 'true' }}
+        run: |
+          echo "::notice::NPM_TOKEN is not set — built and smoke-tested the packages but skipped publish. Add the NPM_TOKEN repo secret to enable publishing."

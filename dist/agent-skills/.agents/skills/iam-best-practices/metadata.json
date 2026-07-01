@@ -1,0 +1,44 @@
+{
+  "id": "iam-best-practices",
+  "version": "1.1.0",
+  "title": "Identity \u0026 Access Management Best Practices",
+  "description": "Least-privilege IAM design, key rotation, MFA enforcement, role assumption, and cross-account access patterns for AWS / GCP / Azure / Kubernetes",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "when generating IAM policies, roles, or trust documents",
+    "when wiring CI/CD service accounts or workload identities",
+    "when reviewing access-key creation, rotation, or revocation",
+    "when designing cross-account or cross-tenant access"
+  ],
+  "languages": [
+    "hcl",
+    "yaml",
+    "json",
+    "python",
+    "go",
+    "typescript"
+  ],
+  "token_budget": {
+    "minimal": 1100,
+    "compact": 1500,
+    "full": 2400
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "auth-security",
+    "iac-security",
+    "secret-detection"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "NIST SP 800-53 Rev. 5 (AC-2, AC-3, AC-6, AC-17, IA-2, IA-5)",
+    "NIST SP 800-63B (Authenticator Assurance)",
+    "CIS Controls v8 (Controls 5 and 6)",
+    "AWS IAM Best Practices",
+    "Google Cloud IAM Recommender",
+    "Microsoft Azure RBAC Best Practices",
+    "CNCF Kubernetes RBAC Good Practices",
+    "OWASP Cloud Security Top 10"
+  ]
+}

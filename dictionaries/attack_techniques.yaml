@@ -1,0 +1,178 @@
+schema_version: "1.0"
+edition: "MITRE ATT&CK subset relevant to software supply chain and application security"
+last_updated: "2026-05-12"
+source: "https://attack.mitre.org/"
+description: |
+  A curated subset of MITRE ATT&CK techniques that are particularly relevant to
+  AI-generated code, software supply chain attacks, and the application security
+  concerns that Skills Library is designed to mitigate. Each entry lists the
+  technique ID, name, tactic, a brief description, and (where applicable) the
+  skill IDs that defend against it.
+techniques:
+  - id: T1195
+    name: "Supply Chain Compromise"
+    tactic: "Initial Access"
+    description: "Adversary manipulates products or product delivery mechanisms before final consumption to compromise data or systems. Covers tampered software dependencies, build pipeline compromise, and update mechanism abuse."
+    defended_by: ["supply-chain-security", "dependency-audit"]
+    references:
+      - "https://attack.mitre.org/techniques/T1195/"
+
+  - id: T1195.001
+    name: "Compromise Software Dependencies and Development Tools"
+    tactic: "Initial Access"
+    description: "Adversary inserts malicious code into a software dependency or development tool that is used by the target. Includes typosquats and dependency confusion."
+    defended_by: ["supply-chain-security", "dependency-audit"]
+    references:
+      - "https://attack.mitre.org/techniques/T1195/001/"
+
+  - id: T1195.002
+    name: "Compromise Software Supply Chain"
+    tactic: "Initial Access"
+    description: "Adversary tampers with a legitimate vendor-distributed software product or update channel before it reaches the consumer (SolarWinds-style)."
+    defended_by: ["supply-chain-security"]
+    references:
+      - "https://attack.mitre.org/techniques/T1195/002/"
+
+  - id: T1059
+    name: "Command and Scripting Interpreter"
+    tactic: "Execution"
+    description: "Adversary abuses command/script interpreters to execute commands, scripts, or binaries. Covers shell-injection patterns in generated code."
+    defended_by: ["secure-code-review", "api-security"]
+    references:
+      - "https://attack.mitre.org/techniques/T1059/"
+
+  - id: T1059.006
+    name: "Python"
+    tactic: "Execution"
+    description: "Adversary uses Python to execute arbitrary code; relevant to `os.system`, `subprocess` with `shell=True`, `eval`, `exec`, and pickle-based deserialization in AI-generated Python."
+    defended_by: ["secure-code-review"]
+    references:
+      - "https://attack.mitre.org/techniques/T1059/006/"
+
+  - id: T1059.007
+    name: "JavaScript"
+    tactic: "Execution"
+    description: "Adversary uses JavaScript to execute code; relevant to `eval`, `Function` constructor, prototype pollution, and dynamic `require` in AI-generated Node.js."
+    defended_by: ["secure-code-review"]
+    references:
+      - "https://attack.mitre.org/techniques/T1059/007/"
+
+  - id: T1552
+    name: "Unsecured Credentials"
+    tactic: "Credential Access"
+    description: "Adversary searches for credentials insecurely stored in files, configuration, environment variables, or source code."
+    defended_by: ["secret-detection", "secure-code-review"]
+    references:
+      - "https://attack.mitre.org/techniques/T1552/"
+
+  - id: T1552.001
+    name: "Credentials In Files"
+    tactic: "Credential Access"
+    description: "Hardcoded credentials in source files, `.env` files committed to VCS, plaintext config files, or test fixtures with real secrets."
+    defended_by: ["secret-detection"]
+    references:
+      - "https://attack.mitre.org/techniques/T1552/001/"
+
+  - id: T1552.004
+    name: "Private Keys"
+    tactic: "Credential Access"
+    description: "Adversary searches for private keys (`*.pem`, `*.key`, `id_rsa*`, `*.pfx`). The secret-detection skill prevents accidental commits of these files."
+    defended_by: ["secret-detection"]
+    references:
+      - "https://attack.mitre.org/techniques/T1552/004/"
+
+  - id: T1552.007
+    name: "Container API"
+    tactic: "Credential Access"
+    description: "Adversary abuses container/Kubernetes API endpoints to harvest service account tokens and other credentials mounted into pods."
+    defended_by: ["container-security"]
+    references:
+      - "https://attack.mitre.org/techniques/T1552/007/"
+
+  - id: T1554
+    name: "Compromise Host Software Binary"
+    tactic: "Persistence"
+    description: "Adversary modifies a legitimate binary to maintain access. Includes `postinstall` script abuse in npm packages and `setup.py` arbitrary code execution."
+    defended_by: ["supply-chain-security", "dependency-audit"]
+    references:
+      - "https://attack.mitre.org/techniques/T1554/"
+
+  - id: T1190
+    name: "Exploit Public-Facing Application"
+    tactic: "Initial Access"
+    description: "Adversary exploits a weakness in an internet-facing application. Skills that limit injection, broken auth, and IDOR reduce the exploitable surface."
+    defended_by: ["api-security", "secure-code-review"]
+    references:
+      - "https://attack.mitre.org/techniques/T1190/"
+
+  - id: T1078
+    name: "Valid Accounts"
+    tactic: "Initial Access"
+    description: "Adversary obtains and abuses credentials of existing accounts. Driven by exposed secrets and weak credential hygiene."
+    defended_by: ["secret-detection", "api-security"]
+    references:
+      - "https://attack.mitre.org/techniques/T1078/"
+
+  - id: T1496
+    name: "Resource Hijacking"
+    tactic: "Impact"
+    description: "Adversary leverages compromised systems' resources (CPU, GPU, bandwidth) to mine cryptocurrency. Common payload of compromised npm/PyPI packages."
+    defended_by: ["supply-chain-security", "dependency-audit"]
+    references:
+      - "https://attack.mitre.org/techniques/T1496/"
+
+  - id: T1567
+    name: "Exfiltration Over Web Service"
+    tactic: "Exfiltration"
+    description: "Adversary exfiltrates data over a public web service. Common payload of compromised dependencies that POST environment variables or files to attacker servers."
+    defended_by: ["supply-chain-security", "secret-detection"]
+    references:
+      - "https://attack.mitre.org/techniques/T1567/"
+
+  - id: T1610
+    name: "Deploy Container"
+    tactic: "Defense Evasion"
+    description: "Adversary deploys a container to execute or escalate. Covers privileged container abuse, hostPath mounts, and missing security contexts."
+    defended_by: ["container-security"]
+    references:
+      - "https://attack.mitre.org/techniques/T1610/"
+
+  - id: T1611
+    name: "Escape to Host"
+    tactic: "Privilege Escalation"
+    description: "Adversary breaks out of a container into the host. Privileged containers, hostPID, and overly-permissive capabilities are the usual roots."
+    defended_by: ["container-security"]
+    references:
+      - "https://attack.mitre.org/techniques/T1611/"
+
+  - id: T1071
+    name: "Application Layer Protocol"
+    tactic: "Command and Control"
+    description: "Adversary uses common application-layer protocols (HTTPS, DNS) to blend C2 traffic with legitimate traffic. Generated code that beacons to attacker domains falls here."
+    defended_by: ["supply-chain-security"]
+    references:
+      - "https://attack.mitre.org/techniques/T1071/"
+
+  - id: T1486
+    name: "Data Encrypted for Impact"
+    tactic: "Impact"
+    description: "Ransomware-style encryption of victim data. Has appeared in compromised dependencies (e.g., protestware encrypting filesystems)."
+    defended_by: ["supply-chain-security", "dependency-audit"]
+    references:
+      - "https://attack.mitre.org/techniques/T1486/"
+
+  - id: T1098
+    name: "Account Manipulation"
+    tactic: "Persistence"
+    description: "Adversary modifies accounts to maintain access. In API security this maps to missing privilege checks on user/role mutations."
+    defended_by: ["api-security"]
+    references:
+      - "https://attack.mitre.org/techniques/T1098/"
+
+  - id: T1505.003
+    name: "Web Shell"
+    tactic: "Persistence"
+    description: "Adversary plants a script that grants remote command execution on the web server. Often introduced via insecure file upload or template injection."
+    defended_by: ["api-security", "secure-code-review"]
+    references:
+      - "https://attack.mitre.org/techniques/T1505/003/"

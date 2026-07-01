@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-2j22-pr5w-6gq8",
+  "published": "2026-03-26T22:19:02Z",
+  "modified": "2026-04-08T05:16:31.110296Z",
+  "related": [
+    "CGA-jm8q-hrhr-7p5m"
+  ],
+  "summary": "Loofah has improper detection of disallowed URIs via `allowed_uri?`",
+  "affected": [
+    {
+      "package": {
+        "name": "loofah",
+        "ecosystem": "RubyGems",
+        "purl": "pkg:gem/loofah"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "2.25.0"
+            },
+            {
+              "fixed": "2.25.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "2.25.0"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/03/GHSA-2j22-pr5w-6gq8/GHSA-2j22-pr5w-6gq8.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/flavorjones/loofah/security/advisories/GHSA-46fp-8f5p-pf2m"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/flavorjones/loofah/commit/f4ebc9c5193dde759a57541062e490e86fc7c068"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/flavorjones/loofah"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/flavorjones/loofah/releases/tag/v2.25.1"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/loofah/GHSA-46fp-8f5p-pf2m.yml"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-116",
+      "CWE-79"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-03-26T22:19:02Z",
+    "nvd_published_at": null,
+    "severity": "LOW"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-04-08"
+}

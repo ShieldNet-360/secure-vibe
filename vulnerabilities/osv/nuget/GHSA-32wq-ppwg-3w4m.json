@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-32wq-ppwg-3w4m",
+  "published": "2026-04-01T23:57:06Z",
+  "modified": "2026-04-02T13:14:16.912694Z",
+  "summary": "EnhancedLinq.Async is Vulnerable to Denial of Service via Transitive Dependency Microsoft.Bcl.Memory",
+  "affected": [
+    {
+      "package": {
+        "name": "EnhancedLinq.Async",
+        "ecosystem": "NuGet",
+        "purl": "pkg:nuget/EnhancedLinq.Async"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "1.0.0-beta.1"
+            },
+            {
+              "fixed": "1.0.0-beta.3"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-32wq-ppwg-3w4m/GHSA-32wq-ppwg-3w4m.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/alastairlundy/EnhancedLinq/security/advisories/GHSA-32wq-ppwg-3w4m"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/dotnet/announcements/issues/384"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/alastairlundy/EnhancedLinq"
+    },
+    {
+      "type": "WEB",
+      "url": "https://www.cve.org/CVERecord?id=CVE-2026-26127"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-129",
+      "CWE-1395"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-01T23:57:06Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-04-02"
+}

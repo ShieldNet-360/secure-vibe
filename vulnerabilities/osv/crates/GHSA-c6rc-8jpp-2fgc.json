@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-c6rc-8jpp-2fgc",
+  "published": "2026-05-13T15:31:49Z",
+  "modified": "2026-05-13T15:48:56.473183Z",
+  "aliases": [
+    "CVE-2026-45137"
+  ],
+  "summary": "Anchor: Program<'info, System> is not properly validated",
+  "affected": [
+    {
+      "package": {
+        "name": "anchor-lang",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/anchor-lang"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            },
+            {
+              "fixed": "1.0.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-c6rc-8jpp-2fgc/GHSA-c6rc-8jpp-2fgc.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/solana-foundation/anchor/security/advisories/GHSA-c6rc-8jpp-2fgc"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/solana-foundation/anchor"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/solana-foundation/anchor/releases/tag/v1.0.2"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-20"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-13T15:31:49Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:N"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

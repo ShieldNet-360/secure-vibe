@@ -1,0 +1,42 @@
+{
+  "id": "graphql-security",
+  "version": "1.0.0",
+  "title": "GraphQL Security",
+  "description": "Defend GraphQL APIs: depth/complexity limits, introspection in production, batching/aliasing abuse, field-level authorization, persisted queries",
+  "category": "prevention",
+  "severity": "high",
+  "applies_to": [
+    "when generating GraphQL schemas, resolvers, or server config",
+    "when wiring authentication/authorization to a GraphQL endpoint",
+    "when adding a public GraphQL API gateway",
+    "when reviewing /graphql endpoint exposure"
+  ],
+  "languages": [
+    "javascript",
+    "typescript",
+    "python",
+    "go",
+    "java",
+    "kotlin",
+    "csharp",
+    "ruby"
+  ],
+  "token_budget": {
+    "minimal": 1200,
+    "compact": 1500,
+    "full": 2200
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "api-security",
+    "auth-security",
+    "logging-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP GraphQL Cheat Sheet",
+    "CWE-400: Uncontrolled Resource Consumption",
+    "Apollo GraphQL Production Checklist",
+    "graphql-armor (Escape technologies)"
+  ]
+}

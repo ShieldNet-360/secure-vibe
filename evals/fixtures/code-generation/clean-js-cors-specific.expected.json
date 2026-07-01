@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "cors-security",
+  "language": "javascript",
+  "insecure_signals": [
+    "origin\\s*:\\s*['\\\"]\\*['\\\"]",
+    "Allow-Origin['\\\"]?\\s*,\\s*['\\\"]\\*"
+  ],
+  "secure_signals": [
+    "app\\.example\\.com",
+    "origin\\s*:\\s*\\["
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

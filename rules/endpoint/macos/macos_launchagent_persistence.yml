@@ -1,0 +1,28 @@
+schema_version: "1.0"
+title: macOS LaunchAgent or LaunchDaemon written by user-space process
+id: 3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f
+status: stable
+level: medium
+description: |
+  Persistence on macOS frequently involves a .plist dropped into
+  ~/Library/LaunchAgents, /Library/LaunchAgents, or
+  /Library/LaunchDaemons. This rule fires when a user-space process
+  (PPID is not launchd) writes such a file.
+references:
+  - https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
+  - https://attack.mitre.org/techniques/T1543/001/
+tags:
+  - attack.t1543.001
+  - attack.persistence
+logsource:
+  product: macos
+  service: unifiedlog
+detection:
+  selection:
+    eventMessage|contains: "open"
+    eventMessage|re:
+      - "/Library/LaunchAgents/.*\\.plist"
+      - "/Library/LaunchDaemons/.*\\.plist"
+  condition: selection
+falsepositives:
+  - MDM agents (Jamf, Kandji, Intune) deploying managed launch services.

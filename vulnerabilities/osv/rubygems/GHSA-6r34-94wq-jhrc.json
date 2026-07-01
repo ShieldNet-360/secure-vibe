@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-6r34-94wq-jhrc",
+  "published": "2026-04-06T17:53:59Z",
+  "modified": "2026-05-13T16:35:44.190293Z",
+  "aliases": [
+    "CVE-2026-35201"
+  ],
+  "summary": "rdiscount has an Out-of-bounds Read",
+  "affected": [
+    {
+      "package": {
+        "name": "rdiscount",
+        "ecosystem": "RubyGems",
+        "purl": "pkg:gem/rdiscount"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "1.3.1.1"
+            },
+            {
+              "fixed": "2.2.7.4"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "1.3.1.1",
+        "1.3.4",
+        "1.3.5",
+        "1.5.5",
+        "1.5.8",
+        "1.5.8.1",
+        "1.6.3",
+        "1.6.3.1",
+        "1.6.3.2",
+        "1.6.5",
+        "1.6.8",
+        "2.0.7",
+        "2.0.7.1",
+        "2.0.7.2",
+        "2.0.7.3",
+        "2.1.6",
+        "2.1.7",
+        "2.1.7.1",
+        "2.1.8",
+        "2.2.0",
+        "2.2.0.1",
+        "2.2.0.2",
+        "2.2.7",
+        "2.2.7.1",
+        "2.2.7.2",
+        "2.2.7.3"
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/04/GHSA-6r34-94wq-jhrc/GHSA-6r34-94wq-jhrc.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/davidfstr/rdiscount/security/advisories/GHSA-6r34-94wq-jhrc"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35201"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/davidfstr/rdiscount/commit/b1a16445e92e0d12c07594dedcdc56f80b317761"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/davidfstr/rdiscount"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/rdiscount/CVE-2026-35201.yml"
+    },
+    {
+      "type": "WEB",
+      "url": "http://github.com/davidfstr/rdiscount/releases/tag/2.2.7.4"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-125"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-04-06T17:53:59Z",
+    "nvd_published_at": "2026-04-06T20:16:27Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-05-13"
+}

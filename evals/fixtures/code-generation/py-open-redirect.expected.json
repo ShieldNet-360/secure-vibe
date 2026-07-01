@@ -1,0 +1,17 @@
+{
+  "ground_truth": "generation",
+  "skill": "frontend-security",
+  "language": "python",
+  "insecure_signals": [
+    "redirect\\(\\s*request\\.(args|values|form)\\[",
+    "redirect\\(\\s*next\\s*\\)"
+  ],
+  "secure_signals": [
+    "startswith\\(\\s*['\\\"]/",
+    "url_for\\(",
+    "urlparse\\([^)]*\\)\\.netloc",
+    "allowlist"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-601"
+}

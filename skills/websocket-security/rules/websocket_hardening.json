@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Hardening defaults for WebSocket / Socket.IO / SignalR / Phoenix Channels endpoints. CORS does not apply to WebSockets — Origin validation must be done explicitly at upgrade time.",
+  "references": [
+    "https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Cheat_Sheet.html",
+    "https://cwe.mitre.org/data/definitions/1385.html",
+    "https://datatracker.ietf.org/doc/html/rfc6455"
+  ],
+  "defaults": {
+    "tls_required_in_production": true,
+    "origin_allowlist_required": true,
+    "auth_on_handshake_required": true,
+    "auth_modes_recommended": [
+      "cookie + Origin allowlist (with CSRF mitigation via Origin)",
+      "short-lived JWT in Sec-WebSocket-Protocol subprotocol header",
+      "signed query parameter token (HMAC, 5-10 minute lifetime)"
+    ],
+    "max_message_size_bytes_default": 32768,
+    "max_message_size_bytes_collab_editing": 262144,
+    "max_messages_per_minute_per_connection": 60,
+    "max_connections_per_ip_per_minute": 30,
+    "max_concurrent_connections_per_user": 5,
+    "ping_interval_seconds": 25,
+    "pong_timeout_seconds": 30,
+    "idle_close_timeout_seconds": 300,
+    "client_reconnect_strategy": "exponential_backoff_with_jitter",
+    "client_reconnect_base_ms": 1000,
+    "client_reconnect_factor": 2.0,
+    "client_reconnect_max_ms": 60000,
+    "client_reconnect_jitter_pct": 20
+  },
+  "anti_patterns": [
+    {"id": "ws-no-origin-check", "severity": "critical", "cwe": 1385, "rule": "Missing Origin allowlist on the upgrade handshake enables Cross-Site WebSocket Hijacking"},
+    {"id": "ws-auth-on-first-message", "severity": "high", "cwe": 287, "rule": "Authenticating via post-upgrade message instead of on the handshake means the connection is opened with cookies before auth — CSWSH risk"},
+    {"id": "ws-plain-ws-in-prod", "severity": "high", "cwe": 319, "rule": "Plain ws:// in production exposes tokens and content on path"},
+    {"id": "ws-no-message-size-limit", "severity": "high", "cwe": 770, "rule": "No per-message size limit enables single-message memory exhaustion"},
+    {"id": "ws-no-rate-limit", "severity": "high", "cwe": 770, "rule": "No per-connection message rate limit enables real-time spam / DoS"},
+    {"id": "ws-no-connection-limit", "severity": "high", "cwe": 770, "rule": "No per-IP / per-user connection limit enables socket exhaustion"},
+    {"id": "ws-no-heartbeat", "severity": "medium", "cwe": 400, "rule": "No ping/pong heartbeat leaves half-open connections on LBs and intermediaries"},
+    {"id": "ws-naive-reconnect", "severity": "medium", "cwe": 400, "rule": "Client reconnect without exponential backoff + jitter melts the server during outages"},
+    {"id": "ws-leak-internal-ids", "severity": "low", "cwe": 200, "rule": "Echoing pod / shard / build IDs in real-time messages aids attacker recon"},
+    {"id": "ws-stale-authorization", "severity": "medium", "cwe": 285, "rule": "Authorization checked only on handshake fails when user is logged out / role changed mid-session; re-check on privileged messages"}
+  ]
+}

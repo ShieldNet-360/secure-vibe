@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "fixture": "self-hosted-runner.yml",
+  "description": "Baseline fixture: the current gha-* rule set has no rule targeting self-hosted-runner risk on its own, so a hardened workflow that happens to use `runs-on: self-hosted` should clear every existing pass with zero findings. The fixture exists (a) as a control to confirm the scanner does not regress and start emitting spurious self-hosted findings, and (b) as a placeholder for the day a self-hosted-runner rule is added.",
+  "expected_findings": []
+}

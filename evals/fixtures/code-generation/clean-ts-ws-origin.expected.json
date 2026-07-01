@@ -1,0 +1,14 @@
+{
+  "ground_truth": "generation-clean",
+  "skill": "websocket-security",
+  "language": "typescript",
+  "insecure_signals": [
+    "verifyClient[^=]*=>\\s*true",
+    "return true\\s*;?\\s*//?\\s*allow all"
+  ],
+  "secure_signals": [
+    "info\\.origin\\s*===",
+    "app\\.example\\.com"
+  ],
+  "generated_by": "_generate_generation_corpus.py"
+}

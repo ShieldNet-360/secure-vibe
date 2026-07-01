@@ -1,0 +1,35 @@
+{
+  "id": "ml-security",
+  "version": "1.1.0",
+  "title": "ML Model Security",
+  "description": "Model artifact loading (pickle vs safetensors), model \u0026 data poisoning, PII in training data, secrets in notebooks, model provenance / lineage",
+  "category": "prevention",
+  "severity": "high",
+  "applies_to": [
+    "when generating code that loads ML models from disk / Hub / S3",
+    "when generating data pipelines that ingest user content for training / fine-tuning",
+    "when generating ML notebooks or training / evaluation scripts"
+  ],
+  "languages": [
+    "python",
+    "jupyter"
+  ],
+  "token_budget": {
+    "minimal": 700,
+    "compact": 900,
+    "full": 1800
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "llm-app-security",
+    "secret-detection",
+    "supply-chain-security",
+    "deserialization-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "NIST AI 100-2 (Adversarial Machine Learning)",
+    "MITRE ATLAS (Adversarial Threat Landscape for AI Systems)",
+    "CWE-502, CWE-1039, CWE-1395"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "ground_truth": "generation",
+  "skill": "database-security",
+  "language": "javascript",
+  "insecure_signals": [
+    "findOne\\(\\s*\\{[^}]*password\\s*:\\s*req\\.body",
+    ":\\s*req\\.body\\.\\w+\\s*[},]"
+  ],
+  "secure_signals": [
+    "String\\(\\s*req\\.body",
+    "bcrypt\\.compare",
+    "\\$eq\\b",
+    "typeof\\s+req\\.body"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-943"
+}

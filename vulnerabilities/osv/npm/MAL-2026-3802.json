@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.7.5",
+  "id": "MAL-2026-3802",
+  "published": "2026-05-15T12:48:57Z",
+  "modified": "2026-05-15T13:17:41.560227Z",
+  "summary": "Malicious code in @datatrain/passenger-v3 (npm)",
+  "affected": [
+    {
+      "package": {
+        "name": "@datatrain/passenger-v3",
+        "ecosystem": "npm",
+        "purl": "pkg:npm/%40datatrain/passenger-v3"
+      },
+      "versions": [
+        "99.99.99"
+      ],
+      "database_specific": {
+        "source": "https://github.com/ossf/malicious-packages/blob/main/osv/malicious/npm/@datatrain/passenger-v3/MAL-2026-3802.json"
+      }
+    }
+  ],
+  "database_specific": {
+    "malicious-packages-origins": [
+      {
+        "import_time": "2026-05-15T13:08:45.806292469Z",
+        "modified_time": "2026-05-15T12:48:57Z",
+        "sha256": "b9ddfc7b79c2b6ec028ceb57ce51ac4c99d20ef8752a4af45fe763ed2899490d",
+        "source": "ossf-package-analysis",
+        "versions": [
+          "99.99.99"
+        ]
+      }
+    ]
+  },
+  "credits": [
+    {
+      "name": "OpenSSF: Package Analysis",
+      "contact": [
+        "https://github.com/ossf/package-analysis",
+        "https://openssf.slack.com/channels/package_analysis"
+      ],
+      "type": "FINDER"
+    }
+  ],
+  "last_updated": "2026-05-15"
+}

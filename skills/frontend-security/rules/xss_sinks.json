@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Dangerous DOM and JS sinks that pass strings to the HTML or JavaScript parsers. Flag any of these reachable from user input.",
+  "sinks": [
+    {
+      "name": "innerHTML / outerHTML assignment",
+      "patterns": ["\\.innerHTML\\s*=", "\\.outerHTML\\s*=", "insertAdjacentHTML\\("],
+      "severity": "critical",
+      "cwe": 79,
+      "recommendation": "Use textContent for plain text; route HTML through DOMPurify with strict config"
+    },
+    {
+      "name": "React dangerouslySetInnerHTML",
+      "patterns": ["dangerouslySetInnerHTML\\s*=\\s*\\{"],
+      "severity": "critical",
+      "cwe": 79,
+      "recommendation": "Sanitize via DOMPurify or a server-side allowlist before rendering"
+    },
+    {
+      "name": "Vue v-html",
+      "patterns": ["v-html\\s*="],
+      "severity": "critical",
+      "cwe": 79
+    },
+    {
+      "name": "Svelte {@html}",
+      "patterns": ["\\{@html\\s"],
+      "severity": "critical",
+      "cwe": 79
+    },
+    {
+      "name": "document.write",
+      "patterns": ["document\\.write\\s*\\(", "document\\.writeln\\s*\\("],
+      "severity": "high",
+      "cwe": 79
+    },
+    {
+      "name": "eval / Function constructors",
+      "patterns": ["\\beval\\s*\\(", "new\\s+Function\\s*\\(", "setTimeout\\s*\\(\\s*['\\\"]", "setInterval\\s*\\(\\s*['\\\"]"],
+      "severity": "critical",
+      "cwe": 95
+    },
+    {
+      "name": "javascript: URL injection",
+      "patterns": ["href\\s*=\\s*['\\\"]javascript:", "src\\s*=\\s*['\\\"]javascript:", "formaction\\s*=\\s*['\\\"]javascript:"],
+      "severity": "critical",
+      "cwe": 79
+    },
+    {
+      "name": "Script element src/text from string",
+      "patterns": ["\\.createElement\\s*\\(\\s*['\\\"]script['\\\"]\\s*\\)"],
+      "severity": "high",
+      "cwe": 79,
+      "recommendation": "If you must, attach with element.src bound to a literal URL; never assign innerText/innerHTML from input"
+    },
+    {
+      "name": "window.location assignment from input",
+      "patterns": ["window\\.location\\s*=", "window\\.location\\.href\\s*=", "location\\.assign\\s*\\(", "location\\.replace\\s*\\("],
+      "severity": "high",
+      "cwe": 601,
+      "recommendation": "Validate URL scheme against allowlist before redirecting"
+    },
+    {
+      "name": "target=_blank without rel=noopener",
+      "patterns": ["target\\s*=\\s*['\\\"]_blank['\\\"]"],
+      "severity": "medium",
+      "cwe": 1022,
+      "recommendation": "Always add rel=\"noopener noreferrer\" alongside target=_blank"
+    },
+    {
+      "name": "postMessage without origin check",
+      "patterns": ["addEventListener\\s*\\(\\s*['\\\"]message['\\\"]"],
+      "severity": "high",
+      "cwe": 346,
+      "recommendation": "Always validate event.origin against an allowlist inside the handler"
+    },
+    {
+      "name": "localStorage / sessionStorage for tokens",
+      "patterns": ["localStorage\\.setItem\\s*\\([^)]*(token|jwt|secret|password)", "sessionStorage\\.setItem\\s*\\([^)]*(token|jwt|secret|password)"],
+      "severity": "high",
+      "cwe": 922,
+      "recommendation": "Store auth state in HttpOnly cookies instead"
+    }
+  ]
+}

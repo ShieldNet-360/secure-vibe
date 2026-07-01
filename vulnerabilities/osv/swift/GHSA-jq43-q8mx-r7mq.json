@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.7.3",
+  "id": "GHSA-jq43-q8mx-r7mq",
+  "published": "2023-07-14T21:58:43Z",
+  "modified": "2024-02-09T00:34:39Z",
+  "aliases": [
+    "CVE-2022-23465"
+  ],
+  "summary": "SwiftTerm Code Injection vulnerability",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/migueldeicaza/SwiftTerm",
+        "ecosystem": "SwiftURL",
+        "purl": "pkg:swift/github.com/migueldeicaza/SwiftTerm"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.2.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/07/GHSA-jq43-q8mx-r7mq/GHSA-jq43-q8mx-r7mq.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/migueldeicaza/SwiftTerm/security/advisories/GHSA-jq43-q8mx-r7mq"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-23465"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/migueldeicaza/SwiftTerm/commit/a94e6b24d24ce9680ad79884992e1dff8e150a31"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/migueldeicaza/SwiftTerm"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-94"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2023-07-14T21:58:43Z",
+    "nvd_published_at": "2022-12-02T23:15:16Z",
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N"
+    }
+  ],
+  "last_updated": "2024-02-09"
+}

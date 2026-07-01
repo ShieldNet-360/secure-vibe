@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-13",
+  "description": "Cloud-provider instance metadata service endpoints and equivalents that must be blocked from user-fetchable URLs.",
+  "references": [
+    "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html",
+    "https://cloud.google.com/compute/docs/metadata/overview",
+    "https://learn.microsoft.com/en-us/azure/virtual-machines/instance-metadata-service",
+    "https://www.alibabacloud.com/help/en/elastic-compute-service/latest/access-instance-metadata"
+  ],
+  "endpoints": [
+    {"provider": "aws", "host": "169.254.169.254", "ipv6": "fd00:ec2::254", "notes": "IMDS — enforce IMDSv2 with X-aws-ec2-metadata-token + hop-limit=1"},
+    {"provider": "aws-ecs", "host": "169.254.170.2", "notes": "ECS task metadata + credentials endpoint"},
+    {"provider": "gcp", "host": "169.254.169.254", "hostnames": ["metadata.google.internal", "metadata"], "header_required": "Metadata-Flavor: Google", "notes": "Header requirement is *not* a security control by itself; block at network/app layer"},
+    {"provider": "azure", "host": "169.254.169.254", "notes": "IMDS — requires Metadata: true header (also not a security control alone)"},
+    {"provider": "oracle", "host": "169.254.169.254", "notes": "OCI IMDS v1 deprecated; enforce IMDS v2"},
+    {"provider": "alibaba", "host": "100.100.100.200", "notes": "Aliyun ECS metadata"},
+    {"provider": "digitalocean", "host": "169.254.169.254", "notes": "DigitalOcean droplet metadata"},
+    {"provider": "openstack", "host": "169.254.169.254", "notes": "Nova metadata service"},
+    {"provider": "kubernetes-pod-link-local", "host": "169.254.0.0/16", "notes": "Block the whole link-local range — many CNIs surface metadata via additional 169.254.x addresses"}
+  ],
+  "additional_block_ranges": [
+    "0.0.0.0/8",
+    "10.0.0.0/8",
+    "100.64.0.0/10",
+    "127.0.0.0/8",
+    "169.254.0.0/16",
+    "172.16.0.0/12",
+    "192.0.0.0/24",
+    "192.0.2.0/24",
+    "192.168.0.0/16",
+    "198.18.0.0/15",
+    "198.51.100.0/24",
+    "203.0.113.0/24",
+    "224.0.0.0/4",
+    "240.0.0.0/4",
+    "255.255.255.255/32",
+    "::/128",
+    "::1/128",
+    "::ffff:0:0/96",
+    "64:ff9b::/96",
+    "100::/64",
+    "2001::/32",
+    "2001:db8::/32",
+    "fc00::/7",
+    "fe80::/10",
+    "ff00::/8"
+  ]
+}

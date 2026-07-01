@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-fqph-j6v6-jvgx",
+  "published": "2026-05-07T03:15:46Z",
+  "modified": "2026-05-14T21:02:36.339844Z",
+  "aliases": [
+    "CVE-2026-44520"
+  ],
+  "summary": "docling-graph has SSRF via Missing Internal IP Validation in URLInputHandler",
+  "affected": [
+    {
+      "package": {
+        "name": "docling-graph",
+        "ecosystem": "PyPI",
+        "purl": "pkg:pypi/docling-graph"
+      },
+      "ranges": [
+        {
+          "type": "ECOSYSTEM",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "1.5.1"
+            }
+          ]
+        }
+      ],
+      "versions": [
+        "0.2.4",
+        "0.2.5",
+        "0.3.0",
+        "0.4.0",
+        "0.4.1",
+        "1.0.0",
+        "1.1.0",
+        "1.2.0",
+        "1.2.1",
+        "1.2.2",
+        "1.2.3",
+        "1.2.4",
+        "1.3.0",
+        "1.3.1",
+        "1.4.0",
+        "1.4.3",
+        "1.4.4",
+        "1.5.0"
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 1.5.0",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-fqph-j6v6-jvgx/GHSA-fqph-j6v6-jvgx.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/docling-project/docling-graph/security/advisories/GHSA-fqph-j6v6-jvgx"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44520"
+    },
+    {
+      "type": "WEB",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/docling-project/docling-graph"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-601",
+      "CWE-918"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T03:15:46Z",
+    "nvd_published_at": "2026-05-14T18:16:50Z",
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:H/I:N/A:N"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

@@ -1,0 +1,28 @@
+schema_version: "1.0"
+title: AWS root account console login or API call
+id: 7b9a8d2e-1a8a-4c7a-9b1f-3c2e6c1f9a01
+status: stable
+level: high
+description: |
+  The AWS root account should never be used after the initial setup of
+  the account. Any console login or API call where userIdentity.type
+  equals "Root" is suspicious and warrants immediate investigation.
+references:
+  - https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials
+  - https://attack.mitre.org/techniques/T1078/004/
+tags:
+  - attack.t1078.004
+  - attack.initial_access
+  - attack.persistence
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    userIdentity.type: Root
+  filter_iam_user_creation:
+    eventName: CreateUser
+  condition: selection and not filter_iam_user_creation
+falsepositives:
+  - Initial account setup performed by the original root user.
+  - Billing-only actions that AWS still requires the root user to perform.

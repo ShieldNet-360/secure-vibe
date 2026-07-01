@@ -1,0 +1,36 @@
+schema_version: "1.0"
+edition: "OWASP Top 10 2021 (current edition; 2025 edition pending publication)"
+last_updated: "2026-05-12"
+source: "https://owasp.org/Top10/"
+note: "The 2025 edition has not been published yet. This file tracks the active OWASP Top 10 (2021); update when 2025 ships."
+items:
+  - id: A01
+    title: "Broken Access Control"
+    description: "Restrictions on authenticated users not properly enforced; users access data or functions they shouldn't."
+  - id: A02
+    title: "Cryptographic Failures"
+    description: "Sensitive data exposed via weak/missing encryption, broken hash functions, or improper key management."
+  - id: A03
+    title: "Injection"
+    description: "Untrusted input passed as command/query: SQLi, OS command, LDAP, XPath, ORM, expression language, etc."
+  - id: A04
+    title: "Insecure Design"
+    description: "Missing or ineffective security controls in design phase; threat modeling failures."
+  - id: A05
+    title: "Security Misconfiguration"
+    description: "Default credentials, verbose error messages, unnecessary features enabled, missing security headers."
+  - id: A06
+    title: "Vulnerable and Outdated Components"
+    description: "Using libraries, frameworks, or other software components with known vulnerabilities."
+  - id: A07
+    title: "Identification and Authentication Failures"
+    description: "Weak credentials, predictable session IDs, missing MFA, insecure password recovery."
+  - id: A08
+    title: "Software and Data Integrity Failures"
+    description: "Code or data dependencies pulled from untrusted sources; CI/CD without integrity verification; insecure deserialization."
+  - id: A09
+    title: "Security Logging and Monitoring Failures"
+    description: "Auditable events not logged; warnings not generated; logs not centralized or monitored."
+  - id: A10
+    title: "Server-Side Request Forgery (SSRF)"
+    description: "Server-side application fetching attacker-controlled URLs without validation, especially against internal infrastructure."

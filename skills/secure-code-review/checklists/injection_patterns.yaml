@@ -1,0 +1,56 @@
+schema_version: "1.0"
+last_updated: "2026-05-12"
+patterns:
+  - id: sql_concat
+    name: "SQL String Concatenation"
+    languages: ["python", "go", "javascript", "java", "ruby", "php"]
+    bad_examples:
+      - "cursor.execute(\"SELECT * FROM users WHERE name = '\" + name + \"'\")"
+      - "db.query(`SELECT * FROM users WHERE id = ${id}`)"
+    good_examples:
+      - "cursor.execute(\"SELECT * FROM users WHERE name = %s\", (name,))"
+      - "db.query('SELECT * FROM users WHERE id = ?', [id])"
+    cwe: 89
+
+  - id: shell_exec_user_input
+    name: "Shell Execution with User Input"
+    languages: ["python", "go", "javascript", "java", "ruby", "php"]
+    bad_examples:
+      - "subprocess.run('grep ' + pattern + ' file.txt', shell=True)"
+      - "exec(`ls ${user_path}`)"
+    good_examples:
+      - "subprocess.run(['grep', pattern, 'file.txt'])"
+      - "execFile('ls', [user_path])"
+    cwe: 78
+
+  - id: eval_user_input
+    name: "Eval / Function with User Input"
+    languages: ["python", "javascript", "ruby", "php"]
+    bad_examples:
+      - "eval(user_supplied_code)"
+      - "new Function(user_supplied_code)()"
+    good_examples:
+      - "Use a sandboxed expression evaluator or restrict input to safe AST nodes"
+    cwe: 95
+
+  - id: html_unescaped_render
+    name: "Unescaped HTML Rendering"
+    languages: ["javascript", "python", "ruby"]
+    bad_examples:
+      - "element.innerHTML = user_input"
+      - "{{ user_input|safe }}"
+    good_examples:
+      - "element.textContent = user_input"
+      - "{{ user_input }}"
+    cwe: 79
+
+  - id: path_traversal
+    name: "Path Traversal"
+    languages: ["python", "go", "javascript", "java"]
+    bad_examples:
+      - "open('/var/files/' + filename)"
+      - "os.path.join('/var/files', filename)  # filename = '../../etc/passwd'"
+    good_examples:
+      - "Canonicalize path, then check it starts with allowed base directory"
+      - "Use a fixed allowlist of filenames"
+    cwe: 22

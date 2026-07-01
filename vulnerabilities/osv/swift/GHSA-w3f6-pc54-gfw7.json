@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-w3f6-pc54-gfw7",
+  "published": "2023-05-18T17:28:39Z",
+  "modified": "2026-03-13T22:00:49.815336Z",
+  "aliases": [
+    "CVE-2022-24667"
+  ],
+  "related": [
+    "CVE-2022-24667"
+  ],
+  "summary": "swift-nio-http2 vulnerable to denial of service via mishandled HPACK variable length integer encoding",
+  "affected": [
+    {
+      "package": {
+        "name": "github.com/apple/swift-nio-http2",
+        "ecosystem": "SwiftURL",
+        "purl": "pkg:swift/github.com/apple/swift-nio-http2"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "1.0.0"
+            },
+            {
+              "fixed": "1.19.2"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/05/GHSA-w3f6-pc54-gfw7/GHSA-w3f6-pc54-gfw7.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/apple/swift-nio-http2/security/advisories/GHSA-w3f6-pc54-gfw7"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-24667"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/apple/swift-nio-http2/commit/56c60a29b1207a731be62fb68cc98246942145ed"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/apple/swift-nio-http2"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/apple/swift-nio-http2/releases/tag/1.19.2"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-190"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2023-05-18T17:28:39Z",
+    "nvd_published_at": null,
+    "severity": "HIGH"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+  ],
+  "last_updated": "2026-03-13"
+}

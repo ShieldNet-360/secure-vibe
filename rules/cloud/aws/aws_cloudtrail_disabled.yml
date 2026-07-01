@@ -1,0 +1,28 @@
+schema_version: "1.0"
+title: AWS CloudTrail trail stopped or deleted
+id: 1c2a7f7e-1d5c-4f6f-8e8b-5e8a4f6e1d12
+status: stable
+level: high
+description: |
+  An attacker who has gained control of an AWS account commonly disables
+  CloudTrail to remove the audit trail of subsequent actions. This rule
+  flags StopLogging and DeleteTrail API calls.
+references:
+  - https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-event-reference-aws-console-sign-in-events.html
+  - https://attack.mitre.org/techniques/T1562/008/
+tags:
+  - attack.t1562.008
+  - attack.defense_evasion
+logsource:
+  product: aws
+  service: cloudtrail
+detection:
+  selection:
+    eventSource: cloudtrail.amazonaws.com
+    eventName:
+      - StopLogging
+      - DeleteTrail
+      - UpdateTrail
+  condition: selection
+falsepositives:
+  - Planned changes to trail configuration by cloud platform engineering.

@@ -1,0 +1,1605 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the secret-detection skill. Each entry is a snippet plus the expected detection outcome.",
+  "fixtures": [
+    {
+      "id": "aws-real-key-with-hotword",
+      "text": "AWS_ACCESS_KEY_ID = \u0041KIAZ1234567890ABCDE",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key"
+    },
+    {
+      "id": "aws-doc-example",
+      "text": "Use \u0041KIAIOSFODNN7EXAMPLE as the example access key id",
+      "expected": "ignore",
+      "reason": "well-known AWS documentation placeholder"
+    },
+    {
+      "id": "github-pat",
+      "text": "token: \u0067hp_abcdefghijklmnopqrstuvwxyz0123456789",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token"
+    },
+    {
+      "id": "github-fine-grained-pat",
+      "text": "GITHUB_TOKEN=\u0067ithub_pat_11ABCDEFGHIJKLMNOPQRSTUVWX_abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ012345",
+      "expected": "detect",
+      "expected_pattern": "GitHub Fine-Grained PAT"
+    },
+    {
+      "id": "github-fine-grained-pat-truncated",
+      "text": "GITHUB_TOKEN=github_pat_short",
+      "expected": "ignore",
+      "reason": "below required length for the fine-grained PAT prefix"
+    },
+    {
+      "id": "anthropic-api-key",
+      "text": "ANTHROPIC_API_KEY=\u0073k-ant-api03-AAAAbbbb_ccccDDDDeeeeFFFFgggg-HHHHiiiijjjjKKKK_LLLLmmmmNNNNoooo-PPPPqqqq-rrrrSSSS_TTTTuuuuVVVVwwww-xxxx",
+      "expected": "detect",
+      "expected_pattern": "Anthropic API Key"
+    },
+    {
+      "id": "anthropic-api-key-doc-snippet",
+      "text": "Use sk-ant-api03-XXXX as a placeholder",
+      "expected": "ignore",
+      "reason": "below required length; placeholder pattern"
+    },
+    {
+      "id": "databricks-token",
+      "text": "DATABRICKS_TOKEN=dapi1234567890abcdef1234567890abcdef0123",
+      "expected": "detect",
+      "expected_pattern": "Databricks Token"
+    },
+    {
+      "id": "datadog-32hex-with-hotword",
+      "text": "datadog_api_key = '0123456789abcdef0123456789abcdef'",
+      "expected": "detect",
+      "expected_pattern": "Datadog API Key"
+    },
+    {
+      "id": "datadog-32hex-no-hotword",
+      "text": "commit sha 0123456789abcdef0123456789abcdef",
+      "expected": "ignore",
+      "reason": "32-hex without hotword is almost always a commit/blob SHA"
+    },
+    {
+      "id": "twilio-sid",
+      "text": "TWILIO_SK = \u0053Kabcdef1234567890abcdef1234567890",
+      "expected": "detect",
+      "expected_pattern": "Twilio API Key"
+    },
+    {
+      "id": "sendgrid-key",
+      "text": "SENDGRID_API_KEY=\u0053G.abcdefghijklmnopqrstuv.abcdefghijklmnopqrstuvwxyz0123456789ABCDEFG",
+      "expected": "detect",
+      "expected_pattern": "SendGrid API Key"
+    },
+    {
+      "id": "npm-token",
+      "text": "//registry.npmjs.org/:_authToken=\u006epm_AbCdEf012345abcdef012345abcdef012345abcd",
+      "expected": "detect",
+      "expected_pattern": "npm Access Token"
+    },
+    {
+      "id": "pypi-upload-token",
+      "text": "twine upload -p pypi-AgEIcHlwaS5vcmcCJDA0YjIzNzY0LWQ5MzgtNDhmMC1iNmMzLTI4ZjJkOWY0ZTY4NgACKlszLCJlNjRmZmI5MS1lOGVjLTQwZWMtOTQ5Yi1mYTdmZmI",
+      "expected": "detect",
+      "expected_pattern": "PyPI Upload Token"
+    },
+    {
+      "id": "heroku-uuid-with-hotword",
+      "text": "HEROKU_API_KEY=12345678-90ab-cdef-1234-567890abcdef",
+      "expected": "detect",
+      "expected_pattern": "Heroku API Key"
+    },
+    {
+      "id": "uuid-without-heroku-hotword",
+      "text": "session_id = '12345678-90ab-cdef-1234-567890abcdef'",
+      "expected": "ignore",
+      "reason": "UUIDs are everywhere; require hotword"
+    },
+    {
+      "id": "digitalocean-pat",
+      "text": "DO_TOKEN=\u0064op_v1_0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "expected": "detect",
+      "expected_pattern": "DigitalOcean Personal Access Token"
+    },
+    {
+      "id": "vault-token",
+      "text": "VAULT_TOKEN=\u0068vs.ABCDEFGHIJKLMNOP_qrstuvwx",
+      "expected": "detect",
+      "expected_pattern": "HashiCorp Vault Token"
+    },
+    {
+      "id": "supabase-service-key",
+      "text": "SUPABASE_SERVICE_ROLE_KEY=\u0073bp_0123456789abcdef0123456789abcdef01234567",
+      "expected": "detect",
+      "expected_pattern": "Supabase Service Key"
+    },
+    {
+      "id": "linear-api-key",
+      "text": "LINEAR_API_KEY=lin_api_0123456789abcdefABCDEF0123456789abcdefABCD",
+      "expected": "detect",
+      "expected_pattern": "Linear API Key"
+    },
+    {
+      "id": "private-key-block",
+      "text": "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEA...\n-----END RSA PRIVATE KEY-----",
+      "expected": "detect",
+      "expected_pattern": "Private Key Block"
+    },
+    {
+      "id": "css-hex-color",
+      "text": "background-color: #abcdef;",
+      "expected": "ignore",
+      "reason": "CSS hex color is not a secret"
+    },
+    {
+      "id": "placeholder-api-key",
+      "text": "api_key = \"YOUR_API_KEY_HERE\"",
+      "expected": "ignore",
+      "reason": "placeholder value"
+    },
+    {
+      "id": "git-commit-sha",
+      "text": "Cherry-picked from 9f3a7c2bde4f1e0a8c2d6b8e7f1234567",
+      "expected": "ignore",
+      "reason": "git commit SHAs share the 32-40 hex shape but are not secrets"
+    },
+    {
+      "id": "azure-client-secret-with-hotword",
+      "text": "AZURE_CLIENT_SECRET=Q~AbCdEf123456789-_abcdefghijklmnop",
+      "expected": "detect",
+      "expected_pattern": "Azure AD Client Secret"
+    },
+    {
+      "id": "two-non-generic-matches-last-wins",
+      "text": "# infra config\niam_user_aws_access_key_id = \u0041KIA2E0A8F3B7D9C1E5F\nslack_webhook = \u0078oxb-FAKE-CORPUS-NOT-A-REAL-TOKEN\n",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "reason": "two distinct non-Generic patterns match in one payload; per matchAny doc the LAST non-Generic in dlp_patterns.json order wins (Slack Token sits after AWS Access Key)"
+    },
+    {
+      "id": "tn-32hex-012345",
+      "text": "md5 fingerprint = 0123456789abcdef0123456789abcdef",
+      "expected": "ignore",
+      "reason": "32-hex without secret hotword is a digest, not a key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-32hex-123456",
+      "text": "md5 fingerprint = 123456789abcdef0123456789abcdef0",
+      "expected": "ignore",
+      "reason": "32-hex without secret hotword is a digest, not a key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-32hex-234567",
+      "text": "md5 fingerprint = 23456789abcdef0123456789abcdef01",
+      "expected": "ignore",
+      "reason": "32-hex without secret hotword is a digest, not a key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-32hex-345678",
+      "text": "md5 fingerprint = 3456789abcdef0123456789abcdef012",
+      "expected": "ignore",
+      "reason": "32-hex without secret hotword is a digest, not a key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-32hex-abcdef",
+      "text": "md5 fingerprint = abcdef0123456789abcdef0123456789",
+      "expected": "ignore",
+      "reason": "32-hex without secret hotword is a digest, not a key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-32hex-bcdef0",
+      "text": "md5 fingerprint = bcdef0123456789abcdef0123456789a",
+      "expected": "ignore",
+      "reason": "32-hex without secret hotword is a digest, not a key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-32hex-cdef01",
+      "text": "md5 fingerprint = cdef0123456789abcdef0123456789ab",
+      "expected": "ignore",
+      "reason": "32-hex without secret hotword is a digest, not a key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-32hex-def012",
+      "text": "md5 fingerprint = def0123456789abcdef0123456789abc",
+      "expected": "ignore",
+      "reason": "32-hex without secret hotword is a digest, not a key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-32hex-ef0123",
+      "text": "md5 fingerprint = ef0123456789abcdef0123456789abcd",
+      "expected": "ignore",
+      "reason": "32-hex without secret hotword is a digest, not a key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-32hex-f01234",
+      "text": "md5 fingerprint = f0123456789abcdef0123456789abcde",
+      "expected": "ignore",
+      "reason": "32-hex without secret hotword is a digest, not a key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-aws-docs-defghi",
+      "text": "aws_access_key_id = \u0041KIAEXAMPLEABCDEFGHI",
+      "expected": "ignore",
+      "reason": "AWS documentation placeholder",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-aws-docs-xample",
+      "text": "aws_access_key_id = \u0041KIAIOSFODNN7EXAMPLE",
+      "expected": "ignore",
+      "reason": "AWS documentation placeholder",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-b64-opqrst",
+      "text": "cache_token = 'OPQRSTUVWXYZ0123456789-_abcdefghijklmnopqrs'  # rotated nightly",
+      "expected": "ignore",
+      "reason": "random base64 not adjacent to a known vendor prefix",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-b64-pqrstu",
+      "text": "cache_token = 'PQRSTUVWXYZ0123456789-_abcdefghijklmnopqrst'  # rotated nightly",
+      "expected": "ignore",
+      "reason": "random base64 not adjacent to a known vendor prefix",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-b64-qrstuv",
+      "text": "cache_token = 'QRSTUVWXYZ0123456789-_abcdefghijklmnopqrstu'  # rotated nightly",
+      "expected": "ignore",
+      "reason": "random base64 not adjacent to a known vendor prefix",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-b64-rstuvw",
+      "text": "cache_token = 'RSTUVWXYZ0123456789-_abcdefghijklmnopqrstuv'  # rotated nightly",
+      "expected": "ignore",
+      "reason": "random base64 not adjacent to a known vendor prefix",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-b64-stuvwx",
+      "text": "cache_token = 'STUVWXYZ0123456789-_abcdefghijklmnopqrstuvw'  # rotated nightly",
+      "expected": "ignore",
+      "reason": "random base64 not adjacent to a known vendor prefix",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-b64-tuvwxy",
+      "text": "cache_token = 'TUVWXYZ0123456789-_abcdefghijklmnopqrstuvwx'  # rotated nightly",
+      "expected": "ignore",
+      "reason": "random base64 not adjacent to a known vendor prefix",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-css-01234a",
+      "text": "color: #01234a;",
+      "expected": "ignore",
+      "reason": "CSS hex color, not a secret",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-css-123456",
+      "text": "color: #123456;",
+      "expected": "ignore",
+      "reason": "CSS hex color, not a secret",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-css-abcdef",
+      "text": "color: #abcdef;",
+      "expected": "ignore",
+      "reason": "CSS hex color, not a secret",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-css-caffee",
+      "text": "color: #caffee;",
+      "expected": "ignore",
+      "reason": "CSS hex color, not a secret",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-css-deadbe",
+      "text": "color: #deadbe;",
+      "expected": "ignore",
+      "reason": "CSS hex color, not a secret",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-css-fafbfc",
+      "text": "color: #fafbfc;",
+      "expected": "ignore",
+      "reason": "CSS hex color, not a secret",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-css-ff00aa",
+      "text": "color: #ff00aa;",
+      "expected": "ignore",
+      "reason": "CSS hex color, not a secret",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-git-sha-012345",
+      "text": "cherry-pick 0123456789abcdef0123456789abcdef01234567 into main",
+      "expected": "ignore",
+      "reason": "git commit SHA without secret hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-git-sha-123456",
+      "text": "cherry-pick 123456789abcdef0123456789abcdef012345678 into main",
+      "expected": "ignore",
+      "reason": "git commit SHA without secret hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-git-sha-234567",
+      "text": "cherry-pick 23456789abcdef0123456789abcdef0123456789 into main",
+      "expected": "ignore",
+      "reason": "git commit SHA without secret hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-git-sha-345678",
+      "text": "cherry-pick 3456789abcdef0123456789abcdef0123456789a into main",
+      "expected": "ignore",
+      "reason": "git commit SHA without secret hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-git-sha-456789",
+      "text": "cherry-pick 456789abcdef0123456789abcdef0123456789ab into main",
+      "expected": "ignore",
+      "reason": "git commit SHA without secret hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-git-sha-56789a",
+      "text": "cherry-pick 56789abcdef0123456789abcdef0123456789abc into main",
+      "expected": "ignore",
+      "reason": "git commit SHA without secret hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-git-sha-6789ab",
+      "text": "cherry-pick 6789abcdef0123456789abcdef0123456789abcd into main",
+      "expected": "ignore",
+      "reason": "git commit SHA without secret hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-git-sha-789abc",
+      "text": "cherry-pick 789abcdef0123456789abcdef0123456789abcde into main",
+      "expected": "ignore",
+      "reason": "git commit SHA without secret hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-git-sha-89abcd",
+      "text": "cherry-pick 89abcdef0123456789abcdef0123456789abcdef into main",
+      "expected": "ignore",
+      "reason": "git commit SHA without secret hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-git-sha-9abcde",
+      "text": "cherry-pick 9abcdef0123456789abcdef0123456789abcdef0 into main",
+      "expected": "ignore",
+      "reason": "git commit SHA without secret hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pem-cert-6789ab",
+      "text": "-----BEGIN CERTIFICATE-----\nKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL\nLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLM\n-----END CERTIFICATE-----",
+      "expected": "ignore",
+      "reason": "PEM CERTIFICATE block is a public cert, not a private key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pem-cert-789abc",
+      "text": "-----BEGIN CERTIFICATE-----\nMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN\nNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNO\n-----END CERTIFICATE-----",
+      "expected": "ignore",
+      "reason": "PEM CERTIFICATE block is a public cert, not a private key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pem-cert-89abcd",
+      "text": "-----BEGIN CERTIFICATE-----\nOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP\nPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQ\n-----END CERTIFICATE-----",
+      "expected": "ignore",
+      "reason": "PEM CERTIFICATE block is a public cert, not a private key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pem-cert-9abcde",
+      "text": "-----BEGIN CERTIFICATE-----\nQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQR\nRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS\n-----END CERTIFICATE-----",
+      "expected": "ignore",
+      "reason": "PEM CERTIFICATE block is a public cert, not a private key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-placeholder-..stripped..",
+      "text": "api_key = \"..stripped..\"",
+      "expected": "ignore",
+      "reason": "log redaction",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-placeholder-dobapi_keycb",
+      "text": "api_key = \"${API_KEY}\"",
+      "expected": "ignore",
+      "reason": "shell variable interpolation",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-placeholder-example_key",
+      "text": "api_key = \"EXAMPLE_KEY\"",
+      "expected": "ignore",
+      "reason": "documentation marker",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-placeholder-ltsecretgt",
+      "text": "api_key = \"<secret>\"",
+      "expected": "ignore",
+      "reason": "XML/markdown placeholder",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-placeholder-ltyour-api-ke",
+      "text": "api_key = \"<your-api-key>\"",
+      "expected": "ignore",
+      "reason": "shell variable placeholder",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-placeholder-obobapi_keycbcb",
+      "text": "api_key = \"{{api_key}}\"",
+      "expected": "ignore",
+      "reason": "templating placeholder",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-placeholder-redacted",
+      "text": "api_key = \"REDACTED\"",
+      "expected": "ignore",
+      "reason": "redaction marker",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-placeholder-replace_me",
+      "text": "api_key = \"REPLACE_ME\"",
+      "expected": "ignore",
+      "reason": "common docs placeholder",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-placeholder-xxxxxxxxxxxx",
+      "text": "api_key = \"XXXXXXXXXXXX\"",
+      "expected": "ignore",
+      "reason": "ASCII-art placeholder",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-placeholder-your_api_key",
+      "text": "api_key = \"YOUR_API_KEY_HERE\"",
+      "expected": "ignore",
+      "reason": "common docs placeholder",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-prose-00",
+      "text": "lorem ipsum dolor sit amet consectetur adipiscing elit sed do",
+      "expected": "ignore",
+      "reason": "prose / code unrelated to credentials",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-prose-01",
+      "text": "the quick brown fox jumps over the lazy dog 1234567890 abcdef",
+      "expected": "ignore",
+      "reason": "prose / code unrelated to credentials",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-prose-02",
+      "text": "package main\nimport \"fmt\"\nfunc main() { fmt.Println(\"hi\") }",
+      "expected": "ignore",
+      "reason": "prose / code unrelated to credentials",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-prose-03",
+      "text": "select * from users where created_at > now() - interval '1 day'",
+      "expected": "ignore",
+      "reason": "prose / code unrelated to credentials",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-prose-04",
+      "text": "console.log('hello world from a test file')",
+      "expected": "ignore",
+      "reason": "prose / code unrelated to credentials",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-prose-05",
+      "text": "rev=abc123def456 # internal build tag",
+      "expected": "ignore",
+      "reason": "prose / code unrelated to credentials",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-prose-06",
+      "text": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'/>",
+      "expected": "ignore",
+      "reason": "prose / code unrelated to credentials",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-prose-07",
+      "text": "ssh-rsa AAAAB3NzaC1yc2EA == comment-only",
+      "expected": "ignore",
+      "reason": "prose / code unrelated to credentials",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pubid-00",
+      "text": "/cache/v3/files/aBcDeFgHiJ0123456789012345678901/object.bin",
+      "expected": "ignore",
+      "reason": "public identifier in URL/path/header, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pubid-01",
+      "text": "https://cdn.example.com/static/dist/main.0123456789abcdef.js",
+      "expected": "ignore",
+      "reason": "public identifier in URL/path/header, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pubid-02",
+      "text": "s3://public-bucket/release/2026-05-01/build-0123456789abcdef.tar",
+      "expected": "ignore",
+      "reason": "public identifier in URL/path/header, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pubid-03",
+      "text": "image: docker.io/library/postgres@sha256:abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789",
+      "expected": "ignore",
+      "reason": "public identifier in URL/path/header, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pubid-04",
+      "text": "https://i.imgur.com/AbCdEfG.png",
+      "expected": "ignore",
+      "reason": "public identifier in URL/path/header, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pubid-05",
+      "text": "ETag: \"686897696a7c876b7e\"",
+      "expected": "ignore",
+      "reason": "public identifier in URL/path/header, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pubid-06",
+      "text": "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+      "expected": "ignore",
+      "reason": "public identifier in URL/path/header, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-pubid-07",
+      "text": "Range: bytes=0-2147483647",
+      "expected": "ignore",
+      "reason": "public identifier in URL/path/header, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha1-234567",
+      "text": "sha1: 23456789abcdef0123456789abcdef0123456789",
+      "expected": "ignore",
+      "reason": "SHA-1 digest, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha1-345678",
+      "text": "sha1: 3456789abcdef0123456789abcdef0123456789a",
+      "expected": "ignore",
+      "reason": "SHA-1 digest, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha1-456789",
+      "text": "sha1: 456789abcdef0123456789abcdef0123456789ab",
+      "expected": "ignore",
+      "reason": "SHA-1 digest, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha1-56789a",
+      "text": "sha1: 56789abcdef0123456789abcdef0123456789abc",
+      "expected": "ignore",
+      "reason": "SHA-1 digest, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha1-6789ab",
+      "text": "sha1: 6789abcdef0123456789abcdef0123456789abcd",
+      "expected": "ignore",
+      "reason": "SHA-1 digest, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha1-789abc",
+      "text": "sha1: 789abcdef0123456789abcdef0123456789abcde",
+      "expected": "ignore",
+      "reason": "SHA-1 digest, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha1-89abcd",
+      "text": "sha1: 89abcdef0123456789abcdef0123456789abcdef",
+      "expected": "ignore",
+      "reason": "SHA-1 digest, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha1-9abcde",
+      "text": "sha1: 9abcdef0123456789abcdef0123456789abcdef0",
+      "expected": "ignore",
+      "reason": "SHA-1 digest, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha256-012345",
+      "text": "integrity: sha256-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "expected": "ignore",
+      "reason": "SHA-256 digest in a lockfile, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha256-123456",
+      "text": "integrity: sha256-123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0",
+      "expected": "ignore",
+      "reason": "SHA-256 digest in a lockfile, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha256-abcdef",
+      "text": "integrity: sha256-abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789",
+      "expected": "ignore",
+      "reason": "SHA-256 digest in a lockfile, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha256-bcdef0",
+      "text": "integrity: sha256-bcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789a",
+      "expected": "ignore",
+      "reason": "SHA-256 digest in a lockfile, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha256-cdef01",
+      "text": "integrity: sha256-cdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789ab",
+      "expected": "ignore",
+      "reason": "SHA-256 digest in a lockfile, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha256-def012",
+      "text": "integrity: sha256-def0123456789abcdef0123456789abcdef0123456789abcdef0123456789abc",
+      "expected": "ignore",
+      "reason": "SHA-256 digest in a lockfile, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha256-ef0123",
+      "text": "integrity: sha256-ef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcd",
+      "expected": "ignore",
+      "reason": "SHA-256 digest in a lockfile, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-sha256-f01234",
+      "text": "integrity: sha256-f0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcde",
+      "expected": "ignore",
+      "reason": "SHA-256 digest in a lockfile, not a credential",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-short-ghp_shor",
+      "text": "placeholder = 'ghp_short'",
+      "expected": "ignore",
+      "reason": "GitHub PAT prefix but too short",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-short-sg.short",
+      "text": "placeholder = 'SG.short.short'",
+      "expected": "ignore",
+      "reason": "SendGrid prefix but length below threshold",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-short-sk-ant-a",
+      "text": "placeholder = 'sk-ant-api03-XXXX'",
+      "expected": "ignore",
+      "reason": "Anthropic prefix but length below threshold",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-short-sk_live_",
+      "text": "placeholder = 'sk_live_short'",
+      "expected": "ignore",
+      "reason": "Stripe prefix but length below threshold",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-uuid-12345678",
+      "text": "trace_id = '12345678-2345-3456-4567-56789abcdef0'",
+      "expected": "ignore",
+      "reason": "UUID with no credential hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-uuid-23456789",
+      "text": "trace_id = '23456789-3456-4567-5678-6789abcdef01'",
+      "expected": "ignore",
+      "reason": "UUID with no credential hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-uuid-3456789a",
+      "text": "trace_id = '3456789a-4567-5678-6789-789abcdef012'",
+      "expected": "ignore",
+      "reason": "UUID with no credential hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-uuid-456789ab",
+      "text": "trace_id = '456789ab-5678-6789-789a-89abcdef0123'",
+      "expected": "ignore",
+      "reason": "UUID with no credential hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-uuid-789abcde",
+      "text": "trace_id = '789abcde-89ab-9abc-abcd-bcdef0123456'",
+      "expected": "ignore",
+      "reason": "UUID with no credential hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-uuid-89abcdef",
+      "text": "trace_id = '89abcdef-9abc-abcd-bcde-cdef01234567'",
+      "expected": "ignore",
+      "reason": "UUID with no credential hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-uuid-9abcdef0",
+      "text": "trace_id = '9abcdef0-abcd-bcde-cdef-def012345678'",
+      "expected": "ignore",
+      "reason": "UUID with no credential hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-uuid-cdef0123",
+      "text": "trace_id = 'cdef0123-def0-ef01-f012-0123456789ab'",
+      "expected": "ignore",
+      "reason": "UUID with no credential hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-uuid-def01234",
+      "text": "trace_id = 'def01234-ef01-f012-0123-123456789abc'",
+      "expected": "ignore",
+      "reason": "UUID with no credential hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tn-uuid-ef012345",
+      "text": "trace_id = 'ef012345-f012-0123-1234-23456789abcd'",
+      "expected": "ignore",
+      "reason": "UUID with no credential hotword",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-anthropic-012345",
+      "text": "ANTHROPIC_API_KEY=\u0073k-ant-api03-BCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345",
+      "expected": "detect",
+      "expected_pattern": "Anthropic API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-anthropic-123456",
+      "text": "ANTHROPIC_API_KEY=\u0073k-ant-api03-CDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456",
+      "expected": "detect",
+      "expected_pattern": "Anthropic API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-anthropic-234567",
+      "text": "ANTHROPIC_API_KEY=\u0073k-ant-api03-DEFGHIJKLMNOPQRSTUVWXYZ0123456789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567",
+      "expected": "detect",
+      "expected_pattern": "Anthropic API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-anthropic-345678",
+      "text": "ANTHROPIC_API_KEY=\u0073k-ant-api03-EFGHIJKLMNOPQRSTUVWXYZ0123456789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345678",
+      "expected": "detect",
+      "expected_pattern": "Anthropic API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-anthropic-456789",
+      "text": "ANTHROPIC_API_KEY=\u0073k-ant-api03-FGHIJKLMNOPQRSTUVWXYZ0123456789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+      "expected": "detect",
+      "expected_pattern": "Anthropic API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-anthropic-56789_",
+      "text": "ANTHROPIC_API_KEY=\u0073k-ant-api03-GHIJKLMNOPQRSTUVWXYZ0123456789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_",
+      "expected": "detect",
+      "expected_pattern": "Anthropic API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-anthropic-6789_-",
+      "text": "ANTHROPIC_API_KEY=\u0073k-ant-api03-HIJKLMNOPQRSTUVWXYZ0123456789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-",
+      "expected": "detect",
+      "expected_pattern": "Anthropic API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-anthropic-789_-a",
+      "text": "ANTHROPIC_API_KEY=\u0073k-ant-api03-IJKLMNOPQRSTUVWXYZ0123456789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-a",
+      "expected": "detect",
+      "expected_pattern": "Anthropic API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-klmnop",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIAABCDEFGHIJKLMNOP",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-lmnopq",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIABCDEFGHIJKLMNOPQ",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-mnopqr",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIACDEFGHIJKLMNOPQR",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-nopqrs",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIADEFGHIJKLMNOPQRS",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-opqrst",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIAEFGHIJKLMNOPQRST",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-pqrstu",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIAFGHIJKLMNOPQRSTU",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-qrstuv",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIAGHIJKLMNOPQRSTUV",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-rstuvw",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIAHIJKLMNOPQRSTUVW",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-stuvwx",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIAIJKLMNOPQRSTUVWX",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-tuvwxy",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIAJKLMNOPQRSTUVWXY",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-uvwxyz",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIAKLMNOPQRSTUVWXYZ",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-vwxyz0",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIALMNOPQRSTUVWXYZ0",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-wxyz01",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIAMNOPQRSTUVWXYZ01",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-xyz012",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIANOPQRSTUVWXYZ012",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-aws-yz0123",
+      "text": "AWS_ACCESS_KEY_ID=\u0041KIAOPQRSTUVWXYZ0123",
+      "expected": "detect",
+      "expected_pattern": "AWS Access Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-datadog-234567",
+      "text": "datadog_api_key = '89abcdef0123456789abcdef01234567'",
+      "expected": "detect",
+      "expected_pattern": "Datadog API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-datadog-345678",
+      "text": "datadog_api_key = '9abcdef0123456789abcdef012345678'",
+      "expected": "detect",
+      "expected_pattern": "Datadog API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-datadog-456789",
+      "text": "datadog_api_key = 'abcdef0123456789abcdef0123456789'",
+      "expected": "detect",
+      "expected_pattern": "Datadog API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-datadog-56789a",
+      "text": "datadog_api_key = 'bcdef0123456789abcdef0123456789a'",
+      "expected": "detect",
+      "expected_pattern": "Datadog API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-datadog-6789ab",
+      "text": "datadog_api_key = 'cdef0123456789abcdef0123456789ab'",
+      "expected": "detect",
+      "expected_pattern": "Datadog API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-datadog-789abc",
+      "text": "datadog_api_key = 'def0123456789abcdef0123456789abc'",
+      "expected": "detect",
+      "expected_pattern": "Datadog API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-datadog-89abcd",
+      "text": "datadog_api_key = 'ef0123456789abcdef0123456789abcd'",
+      "expected": "detect",
+      "expected_pattern": "Datadog API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-datadog-9abcde",
+      "text": "datadog_api_key = 'f0123456789abcdef0123456789abcde'",
+      "expected": "detect",
+      "expected_pattern": "Datadog API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-discord-00-4567",
+      "text": "DISCORD_WEBHOOK_URL=\u0068ttps://discord.com/api/webhooks/012345678901234567/0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567",
+      "expected": "detect",
+      "expected_pattern": "Discord Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-discord-01-1234",
+      "text": "DISCORD_WEBHOOK_URL=\u0068ttps://discord.com/api/webhooks/789012345678901234/bcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghi",
+      "expected": "detect",
+      "expected_pattern": "Discord Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-discord-02-8901",
+      "text": "DISCORD_WEBHOOK_URL=\u0068ttps://discord.com/api/webhooks/456789012345678901/mnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrst",
+      "expected": "detect",
+      "expected_pattern": "Discord Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-discord-03-5678",
+      "text": "DISCORD_WEBHOOK_URL=\u0068ttps://discord.com/api/webhooks/123456789012345678/xyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDE",
+      "expected": "detect",
+      "expected_pattern": "Discord Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-discord-04-2345",
+      "text": "DISCORD_WEBHOOK_URL=\u0068ttps://discord.com/api/webhooks/890123456789012345/IJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP",
+      "expected": "detect",
+      "expected_pattern": "Discord Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-discord-05-9012",
+      "text": "DISCORD_WEBHOOK_URL=\u0068ttps://discord.com/api/webhooks/567890123456789012/TUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0",
+      "expected": "detect",
+      "expected_pattern": "Discord Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-discord-06-6789",
+      "text": "DISCORD_WEBHOOK_URL=\u0068ttps://discord.com/api/webhooks/234567890123456789/456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ab",
+      "expected": "detect",
+      "expected_pattern": "Discord Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-discord-07-3456",
+      "text": "DISCORD_WEBHOOK_URL=\u0068ttps://discord.com/api/webhooks/901234567890123456/fghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklm",
+      "expected": "detect",
+      "expected_pattern": "Discord Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-fgpat-hijklm",
+      "text": "GITHUB_TOKEN=\u0067ithub_pat_pqrstuvwxyzABCDEFGHIJK_qrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklm",
+      "expected": "detect",
+      "expected_pattern": "GitHub Fine-Grained PAT",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-fgpat-jklmno",
+      "text": "GITHUB_TOKEN=\u0067ithub_pat_rstuvwxyzABCDEFGHIJKLM_stuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmno",
+      "expected": "detect",
+      "expected_pattern": "GitHub Fine-Grained PAT",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-fgpat-lmnopq",
+      "text": "GITHUB_TOKEN=\u0067ithub_pat_tuvwxyzABCDEFGHIJKLMNO_uvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopq",
+      "expected": "detect",
+      "expected_pattern": "GitHub Fine-Grained PAT",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-fgpat-nopqrs",
+      "text": "GITHUB_TOKEN=\u0067ithub_pat_vwxyzABCDEFGHIJKLMNOPQ_wxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrs",
+      "expected": "detect",
+      "expected_pattern": "GitHub Fine-Grained PAT",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-fgpat-pqrstu",
+      "text": "GITHUB_TOKEN=\u0067ithub_pat_xyzABCDEFGHIJKLMNOPQRS_yzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstu",
+      "expected": "detect",
+      "expected_pattern": "GitHub Fine-Grained PAT",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-pat-jklmno",
+      "text": "GITHUB_TOKEN=\u0067hp_fghijklmnopqrstuvwxyzABCDEFGHIJKLMNO",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-pat-klmnop",
+      "text": "GITHUB_TOKEN=\u0067hp_ghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-pat-lmnopq",
+      "text": "GITHUB_TOKEN=\u0067hp_hijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQ",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-pat-mnopqr",
+      "text": "GITHUB_TOKEN=\u0067hp_ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQR",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-pat-nopqrs",
+      "text": "GITHUB_TOKEN=\u0067hp_jklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-pat-opqrst",
+      "text": "GITHUB_TOKEN=\u0067hp_klmnopqrstuvwxyzABCDEFGHIJKLMNOPQRST",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-pat-pqrstu",
+      "text": "GITHUB_TOKEN=\u0067hp_lmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTU",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-pat-qrstuv",
+      "text": "GITHUB_TOKEN=\u0067hp_mnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUV",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-pat-rstuvw",
+      "text": "GITHUB_TOKEN=\u0067hp_nopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-github-pat-stuvwx",
+      "text": "GITHUB_TOKEN=\u0067hp_opqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX",
+      "expected": "detect",
+      "expected_pattern": "GitHub Personal Access Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-openai-legacy-fghijk",
+      "text": "OPENAI_API_KEY=\u0073k-zABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijk",
+      "expected": "detect",
+      "expected_pattern": "OpenAI API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-openai-legacy-ghijkl",
+      "text": "OPENAI_API_KEY=\u0073k-ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijkl",
+      "expected": "detect",
+      "expected_pattern": "OpenAI API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-openai-legacy-hijklm",
+      "text": "OPENAI_API_KEY=\u0073k-BCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklm",
+      "expected": "detect",
+      "expected_pattern": "OpenAI API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-openai-legacy-ijklmn",
+      "text": "OPENAI_API_KEY=\u0073k-CDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmn",
+      "expected": "detect",
+      "expected_pattern": "OpenAI API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-openai-legacy-jklmno",
+      "text": "OPENAI_API_KEY=\u0073k-DEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmno",
+      "expected": "detect",
+      "expected_pattern": "OpenAI API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-openai-legacy-klmnop",
+      "text": "OPENAI_API_KEY=\u0073k-EFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnop",
+      "expected": "detect",
+      "expected_pattern": "OpenAI API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-openai-legacy-lmnopq",
+      "text": "OPENAI_API_KEY=\u0073k-FGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopq",
+      "expected": "detect",
+      "expected_pattern": "OpenAI API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-openai-legacy-mnopqr",
+      "text": "OPENAI_API_KEY=\u0073k-GHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqr",
+      "expected": "detect",
+      "expected_pattern": "OpenAI API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-pem-dsa",
+      "text": "-----BEGIN DSA PRIVATE KEY-----\nBCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABC\nCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCD\nDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefg=\n-----END DSA PRIVATE KEY-----",
+      "expected": "detect",
+      "expected_pattern": "Private Key Block",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-pem-ec",
+      "text": "-----BEGIN EC PRIVATE KEY-----\nvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvw\nwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwx\nxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789a=\n-----END EC PRIVATE KEY-----",
+      "expected": "detect",
+      "expected_pattern": "Private Key Block",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-pem-openssh",
+      "text": "-----BEGIN OPENSSH PRIVATE KEY-----\nyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz\nzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzA\nABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcd=\n-----END OPENSSH PRIVATE KEY-----",
+      "expected": "detect",
+      "expected_pattern": "Private Key Block",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-pem-rsa",
+      "text": "-----BEGIN RSA PRIVATE KEY-----\nstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrst\ntuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstu\nuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567=\n-----END RSA PRIVATE KEY-----",
+      "expected": "detect",
+      "expected_pattern": "Private Key Block",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-sendgrid-123456",
+      "text": "SENDGRID_API_KEY=\u0053G.pqrstuvwxyzABCDEFGHIJK.qrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456",
+      "expected": "detect",
+      "expected_pattern": "SendGrid API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-sendgrid-nopqrs",
+      "text": "SENDGRID_API_KEY=\u0053G.bcdefghijklmnopqrstuvw.cdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS",
+      "expected": "detect",
+      "expected_pattern": "SendGrid API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-sendgrid-pqrstu",
+      "text": "SENDGRID_API_KEY=\u0053G.defghijklmnopqrstuvwxy.efghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTU",
+      "expected": "detect",
+      "expected_pattern": "SendGrid API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-sendgrid-rstuvw",
+      "text": "SENDGRID_API_KEY=\u0053G.fghijklmnopqrstuvwxyzA.ghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW",
+      "expected": "detect",
+      "expected_pattern": "SendGrid API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-sendgrid-tuvwxy",
+      "text": "SENDGRID_API_KEY=\u0053G.hijklmnopqrstuvwxyzABC.ijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY",
+      "expected": "detect",
+      "expected_pattern": "SendGrid API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-sendgrid-vwxyz0",
+      "text": "SENDGRID_API_KEY=\u0053G.jklmnopqrstuvwxyzABCDE.klmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0",
+      "expected": "detect",
+      "expected_pattern": "SendGrid API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-sendgrid-xyz012",
+      "text": "SENDGRID_API_KEY=\u0053G.lmnopqrstuvwxyzABCDEFG.mnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012",
+      "expected": "detect",
+      "expected_pattern": "SendGrid API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-sendgrid-z01234",
+      "text": "SENDGRID_API_KEY=\u0053G.nopqrstuvwxyzABCDEFGHI.opqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234",
+      "expected": "detect",
+      "expected_pattern": "SendGrid API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-webhook-CDEF",
+      "text": "SLACK_WEBHOOK=\u0068ttps://hooks.slack.com/services/TQRSTUVWXYZ/BRSTUVWXYZ0/ijklmnopqrstuvwxyzABCDEF",
+      "expected": "detect",
+      "expected_pattern": "Slack Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-webhook-FGHI",
+      "text": "SLACK_WEBHOOK=\u0068ttps://hooks.slack.com/services/TTUVWXYZ012/BUVWXYZ0123/lmnopqrstuvwxyzABCDEFGHI",
+      "expected": "detect",
+      "expected_pattern": "Slack Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-webhook-IJKL",
+      "text": "SLACK_WEBHOOK=\u0068ttps://hooks.slack.com/services/TWXYZ012345/BXYZ0123456/opqrstuvwxyzABCDEFGHIJKL",
+      "expected": "detect",
+      "expected_pattern": "Slack Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-webhook-LMNO",
+      "text": "SLACK_WEBHOOK=\u0068ttps://hooks.slack.com/services/TZ012345678/B0123456789/rstuvwxyzABCDEFGHIJKLMNO",
+      "expected": "detect",
+      "expected_pattern": "Slack Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-webhook-tuvw",
+      "text": "SLACK_WEBHOOK=\u0068ttps://hooks.slack.com/services/THIJKLMNOPQ/BIJKLMNOPQR/9abcdefghijklmnopqrstuvw",
+      "expected": "detect",
+      "expected_pattern": "Slack Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-webhook-wxyz",
+      "text": "SLACK_WEBHOOK=\u0068ttps://hooks.slack.com/services/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",
+      "expected": "detect",
+      "expected_pattern": "Slack Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-webhook-zABC",
+      "text": "SLACK_WEBHOOK=\u0068ttps://hooks.slack.com/services/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",
+      "expected": "detect",
+      "expected_pattern": "Slack Webhook URL",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxa-klmnop",
+      "text": "slack_token = '\u0078oxa-012345678901-123456789012-23456789abcdefghijklmnop'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxa-opqrst",
+      "text": "slack_token = '\u0078oxa-456789012345-567890123456-6789abcdefghijklmnopqrst'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxa-rstuvw",
+      "text": "slack_token = '\u0078oxa-789012345678-890123456789-9abcdefghijklmnopqrstuvw'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxb-ijklmn",
+      "text": "slack_token = '\u0078oxb-890123456789-901234567890-0123456789abcdefghijklmn'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxb-lmnopq",
+      "text": "slack_token = '\u0078oxb-123456789012-234567890123-3456789abcdefghijklmnopq'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxb-pqrstu",
+      "text": "slack_token = '\u0078oxb-567890123456-678901234567-789abcdefghijklmnopqrstu'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxp-jklmno",
+      "text": "slack_token = '\u0078oxp-901234567890-012345678901-123456789abcdefghijklmno'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxp-nopqrs",
+      "text": "slack_token = '\u0078oxp-345678901234-456789012345-56789abcdefghijklmnopqrs'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxp-qrstuv",
+      "text": "slack_token = '\u0078oxp-678901234567-789012345678-89abcdefghijklmnopqrstuv'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxs-ijklmn",
+      "text": "slack_token = '\u0078oxs-890123456789-901234567890-0123456789abcdefghijklmn'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxs-mnopqr",
+      "text": "slack_token = '\u0078oxs-234567890123-345678901234-456789abcdefghijklmnopqr'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-slack-xoxs-pqrstu",
+      "text": "slack_token = '\u0078oxs-567890123456-678901234567-789abcdefghijklmnopqrstu'",
+      "expected": "detect",
+      "expected_pattern": "Slack Token",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-stripe-jklmno",
+      "text": "STRIPE_SECRET_KEY=\u0073k_live_123456789abcdefghijklmno",
+      "expected": "detect",
+      "expected_pattern": "Stripe Live API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-stripe-klmnop",
+      "text": "STRIPE_SECRET_KEY=\u0073k_live_23456789abcdefghijklmnop",
+      "expected": "detect",
+      "expected_pattern": "Stripe Live API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-stripe-lmnopq",
+      "text": "STRIPE_SECRET_KEY=\u0073k_live_3456789abcdefghijklmnopq",
+      "expected": "detect",
+      "expected_pattern": "Stripe Live API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-stripe-mnopqr",
+      "text": "STRIPE_SECRET_KEY=\u0073k_live_456789abcdefghijklmnopqr",
+      "expected": "detect",
+      "expected_pattern": "Stripe Live API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-stripe-nopqrs",
+      "text": "STRIPE_SECRET_KEY=\u0073k_live_56789abcdefghijklmnopqrs",
+      "expected": "detect",
+      "expected_pattern": "Stripe Live API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-stripe-opqrst",
+      "text": "STRIPE_SECRET_KEY=\u0073k_live_6789abcdefghijklmnopqrst",
+      "expected": "detect",
+      "expected_pattern": "Stripe Live API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-stripe-pqrstu",
+      "text": "STRIPE_SECRET_KEY=\u0073k_live_789abcdefghijklmnopqrstu",
+      "expected": "detect",
+      "expected_pattern": "Stripe Live API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-stripe-qrstuv",
+      "text": "STRIPE_SECRET_KEY=\u0073k_live_89abcdefghijklmnopqrstuv",
+      "expected": "detect",
+      "expected_pattern": "Stripe Live API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-stripe-rstuvw",
+      "text": "STRIPE_SECRET_KEY=\u0073k_live_9abcdefghijklmnopqrstuvw",
+      "expected": "detect",
+      "expected_pattern": "Stripe Live API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-stripe-stuvwx",
+      "text": "STRIPE_SECRET_KEY=\u0073k_live_abcdefghijklmnopqrstuvwx",
+      "expected": "detect",
+      "expected_pattern": "Stripe Live API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-twilio-012345",
+      "text": "TWILIO_API_KEY=\u0053K6789abcdef0123456789abcdef012345",
+      "expected": "detect",
+      "expected_pattern": "Twilio API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-twilio-123456",
+      "text": "TWILIO_API_KEY=\u0053K789abcdef0123456789abcdef0123456",
+      "expected": "detect",
+      "expected_pattern": "Twilio API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-twilio-abcdef",
+      "text": "TWILIO_API_KEY=\u0053K0123456789abcdef0123456789abcdef",
+      "expected": "detect",
+      "expected_pattern": "Twilio API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-twilio-bcdef0",
+      "text": "TWILIO_API_KEY=\u0053K123456789abcdef0123456789abcdef0",
+      "expected": "detect",
+      "expected_pattern": "Twilio API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-twilio-cdef01",
+      "text": "TWILIO_API_KEY=\u0053K23456789abcdef0123456789abcdef01",
+      "expected": "detect",
+      "expected_pattern": "Twilio API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-twilio-def012",
+      "text": "TWILIO_API_KEY=\u0053K3456789abcdef0123456789abcdef012",
+      "expected": "detect",
+      "expected_pattern": "Twilio API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-twilio-ef0123",
+      "text": "TWILIO_API_KEY=\u0053K456789abcdef0123456789abcdef0123",
+      "expected": "detect",
+      "expected_pattern": "Twilio API Key",
+      "source": "derived-expand-corpus"
+    },
+    {
+      "id": "tp-twilio-f01234",
+      "text": "TWILIO_API_KEY=\u0053K56789abcdef0123456789abcdef01234",
+      "expected": "detect",
+      "expected_pattern": "Twilio API Key",
+      "source": "derived-expand-corpus"
+    }
+  ]
+}

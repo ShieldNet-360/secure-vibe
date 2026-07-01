@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Test corpus for the compliance-awareness skill. This skill is schema-driven: no deterministic gate scanner judges these fixtures, so each fixture is hand-labeled against the SKILL.md ALWAYS/NEVER rules — 'detect' means the code violates a compliance control (PII/PHI/PCI leak, missing audit trail), 'ignore' means it satisfies the control (redaction, classification, audit logging, tokenization).",
+  "fixtures": [
+    {
+      "id": "pii-in-logs-detect",
+      "text": "function recordSignup(user) {\n  // log the new account for support\n  logger.info(`New signup: email=${user.email} ssn=${user.ssn} phone=${user.phone}`);\n  return db.users.create(user);\n}",
+      "expected": "detect",
+      "reason": "Logs raw PII (email, SSN, phone) in a log message, violating NEVER 'Include PII/PHI/PCI in log messages'. CWE-532 (Insertion of Sensitive Information into Log File); breaks PCI DSS / GDPR data-minimization."
+    },
+    {
+      "id": "pii-in-logs-ignore",
+      "text": "function recordSignup(user) {\n  // classification: PII\n  // audit event: who, what, when — NOT the sensitive payload\n  logger.info(`New signup: userId=${user.id} at=${new Date().toISOString()}`);\n  return db.users.create(user);\n}",
+      "expected": "ignore",
+      "reason": "Logs only a non-sensitive user id and timestamp (the audit metadata), not PII contents, satisfying ALWAYS 'log who, what, when, NOT the sensitive payload'. No CWE-532 exposure."
+    },
+    {
+      "id": "pan-cvv-storage-detect",
+      "text": "async function saveCard(req) {\n  // store card so we can re-bill the customer\n  await db.payments.insert({\n    userId: req.user.id,\n    pan: req.body.cardNumber,\n    cvv: req.body.cvv,\n    expiry: req.body.expiry,\n  });\n}",
+      "expected": "detect",
+      "reason": "Stores the full PAN and CVV in the application database, violating NEVER 'Store payment card numbers, CVVs ... outside a PCI DSS-compliant tokenization service'. CWE-311 (Missing Encryption of Sensitive Data); CVV storage is explicitly forbidden by PCI DSS v4.0 req 3.2."
+    },
+    {
+      "id": "pan-cvv-storage-ignore",
+      "text": "async function saveCard(req) {\n  // classification: PCI — card data never touches our DB\n  const token = await stripe.tokens.create({ card: req.body.card });\n  // CVV is used once for tokenization and never persisted\n  await db.payments.insert({\n    userId: req.user.id,\n    cardToken: token.id,\n    last4: token.card.last4,\n  });\n}",
+      "expected": "ignore",
+      "reason": "Sends card data to a PCI-compliant tokenization service and stores only an opaque token plus last4, satisfying ALWAYS 'segregate card-data-handling' and NEVER-store-PAN/CVV. No CWE-311 exposure; keeps the app out of PCI scope."
+    },
+    {
+      "id": "missing-audit-trail-detect",
+      "text": "// HIPAA-regulated EHR system\napp.post('/admin/grant-role', requireAdmin, async (req, res) => {\n  await db.users.update({ id: req.body.userId }, { role: req.body.role });\n  res.sendStatus(200);\n});",
+      "expected": "detect",
+      "reason": "A security-relevant admin action (permission change on PHI system) is performed with no audit log, violating ALWAYS 'Log audit events for security-relevant actions (... permission change ... admin operations)'. CWE-778 (Insufficient Logging); fails HIPAA Security Rule audit-controls (§164.312(b)) and SOC 2."
+    },
+    {
+      "id": "missing-audit-trail-ignore",
+      "text": "// HIPAA-regulated EHR system\napp.post('/admin/grant-role', requireAdmin, async (req, res) => {\n  await db.users.update({ id: req.body.userId }, { role: req.body.role });\n  // audit: who, what, when — no PHI payload\n  await auditLog.write({\n    actor: req.user.id,\n    action: 'role.grant',\n    target: req.body.userId,\n    newRole: req.body.role,\n    at: new Date().toISOString(),\n  });\n  res.sendStatus(200);\n});",
+      "expected": "ignore",
+      "reason": "Writes a structured audit event (actor, action, target, time) for the permission change without logging PHI, satisfying ALWAYS 'Log audit events for security-relevant actions'. Meets HIPAA §164.312(b); no CWE-778 gap."
+    }
+  ]
+}

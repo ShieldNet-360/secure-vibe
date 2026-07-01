@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "api-security",
+  "language": "java",
+  "insecure_signals": [
+    "newDocumentBuilder\\(\\)\\.parse\\(\\s*in\\s*\\)",
+    "SAXParserFactory\\.newInstance\\(\\)(?![^;]*setFeature)"
+  ],
+  "secure_signals": [
+    "disallow-doctype-decl",
+    "setExpandEntityReferences\\(\\s*false",
+    "XMLConstants\\.FEATURE_SECURE_PROCESSING"
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-611"
+}

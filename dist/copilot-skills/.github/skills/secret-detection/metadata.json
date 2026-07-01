@@ -1,0 +1,35 @@
+{
+  "id": "secret-detection",
+  "version": "1.8.1",
+  "title": "Secret Detection",
+  "description": "Detect and prevent hardcoded secrets, API keys, tokens, and credentials in code",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "before every commit",
+    "when reviewing code that handles credentials",
+    "when writing configuration files",
+    "when creating .env or config templates"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 800,
+    "compact": 1300,
+    "full": 2600
+  },
+  "rules_path": "checklists/",
+  "tests_path": "tests/",
+  "related_skills": [
+    "dependency-audit",
+    "supply-chain-security"
+  ],
+  "last_updated": "2026-06-21",
+  "sources": [
+    "OWASP Secrets Management Cheat Sheet",
+    "CWE-798: Use of Hard-coded Credentials",
+    "CWE-259: Use of Hard-coded Password",
+    "NIST SP 800-57 Part 1 Rev. 5: Key Management"
+  ]
+}

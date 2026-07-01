@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-05-15",
+  "description": "Maven POM fixture with one entry in the vulnerable Text4Shell range. `org.apache.commons:commons-text@1.9` falls inside the 1.5..1.9 inclusive range recorded in vulnerabilities/supply-chain/malicious-packages/maven.json (CVE-2022-42889, RCE via StringSubstitutor). `junit:junit@4.13.2` is a clean control entry. Note on `kind`: the underlying maven.json entry carries `\"type\": \"vulnerable_library\"` (a legitimate library with a known CVE, not a malicious package per se), but the scanner harness collapses both `malicious` and `vulnerable_library` source categories to the `malicious` finding kind via `_category_to_kind()` in evals/benchmarks/scanner-eval.py. The expected_findings entry uses `malicious` to match that mapping; introducing a distinct `vulnerable_library` finding kind is a scanner-side change tracked separately.",
+  "expected_findings": [
+    {
+      "ecosystem": "maven",
+      "package": "org.apache.commons:commons-text",
+      "version": "1.9",
+      "kind": "malicious",
+      "source": "vulnerabilities/supply-chain/malicious-packages/maven.json"
+    }
+  ],
+  "expected_clean": ["junit:junit"]
+}

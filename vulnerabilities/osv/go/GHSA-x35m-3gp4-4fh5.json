@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-x35m-3gp4-4fh5",
+  "published": "2026-05-07T03:21:53Z",
+  "modified": "2026-05-14T21:05:59.979980Z",
+  "aliases": [
+    "CVE-2026-44283"
+  ],
+  "summary": "etcd RBAC bypass allows unauthorized data access via PrevKv/lease attachment in nested transaction Put requests",
+  "affected": [
+    {
+      "package": {
+        "name": "go.etcd.io/etcd/v3",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/go.etcd.io/etcd/v3"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.6.0"
+            },
+            {
+              "fixed": "3.6.11"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 3.6.10",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-x35m-3gp4-4fh5/GHSA-x35m-3gp4-4fh5.json"
+      }
+    },
+    {
+      "package": {
+        "name": "go.etcd.io/etcd/v3",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/go.etcd.io/etcd/v3"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "3.5.0"
+            },
+            {
+              "fixed": "3.5.30"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 3.5.29",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-x35m-3gp4-4fh5/GHSA-x35m-3gp4-4fh5.json"
+      }
+    },
+    {
+      "package": {
+        "name": "go.etcd.io/etcd",
+        "ecosystem": "Go",
+        "purl": "pkg:golang/go.etcd.io/etcd"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "3.4.44"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "last_known_affected_version_range": "<= 3.4.43",
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-x35m-3gp4-4fh5/GHSA-x35m-3gp4-4fh5.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/etcd-io/etcd/security/advisories/GHSA-x35m-3gp4-4fh5"
+    },
+    {
+      "type": "ADVISORY",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44283"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/etcd-io/etcd"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-863"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-07T03:21:53Z",
+    "nvd_published_at": "2026-05-14T18:16:49Z",
+    "severity": "LOW"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
+    }
+  ],
+  "last_updated": "2026-05-14"
+}

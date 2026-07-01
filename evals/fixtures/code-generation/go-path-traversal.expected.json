@@ -1,0 +1,16 @@
+{
+  "ground_truth": "generation",
+  "skill": "file-upload-security",
+  "language": "go",
+  "insecure_signals": [
+    "ServeFile\\([^)]*\"public/\"\\s*\\+",
+    "os\\.Open\\([^)]*\\+\\s*r\\.URL"
+  ],
+  "secure_signals": [
+    "filepath\\.Base\\(",
+    "filepath\\.Clean\\(",
+    "strings\\.Contains\\([^)]*\\\"\\.\\.\\\""
+  ],
+  "generated_by": "_generate_generation_corpus.py",
+  "cwe": "CWE-22"
+}

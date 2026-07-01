@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-95q8-x6r6-672m",
+  "published": "2026-05-06T22:22:41Z",
+  "modified": "2026-05-06T22:41:43.077655Z",
+  "summary": "Lemmy may expose private community data through community, saved, liked, and modlog API views",
+  "affected": [
+    {
+      "package": {
+        "name": "lemmy_api",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/lemmy_api"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "last_affected": "0.19.1-rc.1"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-95q8-x6r6-672m/GHSA-95q8-x6r6-672m.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "WEB",
+      "url": "https://github.com/LemmyNet/lemmy/security/advisories/GHSA-95q8-x6r6-672m"
+    },
+    {
+      "type": "WEB",
+      "url": "https://github.com/LemmyNet/lemmy/commit/637151121a8e27b2b8c95e98d6f86966b31b4a6d"
+    },
+    {
+      "type": "PACKAGE",
+      "url": "https://github.com/LemmyNet/lemmy"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-862"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-06T22:22:41Z",
+    "nvd_published_at": null,
+    "severity": "MODERATE"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V3",
+      "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+    }
+  ],
+  "last_updated": "2026-05-06"
+}

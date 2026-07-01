@@ -1,0 +1,43 @@
+{
+  "id": "database-security",
+  "version": "1.0.0",
+  "title": "Database Security",
+  "description": "Prevent SQL injection, ORM misuse, credential leaks; enforce least-privilege DB users and safe migrations",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "when generating SQL or raw query strings",
+    "when generating ORM model code or queries",
+    "when generating database migration files",
+    "when wiring connection strings or pooling"
+  ],
+  "languages": [
+    "sql",
+    "python",
+    "javascript",
+    "typescript",
+    "go",
+    "ruby",
+    "java",
+    "kotlin",
+    "csharp"
+  ],
+  "token_budget": {
+    "minimal": 1000,
+    "compact": 1200,
+    "full": 2500
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "secret-detection",
+    "api-security",
+    "logging-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "OWASP SQL Injection Prevention Cheat Sheet",
+    "OWASP Database Security Cheat Sheet",
+    "CWE-89: Improper Neutralization of Special Elements in an SQL Command",
+    "CIS PostgreSQL / MySQL Benchmarks"
+  ]
+}

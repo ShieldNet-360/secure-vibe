@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.7.5",
+  "id": "GHSA-g27r-r6ph-vf5r",
+  "published": "2026-05-04T22:28:50Z",
+  "modified": "2026-05-06T06:56:26.102307095Z",
+  "aliases": [
+    "RUSTSEC-2026-0109"
+  ],
+  "summary": "sequoia-git has broken hard revocation handling",
+  "affected": [
+    {
+      "package": {
+        "name": "sequoia-git",
+        "ecosystem": "crates.io",
+        "purl": "pkg:cargo/sequoia-git"
+      },
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [
+            {
+              "introduced": "0"
+            },
+            {
+              "fixed": "0.6.0"
+            }
+          ]
+        }
+      ],
+      "database_specific": {
+        "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2026/05/GHSA-g27r-r6ph-vf5r/GHSA-g27r-r6ph-vf5r.json"
+      }
+    }
+  ],
+  "references": [
+    {
+      "type": "PACKAGE",
+      "url": "https://gitlab.com/sequoia-pgp/sequoia-git"
+    },
+    {
+      "type": "WEB",
+      "url": "https://gitlab.com/sequoia-pgp/sequoia-git/-/commit/f9c9074bd80023456221f09c3c4ff19957ee9c58"
+    },
+    {
+      "type": "WEB",
+      "url": "https://rustsec.org/advisories/RUSTSEC-2026-0109.html"
+    }
+  ],
+  "database_specific": {
+    "cwe_ids": [
+      "CWE-299"
+    ],
+    "github_reviewed": true,
+    "github_reviewed_at": "2026-05-04T22:28:50Z",
+    "nvd_published_at": null,
+    "severity": "LOW"
+  },
+  "severity": [
+    {
+      "type": "CVSS_V4",
+      "score": "CVSS:4.0/AV:N/AC:H/AT:P/PR:H/UI:A/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N"
+    }
+  ],
+  "last_updated": "2026-05-06"
+}

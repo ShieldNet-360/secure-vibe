@@ -1,0 +1,34 @@
+{
+  "id": "crypto-misuse",
+  "version": "1.0.0",
+  "title": "Cryptographic Misuse",
+  "description": "Block weak ciphers, predictable RNG, undersized keys, slow-hash misuse, and non-constant-time comparisons",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "when generating code that hashes / encrypts / signs",
+    "when generating code that compares secrets / MACs / tokens",
+    "when wiring TLS settings, key sizes, or RNG"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 1000,
+    "compact": 1200,
+    "full": 2500
+  },
+  "rules_path": "rules/",
+  "related_skills": [
+    "secret-detection",
+    "auth-security",
+    "protocol-security"
+  ],
+  "last_updated": "2026-06-20",
+  "sources": [
+    "NIST SP 800-131A Rev. 2",
+    "NIST SP 800-57 Part 1 Rev. 5",
+    "OWASP Cryptographic Storage Cheat Sheet",
+    "CWE-327, CWE-338, CWE-916, CWE-208"
+  ]
+}
