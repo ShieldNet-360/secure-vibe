@@ -15,13 +15,13 @@ secure-vibe mcp
 Add it to Claude Code with:
 
 ```bash
-claude mcp add secure-vibe -- npx -y @shieldnet360/secure-code-mcp
+claude mcp add secure-vibe -- npx -y @shieldnet360/secure-vibe mcp
 ```
 
 Once registered, the assistant sees the tools below on `tools/list` and calls them through `tools/call`.
 
 !!! note "Library root resolution"
-    The server locates the Skills Library data, in order, via `--path <dir>`, then `$SECURE_VIBE_LIBRARY_PATH`, then the directory of the running binary. The `npx @shieldnet360/secure-code-mcp` package bundles the data, so no extra configuration is required.
+    The server locates the Skills Library data, in order, via `--path <dir>`, then `$SECURE_VIBE_LIBRARY_PATH`, then the directory of the running binary. The `npx @shieldnet360/secure-vibe` package bundles the data, so no extra configuration is required.
 
 ### File-access safety
 
@@ -39,7 +39,7 @@ The file-reading tools (`scan_secrets`, `scan_dependencies`, `scan_github_action
 
 ## Tool catalogue
 
-The server exposes 16 named tools, plus `policy_check` as a back-compat alias of `gate` (17 callable names in total).
+The server exposes 17 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
 
 | Tool | Purpose |
 | --- | --- |

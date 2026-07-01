@@ -4,7 +4,7 @@
 // Single launcher for the SecureVibe CLI + MCP server, distributed over npm.
 //
 // SecureVibe is ONE Go binary (`secure-vibe`) exposing every subcommand:
-//   secure-vibe scan-secrets / gate / contribute / init / connect-mcp / ...
+//   secure-vibe scan / gate / contribute / init / mcp connect / ...
 //   secure-vibe mcp            # the MCP server (JSON-RPC 2.0 over stdio)
 //   secure-vibe dev <...>      # maintainer commands
 //

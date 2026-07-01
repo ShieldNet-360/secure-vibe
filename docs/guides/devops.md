@@ -198,13 +198,13 @@ Two commands keep the binary current and verifiable:
 
 ```bash
 # Upgrade the binary itself — signature- and checksum-verified
-secure-vibe self-update
+secure-vibe update --self
 
 # Fail a job if local data is stale (good as a CI canary)
 secure-vibe status --fail-if-stale
 ```
 
-`self-update` fetches the signed release manifest, then verifies a **detached Ed25519 signature** against the embedded public key **and** the **SHA-256 checksums** per file, and only then atomically replaces the binary (crash-safe rename). The private signing key is held offline.
+`update --self` fetches the signed release manifest, then verifies a **detached Ed25519 signature** against the embedded public key **and** the **SHA-256 checksums** per file, and only then atomically replaces the binary (crash-safe rename). The private signing key is held offline.
 
 ```mermaid
 sequenceDiagram
@@ -220,7 +220,7 @@ sequenceDiagram
 
 !!! tip "Wire status into CI"
     Add `secure-vibe status --fail-if-stale` as a scheduled job so a pipeline goes red
-    when its data falls behind, prompting a refresh via `self-update` or an air-gapped
+    when its data falls behind, prompting a refresh via `update --self` or an air-gapped
     `update --source`.
 
 ## Honest note: narrow by design

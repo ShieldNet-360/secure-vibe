@@ -134,7 +134,7 @@ claude mcp add secure-vibe -- npx -y @shieldnet360/secure-vibe mcp
 
 For any other MCP-capable client, point it at the `secure-vibe mcp` binary as a **stdio** server (it speaks MCP over stdin/stdout — no network).
 
-The server exposes **16 MCP tools**. The ones your assistant reaches for most often:
+The server exposes **17 MCP tools**. The ones your assistant reaches for most often:
 
 | Tool | What it does | When the assistant calls it |
 | --- | --- | --- |

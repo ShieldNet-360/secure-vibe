@@ -21,7 +21,7 @@ The file scanners and `gate` accept a common `--format` flag:
 |-------|---------|
 | `text` | Human-readable (default). |
 | `json` | Machine-readable; identical schema to the MCP server's response. |
-| `sarif` | SARIF document for CI ingestion (GitHub Code Scanning). Only on commands that ship a SARIF transformer: `scan-secrets`, `scan-dependencies`, `scan-dockerfile`, `scan-github-actions`, `gate`, `check-dependency`. |
+| `sarif` | SARIF document for CI ingestion (GitHub Code Scanning). Only on commands that ship a SARIF transformer: `scan`, `gate`, `check`. |
 
 ---
 
@@ -29,84 +29,41 @@ The file scanners and `gate` accept a common `--format` flag:
 
 The deterministic scanners and the CI gate. Detection is **narrow by design** — four scanners (secrets, dependencies, Dockerfile, GitHub Actions), not a general SAST. They catch known patterns and known-bad packages with high precision; they do not claim to find every vulnerability.
 
-### `scan-secrets`
+### `scan`
 
-Secret-detection scan of a file — or, recursively, a directory of text files — for credentials, API keys, tokens, and PEM material.
+Report-only scan that **auto-detects** the right scanner per file — dependencies
+(lockfiles: `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `requirements*.txt`,
+`go.sum`, `Cargo.lock`, `pom.xml`, `Gemfile.lock`, `composer.lock`, …), Dockerfile,
+GitHub Actions workflows, falling back to secret detection for any other text file.
+Accepts files or directories (walked, skipping `.git`, `node_modules`, `vendor`,
+build output). Always exits 0 — use `gate` for a CI-failing check.
 
 ```text
-secure-vibe scan-secrets <file-or-dir> [flags]
+secure-vibe scan <file-or-dir>... [flags]
 ```
 
 | Flag | Description |
 |------|-------------|
 | `--path` | secure-vibe checkout for rule data (default: `$SECURE_VIBE_LIBRARY_PATH`, else cwd). |
+| `--severity-floor` | Only report findings at or above this severity: `critical` \| `high` \| `medium` \| `low`. Default `low` (report everything). |
 | `--format` | `text` \| `json` \| `sarif`. |
+| `--vuln-source` | Where OSV advisory lookups read from: `local` (no network, default), `external` (api.osv.dev), or `hybrid`. |
 | `--report-dir` | Write a self-contained HTML report **and** a matching PDF into this directory instead of printing. |
+| `--sarif-base` | Directory SARIF artifact URIs are made relative to; only with `--format sarif`. |
 
 ```bash
-secure-vibe scan-secrets ./src
-secure-vibe scan-secrets config.env --format sarif > secrets.sarif
-```
-
-### `scan-dependencies`
-
-Parse a lockfile (or auto-discover lockfiles under a directory) and check every resolved `(name, version)` against the malicious / typosquat / CVE / OSV databases. Supported lockfiles include `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `requirements*.txt`, `poetry.lock`, `go.sum`, `Cargo.lock`, `pom.xml`, `*.csproj`, `Gemfile.lock`, `composer.lock`, `Package.resolved`, and `pubspec.lock`.
-
-```text
-secure-vibe scan-dependencies <lockfile-or-dir> [flags]
-```
-
-| Flag | Description |
-|------|-------------|
-| `--path` | secure-vibe checkout (default: `$SECURE_VIBE_LIBRARY_PATH`, else cwd). |
-| `--format` | `text` \| `json` \| `sarif`. |
-| `--vuln-source` | Where OSV advisory lookups read from: `local` (no network, default), `external` (api.osv.dev), or `hybrid` (external first, fall back to local). |
-| `--report-dir` | Write HTML + PDF reports into this directory. |
-
-```bash
-secure-vibe scan-dependencies package-lock.json
-secure-vibe scan-dependencies . --vuln-source hybrid --format json
-```
-
-### `scan-dockerfile`
-
-Hardening pass over a Dockerfile (`USER root`, unpinned base, `ADD` remote, `curl | sh`, secrets in env, and similar).
-
-```text
-secure-vibe scan-dockerfile <Dockerfile> [flags]
-```
-
-| Flag | Description |
-|------|-------------|
-| `--path` | secure-vibe checkout. |
-| `--format` | `text` \| `json` \| `sarif`. |
-| `--report-dir` | Write HTML + PDF reports into this directory. |
-
-```bash
-secure-vibe scan-dockerfile Dockerfile --format sarif > docker.sarif
-```
-
-### `scan-github-actions`
-
-Lint a GitHub Actions workflow for pwn-request, script-injection, unpinned actions, missing `permissions`, and credential exposure.
-
-```text
-secure-vibe scan-github-actions <workflow.yml> [flags]
-```
-
-| Flag | Description |
-|------|-------------|
-| `--path` | secure-vibe checkout. |
-| `--format` | `text` \| `json` \| `sarif`. |
-| `--report-dir` | Write HTML + PDF reports into this directory. |
-
-```bash
-secure-vibe scan-github-actions .github/workflows/ci.yml
+secure-vibe scan ./src                       # secrets in a source tree
+secure-vibe scan package-lock.json           # dependency audit
+secure-vibe scan Dockerfile --format sarif > docker.sarif
+secure-vibe scan . --vuln-source hybrid      # walk everything
 ```
 
 ### `gate`
 
-The canonical "fail the build" entry point. Takes one or more files or directories, auto-selects the right scanner per file (`scan-dependencies` / `scan-dockerfile` / `scan-github-actions`, falling back to `scan-secrets`), and **exits non-zero** when any finding meets the severity floor. Directories are walked, skipping `.git`, `node_modules`, `vendor`, and build output.
+The canonical "fail the build" entry point. Same auto-detection as `scan`, but
+**exits non-zero** when any finding meets the severity floor. Takes one or more
+files or directories; directories are walked, skipping `.git`, `node_modules`,
+`vendor`, and build output.
 
 ```text
 secure-vibe gate <file-or-dir>... [flags]
@@ -128,65 +85,28 @@ secure-vibe gate <file-or-dir>... [flags]
 secure-vibe gate . --severity-floor high --format sarif > results.sarif
 ```
 
-### `check-dependency`
+### `check`
 
-Check a single `package@version` against malicious entries, typosquats, CVE patterns, and OSV advisories. Always exits 0 (use `gate` for a CI-failing scan).
+Look up a single package against malicious entries, typosquats, CVE patterns,
+and OSV advisories — the former `check-dependency`, `check-typosquat`, and
+`lookup-vulnerability` in one command. Pass `name@version` to constrain OSV
+matching. Always exits 0 (use `gate` for a CI-failing scan).
 
 ```text
-secure-vibe check-dependency -p <package> -e <ecosystem> [flags]
+secure-vibe check <package>[@version] -e <ecosystem> [flags]
 ```
 
 | Flag | Description |
 |------|-------------|
-| `-p`, `--package` | Package name (required). |
 | `-e`, `--ecosystem` | Ecosystem: `npm`, `pypi`, `crates`, `go`, `rubygems`, `maven`, `nuget`, `composer`, `pub`, `swift`, `github-actions`, `docker` (required). |
-| `-v`, `--version` | Package version (optional; constrains OSV matching). |
 | `--format` | `text` \| `json` \| `sarif`. |
-| `--vuln-source` | `local` \| `external` \| `hybrid`. |
+| `--vuln-source` | `local` (no network, default) \| `external` (api.osv.dev) \| `hybrid`. |
 | `--path` | secure-vibe checkout. |
 
 ```bash
-secure-vibe check-dependency -p left-pad -e npm -v 1.3.0
-```
-
-### `check-typosquat`
-
-Flag candidate typosquats against the curated DB plus a Levenshtein-2 sweep over popular packages.
-
-```text
-secure-vibe check-typosquat -p <package> [flags]
-```
-
-| Flag | Description |
-|------|-------------|
-| `-p`, `--package` | Package name to check (required). |
-| `-e`, `--ecosystem` | Ecosystem (optional; empty searches all). |
-| `--format` | `text` \| `json`. |
-| `--path` | secure-vibe checkout. |
-
-```bash
-secure-vibe check-typosquat -p reqeusts -e pypi
-```
-
-### `lookup-vulnerability`
-
-Search the supply-chain malicious-packages corpus plus OSV advisories for a package.
-
-```text
-secure-vibe lookup-vulnerability -p <package> [flags]
-```
-
-| Flag | Description |
-|------|-------------|
-| `-p`, `--package` | Package name (required). |
-| `-e`, `--ecosystem` | Ecosystem (optional; empty searches all). |
-| `-v`, `--version` | Version (optional). |
-| `--format` | `text` \| `json`. |
-| `--vuln-source` | `local` \| `external` \| `hybrid`. |
-| `--path` | secure-vibe checkout. |
-
-```bash
-secure-vibe lookup-vulnerability -p event-stream -e npm --vuln-source hybrid
+secure-vibe check left-pad@1.3.0 -e npm
+secure-vibe check reqeusts -e pypi              # typosquat of requests
+secure-vibe check event-stream@3.3.6 -e npm --vuln-source hybrid
 ```
 
 ---
@@ -403,7 +323,7 @@ secure-vibe dev fetch-vulns --from-release
 secure-vibe dev fetch-vulns --only npm,pypi --check
 ```
 
-### `self-update`
+### `update --self`
 
 Download the latest `secure-vibe` binary matching the running GOOS/GOARCH from GitHub Releases, verify its SHA-256 against the published checksum file, verify that file's Ed25519 signature against the embedded release key, and atomically replace the running binary.
 
@@ -414,8 +334,8 @@ Download the latest `secure-vibe` binary matching the running GOOS/GOARCH from G
 | `--require-signature` | Fail unless the checksum file carries a valid Ed25519 signature (strict mode). |
 
 ```bash
-secure-vibe self-update --dry-run
-secure-vibe self-update --require-signature
+secure-vibe update --self --dry-run
+secure-vibe update --self --require-signature
 ```
 
 ### `scheduler`
@@ -589,7 +509,7 @@ secure-vibe dev derive-checklists <skill-id> [flags]
 
 ### `manifest`
 
-Inspect, recompute, sign, and verify the root `manifest.json` (the per-file SHA-256 + Ed25519 signature that anchors `update` and `self-update` trust).
+Inspect, recompute, sign, and verify the root `manifest.json` (the per-file SHA-256 + Ed25519 signature that anchors `update` and `update --self` trust).
 
 | Subcommand | Description |
 |------------|-------------|

@@ -38,7 +38,7 @@ flowchart LR
 
 **What it is.** A curated malicious-package database of **3,623 entries across 10 ecosystems** (npm 1833, pypi 618, nuget 608, rubygems 456, plus curated composer / crates / docker / maven / go / github-actions). Every curated entry is web-cited. Lookups are exact-match, so a hit means a *known* bad package — never a guess.
 
-**Why it matters.** Exact-match against a hand-verified list means **zero false positives**. The primary use is at generation time: "about to import this dependency?" — the assistant or the `scan-dependencies` scanner can check the name before the import lands. A curated, cited list is the data moat — it's defensible because it's verified, not scraped.
+**Why it matters.** Exact-match against a hand-verified list means **zero false positives**. The primary use is at generation time: "about to import this dependency?" — the assistant or the `scan` scanner can check the name before the import lands. A curated, cited list is the data moat — it's defensible because it's verified, not scraped.
 
 **Why it works as a moat.** A small, web-cited, exact-match list is something a heuristic scanner can't fake: there are no near-misses to argue about, and every entry has a citation behind it.
 
@@ -75,7 +75,7 @@ flowchart LR
 
 ## 4. Signed self-update
 
-**What it is.** `secure-vibe self-update` fetches a signed release manifest and verifies it before touching anything: it checks a **detached Ed25519 signature** against the binary's embedded public key, then verifies **SHA-256 checksums** per file, then performs an **atomic rename** (crash-safe). The private signing key is held offline.
+**What it is.** `secure-vibe update --self` fetches a signed release manifest and verifies it before touching anything: it checks a **detached Ed25519 signature** against the binary's embedded public key, then verifies **SHA-256 checksums** per file, then performs an **atomic rename** (crash-safe). The private signing key is held offline.
 
 **Why it matters.** A security tool that updates itself is a supply-chain target. SecureVibe applies its own trust model to its own updates: nothing is replaced unless both the signature and the checksum pass, so a tampered or man-in-the-middle'd release is rejected rather than installed. It works offline and requires no API key.
 
@@ -92,7 +92,7 @@ flowchart LR
 
 ## 5. Four high-precision scanners
 
-**What it is.** Deterministic, offline scanners for the four highest-signal shapes: **secrets**, **dependencies** (malicious / typosquat / CVE / OSV), **Dockerfile**, and **GitHub Actions**. They run via `scan-secrets`, `scan-dependencies`, `scan-dockerfile`, `scan-github-actions`, and the `gate` auto-picks the right scanner per file.
+**What it is.** Deterministic, offline scanners for the four highest-signal shapes: **secrets**, **dependencies** (malicious / typosquat / CVE / OSV), **Dockerfile**, and **GitHub Actions**. They run via `scan` (which auto-picks the right scanner per file) and the CI-failing `gate`.
 
 **Why it matters.** Where they fire, they fire precisely — and precision is what makes a gate usable in CI without drowning developers in noise. The measured results:
 
@@ -106,10 +106,10 @@ flowchart LR
 
 ## 6. MCP-native
 
-**What it is.** `secure-vibe mcp` exposes **16 tools** over stdio that an assistant can call on demand — including `scan_dependencies`, `scan_secrets`, `scan_dockerfile`, `scan_github_actions`, `lookup_vulnerability`, `check_secret_pattern`, `map_compliance_control`, and `gate`. Add it to Claude Code with:
+**What it is.** `secure-vibe mcp` exposes **17 tools** over stdio that an assistant can call on demand — including `scan_dependencies`, `scan_secrets`, `scan_dockerfile`, `scan_github_actions`, `lookup_vulnerability`, `check_secret_pattern`, `map_compliance_control`, and `gate`. Add it to Claude Code with:
 
 ```bash
-claude mcp add secure-vibe -- npx -y @shieldnet360/secure-code-mcp
+claude mcp add secure-vibe -- npx -y @shieldnet360/secure-vibe mcp
 ```
 
 **Why it matters.** Because the capabilities are MCP tools, the assistant invokes them *as part of its own reasoning loop* — checking a dependency or running the gate mid-task rather than waiting for a separate CI step. It works across **8 assistants**: Claude Code, Cursor, GitHub Copilot, Codex, Windsurf, Cline/OpenCode, Antigravity, and Devin.

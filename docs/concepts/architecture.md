@@ -50,8 +50,8 @@ SecureVibe plugs into a workflow through four distinct surfaces. The first two g
 | Surface | Component | How it connects | Primary command |
 | --- | --- | --- | --- |
 | Static skill files | `secure-vibe init` | Writes the assistant's native config so security knowledge is always in context | `secure-vibe init --tool claude` (also `cursor`, `copilot`, `codex`, `windsurf`, `cline`, `devin`) |
-| MCP server | `secure-vibe mcp` | Exposes **16 tools** over stdio; the assistant calls them on demand for live, deterministic lookups | `claude mcp add secure-vibe -- npx -y @shieldnet360/secure-code-mcp` |
-| CLI scanners | `secure-vibe scan-*` | The four deterministic scanners, run by a human or a script | `secure-vibe scan-dependencies <path>` |
+| MCP server | `secure-vibe mcp` | Exposes **17 tools** over stdio; the assistant calls them on demand for live, deterministic lookups | `claude mcp add secure-vibe -- npx -y @shieldnet360/secure-vibe mcp` |
+| CLI scanners | `secure-vibe scan` | The four deterministic scanners, run by a human or a script | `secure-vibe scan <path>` |
 | CI gate | `secure-vibe gate` | Blocks insecure diffs in CI; auto-picks the scanner per file and emits SARIF | `secure-vibe gate <path> --severity-floor high --sarif results.sarif` |
 
 !!! tip "Surfaces compose"
@@ -221,7 +221,7 @@ secure-vibe/
 ├── rules/                        # 27 Sigma detection rules (cloud / container / endpoint / saas)
 ├── cmd/
 │   ├── secure-vibe/             # the Go CLI: scanners, gate, init, contribute, self-update
-│   └── secure-vibe/               # the MCP server (16 tools over stdio)
+│   └── secure-vibe/               # the MCP server (17 tools over stdio)
 └── dist/                         # built/generated artifacts shipped with releases
 ```
 
@@ -233,7 +233,7 @@ secure-vibe/
 Every layer of SecureVibe is verifiable without trusting a server.
 
 - **Signed releases.** Each release ships a manifest carrying a **per-file SHA-256** checksum, plus a detached **Ed25519** signature over the manifest. The private signing key is held **offline**.
-- **Verified self-update.** `secure-vibe self-update` fetches the signed manifest, verifies the **signature first, then the checksums**, and only then performs an **atomic rename** to replace the binary (crash-safe).
+- **Verified self-update.** `secure-vibe update --self` fetches the signed manifest, verifies the **signature first, then the checksums**, and only then performs an **atomic rename** to replace the binary (crash-safe).
 - **Signed contribution overlays.** `contribute add` writes a signed local `.secure-vibe/overlay.json`; import is **signature-gated** (`--allow-unsigned` is an explicit opt-in). Overlays fan out by scope: you (the file) → team (commit it; git is the distribution) → org (`$SECURE_VIBE_OVERLAY` path-list env var).
 - **Offline by construction.** No telemetry, no cloud dependency, no API key. Determinism plus signatures means findings are reproducible and the supply chain is auditable end to end.
 

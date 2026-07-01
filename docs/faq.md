@@ -54,7 +54,7 @@ Eight, via `secure-vibe init --tool <name>` (which writes that assistant's nativ
 secure-vibe init --tool cursor
 
 # Or wire up the MCP server in Claude Code
-claude mcp add secure-vibe -- npx -y @shieldnet360/secure-code-mcp
+claude mcp add secure-vibe -- npx -y @shieldnet360/secure-vibe mcp
 ```
 
 ### Do I need an API key? Does it cost anything?
@@ -86,7 +86,7 @@ Three things:
 
 1. **Curated, web-cited entries only.** Every curated entry in the database links to a real, citable source. Nothing is fabricated.
 2. **Exact-match lookups = zero false positives.** The data moat is precision: a hit means the package is genuinely the one cited, not a fuzzy guess.
-3. **Signed updates.** `secure-vibe self-update` fetches a signed release manifest and verifies an **Ed25519 signature** *and* SHA-256 checksums against the embedded public key before atomically replacing the binary. Contribution overlays are signed too, and import is signature-gated.
+3. **Signed updates.** `secure-vibe update --self` fetches a signed release manifest and verifies an **Ed25519 signature** *and* SHA-256 checksums against the embedded public key before atomically replacing the binary. Contribution overlays are signed too, and import is signature-gated.
 
 ### What are your benchmark numbers?
 

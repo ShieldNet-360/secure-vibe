@@ -55,7 +55,7 @@ The defensible asset is the **flywheel** that turns usage into a continuously fr
 3. **A developer hits a novel bad pattern** — a new typosquat, a freshly-disclosed malicious package, a pattern not yet in canon.
 4. **They contribute it** — `secure-vibe contribute add` writes a signed local overlay that blocks the pattern for them immediately.
 5. **It is signed into canon** — the contribution is submitted, a maintainer verifies the signature, and it is imported into the shared, signed pattern database.
-6. **A signed delta protects everyone** — the next `self-update` or overlay sync carries that pattern to every user. One developer's novel hit becomes the whole community's **herd immunity**, and the canon stays fresh as new threats appear.
+6. **A signed delta protects everyone** — the next `update --self` or overlay sync carries that pattern to every user. One developer's novel hit becomes the whole community's **herd immunity**, and the canon stays fresh as new threats appear.
 
 ```mermaid
 flowchart TD

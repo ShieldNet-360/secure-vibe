@@ -77,7 +77,7 @@ Say you found a malicious npm package and want the gate to start blocking it **n
 4. **Confirm the gate now blocks it.** Re-run the dependency scanner or the gate against a project that lists the package; it exits non-zero:
 
     ```bash
-    secure-vibe scan-dependencies .
+    secure-vibe scan .
     secure-vibe gate . --severity-floor high
     ```
 

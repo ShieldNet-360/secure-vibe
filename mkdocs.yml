@@ -126,6 +126,7 @@ nav:
     - Roadmap: concepts/roadmap.md
   - Reference:
     - CLI (secure-vibe): reference/cli.md
+    - Connect MCP to your agent: reference/mcp-clients.md
     - MCP tools (secure-vibe mcp): reference/mcp-tools.md
   - Project:
     - Contribute a Finding: contribute.md

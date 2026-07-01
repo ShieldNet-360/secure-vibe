@@ -26,11 +26,11 @@ Prevention-first security for AI-written code. Signed security skills shape what
 </div>
 
 <div class="ss-hero-demo">
-  <img src="assets/demo.gif" alt="secure-code-check gate catching a typosquatted dependency and leaked secrets before commit" loading="eager">
+  <img src="assets/demo.gif" alt="secure-vibe gate catching a typosquatted dependency and leaked secrets before commit" loading="eager">
 </div>
 
 ```
-npx -p @shieldnet360/secure-code-mcp secure-code-check gate Dockerfile --severity-floor high
+npx -y @shieldnet360/secure-vibe gate Dockerfile --severity-floor high
 ```
 
 <div class="ss-hero-badges">
@@ -74,17 +74,17 @@ platform binary and the rule data; pick a surface.
 
 ```bash
 # Drop the skills into a project (writes IDE config, e.g. CLAUDE.md)
-npx @shieldnet360/secure-code-skill init --tool claude
+npx @shieldnet360/secure-vibe init --tool claude
 ```
 
 ```bash
 # Or wire the MCP server so any MCP-speaking client can call its tools on demand
-claude mcp add secure-code -- npx -y @shieldnet360/secure-code-mcp
+claude mcp add SecureVibe -- npx -y @shieldnet360/secure-vibe mcp
 ```
 
 ```bash
 # Or gate files from the terminal / CI / pre-commit (deterministic, exit code)
-npx -p @shieldnet360/secure-code-mcp secure-code-check gate Dockerfile package-lock.json --severity-floor high
+npx -y @shieldnet360/secure-vibe gate Dockerfile package-lock.json --severity-floor high
 ```
 
 `gate` picks the right scanner per file (Dockerfile / lockfile / workflow → specialised
@@ -153,7 +153,7 @@ Every surface is optional. Drop a static `CLAUDE.md` for zero-config baseline co
 <a class="ss-card" data-pkg="cli" href="quickstart/">
 <span class="ss-card-icon">⚡</span>
 <span class="ss-card-body"><span class="ss-card-title">CLI + MCP Server</span>
-<span class="ss-card-desc"><code>secure-vibe</code> Go binary for init / validate / update / regenerate / gate. <code>secure-vibe mcp</code> exposes 16 JSON-RPC tools.</span></span>
+<span class="ss-card-desc"><code>secure-vibe</code> Go binary for init / validate / update / regenerate / gate. <code>secure-vibe mcp</code> exposes 17 JSON-RPC tools.</span></span>
 </a>
 <a class="ss-card" data-pkg="compliance" href="https://github.com/shieldnet-360/secure-vibe/tree/main/compliance">
 <span class="ss-card-icon">📋</span>
@@ -187,7 +187,7 @@ Eight first-class targets. Same skills, same library, eight rendered output form
 
 Native skill bundles are also produced for the three clients that support per-skill directories: `agent-skills/.agents/skills/`, `claude-skills/.claude/skills/`, `copilot-skills/.github/skills/`.
 
-For MCP-aware clients (Claude Code, Cursor, etc.), `secure-vibe mcp` exposes 16 JSON-RPC tools — `lookup_vulnerability`, `scan_dependencies`, `scan_dockerfile`, `scan_github_actions`, `check_secret_pattern`, `map_compliance_control`, `gate`, and 9 more — so the assistant can ask for security context on demand instead of loading the whole rule corpus into its prompt.
+For MCP-aware clients (Claude Code, Cursor, etc.), `secure-vibe mcp` exposes 17 JSON-RPC tools — `lookup_vulnerability`, `scan_dependencies`, `scan_dockerfile`, `scan_github_actions`, `check_secret_pattern`, `map_compliance_control`, `gate`, and 10 more — so the assistant can ask for security context on demand instead of loading the whole rule corpus into its prompt.
 
 </div>
 
@@ -247,7 +247,7 @@ The mappings are YAML, version-controlled, and contributable — open a PR again
 
 **What it is.** A curated malicious-package database of **3,623 entries across 10 ecosystems** (npm 1833, pypi 618, nuget 608, rubygems 456, plus curated composer / crates / docker / maven / go / github-actions). Every curated entry is web-cited. Lookups are exact-match, so a hit means a *known* bad package — never a guess.
 
-**Why it matters.** Exact-match against a hand-verified list means **zero false positives**. The primary use is at generation time: "about to import this dependency?" — the assistant or the `scan-dependencies` scanner can check the name before the import lands. A curated, cited list is the data moat — it's defensible because it's verified, not scraped.
+**Why it matters.** Exact-match against a hand-verified list means **zero false positives**. The primary use is at generation time: "about to import this dependency?" — the assistant or the `scan` scanner can check the name before the import lands. A curated, cited list is the data moat — it's defensible because it's verified, not scraped.
 
 **Why it works as a moat.** A small, web-cited, exact-match list is something a heuristic scanner can't fake: there are no near-misses to argue about, and every entry has a citation behind it.
 
@@ -282,7 +282,7 @@ flowchart LR
 
 ## 4. Signed self-update
 
-**What it is.** `secure-vibe self-update` fetches a signed release manifest and verifies it before touching anything: it checks a **detached Ed25519 signature** against the binary's embedded public key, then verifies **SHA-256 checksums** per file, then performs an **atomic rename** (crash-safe). The private signing key is held offline.
+**What it is.** `secure-vibe update --self` fetches a signed release manifest and verifies it before touching anything: it checks a **detached Ed25519 signature** against the binary's embedded public key, then verifies **SHA-256 checksums** per file, then performs an **atomic rename** (crash-safe). The private signing key is held offline.
 
 **Why it matters.** A security tool that updates itself is a supply-chain target. SecureVibe applies its own trust model to its own updates: nothing is replaced unless both the signature and the checksum pass, so a tampered or man-in-the-middle'd release is rejected rather than installed. It works offline and requires no API key.
 
@@ -298,7 +298,7 @@ flowchart LR
 
 ## 5. Four high-precision scanners
 
-**What it is.** Deterministic, offline scanners for the four highest-signal shapes: **secrets**, **dependencies** (malicious / typosquat / CVE / OSV), **Dockerfile**, and **GitHub Actions**. They run via `scan-secrets`, `scan-dependencies`, `scan-dockerfile`, `scan-github-actions`, and the `gate` auto-picks the right scanner per file.
+**What it is.** Deterministic, offline scanners for the four highest-signal shapes: **secrets**, **dependencies** (malicious / typosquat / CVE / OSV), **Dockerfile**, and **GitHub Actions**. They run via `scan` (which auto-picks the right scanner per file) and the CI-failing `gate`.
 
 **Why it matters.** Where they fire, they fire precisely — and precision is what makes a gate usable in CI without drowning developers in noise. The measured results:
 
@@ -311,10 +311,10 @@ flowchart LR
 
 ## 6. MCP-native
 
-**What it is.** `secure-vibe mcp` exposes **16 tools** over stdio that an assistant can call on demand — including `scan_dependencies`, `scan_secrets`, `scan_dockerfile`, `scan_github_actions`, `lookup_vulnerability`, `check_secret_pattern`, `map_compliance_control`, and `gate`. Add it to Claude Code with:
+**What it is.** `secure-vibe mcp` exposes **17 tools** over stdio that an assistant can call on demand — including `scan_dependencies`, `scan_secrets`, `scan_dockerfile`, `scan_github_actions`, `lookup_vulnerability`, `check_secret_pattern`, `map_compliance_control`, and `gate`. Add it to Claude Code with:
 
 ```bash
-claude mcp add secure-vibe -- npx -y @shieldnet360/secure-code-mcp
+claude mcp add secure-vibe -- npx -y @shieldnet360/secure-vibe mcp
 ```
 
 **Why it matters.** Because the capabilities are MCP tools, the assistant invokes them *as part of its own reasoning loop* — checking a dependency or running the gate mid-task rather than waiting for a separate CI step. It works across **8 assistants**: Claude Code, Cursor, GitHub Copilot, Codex, Windsurf, Cline/OpenCode, Antigravity, and Devin.
@@ -566,7 +566,7 @@ secure-vibe dev fetch-vulns --from-release
 secure-vibe dev fetch-vulns --only npm,pypi --check
 ```
 
-### `self-update`
+### `update --self`
 
 Download the latest `secure-vibe` binary matching the running GOOS/GOARCH from GitHub Releases, verify its SHA-256 against the published checksum file, verify that file's Ed25519 signature against the embedded release key, and atomically replace the running binary.
 
@@ -577,8 +577,8 @@ Download the latest `secure-vibe` binary matching the running GOOS/GOARCH from G
 | `--require-signature` | Fail unless the checksum file carries a valid Ed25519 signature (strict mode). |
 
 ```bash
-secure-vibe self-update --dry-run
-secure-vibe self-update --require-signature
+secure-vibe update --self --dry-run
+secure-vibe update --self --require-signature
 ```
 
 ### `scheduler`
@@ -750,7 +750,7 @@ secure-vibe dev derive-checklists <skill-id> [flags]
 
 ### `manifest`
 
-Inspect, recompute, sign, and verify the root `manifest.json` (the per-file SHA-256 + Ed25519 signature that anchors `update` and `self-update` trust).
+Inspect, recompute, sign, and verify the root `manifest.json` (the per-file SHA-256 + Ed25519 signature that anchors `update` and `update --self` trust).
 
 | Subcommand | Description |
 |------------|-------------|

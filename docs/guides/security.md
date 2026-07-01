@@ -47,10 +47,10 @@ Four scanners are **enforced** by the tooling. The 30 skills cover a broader set
 
 | Scanner | Command | What it catches |
 |---|---|---|
-| **Secrets** | `secure-vibe scan-secrets <path>` | Hardcoded API keys, tokens, and credentials via 83 secret-detection patterns. |
-| **Dependencies** | `secure-vibe scan-dependencies <path>` | Malicious / typosquatted packages, plus CVE/OSV matches, via exact-match lookups against the curated DB (3,623 entries across 10 ecosystems) and 58 CVE code-patterns. |
-| **Dockerfile** | `secure-vibe scan-dockerfile <path>` | Container anti-patterns — root user, unpinned/`:latest` base images, and related least-privilege drift. |
-| **GitHub Actions** | `secure-vibe scan-github-actions <path>` | Unpinned actions, mutable refs, and insecure CI workflow configuration. |
+| **Secrets** | `secure-vibe scan <path>` | Hardcoded API keys, tokens, and credentials via 83 secret-detection patterns. |
+| **Dependencies** | `secure-vibe scan <path>` | Malicious / typosquatted packages, plus CVE/OSV matches, via exact-match lookups against the curated DB (3,623 entries across 10 ecosystems) and 58 CVE code-patterns. |
+| **Dockerfile** | `secure-vibe scan <path>` | Container anti-patterns — root user, unpinned/`:latest` base images, and related least-privilege drift. |
+| **GitHub Actions** | `secure-vibe scan <path>` | Unpinned actions, mutable refs, and insecure CI workflow configuration. |
 
 !!! note "Skills ≠ scanners"
     Prevention skills span more domains than the four enforced scanners. Treat the table above as the **enforced** detection surface; the skills are advisory at generation time.
@@ -73,7 +73,7 @@ SecureVibe is built so that you can trust the *binary* and the *data* it carries
 
 - **Ed25519-signed releases.** Every release is signed with an Ed25519 key whose private half is held offline.
 - **Per-file SHA-256 manifest.** The release manifest carries a SHA-256 checksum for each file.
-- **Verified self-update.** `secure-vibe self-update` fetches the signed manifest, then verifies in order: **(1) the detached Ed25519 signature** against the embedded public key, **(2) the SHA-256 checksums**, and only then **(3) atomically replaces** the binary via rename (crash-safe — a failure leaves the existing binary intact).
+- **Verified self-update.** `secure-vibe update --self` fetches the signed manifest, then verifies in order: **(1) the detached Ed25519 signature** against the embedded public key, **(2) the SHA-256 checksums**, and only then **(3) atomically replaces** the binary via rename (crash-safe — a failure leaves the existing binary intact).
 - **Offline, no telemetry, MIT, auditable.** Fully offline operation, no cloud dependency, no API key required, no telemetry. MIT-licensed and readable end-to-end.
 - **Signed contribution overlays.** Community contributions to the malicious-package data are signed; **import is signature-gated** (`--allow-unsigned` is an explicit opt-in, not the default).
 
@@ -88,7 +88,7 @@ flowchart TD
         S --> R[Published: artifacts + manifest + detached signature]
     end
 
-    subgraph Client["Client: secure-vibe self-update"]
+    subgraph Client["Client: secure-vibe update --self"]
         R --> V1{Verify Ed25519 signature
 against embedded public key}
         V1 -- invalid --> X1[Abort: untrusted manifest]
@@ -146,18 +146,18 @@ SecureVibe is designed to be evaluated without trusting anyone — including its
 2. **Run it offline.** No API key, no telemetry, no cloud call is required. Run the scanners on your own fixtures and disconnect the network to confirm there is no egress.
 
    ```bash
-   secure-vibe scan-secrets .
-   secure-vibe scan-dependencies .
-   secure-vibe scan-dockerfile .
-   secure-vibe scan-github-actions .
+   secure-vibe scan .
+   secure-vibe scan .
+   secure-vibe scan .
+   secure-vibe scan .
    ```
 
 3. **Reproduce the eval.** The eval corpus is committed. Re-run the scanners against it to reproduce the stated precision/recall — and confirm for yourself that the numbers are corpus-bounded, exactly as documented above.
 
-4. **Verify the release chain.** Inspect the signed manifest and the embedded public key, and confirm `self-update` verifies signature → checksum → atomic rename before trusting an upgrade.
+4. **Verify the release chain.** Inspect the signed manifest and the embedded public key, and confirm `update --self` verifies signature → checksum → atomic rename before trusting an upgrade.
 
    ```bash
-   secure-vibe self-update
+   secure-vibe update --self
    ```
 
 5. **Inspect the data moat.** The curated malicious-package DB and every overlay are web-cited and signature-gated. Review the entries and the import path before relying on them.

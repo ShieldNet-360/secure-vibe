@@ -67,7 +67,7 @@ manifest is intact end-to-end.
 
 4. **Sign the per-platform binary checksum files (binary authenticity).**
    The `manifest.json` signature authenticates the *library data tree*, but
-   the `secure-vibe self-update` path trusts the binary's SHA-256 from the
+   the `secure-vibe update --self` path trusts the binary's SHA-256 from the
    `checksums-<goos>-<goarch>.txt` files. Sign each of those with the same
    offline key so the hash a self-update consumes is itself anchored to the
    release key rather than to whatever source served the binary:
@@ -90,7 +90,7 @@ manifest is intact end-to-end.
    gh release upload v2026.05.12 /tmp/release-staging/checksums-*.txt.sig --clobber
    ```
 
-   `secure-vibe self-update` fetches `checksums-<goos>-<goarch>.txt.sig`,
+   `secure-vibe update --self` fetches `checksums-<goos>-<goarch>.txt.sig`,
    verifies it against the embedded public key, and *then* trusts the
    SHA-256. Releases without these `.sig` files still self-update (with a
    warning) unless the user passes `--require-signature`; once a release

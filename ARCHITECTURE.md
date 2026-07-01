@@ -211,7 +211,7 @@ cmd/secure-vibe/
 │   ├── version.go             # secure-vibe version
 │   ├── manifest.go            # secure-vibe dev manifest compute/verify/sign/delta
 │   ├── scheduler.go           # secure-vibe dev scheduler install/remove/status
-│   ├── selfupdate.go          # secure-vibe self-update (download + SHA-256 verify + atomic replace)
+│   ├── selfupdate.go          # secure-vibe update --self (download + SHA-256 verify + atomic replace)
 │   ├── new.go                 # secure-vibe dev new <id> (skill scaffolder)
 │   ├── test.go                # secure-vibe dev test <id> (test corpus runner)
 │   ├── evidence.go            # secure-vibe dev evidence --framework SOC2|HIPAA|PCI-DSS

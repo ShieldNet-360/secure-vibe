@@ -70,17 +70,17 @@ platform binary and the rule data; pick a surface.
 
 ```bash
 # Drop the skills into a project (writes IDE config, e.g. CLAUDE.md)
-npx @shieldnet360/secure-code-skill init --tool claude
+npx @shieldnet360/secure-vibe init --tool claude
 ```
 
 ```bash
 # Or wire the MCP server so any MCP-speaking client can call its tools on demand
-claude mcp add secure-code -- npx -y @shieldnet360/secure-code-mcp
+claude mcp add SecureVibe -- npx -y @shieldnet360/secure-vibe mcp
 ```
 
 ```bash
 # Or gate files from the terminal / CI / pre-commit (deterministic, exit code)
-npx -p @shieldnet360/secure-code-mcp secure-code-check gate Dockerfile package-lock.json --severity-floor high
+npx -y @shieldnet360/secure-vibe gate Dockerfile package-lock.json --severity-floor high
 ```
 
 `gate` picks the right scanner per file (Dockerfile / lockfile / workflow → specialised
@@ -149,7 +149,7 @@ Every surface is optional. Drop a static `CLAUDE.md` for zero-config baseline co
 <a class="ss-card" data-pkg="cli" href="quickstart/">
 <span class="ss-card-icon">⚡</span>
 <span class="ss-card-body"><span class="ss-card-title">CLI + MCP Server</span>
-<span class="ss-card-desc"><code>secure-vibe</code> Go binary for init / validate / update / regenerate / gate. <code>secure-vibe mcp</code> exposes 16 JSON-RPC tools.</span></span>
+<span class="ss-card-desc"><code>secure-vibe</code> Go binary for init / validate / update / regenerate / gate. <code>secure-vibe mcp</code> exposes 17 JSON-RPC tools.</span></span>
 </a>
 <a class="ss-card" data-pkg="compliance" href="compliance/">
 <span class="ss-card-icon">📋</span>
@@ -203,7 +203,7 @@ Eight first-class targets. Same skills, same library, eight rendered output form
 
 Native skill bundles are also produced for the three clients that support per-skill directories: `agent-skills/.agents/skills/`, `claude-skills/.claude/skills/`, `copilot-skills/.github/skills/`.
 
-For MCP-aware clients (Claude Code, Cursor, etc.), `secure-vibe mcp` exposes 16 JSON-RPC tools — `lookup_vulnerability`, `scan_dependencies`, `scan_dockerfile`, `scan_github_actions`, `check_secret_pattern`, `map_compliance_control`, `gate`, and 9 more — so the assistant can ask for security context on demand instead of loading the whole rule corpus into its prompt.
+For MCP-aware clients (Claude Code, Cursor, etc.), `secure-vibe mcp` exposes 17 JSON-RPC tools — `lookup_vulnerability`, `scan_dependencies`, `scan_dockerfile`, `scan_github_actions`, `check_secret_pattern`, `map_compliance_control`, `gate`, and 10 more — so the assistant can ask for security context on demand instead of loading the whole rule corpus into its prompt.
 
 </div>
 

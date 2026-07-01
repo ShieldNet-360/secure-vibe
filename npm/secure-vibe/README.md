@@ -36,7 +36,7 @@ JSON-RPC, just an exit code:
 # pick the right scanner for a file (or a whole directory) and fail (exit 1)
 # on any finding at or above the severity floor
 npx -y @shieldnet360/secure-vibe gate Dockerfile --severity-floor high
-npx -y @shieldnet360/secure-vibe scan-dependencies .
+npx -y @shieldnet360/secure-vibe scan .
 ```
 
 `gate` dispatches to the dependency / Dockerfile / GitHub Actions scanners by file

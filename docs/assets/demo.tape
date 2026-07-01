@@ -5,7 +5,7 @@
 
 Output docs/assets/demo.gif
 
-Require secure-code-check
+Require secure-vibe
 
 Set Shell bash
 Set FontSize 17
@@ -30,7 +30,7 @@ Sleep 600ms
 Type "cat requirements.txt config.py" Enter
 Sleep 1800ms
 
-Type "secure-code-check gate requirements.txt config.py --severity-floor high" Sleep 500ms Enter
+Type "secure-vibe gate requirements.txt config.py --severity-floor high" Sleep 500ms Enter
 Sleep 2600ms
 
 Type "# Blocked before commit. No cloud, no tokens, fully offline." Sleep 400ms Enter

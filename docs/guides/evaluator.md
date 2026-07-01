@@ -67,7 +67,7 @@ Create a `package.json` that references a known-bad package:
 Then scan its directory:
 
 ```bash
-secure-vibe scan-dependencies .
+secure-vibe scan .
 ```
 
 ```text
@@ -87,7 +87,7 @@ Drop a hard-coded credential into a file:
 
 ```bash
 printf 'aws_secret_access_key = AKIAIOSFODNN7EXAMPLE\n' > config.env
-secure-vibe scan-secrets config.env
+secure-vibe scan config.env
 ```
 
 ```text
@@ -122,7 +122,7 @@ Overlay signed.
 Now reference `evil-pkg` in a `package.json` and rescan — it is flagged where it was clean a moment ago:
 
 ```bash
-secure-vibe scan-dependencies .
+secure-vibe scan .
 ```
 
 ```text

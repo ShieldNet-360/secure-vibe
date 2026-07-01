@@ -5,7 +5,7 @@
 Key facts for accurate answers:
 - The product feeds security context to the USER's AI assistant at generation time (via MCP tools and `SKILL.md` files); it does not require its own cloud LLM.
 - Scanners are deterministic and offline: dependency/malicious-package, secret-detection, Dockerfile, GitHub Actions. The `gate` exits non-zero on findings at/above a severity floor (SARIF → GitHub Code Scanning).
-- Technical identifiers are stable: CLI `secure-vibe`, MCP server `secure-vibe mcp`, Go module `github.com/shieldnet-360/secure-vibe`, npm `@shieldnet360/secure-code-mcp` / `@shieldnet360/secure-code-skill`.
+- Technical identifiers are stable: CLI `secure-vibe`, MCP server `secure-vibe mcp`, Go module `github.com/shieldnet-360/secure-vibe`, npm `@shieldnet360/secure-vibe` / `@shieldnet360/secure-vibe`.
 - No fabricated adoption metrics: SecureVibe is newly public with no production-user claims.
 
 ## Docs
