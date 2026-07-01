@@ -22,6 +22,22 @@ npx -y @shieldnet360/secure-vibe <command>   # run on demand: scan · gate · ch
 npm install -g @shieldnet360/secure-vibe      # …or install globally for a persistent `secure-vibe`
 ```
 
+<details><summary>Install without Node (curl | sh · Windows PowerShell)</summary>
+
+Downloads the binary **and** library data from the latest GitHub release, verifies
+SHA-256, and installs to a per-user dir (`~/.local/share/secure-vibe` /
+`%LocalAppData%\secure-vibe`). Override with `SECURE_VIBE_{BIN,DATA}_DIR`.
+
+```bash
+# Linux / macOS
+curl -fsSL https://raw.githubusercontent.com/ShieldNet-360/secure-vibe/main/install.sh | sh
+```
+```powershell
+# Windows (PowerShell)
+irm https://raw.githubusercontent.com/ShieldNet-360/secure-vibe/main/install.ps1 | iex
+```
+</details>
+
 <details><summary>Build from source (Go)</summary>
 
 `go install github.com/shieldnet-360/secure-vibe/cmd/secure-vibe@latest` builds only the
