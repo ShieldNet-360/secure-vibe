@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "version": "2026.05.12.1",
   "released_at": "2026-05-12T10:00:00Z",
-  "signature": "TBD",
+  "signature": "ed25519:t6TJvak77p+O76DxIy5PGWs2zrhDJxlROTE6HFlpOLmjhgJs1GcxAPqwDvq8ZWRjfDwssAfSn0CO0XZQCjWnAw==",
   "public_key_id": "vibe-guard-release-2026-06",
   "description": "Root manifest with SHA-256 checksums for every distributable file. Ed25519 signature is applied out-of-band at release time (see SIGNING.md).",
   "files": [
