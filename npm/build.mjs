@@ -100,7 +100,7 @@ async function main() {
       version,
       description: `SecureVibe \`secure-vibe\` binary for ${p.node}.`,
       license: 'MIT',
-      repository: { type: 'git', url: 'git+https://github.com/shieldnet-360/secure-vibe.git' },
+      repository: { type: 'git', url: 'git+https://github.com/ShieldNet-360/secure-vibe.git' },
       os: [p.os],
       cpu: [p.cpu],
       files: ['bin/'],

@@ -15,11 +15,11 @@
     "cursor",
     "skills"
   ],
-  "homepage": "https://github.com/shieldnet-360/secure-vibe#readme",
-  "bugs": "https://github.com/shieldnet-360/secure-vibe/issues",
+  "homepage": "https://github.com/ShieldNet-360/secure-vibe#readme",
+  "bugs": "https://github.com/ShieldNet-360/secure-vibe/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shieldnet-360/secure-vibe.git",
+    "url": "git+https://github.com/ShieldNet-360/secure-vibe.git",
     "directory": "npm/secure-vibe"
   },
   "license": "MIT",
