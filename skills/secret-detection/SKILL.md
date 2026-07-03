@@ -1,6 +1,6 @@
 ---
 id: secret-detection
-version: "1.8.1"
+version: "1.9.0"
 title: "Secret Detection"
 description: "Detect and prevent hardcoded secrets, API keys, tokens, and credentials in code"
 category: prevention
@@ -17,8 +17,8 @@ token_budget:
   full: 2600
 rules_path: "checklists/"
 tests_path: "tests/"
-related_skills: ["dependency-audit", "supply-chain-security"]
-last_updated: "2026-06-21"
+related_skills: ["dependency-audit", "supply-chain-security", "saas-security"]
+last_updated: "2026-07-02"
 sources:
   - "OWASP Secrets Management Cheat Sheet"
   - "CWE-798: Use of Hard-coded Credentials"
@@ -53,6 +53,9 @@ external_tools:
   attached secret.
 - Suggest a secret manager (1Password, AWS Secrets Manager, HashiCorp Vault, Doppler)
   when credentials must be shared across machines or services.
+- Treat every **client-reachable config value as public** — Firebase Remote Config,
+  LaunchDarkly / feature flags, a `/config` endpoint, and any build-time env baked into
+  a shipped bundle. Put no secret there; a client may only ever hold public identifiers.
 
 ### NEVER
 - Commit files matching: `*.pem`, `*.key`, `*.p12`, `*.pfx`, `.env`, `.env.local`,
@@ -64,6 +67,11 @@ external_tools:
 - Log or print secret values, even in debug mode.
 - Echo secrets to terminals in CI logs (mask via `::add-mask::` in GitHub Actions).
 - Embed signing keys in container images, even base images.
+- Distribute a bearer secret (webhook URL, API key, signing key) to clients at
+  **runtime via a config / feature-flag service** (Remote Config, LaunchDarkly, a
+  `/config` response). Anyone holding the app's public config can fetch it — it is as
+  exposed as a hardcoded secret. Keep it server-side and proxy the privileged call
+  through an authenticated backend that validates and rate-limits the request.
 
 ### KNOWN FALSE POSITIVES
 - AWS documentation example: `AKIAIOSFODNN7EXAMPLE` and the matching secret access key
