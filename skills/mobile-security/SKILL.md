@@ -1,6 +1,6 @@
 ---
 id: mobile-security
-version: "1.0.0"
+version: "1.1.0"
 title: "Mobile Application Security"
 description: "Android and iOS hardening: exported components, ATS, keychain, certificate pinning, root/jailbreak detection"
 category: hardening
@@ -15,8 +15,8 @@ token_budget:
   compact: 1200
   full: 2500
 rules_path: "checklists/"
-related_skills: ["crypto-misuse", "secret-detection", "auth-security"]
-last_updated: "2026-06-20"
+related_skills: ["crypto-misuse", "secret-detection", "auth-security", "logging-security"]
+last_updated: "2026-07-02"
 sources:
   - "OWASP MASVS v2.0"
   - "OWASP Mobile Application Security Testing Guide (MASTG)"
@@ -79,8 +79,12 @@ sources:
 - Implement biometric auth without `BiometricPrompt`'s
   `setUserAuthenticationRequired(true)` binding the key — biometric "true"
   alone proves nothing without a cryptographic challenge.
-- Log full request/response bodies including `Authorization` headers — they
-  end up in adb / xcrun logs.
+- Log full request/response bodies including `Authorization` headers — e.g. an
+  OkHttp `HttpLoggingInterceptor` left at `Level.BODY` (or `URLSession` / Alamofire
+  debug logging) in a **release** build. The dump lands in Logcat / oslog, readable by
+  `adb logcat` on any USB-debuggable device (no root) and by log aggregation. Gate
+  body + header logging to debug builds and redact `Authorization` / `Cookie` / token /
+  PII fields.
 
 ### KNOWN FALSE POSITIVES
 - Public read-only IDs (analytics public key, public DSN) embedded in the
