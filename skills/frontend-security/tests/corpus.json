@@ -37,6 +37,12 @@
       "text": "import { evaluate } from 'mathjs';\nfunction compute(req, res) {\n  const expr = String(req.query.expr || '');\n  if (!/^[-+*/().\\d\\s]+$/.test(expr)) {\n    return res.status(400).json({ error: 'invalid expression' });\n  }\n  const result = evaluate(expr);\n  res.json({ result });\n}",
       "expected": "ignore",
       "reason": "Replaces eval with a sandboxed math expression evaluator and an arithmetic-only input allowlist, so no user string is ever interpreted as JavaScript. Follows ALWAYS 'treat user data as untrusted' and avoids the eval NEVER rule. No code-injection sink (CWE-79/CWE-95)."
+    },
+    {
+      "id": "registered-codec-not-shipped-ignore",
+      "text": "const loader = new GLTFLoader(); loader.setDRACOLoader(new DRACOLoader()); loader.setKTX2Loader(new KTX2Loader()); // no setDecoderPath/setTranscoderPath; decoder wasm not bundled -> KHR_draco/KHR_texture_basisu inputs fail to load",
+      "expected": "ignore",
+      "reason": "native/WASM codec loaders registered but decoder assets not shipped and never initialized -> inert; verify asset+init before flagging a native-codec attack surface"
     }
   ]
 }

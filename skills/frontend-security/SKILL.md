@@ -1,6 +1,6 @@
 ---
 id: frontend-security
-version: "1.1.0"
+version: "1.2.0"
 title: "Frontend Security"
 description: "Browser-side hardening: XSS, CSP, CORS, SRI, DOM clobbering, iframe sandboxing, Trusted Types"
 category: prevention
@@ -81,6 +81,11 @@ sources:
   user-facing web app CSP should still forbid it.
 - WebSocket connections to non-same-origin endpoints are fine when the server
   performs origin validation.
+- A native / WASM **codec, decoder, or loader that is merely registered or referenced**
+  (`setDRACOLoader(...)`, a plugin registration, a lazy import) is **not an active attack
+  surface** unless its binary / asset is actually shipped and the module initialized at
+  runtime. Verify asset-present + module-init + reachable input format before flagging —
+  wiring alone is a false positive (inputs needing the missing decoder simply fail to load).
 
 ## Context (for humans)
 
