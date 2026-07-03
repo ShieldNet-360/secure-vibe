@@ -1,6 +1,6 @@
 ---
 id: api-security
-version: "1.2.0"
+version: "1.3.0"
 title: "API Security"
 description: "Apply OWASP API Top 10 patterns to authentication, authorization, and input validation"
 category: prevention
@@ -17,7 +17,7 @@ token_budget:
   full: 2700
 rules_path: "checklists/"
 related_skills: ["secure-code-review", "secret-detection", "ssrf-prevention", "websocket-security"]
-last_updated: "2026-07-02"
+last_updated: "2026-07-03"
 sources:
   - "OWASP API Security Top 10 2023"
   - "OWASP Authentication Cheat Sheet"
@@ -89,6 +89,12 @@ sources:
   owns the data. (A common variant: the gateway checks that a JWT is *present*
   but the service never checks the caller's *role* or *object-level ownership* —
   the service reads the subject id from the body/path/query and trusts it.)
+- Gate a write / create endpoint on **authentication only** when the created resource is
+  rendered to **all users or tenants** (a global gallery, shared catalog, public template
+  list). Authentication is not authorization: enforce a **function-level role / privilege
+  check** on any write that publishes into a shared or global namespace (OWASP API5 —
+  Broken Function Level Authorization). A low-privilege user posting into a globally-visible
+  store is a delivery vector for stored-XSS / malicious-link chains.
 
 ### KNOWN FALSE POSITIVES
 - Public marketing-site endpoints serving anonymous traffic legitimately have no auth
@@ -102,6 +108,9 @@ sources:
 - Mutual-TLS / SPIFFE workload identity between services **is** authentication
   (a cryptographic caller identity), not mere network position — mTLS-authenticated
   service-to-service calls are fine even on a private network.
+- A write into the caller's **own** private / tenant-scoped namespace needs only
+  authentication + object-level ownership — function-level role gating applies specifically
+  to writes whose result becomes visible beyond the creator.
 
 ## Context (for humans)
 
