@@ -1,6 +1,6 @@
 ---
 id: frontend-security
-version: "1.0.0"
+version: "1.1.0"
 title: "Frontend Security"
 description: "Browser-side hardening: XSS, CSP, CORS, SRI, DOM clobbering, iframe sandboxing, Trusted Types"
 category: prevention
@@ -16,7 +16,7 @@ token_budget:
   full: 2800
 rules_path: "rules/"
 related_skills: ["cors-security", "auth-security", "logging-security"]
-last_updated: "2026-06-20"
+last_updated: "2026-07-03"
 sources:
   - "OWASP XSS Prevention Cheat Sheet"
   - "OWASP Content Security Policy Cheat Sheet"
@@ -67,6 +67,11 @@ sources:
   any XSS exfiltrates them. Prefer HttpOnly cookies.
 - Read or write `document.cookie` from JavaScript for auth cookies — they
   should be HttpOnly anyway.
+- Treat **tightening the HTML sanitizer** as the fix when the exploit rides on content the
+  sanitizer **allows by design** — a valid `<a href="https:…">`, an `<img src>`, or a
+  permitted attribute. The sanitizer is working; the vulnerable behaviour is **downstream**
+  (in-app navigation, a shell / `openExternal` sink, an over-privileged renderer or IPC
+  bridge, a URL sink). Fix the sink / context, not the markup allowlist.
 
 ### KNOWN FALSE POSITIVES
 - Internal admin tools deliberately rendering Markdown / rich text from trusted
