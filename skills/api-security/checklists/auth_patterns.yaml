@@ -50,3 +50,8 @@ patterns:
     severity: high
     rule: "Async consumers (queue/topic/webhook) must not trust a subject/owner id asserted by the producer. Authenticate the channel (mTLS/ACL) and re-validate that the asserted subject is one the producer was authorized to assert; do not fan out on producer-claimed identity alone."
     cwe: 345
+  # --- Rate-limit keying ---
+  - id: api-rate-limit-untrusted-client-ip
+    severity: high
+    rule: "Rate-limit / lockout / anti-bruteforce counters must derive the client IP from a trusted hop, never from a client-settable header. Keying on the leftmost X-Forwarded-For (or a client-supplied Forwarded / X-Real-IP) lets an attacker send a fresh value per request for a new bucket every time, defeating the limit. Use the real peer IP with a configured trusted-proxy depth, or key on the authenticated principal; fail closed if the limiter backend errors."
+    cwe: 348

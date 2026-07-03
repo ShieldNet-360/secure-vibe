@@ -67,6 +67,10 @@ sources:
 - Act on a subject/owner id asserted by an upstream **producer** (queue/topic/webhook)
   without authenticating the channel and re-validating the asserted subject — a spoofed
   producer otherwise drives forged cross-tenant effects.
+- Key a rate-limit / lockout counter on a **client-controllable header** (leftmost
+  `X-Forwarded-For`, `X-Real-IP`, `Forwarded`) — rotating it yields a fresh bucket per
+  request and defeats the limit. Derive the client IP from the trusted-proxy hop count
+  (or key on the authenticated user), and fail closed on limiter error.
 - Disable CSRF protection on state-changing endpoints used by browsers.
 - Return stack traces or framework error pages to the client in production.
 - Use `HTTP GET` for any state-changing operation — GET should be safe and
