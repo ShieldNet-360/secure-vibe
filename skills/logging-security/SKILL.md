@@ -1,6 +1,6 @@
 ---
 id: logging-security
-version: "1.0.0"
+version: "1.1.0"
 title: "Logging Security"
 description: "Prevent secret/PII leaks in logs, log-injection attacks, missing audit trails, weak retention"
 category: prevention
@@ -16,7 +16,7 @@ token_budget:
   full: 2400
 rules_path: "rules/"
 related_skills: ["secret-detection", "error-handling-security", "compliance-awareness"]
-last_updated: "2026-06-20"
+last_updated: "2026-07-02"
 sources:
   - "OWASP Logging Cheat Sheet"
   - "CWE-532 — Insertion of Sensitive Information into Log File"
@@ -56,6 +56,11 @@ sources:
 - Log `Authorization` headers, `Cookie` / `Set-Cookie` headers, query-string
   tokens, or any field named `password`, `secret`, `token`, `key`,
   `private`, or `credential` — even after "obfuscation" like `***`.
+- Log a **rendered / assembled string** (a formatted notification body, a templated
+  message, an error with interpolated data) trusting a field-name / pattern redactor to
+  catch it — PII (names, places, free-text addresses) sits inside the composed text, not
+  in a named field or a known pattern. Log a non-sensitive reference / id instead, or
+  redact the composed value by *content*.
 - Log entire bound SQL statements with their parameter values; log the
   statement template + parameter *names* + a hashed value identifier
   instead.
