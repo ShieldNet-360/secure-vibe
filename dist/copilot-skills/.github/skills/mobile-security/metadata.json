@@ -1,6 +1,6 @@
 {
   "id": "mobile-security",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Mobile Application Security",
   "description": "Android and iOS hardening: exported components, ATS, keychain, certificate pinning, root/jailbreak detection",
   "category": "hardening",
@@ -30,9 +30,10 @@
   "related_skills": [
     "crypto-misuse",
     "secret-detection",
-    "auth-security"
+    "auth-security",
+    "logging-security"
   ],
-  "last_updated": "2026-06-20",
+  "last_updated": "2026-07-02",
   "sources": [
     "OWASP MASVS v2.0",
     "OWASP Mobile Application Security Testing Guide (MASTG)",

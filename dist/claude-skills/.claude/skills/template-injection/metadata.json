@@ -1,0 +1,37 @@
+{
+  "id": "template-injection",
+  "version": "1.0.0",
+  "title": "Template Injection (SSTI)",
+  "description": "Prevent server-side template injection — user input reaching a template compiler, double-render pipelines, sandbox escapes, and template-driven resource exhaustion",
+  "category": "prevention",
+  "severity": "critical",
+  "applies_to": [
+    "when rendering templates with any user-influenced value (email / notification bodies, PDFs, HTML, config)",
+    "when a template's source string is assembled or stored from user input",
+    "when using a template engine (Jinja2, Twig, Freemarker, Velocity, ERB, Handlebars, Go text/html-template, Thymeleaf, Razor, Liquid, Mako, Pug)",
+    "when reviewing a two-step render / re-parse pipeline"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 900,
+    "compact": 1300,
+    "full": 2500
+  },
+  "rules_path": "rules/",
+  "tests_path": "tests/",
+  "related_skills": [
+    "api-security",
+    "frontend-security",
+    "llm-app-security"
+  ],
+  "last_updated": "2026-07-02",
+  "sources": [
+    "OWASP Testing Guide — Server-Side Template Injection (WSTG-INPV-18)",
+    "PortSwigger — Server-Side Template Injection",
+    "CWE-1336: Improper Neutralization of Special Elements Used in a Template Engine",
+    "CWE-94: Improper Control of Generation of Code",
+    "CWE-770: Allocation of Resources Without Limits or Throttling"
+  ]
+}

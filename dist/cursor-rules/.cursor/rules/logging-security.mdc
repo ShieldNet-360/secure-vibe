@@ -24,6 +24,7 @@ Prevent secret/PII leaks in logs, log-injection attacks, missing audit trails, w
 
 - Log full request / response bodies at INFO. Bodies regularly contain passwords, tokens, PII, and uploaded files.
 - Log `Authorization` headers, `Cookie` / `Set-Cookie` headers, query-string tokens, or any field named `password`, `secret`, `token`, `key`, `private`, or `credential` — even after "obfuscation" like `***`.
+- Log a **rendered / assembled string** (a formatted notification body, a templated message, an error with interpolated data) trusting a field-name / pattern redactor to catch it — PII (names, places, free-text addresses) sits inside the composed text, not in a named field or a known pattern. Log a non-sensitive reference / id instead, or redact the composed value by *content*.
 - Log entire bound SQL statements with their parameter values; log the statement template + parameter *names* + a hashed value identifier instead.
 - Allow unprivileged users to read raw logs containing other users' data.
 - Use plain `print()` / `console.log` / `fmt.Println` in production services; use the configured logger so redaction and structure are applied uniformly.

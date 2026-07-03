@@ -1,6 +1,6 @@
 {
   "id": "secret-detection",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "title": "Secret Detection",
   "description": "Detect and prevent hardcoded secrets, API keys, tokens, and credentials in code",
   "category": "prevention",
@@ -15,17 +15,18 @@
     "*"
   ],
   "token_budget": {
-    "minimal": 800,
-    "compact": 1300,
-    "full": 2600
+    "minimal": 950,
+    "compact": 1400,
+    "full": 2700
   },
   "rules_path": "checklists/",
   "tests_path": "tests/",
   "related_skills": [
     "dependency-audit",
-    "supply-chain-security"
+    "supply-chain-security",
+    "saas-security"
   ],
-  "last_updated": "2026-06-21",
+  "last_updated": "2026-07-02",
   "sources": [
     "OWASP Secrets Management Cheat Sheet",
     "CWE-798: Use of Hard-coded Credentials",

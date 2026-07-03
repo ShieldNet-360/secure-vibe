@@ -87,6 +87,7 @@ not inlined; query them via MCP (or read the source on disk):
 - `secret-detection` — Secret Detection
 - `secure-code-review` — Secure Code Review
 - `ssrf-prevention` — SSRF Prevention
+- `template-injection` — Template Injection (SSTI)
 - `websocket-security` — WebSocket Security
 
 ### supply-chain

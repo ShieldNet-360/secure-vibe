@@ -15,8 +15,8 @@
     "*"
   ],
   "token_budget": {
-    "minimal": 1050,
-    "compact": 1400,
+    "minimal": 1150,
+    "compact": 1450,
     "full": 2700
   },
   "rules_path": "checklists/",

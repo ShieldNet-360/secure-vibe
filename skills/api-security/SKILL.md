@@ -12,8 +12,8 @@ applies_to:
   - "when reviewing API endpoint changes"
 languages: ["*"]
 token_budget:
-  minimal: 1050
-  compact: 1400
+  minimal: 1150
+  compact: 1450
   full: 2700
 rules_path: "checklists/"
 related_skills: ["secure-code-review", "secret-detection", "ssrf-prevention", "websocket-security"]

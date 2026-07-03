@@ -17,6 +17,7 @@ Detect and prevent hardcoded secrets, API keys, tokens, and credentials in code
 - Verify `.gitignore` includes: `*.pem`, `*.key`, `.env`, `.env.*`, `*credentials*`, `*secret*`, `id_rsa*`, `*.ppk`.
 - Prefer environment variable usage (`os.environ`, `process.env`, `os.Getenv`) over hardcoded values for any credential, connection string, or API endpoint that has an attached secret.
 - Suggest a secret manager (1Password, AWS Secrets Manager, HashiCorp Vault, Doppler) when credentials must be shared across machines or services.
+- Treat every **client-reachable config value as public** — Firebase Remote Config, LaunchDarkly / feature flags, a `/config` endpoint, and any build-time env baked into a shipped bundle. Put no secret there; a client may only ever hold public identifiers.
 
 ## NEVER
 
@@ -26,6 +27,7 @@ Detect and prevent hardcoded secrets, API keys, tokens, and credentials in code
 - Log or print secret values, even in debug mode.
 - Echo secrets to terminals in CI logs (mask via `::add-mask::` in GitHub Actions).
 - Embed signing keys in container images, even base images.
+- Distribute a bearer secret (webhook URL, API key, signing key) to clients at **runtime via a config / feature-flag service** (Remote Config, LaunchDarkly, a `/config` response). Anyone holding the app's public config can fetch it — it is as exposed as a hardcoded secret. Keep it server-side and proxy the privileged call through an authenticated backend that validates and rate-limits the request.
 
 ## KNOWN FALSE POSITIVES
 

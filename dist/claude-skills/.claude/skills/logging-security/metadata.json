@@ -1,6 +1,6 @@
 {
   "id": "logging-security",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Logging Security",
   "description": "Prevent secret/PII leaks in logs, log-injection attacks, missing audit trails, weak retention",
   "category": "prevention",
@@ -24,7 +24,7 @@
     "error-handling-security",
     "compliance-awareness"
   ],
-  "last_updated": "2026-06-20",
+  "last_updated": "2026-07-02",
   "sources": [
     "OWASP Logging Cheat Sheet",
     "CWE-532 — Insertion of Sensitive Information into Log File",

@@ -12,9 +12,9 @@ applies_to:
   - "when creating .env or config templates"
 languages: ["*"]
 token_budget:
-  minimal: 800
-  compact: 1300
-  full: 2600
+  minimal: 950
+  compact: 1400
+  full: 2700
 rules_path: "checklists/"
 tests_path: "tests/"
 related_skills: ["dependency-audit", "supply-chain-security", "saas-security"]

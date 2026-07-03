@@ -28,7 +28,7 @@ Android and iOS hardening: exported components, ATS, keychain, certificate pinni
 - Implement custom TLS / certificate handling that returns "trust all" (`X509TrustManager.checkServerTrusted` empty body, `URLSessionDelegate` always-trust). This is the #1 Android security finding shipped to production.
 - Pass user input to `WebView.loadUrl` / `WKWebView.load` without scheme validation; never enable `WebSettings.setAllowFileAccessFromFileURLs(true)` or `setUniversalAccessFromFileURLs(true)`.
 - Implement biometric auth without `BiometricPrompt`'s `setUserAuthenticationRequired(true)` binding the key — biometric "true" alone proves nothing without a cryptographic challenge.
-- Log full request/response bodies including `Authorization` headers — they end up in adb / xcrun logs.
+- Log full request/response bodies including `Authorization` headers — e.g. an OkHttp `HttpLoggingInterceptor` left at `Level.BODY` (or `URLSession` / Alamofire debug logging) in a **release** build. The dump lands in Logcat / oslog, readable by `adb logcat` on any USB-debuggable device (no root) and by log aggregation. Gate body + header logging to debug builds and redact `Authorization` / `Cookie` / token / PII fields.
 
 ## KNOWN FALSE POSITIVES
 
