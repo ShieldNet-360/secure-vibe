@@ -1,6 +1,6 @@
 {
   "id": "dependency-audit",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Dependency Audit",
   "description": "Audit project dependencies for known vulnerabilities, malicious packages, and supply chain risks",
   "category": "supply-chain",
@@ -15,8 +15,8 @@
     "*"
   ],
   "token_budget": {
-    "minimal": 400,
-    "compact": 750,
+    "minimal": 650,
+    "compact": 1000,
     "full": 1900
   },
   "rules_path": "rules/",
@@ -24,7 +24,7 @@
     "secret-detection",
     "supply-chain-security"
   ],
-  "last_updated": "2026-06-20",
+  "last_updated": "2026-07-03",
   "sources": [
     "OWASP Top 10 2021 — A06: Vulnerable and Outdated Components",
     "CWE-1104: Use of Unmaintained Third Party Components",

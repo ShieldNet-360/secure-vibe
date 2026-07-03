@@ -30,10 +30,12 @@ Browser-side hardening: XSS, CSP, CORS, SRI, DOM clobbering, iframe sandboxing, 
 - Use `postMessage` without checking `event.origin` against an allowlist.
 - Store JWTs, refresh tokens, or PII in `localStorage` / `sessionStorage` — any XSS exfiltrates them. Prefer HttpOnly cookies.
 - Read or write `document.cookie` from JavaScript for auth cookies — they should be HttpOnly anyway.
+- Treat **tightening the HTML sanitizer** as the fix when the exploit rides on content the sanitizer **allows by design** — a valid `<a href="https:…">`, an `<img src>`, or a permitted attribute. The sanitizer is working; the vulnerable behaviour is **downstream** (in-app navigation, a shell / `openExternal` sink, an over-privileged renderer or IPC bridge, a URL sink). Fix the sink / context, not the markup allowlist.
 
 ## KNOWN FALSE POSITIVES
 
 - Internal admin tools deliberately rendering Markdown / rich text from trusted authors may use `dangerouslySetInnerHTML` after a sanitizer pass; document the sanitizer call inline.
 - Browser extensions sometimes need `'unsafe-eval'` in the extension CSP; user-facing web app CSP should still forbid it.
 - WebSocket connections to non-same-origin endpoints are fine when the server performs origin validation.
+- A native / WASM **codec, decoder, or loader that is merely registered or referenced** (`setDRACOLoader(...)`, a plugin registration, a lazy import) is **not an active attack surface** unless its binary / asset is actually shipped and the module initialized at runtime. Verify asset-present + module-init + reachable input format before flagging — wiring alone is a false positive (inputs needing the missing decoder simply fail to load).
 

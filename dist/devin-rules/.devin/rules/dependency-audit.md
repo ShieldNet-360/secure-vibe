@@ -17,6 +17,7 @@ Audit project dependencies for known vulnerabilities, malicious packages, and su
 - Prefer well-established packages with high download counts, multiple maintainers, and recent activity over newer alternatives that solve the same problem.
 - Run the package manager's audit command (`npm audit`, `pip-audit`, `cargo audit`, `govulncheck`) and review reported issues before merging.
 - Verify the package's repository URL on the package page actually exists and matches the linked GitHub / GitLab / Codeberg project.
+- Track **embedded runtimes** you ship — a bundled browser engine (Electron / CEF / Chromium / system WebView), a language runtime, or a JRE — against their **upstream** EOL and security releases. Their CVEs are filed against the upstream project, not the wrapper package (`electron`, `pywebview`, …), so `npm audit` / Trivy / Dependabot match the wrapper version and report the engine as clean. Pin a supported major; auto-update it.
 
 ## NEVER
 
@@ -26,10 +27,12 @@ Audit project dependencies for known vulnerabilities, malicious packages, and su
 - Add a brand-new package (published within the last 30 days) without a clear, documented reason — typosquats are usually freshly published.
 - Use the `latest` tag in a production lockfile or container image FROM line.
 - Commit unused dependencies — they expand the attack surface for free.
+- Ship an **end-of-life embedded runtime** (an Electron major past EOL, an unpatched bundled Chromium / CEF, an EOL JRE) and rely on dependency scanners to catch it — they don't map the engine's CVEs to the wrapper package, so known RCE CVEs reachable via rendered / parsed content pass as "clean".
 
 ## KNOWN FALSE POSITIVES
 
 - Internal monorepo packages (`@yourco/*`) flagged as "unknown" — these are valid when the namespace is owned by your organization.
 - New patch versions of stable packages (e.g. `react@18.2.5` after `18.2.4`) flagged as "recently published" — patch updates are usually fine.
 - Package names that legitimately overlap with malicious entries from years ago that have been re-registered by the original maintainer.
+- A wrapper package pinned to a currently-**supported** major whose bundled engine is patched is fine — the finding is an EOL/unpatched engine, not the presence of an embedded runtime.
 

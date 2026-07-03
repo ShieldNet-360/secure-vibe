@@ -35,6 +35,7 @@ Apply OWASP API Top 10 patterns to authentication, authorization, and input vali
 - Use `HTTP GET` for any state-changing operation — GET should be safe and idempotent.
 - Rely on **network position** (IP allowlist, VPN, private subnet, "internal only", a WAF/edge rule) as the *only* control on a sensitive endpoint. Reachability is not authentication: the moment there's an SSRF, a compromised internal host, a tenant on the network, or a boundary change, an unauthenticated "internal" endpoint (`permission_classes = [AllowAny]`, no `RequireAuth`) is wide open. Enforce auth/authz at the service itself, behind any network control.
 - Place security controls (auth, field-stripping, CSRF, rate-limit, input validation) only at a gateway / BFF / proxy while the backend service is **also directly reachable**. An attacker calls the service directly and bypasses every proxy-layer control — controls must live at the service that owns the data. (A common variant: the gateway checks that a JWT is *present* but the service never checks the caller's *role* or *object-level ownership* — the service reads the subject id from the body/path/query and trusts it.)
+- Gate a write / create endpoint on **authentication only** when the created resource is rendered to **all users or tenants** (a global gallery, shared catalog, public template list). Authentication is not authorization: enforce a **function-level role / privilege check** on any write that publishes into a shared or global namespace (OWASP API5 — Broken Function Level Authorization). A low-privilege user posting into a globally-visible store is a delivery vector for stored-XSS / malicious-link chains.
 
 ## KNOWN FALSE POSITIVES
 
@@ -43,4 +44,5 @@ Apply OWASP API Top 10 patterns to authentication, authorization, and input vali
 - Health-check endpoints (`/healthz`, `/ready`) intentionally bypass auth.
 - A network control (mTLS service mesh, NetworkPolicy, private ingress) is fine as **defense-in-depth** — the anti-pattern is only when it's the *sole* control and the service itself authenticates nothing.
 - Mutual-TLS / SPIFFE workload identity between services **is** authentication (a cryptographic caller identity), not mere network position — mTLS-authenticated service-to-service calls are fine even on a private network.
+- A write into the caller's **own** private / tenant-scoped namespace needs only authentication + object-level ownership — function-level role gating applies specifically to writes whose result becomes visible beyond the creator.
 

@@ -12,8 +12,8 @@ applies_to:
   - "before merging a PR that modifies dependency files"
 languages: ["*"]
 token_budget:
-  minimal: 400
-  compact: 750
+  minimal: 650
+  compact: 1000
   full: 1900
 rules_path: "rules/"
 related_skills: ["secret-detection", "supply-chain-security"]

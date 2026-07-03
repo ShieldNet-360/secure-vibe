@@ -73,6 +73,7 @@ _Apply OWASP API Top 10 patterns to authentication, authorization, and input val
 - Use `HTTP GET` for any state-changing operation — GET should be safe and idempotent.
 - Rely on **network position** (IP allowlist, VPN, private subnet, "internal only", a WAF/edge rule) as the *only* control on a sensitive endpoint. Reachability is not authentication: the moment there's an SSRF, a compromised internal host, a tenant on the network, or a boundary change, an unauthenticated "internal" endpoint (`permission_classes = [AllowAny]`, no `RequireAuth`) is wide open. Enforce auth/authz at the service itself, behind any network control.
 - Place security controls (auth, field-stripping, CSRF, rate-limit, input validation) only at a gateway / BFF / proxy while the backend service is **also directly reachable**. An attacker calls the service directly and bypasses every proxy-layer control — controls must live at the service that owns the data. (A common variant: the gateway checks that a JWT is *present* but the service never checks the caller's *role* or *object-level ownership* — the service reads the subject id from the body/path/query and trusts it.)
+- Gate a write / create endpoint on **authentication only** when the created resource is rendered to **all users or tenants** (a global gallery, shared catalog, public template list). Authentication is not authorization: enforce a **function-level role / privilege check** on any write that publishes into a shared or global namespace (OWASP API5 — Broken Function Level Authorization). A low-privilege user posting into a globally-visible store is a delivery vector for stored-XSS / malicious-link chains.
 
 **Known false positives:**
 - Public marketing-site endpoints serving anonymous traffic legitimately have no auth and no rate limits beyond the load balancer.
@@ -80,6 +81,7 @@ _Apply OWASP API Top 10 patterns to authentication, authorization, and input val
 - Health-check endpoints (`/healthz`, `/ready`) intentionally bypass auth.
 - A network control (mTLS service mesh, NetworkPolicy, private ingress) is fine as **defense-in-depth** — the anti-pattern is only when it's the *sole* control and the service itself authenticates nothing.
 - Mutual-TLS / SPIFFE workload identity between services **is** authentication (a cryptographic caller identity), not mere network position — mTLS-authenticated service-to-service calls are fine even on a private network.
+- A write into the caller's **own** private / tenant-scoped namespace needs only authentication + object-level ownership — function-level role gating applies specifically to writes whose result becomes visible beyond the creator.
 
 ## Authentication & Authorization Security (`auth-security`)
 
@@ -301,6 +303,7 @@ _Audit project dependencies for known vulnerabilities, malicious packages, and s
 - Prefer well-established packages with high download counts, multiple maintainers, and recent activity over newer alternatives that solve the same problem.
 - Run the package manager's audit command (`npm audit`, `pip-audit`, `cargo audit`, `govulncheck`) and review reported issues before merging.
 - Verify the package's repository URL on the package page actually exists and matches the linked GitHub / GitLab / Codeberg project.
+- Track **embedded runtimes** you ship — a bundled browser engine (Electron / CEF / Chromium / system WebView), a language runtime, or a JRE — against their **upstream** EOL and security releases. Their CVEs are filed against the upstream project, not the wrapper package (`electron`, `pywebview`, …), so `npm audit` / Trivy / Dependabot match the wrapper version and report the engine as clean. Pin a supported major; auto-update it.
 
 **Never:**
 - Add a dependency without pinning its version.
@@ -309,11 +312,13 @@ _Audit project dependencies for known vulnerabilities, malicious packages, and s
 - Add a brand-new package (published within the last 30 days) without a clear, documented reason — typosquats are usually freshly published.
 - Use the `latest` tag in a production lockfile or container image FROM line.
 - Commit unused dependencies — they expand the attack surface for free.
+- Ship an **end-of-life embedded runtime** (an Electron major past EOL, an unpatched bundled Chromium / CEF, an EOL JRE) and rely on dependency scanners to catch it — they don't map the engine's CVEs to the wrapper package, so known RCE CVEs reachable via rendered / parsed content pass as "clean".
 
 **Known false positives:**
 - Internal monorepo packages (`@yourco/*`) flagged as "unknown" — these are valid when the namespace is owned by your organization.
 - New patch versions of stable packages (e.g. `react@18.2.5` after `18.2.4`) flagged as "recently published" — patch updates are usually fine.
 - Package names that legitimately overlap with malicious entries from years ago that have been re-registered by the original maintainer.
+- A wrapper package pinned to a currently-**supported** major whose bundled engine is patched is fine — the finding is an EOL/unpatched engine, not the presence of an embedded runtime.
 
 ## Deserialization Security (`deserialization-security`)
 
@@ -482,11 +487,13 @@ _Browser-side hardening: XSS, CSP, CORS, SRI, DOM clobbering, iframe sandboxing,
 - Use `postMessage` without checking `event.origin` against an allowlist.
 - Store JWTs, refresh tokens, or PII in `localStorage` / `sessionStorage` — any XSS exfiltrates them. Prefer HttpOnly cookies.
 - Read or write `document.cookie` from JavaScript for auth cookies — they should be HttpOnly anyway.
+- Treat **tightening the HTML sanitizer** as the fix when the exploit rides on content the sanitizer **allows by design** — a valid `<a href="https:…">`, an `<img src>`, or a permitted attribute. The sanitizer is working; the vulnerable behaviour is **downstream** (in-app navigation, a shell / `openExternal` sink, an over-privileged renderer or IPC bridge, a URL sink). Fix the sink / context, not the markup allowlist.
 
 **Known false positives:**
 - Internal admin tools deliberately rendering Markdown / rich text from trusted authors may use `dangerouslySetInnerHTML` after a sanitizer pass; document the sanitizer call inline.
 - Browser extensions sometimes need `'unsafe-eval'` in the extension CSP; user-facing web app CSP should still forbid it.
 - WebSocket connections to non-same-origin endpoints are fine when the server performs origin validation.
+- A native / WASM **codec, decoder, or loader that is merely registered or referenced** (`setDRACOLoader(...)`, a plugin registration, a lazy import) is **not an active attack surface** unless its binary / asset is actually shipped and the module initialized at runtime. Verify asset-present + module-init + reachable input format before flagging — wiring alone is a false positive (inputs needing the missing decoder simply fail to load).
 
 ## GraphQL Security (`graphql-security`)
 

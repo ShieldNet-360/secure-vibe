@@ -28,11 +28,11 @@ patterns:
   - id: api-no-mass-assignment
     severity: high
     rule: "Whitelist fields when binding request body to ORM models"
+    cwe: 915
   - id: api-func-authz-shared-write
     severity: high
     rule: "Writes that publish into a shared/global namespace (global gallery, shared catalog, public list) require a function-level role/privilege check, not just authentication — authenticated-but-any-user create of globally-visible content is a stored-payload (XSS/malicious-link) delivery vector"
     cwe: 862
-    cwe: 915
   # --- Object-level-authz false negatives (checks that look like authz but aren't) ---
   - id: api-bola-claimed-actor-not-caller
     severity: critical

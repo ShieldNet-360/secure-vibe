@@ -12,7 +12,7 @@ applies_to:
 languages: ["html", "javascript", "typescript", "tsx", "jsx", "vue", "svelte"]
 token_budget:
   minimal: 1000
-  compact: 1200
+  compact: 1350
   full: 2800
 rules_path: "rules/"
 related_skills: ["cors-security", "auth-security", "logging-security"]

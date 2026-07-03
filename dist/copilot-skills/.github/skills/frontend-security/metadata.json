@@ -1,6 +1,6 @@
 {
   "id": "frontend-security",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "title": "Frontend Security",
   "description": "Browser-side hardening: XSS, CSP, CORS, SRI, DOM clobbering, iframe sandboxing, Trusted Types",
   "category": "prevention",
@@ -21,7 +21,7 @@
   ],
   "token_budget": {
     "minimal": 1000,
-    "compact": 1200,
+    "compact": 1350,
     "full": 2800
   },
   "rules_path": "rules/",
@@ -30,7 +30,7 @@
     "auth-security",
     "logging-security"
   ],
-  "last_updated": "2026-06-20",
+  "last_updated": "2026-07-03",
   "sources": [
     "OWASP XSS Prevention Cheat Sheet",
     "OWASP Content Security Policy Cheat Sheet",
