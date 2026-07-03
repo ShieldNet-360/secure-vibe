@@ -13,6 +13,9 @@ Apply OWASP API Top 10 patterns to authentication, authorization, and input vali
 
 - Require authentication on every non-public endpoint. Default to authenticated; opt out for genuinely public routes by explicit annotation.
 - Apply authorization at the object level — confirm the authenticated subject actually has access to the requested resource ID, not just that they're logged in (defeats the OWASP API1 BOLA / IDOR class).
+- Bind object-level authz to the **gateway-authenticated principal**, never to an actor id echoed in the request: a check that a request-supplied `senderId`/`ownerId`/`actedBy` is a valid member validates the *claimed* actor, not the caller (looks like authz, isn't).
+- On `/{scopeId}/.../{subjectId}` routes, authorize the *relationship* — confirm the subject belongs to that scope; a caller-vs-scope check alone does not authorize the subject (multi-key BOLA).
+- Authorize **each subject on streaming responses** (SSE/chunked/WebSocket): the `200` is committed before the handler runs, so an empty/filtered stream — not a `4xx` — is the deny signal; an unauthorized subject gets zero events.
 - Validate all request inputs against an explicit schema (JSON Schema, Pydantic, Zod, validator/v10 struct tags). Reject early; never propagate untrusted input deeper.
 - Enforce rate limits at the route level for authentication endpoints, password reset, and any expensive operation.
 - Use short-lived access tokens (≤ 1 hour) with refresh tokens, not long-lived bearer tokens.
@@ -25,11 +28,12 @@ Apply OWASP API Top 10 patterns to authentication, authorization, and input vali
 - Trust `Authorization` headers without verifying the signature and expiration.
 - Accept `none` algorithm JWTs. Pin the expected algorithm at verification time.
 - Mass-assign request bodies directly to ORM models (`User(**request.json)`) — this enables privilege escalation when the model has admin fields the user shouldn't control.
+- Act on a subject/owner id asserted by an upstream **producer** (queue/topic/webhook) without authenticating the channel and re-validating the asserted subject — a spoofed producer otherwise drives forged cross-tenant effects.
 - Disable CSRF protection on state-changing endpoints used by browsers.
 - Return stack traces or framework error pages to the client in production.
 - Use `HTTP GET` for any state-changing operation — GET should be safe and idempotent.
 - Rely on **network position** (IP allowlist, VPN, private subnet, "internal only", a WAF/edge rule) as the *only* control on a sensitive endpoint. Reachability is not authentication: the moment there's an SSRF, a compromised internal host, a tenant on the network, or a boundary change, an unauthenticated "internal" endpoint (`permission_classes = [AllowAny]`, no `RequireAuth`) is wide open. Enforce auth/authz at the service itself, behind any network control.
-- Place security controls (auth, field-stripping, CSRF, rate-limit, input validation) only at a gateway / BFF / proxy while the backend service is **also directly reachable**. An attacker calls the service directly and bypasses every proxy-layer control — controls must live at the service that owns the data. (A common variant: the gateway checks that a JWT is *present* but the service never checks the caller's *role*.)
+- Place security controls (auth, field-stripping, CSRF, rate-limit, input validation) only at a gateway / BFF / proxy while the backend service is **also directly reachable**. An attacker calls the service directly and bypasses every proxy-layer control — controls must live at the service that owns the data. (A common variant: the gateway checks that a JWT is *present* but the service never checks the caller's *role* or *object-level ownership* — the service reads the subject id from the body/path/query and trusts it.)
 
 ## KNOWN FALSE POSITIVES
 

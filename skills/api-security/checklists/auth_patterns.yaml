@@ -1,6 +1,6 @@
 schema_version: "1.0"
 framework: "OWASP API Security Top 10 2023 + OAuth 2.0 BCP"
-last_updated: "2026-05-12"
+last_updated: "2026-07-02"
 patterns:
   - id: api-auth-required-default
     severity: critical
@@ -29,3 +29,24 @@ patterns:
     severity: high
     rule: "Whitelist fields when binding request body to ORM models"
     cwe: 915
+  # --- Object-level-authz false negatives (checks that look like authz but aren't) ---
+  - id: api-bola-claimed-actor-not-caller
+    severity: critical
+    rule: "A check that a request-supplied actor/owner id (a userId/ownerId/senderId/actedBy field in body, path, or query) is a valid participant/member validates the CLAIMED actor, not the caller. Object-level authorization must bind to the gateway-authenticated principal, never to identity echoed back in the request."
+    cwe: 639
+  - id: api-authz-parent-scope-not-subject
+    severity: critical
+    rule: "On routes carrying a parent scope plus a subject id (e.g. /orgs/{orgId}/members/{memberId}), authorizing the caller for {orgId} does NOT authorize {memberId}. Verify the subject belongs to that scope — the relationship between the ids — not each id independently."
+    cwe: 639
+  - id: api-authz-gateway-authn-service-no-authz
+    severity: critical
+    rule: "When authentication terminates at a gateway/BFF, the downstream service must re-derive the principal from a trusted gateway-injected header and enforce object-level authz itself. An Authorization input left optional/unparsed in the service means it performs no authz and is exploitable by anyone who reaches it (or bypasses the gateway)."
+    cwe: 306
+  - id: api-authz-streaming-partial
+    severity: high
+    rule: "Streaming responses (SSE/chunked) commit HTTP 200 before the handler runs, so authorization cannot surface as a 4xx status. Authorize each subscribed subject; an unauthorized subject must receive zero events (empty stream). Do not treat a 200 as proof no data leaked; prefer a pre-stream check that can still return 403/404."
+    cwe: 639
+  - id: api-authz-broker-producer-trust
+    severity: high
+    rule: "Async consumers (queue/topic/webhook) must not trust a subject/owner id asserted by the producer. Authenticate the channel (mTLS/ACL) and re-validate that the asserted subject is one the producer was authorized to assert; do not fan out on producer-claimed identity alone."
+    cwe: 345

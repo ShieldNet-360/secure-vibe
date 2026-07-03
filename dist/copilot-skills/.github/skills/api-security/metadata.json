@@ -1,6 +1,6 @@
 {
   "id": "api-security",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "title": "API Security",
   "description": "Apply OWASP API Top 10 patterns to authentication, authorization, and input validation",
   "category": "prevention",
@@ -15,17 +15,18 @@
     "*"
   ],
   "token_budget": {
-    "minimal": 750,
-    "compact": 1100,
+    "minimal": 1050,
+    "compact": 1400,
     "full": 2700
   },
   "rules_path": "checklists/",
   "related_skills": [
     "secure-code-review",
     "secret-detection",
-    "ssrf-prevention"
+    "ssrf-prevention",
+    "websocket-security"
   ],
-  "last_updated": "2026-06-20",
+  "last_updated": "2026-07-02",
   "sources": [
     "OWASP API Security Top 10 2023",
     "OWASP Authentication Cheat Sheet",

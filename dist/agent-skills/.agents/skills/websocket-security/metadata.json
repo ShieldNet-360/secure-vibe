@@ -1,6 +1,6 @@
 {
   "id": "websocket-security",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "WebSocket Security",
   "description": "Secure WebSocket endpoints: Origin validation, auth on handshake, message size/rate limits, wss-only, reconnection backoff",
   "category": "prevention",
@@ -31,7 +31,7 @@
     "cors-security",
     "auth-security"
   ],
-  "last_updated": "2026-06-20",
+  "last_updated": "2026-07-02",
   "sources": [
     "OWASP WebSocket Security Cheat Sheet",
     "RFC 6455 — The WebSocket Protocol",

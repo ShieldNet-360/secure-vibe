@@ -1,6 +1,6 @@
 ---
 id: api-security
-version: "1.1.0"
+version: "1.2.0"
 title: "API Security"
 description: "Apply OWASP API Top 10 patterns to authentication, authorization, and input validation"
 category: prevention
@@ -12,12 +12,12 @@ applies_to:
   - "when reviewing API endpoint changes"
 languages: ["*"]
 token_budget:
-  minimal: 750
-  compact: 1100
+  minimal: 1050
+  compact: 1400
   full: 2700
 rules_path: "checklists/"
-related_skills: ["secure-code-review", "secret-detection", "ssrf-prevention"]
-last_updated: "2026-06-20"
+related_skills: ["secure-code-review", "secret-detection", "ssrf-prevention", "websocket-security"]
+last_updated: "2026-07-02"
 sources:
   - "OWASP API Security Top 10 2023"
   - "OWASP Authentication Cheat Sheet"
@@ -34,6 +34,16 @@ sources:
 - Apply authorization at the object level — confirm the authenticated subject actually
   has access to the requested resource ID, not just that they're logged in (defeats
   the OWASP API1 BOLA / IDOR class).
+- Bind object-level authz to the **gateway-authenticated principal**, never to an
+  actor id echoed in the request: a check that a request-supplied
+  `senderId`/`ownerId`/`actedBy` is a valid member validates the *claimed* actor, not
+  the caller (looks like authz, isn't).
+- On `/{scopeId}/.../{subjectId}` routes, authorize the *relationship* — confirm the
+  subject belongs to that scope; a caller-vs-scope check alone does not authorize the
+  subject (multi-key BOLA).
+- Authorize **each subject on streaming responses** (SSE/chunked/WebSocket): the `200`
+  is committed before the handler runs, so an empty/filtered stream — not a `4xx` — is
+  the deny signal; an unauthorized subject gets zero events.
 - Validate all request inputs against an explicit schema (JSON Schema, Pydantic,
   Zod, validator/v10 struct tags). Reject early; never propagate untrusted input
   deeper.
@@ -54,6 +64,9 @@ sources:
 - Mass-assign request bodies directly to ORM models (`User(**request.json)`) — this
   enables privilege escalation when the model has admin fields the user shouldn't
   control.
+- Act on a subject/owner id asserted by an upstream **producer** (queue/topic/webhook)
+  without authenticating the channel and re-validating the asserted subject — a spoofed
+  producer otherwise drives forged cross-tenant effects.
 - Disable CSRF protection on state-changing endpoints used by browsers.
 - Return stack traces or framework error pages to the client in production.
 - Use `HTTP GET` for any state-changing operation — GET should be safe and
@@ -70,7 +83,8 @@ sources:
   **also directly reachable**. An attacker calls the service directly and
   bypasses every proxy-layer control — controls must live at the service that
   owns the data. (A common variant: the gateway checks that a JWT is *present*
-  but the service never checks the caller's *role*.)
+  but the service never checks the caller's *role* or *object-level ownership* —
+  the service reads the subject id from the body/path/query and trusts it.)
 
 ### KNOWN FALSE POSITIVES
 - Public marketing-site endpoints serving anonymous traffic legitimately have no auth
@@ -115,7 +129,12 @@ then lock it so it can't come back.
    and re-read the object — if the field stuck, it's real. *Rate-limit:* fire N rapid
    auth/reset requests; absence of `429` after the threshold confirms it. *Perimeter
    trust:* hit the backend service directly (bypassing the gateway) — a `200` without
-   auth confirms the control lives only at the proxy.
+   auth confirms the control lives only at the proxy. *Streaming authz:* subscribe to
+   another tenant's subject id over SSE/WebSocket — a real hit streams their events or
+   replays their last state, while a fixed endpoint yields an empty stream (the `200`
+   alone proves nothing). *Claimed-actor:* send a state-changing call whose body names a
+   different actor id than your principal — a `2xx` with the effect applied confirms the
+   handler trusts request-supplied identity rather than the caller.
 2. **Fix, then lock with a regression test** (unit *or* integration — dev's call):
    assert the attack input now yields the secure outcome (cross-tenant ID → `403/404`;
    forged/expired/`none`-alg token → `401`; unknown privileged field → ignored or

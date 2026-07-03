@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-05-13",
+  "last_updated": "2026-07-02",
   "description": "Hardening defaults for WebSocket / Socket.IO / SignalR / Phoenix Channels endpoints. CORS does not apply to WebSockets — Origin validation must be done explicitly at upgrade time.",
   "references": [
     "https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Cheat_Sheet.html",
@@ -40,6 +40,7 @@
     {"id": "ws-no-heartbeat", "severity": "medium", "cwe": 400, "rule": "No ping/pong heartbeat leaves half-open connections on LBs and intermediaries"},
     {"id": "ws-naive-reconnect", "severity": "medium", "cwe": 400, "rule": "Client reconnect without exponential backoff + jitter melts the server during outages"},
     {"id": "ws-leak-internal-ids", "severity": "low", "cwe": 200, "rule": "Echoing pod / shard / build IDs in real-time messages aids attacker recon"},
-    {"id": "ws-stale-authorization", "severity": "medium", "cwe": 285, "rule": "Authorization checked only on handshake fails when user is logged out / role changed mid-session; re-check on privileged messages"}
+    {"id": "ws-stale-authorization", "severity": "medium", "cwe": 285, "rule": "Authorization checked only on handshake fails when user is logged out / role changed mid-session; re-check on privileged messages"},
+    {"id": "ws-per-frame-subject-authz", "severity": "high", "cwe": 639, "rule": "Authorizing only the action type while trusting a subject/resource id carried in each frame lets an authenticated socket assert an arbitrary subject per message (per-frame BOLA); the forged id also reaches any downstream consumer that trusts it. Object-level-authorize the per-frame subject against the handshake-authenticated principal."}
   ]
 }

@@ -20,6 +20,7 @@ Secure WebSocket endpoints: Origin validation, auth on handshake, message size/r
 - Implement **ping / pong heartbeats** (every 20–30 s) and close the connection on missed pong. Half-open TCP sockets accumulate behind load balancers otherwise.
 - On the client side, use **bounded exponential backoff** for reconnection (e.g. base 1 s, factor 2, max 60 s, jitter ±20%). A naïve `setTimeout(connect, 0)` reconnect loop melts the server during outages.
 - Treat each WebSocket message as a separate request for the purposes of **input validation** and **authorization**. The user's permissions can change after the socket is open (logout, role change, account lock) — re-check on each privileged action.
+- Object-level-authorize the **subject / resource id carried in each message**, not just the action type. A frame like `{"action":"write","subjectId":"X"}` must be checked so the connection's handshake-authenticated principal may actually act on `X`. An authenticated socket must not be able to assert an arbitrary subject id per frame — that is per-frame BOLA, and the forged id reaches any consumer downstream of the socket (queue / topic / fan-out) that trusts it.
 
 ## NEVER
 

@@ -1,6 +1,6 @@
 ---
 id: websocket-security
-version: "1.0.0"
+version: "1.1.0"
 title: "WebSocket Security"
 description: "Secure WebSocket endpoints: Origin validation, auth on handshake, message size/rate limits, wss-only, reconnection backoff"
 category: prevention
@@ -16,7 +16,7 @@ token_budget:
   full: 2200
 rules_path: "rules/"
 related_skills: ["api-security", "cors-security", "auth-security"]
-last_updated: "2026-06-20"
+last_updated: "2026-07-02"
 sources:
   - "OWASP WebSocket Security Cheat Sheet"
   - "RFC 6455 — The WebSocket Protocol"
@@ -66,6 +66,14 @@ sources:
   purposes of **input validation** and **authorization**. The user's
   permissions can change after the socket is open (logout, role
   change, account lock) — re-check on each privileged action.
+- Object-level-authorize the **subject / resource id carried in each
+  message**, not just the action type. A frame like
+  `{"action":"write","subjectId":"X"}` must be checked so the
+  connection's handshake-authenticated principal may actually act on
+  `X`. An authenticated socket must not be able to assert an arbitrary
+  subject id per frame — that is per-frame BOLA, and the forged id
+  reaches any consumer downstream of the socket (queue / topic /
+  fan-out) that trusts it.
 
 ### NEVER
 - Skip Origin validation because "it's a WebSocket, CORS doesn't
