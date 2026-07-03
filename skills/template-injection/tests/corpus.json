@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "description": "Schema-driven corpus for template-injection. SSTI is semantic (data-vs-code at the template boundary), so the runner smoke-validates shape; fixtures double as ground truth for the LLM eval harness (evals/).",
+  "fixtures": [
+    {
+      "id": "ssti-concat-source-python",
+      "text": "from jinja2 import Template\nTemplate('Hello ' + request.args['name']).render()",
+      "expected": "detect",
+      "reason": "user input concatenated into the template source string (CWE-1336)"
+    },
+    {
+      "id": "ssti-bound-value-safe",
+      "text": "from jinja2 import Template\nTemplate('Hello {{ name }}').render(name=request.args['name'])",
+      "expected": "ignore",
+      "reason": "user data passed as a bound context value to a static template"
+    },
+    {
+      "id": "ssti-template-from-db",
+      "text": "tmpl = db.get_email_template(user_id)  # body is user-editable\nrender_template_string(tmpl, **ctx)",
+      "expected": "detect",
+      "reason": "template body loaded from a user-writable store"
+    },
+    {
+      "id": "ssti-double-render-go",
+      "text": "body := renderToString(tmpl, data) // interpolates data[\"name\"] into template text\nt, _ := template.New(\"x\").Parse(body)\nt.Execute(w, data)",
+      "expected": "detect",
+      "reason": "rendered string re-parsed and executed as a template (double render, CWE-94)"
+    },
+    {
+      "id": "template-range-dos-go",
+      "text": "// n is attacker-controlled, no cap\nt, _ := template.New(\"x\").Parse(\"{{range .N}}A{{end}}\")\nt.Execute(w, data)",
+      "expected": "detect",
+      "reason": "unbounded user-controlled loop with no output cap (CWE-770)"
+    },
+    {
+      "id": "ssti-autoescape-off-jinja",
+      "text": "env = Environment(autoescape=False)\nenv.from_string('<p>{{ comment }}</p>').render(comment=user_comment)",
+      "expected": "detect",
+      "reason": "autoescape disabled while rendering user data"
+    }
+  ]
+}

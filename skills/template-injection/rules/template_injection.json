@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-07-02",
+  "description": "Server-side template injection (SSTI) anti-patterns: user input reaching a template compiler, double-render pipelines, sandbox escapes, and template-driven resource exhaustion.",
+  "references": [
+    "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/18-Testing_for_Server-side_Template_Injection",
+    "https://portswigger.net/web-security/server-side-template-injection",
+    "https://cwe.mitre.org/data/definitions/1336.html"
+  ],
+  "rce_capable_engines": ["jinja2", "twig", "freemarker", "velocity", "erb", "mako", "smarty", "thymeleaf", "razor", "go text/template (with FuncMap)"],
+  "eval_probes": ["{{7*7}}", "${7*7}", "#{7*7}", "<%= 7*7 %>", "{{7*'7'}}", "*{7*7}", "@(7*7)"],
+  "anti_patterns": [
+    {"id": "ssti-user-in-template-source", "severity": "critical", "cwe": 1336, "rule": "User input concatenated / interpolated into a template SOURCE string that is then compiled (Template('Hi '+name), f-string or String.format feeding the engine). Bind values as context instead."},
+    {"id": "ssti-template-from-untrusted-store", "severity": "critical", "cwe": 1336, "rule": "Template body loaded from a user-writable source (DB field, profile name, subject line, CMS block, request param) — the stored text is attacker code."},
+    {"id": "ssti-double-render", "severity": "critical", "cwe": 94, "rule": "Engine output re-parsed and executed as a template a second time; a user value inert on pass one executes on pass two. Do not re-parse rendered output, or neutralise {{ }} / {% %} / ${ } in user fields before the second pass."},
+    {"id": "ssti-unsandboxed-user-template", "severity": "critical", "cwe": 1336, "rule": "Untrusted authors given the raw engine without a sandbox + attribute allowlist; SSTI escalates to RCE via __class__/__globals__/getClass()/constructor traversal."},
+    {"id": "ssti-autoescape-off", "severity": "high", "cwe": 79, "rule": "Autoescape disabled on a template rendering user data — same input path as SSTI, immediate XSS."},
+    {"id": "template-unbounded-loop-dos", "severity": "high", "cwe": 770, "rule": "User-controlled loop / range / include / repeat count with no iteration or output-size cap — one request renders unbounded output and OOMs the renderer (a crash before a queue-offset commit can crash-loop)."}
+  ]
+}
