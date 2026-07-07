@@ -35,6 +35,7 @@ config. Maintainer commands for building the skills library live under
 	// End-user runtime commands (the focused top-level surface).
 	root.AddCommand(initCmd())
 	root.AddCommand(scanCmd())          // auto-detect scanner, report only
+	root.AddCommand(auditCmd())         // whole-tree fan-out: dedup, rank, triage
 	root.AddCommand(policyCheckCmd())   // gate: same detection, CI exit code
 	root.AddCommand(checkCmd())         // single-package malicious/typosquat/CVE/OSV lookup
 	root.AddCommand(contributeCmd())    // LEARN loop
