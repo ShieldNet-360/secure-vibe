@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/shieldnet-360/secure-vibe/internal/audit"
+	"github.com/shieldnet-360/secure-vibe/internal/llm"
 	"github.com/shieldnet-360/secure-vibe/internal/tools"
 )
 
@@ -19,8 +20,8 @@ import (
 // offline. The model-pluggable LLM lanes and dynamic verify layer on top of the
 // Report it produces (see later phases).
 func auditCmd() *cobra.Command {
-	var repoPath, severityFloor, format, vulnSource, sarifBase, report string
-	var jobs int
+	var repoPath, severityFloor, format, vulnSource, sarifBase, report, model string
+	var jobs, votes int
 	c := &cobra.Command{
 		Use:   "audit [path]",
 		Short: "Whole-tree security audit: fan out every scanner, dedup, rank, and triage findings",
@@ -69,10 +70,42 @@ need a CI-failing check on specific files.`,
 				return lib, nil
 			}
 
+			// Optional model lane (BYO). Provider comes from SECURE_VIBE_MODEL_*,
+			// with --model overriding the provider name. No provider => offline,
+			// deterministic-only audit (Phase 1 behaviour).
+			cfg := llm.FromEnv()
+			if strings.TrimSpace(model) != "" {
+				cfg.Provider = model
+			}
+			var (
+				reviewer   audit.Reviewer
+				sweepFiles []string
+			)
+			if cfg.Enabled() {
+				prov, err := llm.New(cfg)
+				if err != nil {
+					return err
+				}
+				lensLib, err := newLibraryForCmd(repoPath, vulnSource, "")
+				if err != nil {
+					return err
+				}
+				reviewer = &audit.LLMReviewer{Provider: prov, Lens: buildLens(lensLib), Votes: votes}
+				var capped int
+				sweepFiles, capped = sourceFiles(files)
+				fmt.Fprintf(c.ErrOrStderr(), "audit: model lane on (%s) — semantic sweep of %d source files, refute votes=%d\n",
+					prov.Name(), len(sweepFiles), max(votes, 1))
+				if capped > 0 {
+					fmt.Fprintf(c.ErrOrStderr(), "audit: %d further source files skipped from the sweep (cap %d)\n", capped, maxSweepFiles)
+				}
+			}
+
 			rep, err := audit.Run(c.Context(), files, newLib, audit.Options{
 				Root:          rootAbs,
 				SeverityFloor: severityFloor,
 				Jobs:          jobs,
+				Reviewer:      reviewer,
+				SweepFiles:    sweepFiles,
 			})
 			if err != nil {
 				return err
@@ -103,6 +136,9 @@ need a CI-failing check on specific files.`,
 	c.Flags().StringVar(&repoPath, "path", ".", "secure-vibe library checkout (default: $SECURE_VIBE_LIBRARY_PATH, else cwd)")
 	c.Flags().StringVar(&severityFloor, "severity-floor", "low",
 		"only collect findings at or above this severity: critical | high | medium | low")
+	c.Flags().StringVar(&model, "model", "",
+		"enable the model lane with this provider: anthropic | openai | gemini | openai-compatible (model id + key come from SECURE_VIBE_MODEL / _API_KEY / _BASE_URL). Off by default")
+	c.Flags().IntVar(&votes, "votes", 1, "adversarial refute rounds per finding in the model lane (majority rules)")
 	c.Flags().IntVar(&jobs, "jobs", 0, "concurrent scanner workers (default: min(NumCPU, 8))")
 	c.Flags().StringVar(&sarifBase, "sarif-base", ".",
 		"directory SARIF artifact URIs are made relative to; only used with --format sarif")
@@ -110,6 +146,53 @@ need a CI-failing check on specific files.`,
 	addReportFlag(c, &report)
 	addVulnSourceFlag(c, &vulnSource)
 	return c
+}
+
+// maxSweepFiles bounds how many source files the semantic sweep sends to the
+// model, keeping a --model run's cost predictable on large repos.
+const maxSweepFiles = 300
+
+// sourceExts are the file types worth a semantic sweep (the deterministic lane
+// already covers lockfiles, Dockerfiles, and workflow YAML).
+var sourceExts = map[string]bool{
+	".go": true, ".js": true, ".jsx": true, ".ts": true, ".tsx": true,
+	".py": true, ".rb": true, ".php": true, ".java": true, ".kt": true,
+	".rs": true, ".c": true, ".cc": true, ".cpp": true, ".h": true, ".hpp": true,
+	".cs": true, ".scala": true, ".swift": true, ".m": true, ".mm": true,
+	".sh": true, ".sql": true, ".vue": true, ".svelte": true,
+}
+
+// sourceFiles selects the source-code subset for the semantic sweep, capping the
+// count. capped is how many eligible files were dropped past the cap.
+func sourceFiles(files []string) (picked []string, capped int) {
+	var all []string
+	for _, f := range files {
+		if sourceExts[strings.ToLower(filepath.Ext(f))] {
+			all = append(all, f)
+		}
+	}
+	if len(all) > maxSweepFiles {
+		return all[:maxSweepFiles], len(all) - maxSweepFiles
+	}
+	return all, 0
+}
+
+// buildLens compiles a compact catalogue of the library's skills (title +
+// description) to prime the model with SecureVibe's taxonomy of vulnerability
+// classes. Capped so prompts stay bounded.
+func buildLens(lib *tools.Library) string {
+	res, err := lib.SearchSkills("")
+	if err != nil {
+		return ""
+	}
+	var sb strings.Builder
+	for _, m := range res.Skills {
+		fmt.Fprintf(&sb, "- %s: %s\n", m.Title, m.Description)
+		if sb.Len() > 8000 {
+			break
+		}
+	}
+	return sb.String()
 }
 
 // renderAuditText prints the ranked, human-readable audit summary. Confirmed

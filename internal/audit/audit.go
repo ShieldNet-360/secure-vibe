@@ -40,11 +40,17 @@ const maxJobs = 8
 // shared library instance.
 type LibraryFactory func() (*tools.Library, error)
 
-// Options configures a deterministic audit run.
+// Options configures an audit run.
 type Options struct {
 	Root          string // audit target root (recorded on the Report)
 	SeverityFloor string // lowest severity to collect; default "low"
 	Jobs          int    // worker count; <= 0 picks min(NumCPU, maxJobs)
+
+	// Reviewer, when non-nil, runs the LLM lanes after the deterministic pass:
+	// a semantic sweep of SweepFiles adds candidate findings and an adversarial
+	// refute pass demotes likely false positives. Nil keeps the run offline.
+	Reviewer   Reviewer
+	SweepFiles []string
 }
 
 // Finding is one deduplicated, triaged audit finding: a PolicyCheckFinding plus
@@ -169,7 +175,13 @@ feed:
 		return nil, err
 	}
 
-	return build(opts.Root, results), nil
+	rep := build(opts.Root, results)
+	if opts.Reviewer != nil {
+		if err := enrich(ctx, rep, opts.SweepFiles, opts.Reviewer, jobs); err != nil {
+			return rep, err
+		}
+	}
+	return rep, nil
 }
 
 // build turns raw per-file results into a deduplicated, triaged, ranked Report.
@@ -183,19 +195,19 @@ func build(root string, results []*tools.PolicyCheckResult) *Report {
 	seen := make(map[string]bool)
 	for _, res := range results {
 		triage := triagePath(res.FilePath)
-		for _, f := range res.Findings {
-			key := res.FilePath + "\x00" + f.RuleID + "\x00" +
-				strconv.Itoa(f.Line) + "\x00" + f.Package + "\x00" + f.Version
-			if seen[key] {
-				continue
-			}
-			seen[key] = true
-			rep.Findings = append(rep.Findings, Finding{
-				PolicyCheckFinding: f,
+		for _, pf := range res.Findings {
+			f := Finding{
+				PolicyCheckFinding: pf,
 				FilePath:           res.FilePath,
 				Scan:               res.Scan,
 				Triage:             triage,
-			})
+			}
+			k := findingKey(f)
+			if seen[k] {
+				continue
+			}
+			seen[k] = true
+			rep.Findings = append(rep.Findings, f)
 		}
 	}
 	for _, f := range rep.Findings {
@@ -211,6 +223,33 @@ func build(root string, results []*tools.PolicyCheckResult) *Report {
 	}
 	sortFindings(rep.Findings)
 	return rep
+}
+
+// findingKey is the deduplication identity of a finding: file, rule, line, and
+// package/version. Used by both the deterministic build and the LLM merge.
+func findingKey(f Finding) string {
+	return f.FilePath + "\x00" + f.RuleID + "\x00" +
+		strconv.Itoa(f.Line) + "\x00" + f.Package + "\x00" + f.Version
+}
+
+// newSemanticFinding turns a model sweep item into a PolicyCheckFinding, namespacing
+// the rule id under secure-vibe.llm and defaulting an unknown severity to medium.
+func newSemanticFinding(it sweepItem) tools.PolicyCheckFinding {
+	sev := strings.ToLower(strings.TrimSpace(it.Severity))
+	if severityRank(sev) == 0 {
+		sev = "medium"
+	}
+	rule := strings.TrimSpace(it.RuleID)
+	if rule == "" {
+		rule = "finding"
+	}
+	return tools.PolicyCheckFinding{
+		RuleID:     "secure-vibe.llm." + rule,
+		Severity:   sev,
+		Confidence: "model",
+		Title:      strings.TrimSpace(it.Title),
+		Line:       it.Line,
+	}
 }
 
 // sortFindings orders confirmed findings before triaged ones, then by severity
