@@ -51,6 +51,9 @@ type Options struct {
 	// refute pass demotes likely false positives. Nil keeps the run offline.
 	Reviewer   Reviewer
 	SweepFiles []string
+	// Thorough runs additional completeness-critic sweep rounds (loop-until-dry)
+	// when the Reviewer supports it. Ignored without a Reviewer.
+	Thorough bool
 }
 
 // Finding is one deduplicated, triaged audit finding: a PolicyCheckFinding plus
@@ -65,6 +68,53 @@ type Finding struct {
 	// and is reported but demoted below confirmed findings. This is the seed the
 	// LLM adversarial-verify lane later refines or overturns.
 	Triage string `json:"triage,omitempty"`
+	// Verify holds the dynamic verification verdict when the finding is a
+	// dynamically-verifiable class and a live target was supplied; nil otherwise.
+	Verify *VerifyInfo `json:"verify,omitempty"`
+}
+
+// VerifyInfo is the outcome of the dynamic verify lane for one finding.
+type VerifyInfo struct {
+	Class     string `json:"class"`
+	Confirmed bool   `json:"confirmed"`
+	Refuted   bool   `json:"refuted"`
+	DryRun    bool   `json:"dry_run"`
+	Payload   string `json:"payload,omitempty"`
+	Evidence  string `json:"evidence,omitempty"`
+}
+
+// DynamicClass returns the verify probe class a finding maps to (ssrf, sqli, …),
+// or "" when the finding is not dynamically verifiable. The mapping is a keyword
+// match over the rule id and title — the same eight classes the verify lane
+// supports.
+func DynamicClass(f Finding) string {
+	s := strings.ToLower(f.RuleID + " " + f.Title)
+	switch {
+	case strings.Contains(s, "ssrf"):
+		return "ssrf"
+	case strings.Contains(s, "sqli") || strings.Contains(s, "sql injection"):
+		return "sqli"
+	case strings.Contains(s, "xss") || strings.Contains(s, "cross-site script"):
+		return "xss"
+	case strings.Contains(s, "open redirect") || strings.Contains(s, "redirect"):
+		return "redirect"
+	case strings.Contains(s, "path travers") || strings.Contains(s, "path-travers") || strings.Contains(s, "lfi"):
+		return "path-traversal"
+	case strings.Contains(s, "command inject") || strings.Contains(s, "command-inject") || strings.Contains(s, "os command") || strings.Contains(s, " rce"):
+		return "command-injection"
+	case strings.Contains(s, "ssti") || strings.Contains(s, "template inject") || strings.Contains(s, "server-side template"):
+		return "ssti"
+	case strings.Contains(s, "xxe") || strings.Contains(s, "xml external"):
+		return "xxe"
+	}
+	return ""
+}
+
+// Rebuild recomputes Counts / Triaged and re-sorts Findings after external
+// mutation of the finding set (e.g. the dynamic verify pass demoting one).
+func (r *Report) Rebuild() {
+	recount(r)
+	sortFindings(r.Findings)
 }
 
 // Report is the result of a whole-tree audit.
@@ -177,7 +227,7 @@ feed:
 
 	rep := build(opts.Root, results)
 	if opts.Reviewer != nil {
-		if err := enrich(ctx, rep, opts.SweepFiles, opts.Reviewer, jobs); err != nil {
+		if err := enrich(ctx, rep, opts.SweepFiles, opts.Reviewer, jobs, opts.Thorough); err != nil {
 			return rep, err
 		}
 	}

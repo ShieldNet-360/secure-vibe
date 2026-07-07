@@ -21,7 +21,9 @@ import (
 // Report it produces (see later phases).
 func auditCmd() *cobra.Command {
 	var repoPath, severityFloor, format, vulnSource, sarifBase, report, model string
+	var liveTarget, liveParam, liveMethod string
 	var jobs, votes int
+	var thorough, confirm bool
 	c := &cobra.Command{
 		Use:   "audit [path]",
 		Short: "Whole-tree security audit: fan out every scanner, dedup, rank, and triage findings",
@@ -106,9 +108,23 @@ need a CI-failing check on specific files.`,
 				Jobs:          jobs,
 				Reviewer:      reviewer,
 				SweepFiles:    sweepFiles,
+				Thorough:      thorough,
 			})
 			if err != nil {
 				return err
+			}
+
+			// Optional dynamic verify lane: probe dynamically-verifiable findings
+			// against a live target. Dry-run unless --confirm AND the target is in
+			// SECURE_VIBE_VERIFY_SCOPE.
+			if strings.TrimSpace(liveTarget) != "" {
+				n := runDynamicVerify(c.Context(), rep, liveTarget, liveParam, liveMethod, confirm)
+				rep.Rebuild()
+				mode := "dry-run"
+				if confirm {
+					mode = "live (scope-gated)"
+				}
+				fmt.Fprintf(c.ErrOrStderr(), "audit: dynamic verify probed %d finding(s) against %s [%s]\n", n, liveTarget, mode)
 			}
 
 			if report != "" {
@@ -139,6 +155,11 @@ need a CI-failing check on specific files.`,
 	c.Flags().StringVar(&model, "model", "",
 		"enable the model lane with this provider: anthropic | openai | gemini | openai-compatible (model id + key come from SECURE_VIBE_MODEL / _API_KEY / _BASE_URL). Off by default")
 	c.Flags().IntVar(&votes, "votes", 1, "adversarial refute rounds per finding in the model lane (majority rules)")
+	c.Flags().BoolVar(&thorough, "thorough", false, "run completeness-critic sweep rounds (loop-until-dry); requires --model")
+	c.Flags().StringVar(&liveTarget, "live-target", "", "base URL to dynamically probe dynamically-verifiable findings (ssrf/sqli/xss/…) against")
+	c.Flags().StringVar(&liveParam, "live-param", "", "parameter believed injectable, for the dynamic verify probe")
+	c.Flags().StringVar(&liveMethod, "live-method", "", "HTTP method for the dynamic verify probe (default GET)")
+	c.Flags().BoolVar(&confirm, "confirm", false, "actually send verify probes (default dry-run); still gated by SECURE_VIBE_VERIFY_SCOPE")
 	c.Flags().IntVar(&jobs, "jobs", 0, "concurrent scanner workers (default: min(NumCPU, 8))")
 	c.Flags().StringVar(&sarifBase, "sarif-base", ".",
 		"directory SARIF artifact URIs are made relative to; only used with --format sarif")
@@ -235,11 +256,41 @@ func renderAuditText(c *cobra.Command, rep *audit.Report) {
 		if f.Line > 0 {
 			loc = fmt.Sprintf("%s:%d", f.FilePath, f.Line)
 		}
-		fmt.Fprintf(out, "  %s  [%s]  %s\n", loc, f.RuleID, f.Title)
+		fmt.Fprintf(out, "  %s  [%s]  %s%s\n", loc, f.RuleID, f.Title, verifyMarker(f.Verify))
 	}
 	if rep.Triaged > 0 {
-		fmt.Fprintf(out, "\n%d finding(s) triaged as likely fixtures (test/example/sample paths) — see --format json.\n", rep.Triaged)
+		fmt.Fprintf(out, "\n%d finding(s) triaged as likely fixtures / refuted — see --format json.\n", rep.Triaged)
 	}
+	if n := dynamicVerifiable(rep); n > 0 && !anyVerified(rep) {
+		fmt.Fprintf(out, "\n%d finding(s) are dynamically verifiable — re-run with --live-target <url> "+
+			"(and SECURE_VIBE_VERIFY_SCOPE + --confirm to probe live).\n", n)
+	}
+}
+
+// verifyMarker renders the dynamic verify verdict inline, e.g. " {verify: confirmed}".
+func verifyMarker(v *audit.VerifyInfo) string {
+	if v == nil {
+		return ""
+	}
+	switch {
+	case v.Confirmed:
+		return "  {verify: CONFIRMED}"
+	case v.Refuted:
+		return "  {verify: refuted}"
+	case v.DryRun:
+		return "  {verify: dry-run plan}"
+	default:
+		return "  {verify: inconclusive}"
+	}
+}
+
+func anyVerified(rep *audit.Report) bool {
+	for _, f := range rep.Findings {
+		if f.Verify != nil {
+			return true
+		}
+	}
+	return false
 }
 
 // severitySummary renders the per-severity breakdown in severity order,

@@ -47,21 +47,43 @@ type sweepItem struct {
 	Line     int    `json:"line"`
 }
 
+const jsonSchemaLine = `{"rule_id":"short-slug","severity":"critical|high|medium|low","title":"one line","line":<int>}`
+
 // Sweep asks the model for concrete, high-confidence vulnerabilities in one file.
 func (r *LLMReviewer) Sweep(ctx context.Context, path, content string) ([]Finding, error) {
-	if len(content) > contentLimit {
-		content = content[:contentLimit]
-	}
+	content = capContent(content)
 	system := "You are a precise application-security auditor. Using the security" +
 		" knowledge below, read the file and report ONLY concrete, high-confidence" +
 		" vulnerabilities a reviewer could act on. Do not report style or hypotheticals.\n\n" +
 		"=== SECURITY KNOWLEDGE ===\n" + r.Lens
 	user := fmt.Sprintf(
-		"Report findings as a JSON array; each item: "+
-			`{"rule_id":"short-slug","severity":"critical|high|medium|low","title":"one line","line":<int>}.`+
+		"Report findings as a JSON array; each item: %s."+
 			" Return [] if there are none. Output JSON only, no prose.\n\nFILE: %s\n```\n%s\n```",
-		path, content)
+		jsonSchemaLine, path, content)
+	return r.runSweep(ctx, system, user, path)
+}
 
+// SweepMore is the completeness-critic pass: given what a first sweep already
+// found in this file, it hunts for additional, different vulnerabilities.
+func (r *LLMReviewer) SweepMore(ctx context.Context, path, content string, known []string) ([]Finding, error) {
+	content = capContent(content)
+	knownList := "none"
+	if len(known) > 0 {
+		knownList = "- " + strings.Join(known, "\n- ")
+	}
+	system := "You are a completeness-focused security auditor doing a SECOND pass." +
+		" Find vulnerabilities a first pass missed — different classes, other lines." +
+		" Use the security knowledge below.\n\n=== SECURITY KNOWLEDGE ===\n" + r.Lens
+	user := fmt.Sprintf(
+		"A first pass already reported these in this file:\n%s\n\nReport ADDITIONAL, DIFFERENT"+
+			" concrete vulnerabilities only — do NOT repeat the ones above. JSON array, each item: %s."+
+			" Return [] if none. JSON only.\n\nFILE: %s\n```\n%s\n```",
+		knownList, jsonSchemaLine, path, content)
+	return r.runSweep(ctx, system, user, path)
+}
+
+// runSweep issues one completion and parses its findings.
+func (r *LLMReviewer) runSweep(ctx context.Context, system, user, path string) ([]Finding, error) {
 	out, err := r.Provider.Complete(ctx, llm.Request{System: system, User: user, Temperature: 0})
 	if err != nil {
 		return nil, err
@@ -83,6 +105,14 @@ func (r *LLMReviewer) Sweep(ctx context.Context, path, content string) ([]Findin
 		})
 	}
 	return findings, nil
+}
+
+// capContent truncates content to the per-call limit.
+func capContent(content string) string {
+	if len(content) > contentLimit {
+		return content[:contentLimit]
+	}
+	return content
 }
 
 type verdict struct {
@@ -141,34 +171,47 @@ func (r *LLMReviewer) Refute(ctx context.Context, f Finding, content string) (bo
 	return refutes*2 > votes, reason, nil
 }
 
+// moreSweeper is an optional Reviewer capability powering the --thorough
+// completeness loop: a follow-up sweep told what was already found, asked to
+// surface what a first pass missed.
+type moreSweeper interface {
+	SweepMore(ctx context.Context, path, content string, known []string) ([]Finding, error)
+}
+
+// maxThoroughRounds bounds the completeness loop so a chatty model cannot spin
+// forever; it also stops early the first round that adds nothing (dry).
+const maxThoroughRounds = 2
+
 // enrich runs the LLM lanes over a deterministic Report in place: a semantic
-// sweep of the given source files adds candidate findings, then an adversarial
-// refute pass demotes likely false positives. Counts and ordering are rebuilt.
-func enrich(ctx context.Context, rep *Report, sweepFiles []string, rev Reviewer, jobs int) error {
+// sweep of the given source files adds candidate findings, optional
+// completeness-critic rounds surface what the first pass missed, then an
+// adversarial refute pass demotes likely false positives. Counts and ordering
+// are rebuilt.
+func enrich(ctx context.Context, rep *Report, sweepFiles []string, rev Reviewer, jobs int, thorough bool) error {
 	if rev == nil {
 		return nil
 	}
 	cache := &contentCache{m: map[string]string{}}
 
 	// Lane B — semantic sweep (concurrent, best-effort per file).
-	var (
-		mu    sync.Mutex
-		swept []Finding
-	)
-	parallelDo(ctx, sweepFiles, jobs, func(path string) {
-		content := cache.get(path)
-		if content == "" {
-			return
-		}
-		found, err := rev.Sweep(ctx, path, content)
-		if err != nil || len(found) == 0 {
-			return
-		}
-		mu.Lock()
-		swept = append(swept, found...)
-		mu.Unlock()
+	added := sweepPass(ctx, rep, sweepFiles, jobs, cache, func(path, content string) ([]Finding, error) {
+		return rev.Sweep(ctx, path, content)
 	})
-	mergeFindings(rep, swept)
+
+	// --thorough: keep asking "what did the last pass miss?" until a round adds
+	// nothing new or the round cap is hit.
+	if thorough {
+		if ms, ok := rev.(moreSweeper); ok {
+			for round := 0; round < maxThoroughRounds && added > 0; round++ {
+				known := knownTitlesByFile(rep)
+				added = sweepPass(ctx, rep, sweepFiles, jobs, cache, func(path, content string) ([]Finding, error) {
+					return ms.SweepMore(ctx, path, content, known[path])
+				})
+			}
+		}
+	}
+
+	var mu sync.Mutex
 
 	// Adversarial verify — refute pass over every not-yet-triaged finding.
 	targets := make([]int, 0, len(rep.Findings))
@@ -196,6 +239,43 @@ func enrich(ctx context.Context, rep *Report, sweepFiles []string, rev Reviewer,
 	recount(rep)
 	sortFindings(rep.Findings)
 	return ctx.Err()
+}
+
+// sweepPass runs one concurrent sweep over files with the given per-file sweep
+// function, merges the new findings into rep, and returns how many were added.
+func sweepPass(ctx context.Context, rep *Report, files []string, jobs int, cache *contentCache, sweep func(path, content string) ([]Finding, error)) int {
+	var (
+		mu    sync.Mutex
+		swept []Finding
+	)
+	parallelDo(ctx, files, jobs, func(path string) {
+		content := cache.get(path)
+		if content == "" {
+			return
+		}
+		found, err := sweep(path, content)
+		if err != nil || len(found) == 0 {
+			return
+		}
+		mu.Lock()
+		swept = append(swept, found...)
+		mu.Unlock()
+	})
+	before := len(rep.Findings)
+	mergeFindings(rep, swept)
+	return len(rep.Findings) - before
+}
+
+// knownTitlesByFile groups current finding titles by file, for the completeness
+// critic prompt ("you already found these — find what's missing").
+func knownTitlesByFile(rep *Report) map[string][]string {
+	m := map[string][]string{}
+	for _, f := range rep.Findings {
+		if t := strings.TrimSpace(f.Title); t != "" {
+			m[f.FilePath] = append(m[f.FilePath], t)
+		}
+	}
+	return m
 }
 
 // mergeFindings adds swept candidates that are not already present (same file /

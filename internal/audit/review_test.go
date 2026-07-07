@@ -13,18 +13,17 @@ import (
 
 // fakeReviewer is a deterministic stand-in for the LLM lane.
 type fakeReviewer struct {
-	sweep    []Finding
-	refuteIf func(Finding) bool
+	sweep     []Finding
+	sweepMore []Finding
+	refuteIf  func(Finding) bool
 }
 
 func (r *fakeReviewer) Sweep(_ context.Context, path, _ string) ([]Finding, error) {
-	var out []Finding
-	for _, s := range r.sweep {
-		if s.FilePath == path {
-			out = append(out, s)
-		}
-	}
-	return out, nil
+	return pick(r.sweep, path), nil
+}
+
+func (r *fakeReviewer) SweepMore(_ context.Context, path, _ string, _ []string) ([]Finding, error) {
+	return pick(r.sweepMore, path), nil
 }
 
 func (r *fakeReviewer) Refute(_ context.Context, f Finding, _ string) (bool, string, error) {
@@ -32,6 +31,24 @@ func (r *fakeReviewer) Refute(_ context.Context, f Finding, _ string) (bool, str
 		return true, "test fixture", nil
 	}
 	return false, "", nil
+}
+
+func pick(fs []Finding, path string) []Finding {
+	var out []Finding
+	for _, s := range fs {
+		if s.FilePath == path {
+			out = append(out, s)
+		}
+	}
+	return out
+}
+
+func fnd(path, rule, sev, title string, line int) Finding {
+	return Finding{
+		PolicyCheckFinding: tools.PolicyCheckFinding{RuleID: rule, Severity: sev, Title: title, Line: line},
+		FilePath:           path,
+		Scan:               semanticScan,
+	}
 }
 
 func TestEnrichSweepAndRefute(t *testing.T) {
@@ -60,7 +77,7 @@ func TestEnrichSweepAndRefute(t *testing.T) {
 		}},
 		refuteIf: func(f Finding) bool { return strings.Contains(f.RuleID, "gh-pat") },
 	}
-	if err := enrich(context.Background(), rep, []string{src}, fr, 2); err != nil {
+	if err := enrich(context.Background(), rep, []string{src}, fr, 2, false); err != nil {
 		t.Fatal(err)
 	}
 
@@ -139,6 +156,54 @@ func TestLLMReviewerRefuteMajority(t *testing.T) {
 	r2 := &LLMReviewer{Provider: prov2, Votes: 3}
 	if refuted, _, _ := r2.Refute(context.Background(), Finding{}, "code"); refuted {
 		t.Error("finding should stand when no round refutes")
+	}
+}
+
+func TestEnrichThoroughFindsMore(t *testing.T) {
+	dir := t.TempDir()
+	src := filepath.Join(dir, "app.py")
+	if err := os.WriteFile(src, []byte("x = 1\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	fr := &fakeReviewer{
+		sweep:     []Finding{fnd(src, "secure-vibe.llm.a", "high", "First-pass issue", 1)},
+		sweepMore: []Finding{fnd(src, "secure-vibe.llm.b", "medium", "Second-pass issue", 2)},
+	}
+
+	// Without --thorough, only the first-pass finding.
+	repA := build(dir, nil)
+	if err := enrich(context.Background(), repA, []string{src}, fr, 2, false); err != nil {
+		t.Fatal(err)
+	}
+	if repA.Total() != 1 {
+		t.Errorf("non-thorough confirmed = %d, want 1", repA.Total())
+	}
+
+	// With --thorough, the completeness pass adds the second finding, then goes dry.
+	repB := build(dir, nil)
+	if err := enrich(context.Background(), repB, []string{src}, fr, 2, true); err != nil {
+		t.Fatal(err)
+	}
+	if repB.Total() != 2 {
+		t.Errorf("thorough confirmed = %d, want 2", repB.Total())
+	}
+}
+
+func TestDynamicClass(t *testing.T) {
+	cases := map[string]string{
+		"secure-vibe.llm.ssrf|Server-side request forgery": "ssrf",
+		"|SQL injection in query":                          "sqli",
+		"|Reflected XSS in search":                         "xss",
+		"|Open redirect on login":                          "redirect",
+		"|OS command injection":                            "command-injection",
+		"|Weak password hashing":                           "",
+	}
+	for in, want := range cases {
+		parts := strings.SplitN(in, "|", 2)
+		f := Finding{PolicyCheckFinding: tools.PolicyCheckFinding{RuleID: parts[0], Title: parts[1]}}
+		if got := DynamicClass(f); got != want {
+			t.Errorf("DynamicClass(%q) = %q, want %q", in, got, want)
+		}
 	}
 }
 
