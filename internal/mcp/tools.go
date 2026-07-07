@@ -244,5 +244,17 @@ func toolDefinitions() []map[string]interface{} {
 				"required": []string{"type", "target", "param"},
 			},
 		},
+		{
+			"name":        "audit",
+			"description": "Run a whole-tree security audit: fan the deterministic scanners (secrets, dependencies, Dockerfile, GitHub Actions) across every file under `path`, then deduplicate, rank by severity, and triage likely fixtures (test/example/sample paths are reported but demoted). This is the DETECT orchestration layer above `gate` — same scanners, but repo-wide breadth and one ranked result instead of a per-file pass/fail. Deterministic and offline (the calling agent supplies the reasoning); use `gate` for a single CI-failing file check and `verify_finding` to confirm a dynamic finding against a live target. Respects the server's allowed-roots sandbox.",
+			"inputSchema": map[string]interface{}{
+				"type": "object",
+				"properties": map[string]interface{}{
+					"path":           map[string]string{"type": "string", "description": "Directory to audit (default: the current directory). Must be within the server's allowed roots."},
+					"severity_floor": map[string]interface{}{"type": "string", "description": "Only collect findings at or above this severity. Default: low.", "enum": []string{"", "critical", "high", "medium", "low", "info"}},
+				},
+				"required": []string{"path"},
+			},
+		},
 	}
 }
