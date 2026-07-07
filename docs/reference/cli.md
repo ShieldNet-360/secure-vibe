@@ -85,6 +85,59 @@ secure-vibe gate <file-or-dir>... [flags]
 secure-vibe gate . --severity-floor high --format sarif > results.sarif
 ```
 
+### `audit`
+
+The **DETECT orchestration layer above `gate`**: fans the same deterministic
+scanners across a whole tree concurrently, then **deduplicates**, **ranks by
+severity**, and **triages likely fixtures** (findings in `test` / `fixture` /
+`example` / `sample` paths are reported but demoted). Offline and deterministic
+by default — a strict superset of `gate` that works on every platform with no
+model and no network.
+
+```text
+secure-vibe audit [path] [flags]
+```
+
+Two **opt-in** lanes layer on top when you bring a model — SecureVibe ships no key
+and no model, so the reasoning layer stays yours (works with Claude, OpenAI,
+Gemini, or any OpenAI-compatible/local endpoint):
+
+- **Semantic sweep** (`--model`) reads each source file through a skill-derived
+  security lens and surfaces candidates the pattern scanners can't see.
+- **Adversarial verify** (`--votes`) runs skeptic rounds per finding; a majority
+  refutation demotes a false positive.
+- **Completeness loop** (`--thorough`) re-sweeps for what the first pass missed.
+- **Dynamic verify** (`--live-target`) probes dynamically-verifiable findings
+  (ssrf/sqli/xss/…) via the verify lane — dry-run unless `--confirm` **and** the
+  target is in `SECURE_VIBE_VERIFY_SCOPE`.
+
+| Flag | Description |
+|------|-------------|
+| `[path]` | Directory to audit (default: current directory). |
+| `--severity-floor` | Only collect findings at or above this severity. Default `low`. |
+| `--jobs` | Concurrent scanner workers (default: `min(NumCPU, 8)`). |
+| `--model` | Enable the model lane with a provider: `anthropic` \| `openai` \| `gemini` \| `openai-compatible`. Model id + key come from `SECURE_VIBE_MODEL` / `SECURE_VIBE_MODEL_API_KEY` / `SECURE_VIBE_MODEL_BASE_URL`. Off by default. |
+| `--votes` | Adversarial refute rounds per finding (majority rules). Default 1. |
+| `--thorough` | Run completeness-critic sweep rounds (needs `--model`). |
+| `--live-target` | Base URL to dynamically probe dynamic-class findings against. |
+| `--live-param` / `--live-method` | Injectable parameter / HTTP method for the probe. |
+| `--confirm` | Actually send verify probes (default dry-run); still gated by `SECURE_VIBE_VERIFY_SCOPE`. |
+| `--format` | `text` \| `json` \| `sarif`. (`sarif` / `--report-dir` reflect the deterministic findings; the model + verify lanes surface in `text`/`json`.) |
+| `--report-dir` / `--sarif-base` / `--vuln-source` / `--path` | As for `scan`. |
+
+```bash
+secure-vibe audit .                                   # offline, deterministic, whole repo
+secure-vibe audit . --format json > audit.json        # full result incl. model/verify lanes
+
+# BYO model: turn on the semantic + adversarial-verify lanes (keyless — your endpoint)
+export SECURE_VIBE_MODEL_API_KEY=sk-...
+secure-vibe audit ./src --model anthropic --votes 3 --thorough
+
+# Dynamic verify against an authorised live target (dry-run by default)
+SECURE_VIBE_VERIFY_SCOPE=staging.internal \
+  secure-vibe audit ./src --model openai --live-target https://staging.internal --confirm
+```
+
 ### `check`
 
 Look up a single package against malicious entries, typosquats, CVE patterns,

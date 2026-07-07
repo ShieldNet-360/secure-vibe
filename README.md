@@ -53,13 +53,16 @@ secure-vibe init --tool claude        # claude · cursor · copilot · codex · 
 # 2 · scan code — auto-detects secrets / bad deps / Dockerfile / GitHub Actions per file
 secure-vibe scan .
 
+# 2b · audit a whole repo — dedup, rank by severity, triage fixtures (offline; --model adds AI lanes)
+secure-vibe audit .
+
 # 3 · gate a build (CI / pre-commit) — non-zero exit on findings, SARIF for Code Scanning
 secure-vibe gate . --severity-floor high --format sarif
 
 # 4 · vet one package before adding it
 secure-vibe check event-stream@3.3.6 -e npm
 
-# 5 · the MCP server (17 tools over stdio) — this is the command clients spawn:
+# 5 · the MCP server (18 tools over stdio) — this is the command clients spawn:
 secure-vibe mcp                                    # or: npx -y @shieldnet360/secure-vibe mcp
 #    register it with Claude Code in one line:
 claude mcp add SecureVibe -- npx -y @shieldnet360/secure-vibe mcp
@@ -87,7 +90,7 @@ $ echo $?
 The lifecycle is **PREVENT → DETECT → ENFORCE → VERIFY → LEARN**:
 
 - **PREVENT** — 30 signed skills across 8 assistants, consulted as code is written.
-- **DETECT** — one auto-detecting `scan`: secrets, dependencies (curated malicious / typosquat DB + CVE / OSV across 10 ecosystems), Dockerfile, and GitHub Actions.
+- **DETECT** — one auto-detecting `scan` (secrets, dependencies via a curated malicious / typosquat DB + CVE / OSV across 10 ecosystems, Dockerfile, GitHub Actions), and `audit` to fan it across a whole repo with dedup, severity ranking, and fixture triage. `audit` is model-pluggable: `--model` adds an AI semantic-sweep + adversarial-verify lane (bring your own key — Claude / OpenAI / Gemini / local), off and offline by default.
 - **ENFORCE** — `gate` blocks insecure diffs; `--format json|sarif`, `--report-dir` for an HTML + PDF report.
 - **VERIFY** — dynamic `verify_finding` confirms a candidate against a *live* target (ssrf · sqli · xss · redirect · path-traversal · command-injection · ssti · xxe); gated, dry-run by default.
 - **LEARN** — `secure-vibe contribute add -p <pkg> -e npm` writes a signed `.secure-vibe/overlay.json`; commit it (team) or point `$SECURE_VIBE_OVERLAY` at a shared file (org).
@@ -100,9 +103,10 @@ The lifecycle is **PREVENT → DETECT → ENFORCE → VERIFY → LEARN**:
 |---|---|
 | `init --tool <ide>` | Write the assistant config (`CLAUDE.md`, `.cursorrules`, …) that embeds the skills |
 | `scan <path>` | Auto-detect + report findings (secrets / deps / Dockerfile / Actions) |
+| `audit [path]` | Whole-tree fan-out: dedup, rank by severity, triage fixtures; `--model` adds AI lanes |
 | `gate <path>` | Same detection, **non-zero exit** above a severity floor — the CI entry point |
 | `check <pkg>[@ver] -e <eco>` | Look up one package: malicious / typosquat / CVE / OSV |
-| `mcp` | Run the MCP server (17 tools); `mcp connect` registers it with Claude Code |
+| `mcp` | Run the MCP server (18 tools); `mcp connect` registers it with Claude Code |
 | `contribute` | The LEARN loop — block a bad package locally, share via git / overlay |
 | `update` | Pull signed skills + vuln data (`--self` updates the binary) · `status` reports freshness |
 
@@ -112,7 +116,7 @@ Full reference: [docs/reference/cli.md](./docs/reference/cli.md) · `secure-vibe
 
 - [ARCHITECTURE.md](./ARCHITECTURE.md) — design, compiler, update protocol, repo layout.
 - [docs/](./docs/) — guides (developer · devops · security · evaluator), install, air-gapped, team rollout.
-- [docs/reference/mcp-clients.md](./docs/reference/mcp-clients.md) — connect the MCP server to any agent (Claude Code · Cursor · Windsurf · VS Code · Cline · Zed) · [docs/reference/mcp-tools.md](./docs/reference/mcp-tools.md) — the 17 MCP tools · [skills/](./skills) — the 30-skill catalogue.
+- [docs/reference/mcp-clients.md](./docs/reference/mcp-clients.md) — connect the MCP server to any agent (Claude Code · Cursor · Windsurf · VS Code · Cline · Zed) · [docs/reference/mcp-tools.md](./docs/reference/mcp-tools.md) — the 18 MCP tools · [skills/](./skills) — the 30-skill catalogue.
 - [SIGNING.md](./SIGNING.md) — Ed25519 release signing · [CONTRIBUTING.md](./CONTRIBUTING.md) · [SECURITY.md](./SECURITY.md).
 
 ## Platform support
