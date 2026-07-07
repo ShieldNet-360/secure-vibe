@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/shieldnet-360/secure-vibe/internal/audit"
 )
 
 func repoRoot(t *testing.T) string {
@@ -215,6 +217,7 @@ func TestToolsListReturnsExpectedTools(t *testing.T) {
 		"explain_finding":        false,
 		"gate":                   false,
 		"verify_finding":         false,
+		"audit":                  false,
 	}
 	if len(tools) != len(want) {
 		t.Fatalf("expected %d tools, got %d", len(want), len(tools))
@@ -349,5 +352,28 @@ func TestExplicitNullIDProducesResponse(t *testing.T) {
 	}
 	if !strings.Contains(string(out), `"id":null`) {
 		t.Errorf("serialized response should contain \"id\":null; got %s", out)
+	}
+}
+
+func TestInvokeAuditRespectsSandbox(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(dir, "config.js"),
+		[]byte("const gh = \"ghp_016C6eB6D6a1F2b3C4d5E6f7A8b9C0d1E2f3G4H5\";\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	srv := newServer(t)
+	if err := srv.SetAllowedRoots([]string{dir}); err != nil {
+		t.Fatal(err)
+	}
+	res, err := srv.invokeTool("audit", map[string]interface{}{"path": dir})
+	if err != nil {
+		t.Fatalf("audit tool: %v", err)
+	}
+	rep, ok := res.(*audit.Report)
+	if !ok {
+		t.Fatalf("audit returned %T, want *audit.Report", res)
+	}
+	if rep.Total() < 1 {
+		t.Errorf("expected at least one finding under the audited dir, got %d", rep.Total())
 	}
 }

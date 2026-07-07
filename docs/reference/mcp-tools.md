@@ -39,7 +39,7 @@ The file-reading tools (`scan_secrets`, `scan_dependencies`, `scan_github_action
 
 ## Tool catalogue
 
-The server exposes 17 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
+The server exposes 18 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
 
 | Tool | Purpose |
 | --- | --- |
@@ -52,6 +52,7 @@ The server exposes 17 tools; `policy_check` is additionally accepted as a back-c
 | `scan_dockerfile` | Run a hardening pass over a Dockerfile. |
 | `scan_github_actions` | Run the CI/CD hardening checklist over a GitHub Actions workflow. |
 | `gate` | Auto-pick the right scanner for a file and return a CI-friendly pass/fail. |
+| `audit` | Whole-tree audit: fan every scanner across a directory, then dedup, rank by severity, and triage likely fixtures. The DETECT layer above `gate`; deterministic, respects the allowed-roots sandbox. |
 | `verify_finding` | Actively confirm a finding against a live target by sending a probe and checking a deterministic oracle (the dynamic "verify" lane). Gated: dry-run unless an operator scope is configured. |
 | `map_compliance_control` | Map a skill / category / term to SOC 2, HIPAA, or PCI DSS controls. |
 | `explain_finding` | Map a CWE/CVE/finding description to relevant skills and CVE patterns. |
@@ -178,6 +179,17 @@ The response includes `pass` and `exit_code` (`0` on pass, `1` on fail) so a CI 
 
 !!! note "`policy_check` alias"
     `gate` was formerly named `policy_check`; that name is still accepted as a back-compat alias and dispatches to the same logic.
+
+### `audit`
+
+Where `gate` checks one file, `audit` checks a whole tree: it fans every scanner across every file under `path`, then **deduplicates**, **ranks by severity**, and **triages likely fixtures** (test/example/sample paths are reported but demoted) into one result. It is the DETECT orchestration layer above `gate` — the multi-file coordination lives in the server, so any MCP client gets it without needing its own orchestration.
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| `path` | yes | Directory to audit. Must be within the server's allowed roots. |
+| `severity_floor` | no | Only collect findings at or above this severity. Default: `low`. |
+
+The tool is **deterministic and offline** — the calling agent is the reasoning layer, so the CLI's model / dynamic-verify lanes are intentionally not exposed here. It respects the [allowed-roots sandbox](#file-access-safety); a `path` outside the sandbox yields no findings.
 
 ## Active verification (the verify lane)
 
