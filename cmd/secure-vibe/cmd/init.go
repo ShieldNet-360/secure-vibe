@@ -17,7 +17,7 @@ import (
 
 func initCmd() *cobra.Command {
 	var libraryPath, tool, skillsList, budget, outDir, profileName string
-	var noPrompt, fullInline, legacy bool
+	var noPrompt, fullInline, legacy, noAttestHook bool
 	c := &cobra.Command{
 		Use:   "init",
 		Short: "Generate an IDE-specific config file in the current project",
@@ -105,6 +105,14 @@ func initCmd() *cobra.Command {
 				fmt.Fprintln(c.ErrOrStderr(), "warn:", w)
 			}
 
+			// Mark the repo as SecureVibe-prepared and install the
+			// prepare-commit-msg hook so each commit carries a usage
+			// attestation. Best-effort and fail-open: a non-git project or
+			// any hook error prints a hint but never fails init.
+			if !noAttestHook {
+				setupAttestation(outDir, out, c.ErrOrStderr())
+			}
+
 			if !noPrompt {
 				maybeOfferScheduler(c.InOrStdin(), out)
 			}
@@ -120,6 +128,7 @@ func initCmd() *cobra.Command {
 	c.Flags().StringVar(&profileName, "profile", "", "enterprise profile (e.g., financial-services|healthcare|government) — restricts the skill set")
 	c.Flags().BoolVar(&fullInline, "full-inline", false, "render the legacy monolithic per-tool dist/ output that inlines every skill body (default is the minimal pointer file)")
 	c.Flags().BoolVar(&legacy, "legacy", false, "alias for --full-inline")
+	c.Flags().BoolVar(&noAttestHook, "no-attest-hook", false, "do not install the commit attestation (prepare-commit-msg) hook")
 	return c
 }
 

@@ -123,6 +123,7 @@ nav:
     - Benchmarks & methodology: concepts/benchmarks.md
     - Architecture: concepts/architecture.md
     - How detection works: concepts/detection.md
+    - Usage attestation: concepts/usage-attestation.md
     - Roadmap: concepts/roadmap.md
   - Reference:
     - CLI (secure-vibe): reference/cli.md
