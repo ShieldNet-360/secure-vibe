@@ -1,0 +1,36 @@
+{
+  "id": "threat-modeling",
+  "version": "1.0.0",
+  "title": "Threat Modeling",
+  "description": "Review a design or architecture for security flaws — trust boundaries, authorization, data flow, and attack surface — before code is written",
+  "category": "prevention",
+  "severity": "high",
+  "applies_to": [
+    "when scaffolding a new feature, service, or endpoint",
+    "when writing or reviewing a design doc / RFC / ADR",
+    "when introducing a new trust boundary, integration, or data flow",
+    "when reviewing an architecture or module at the design level"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 1400,
+    "compact": 1800,
+    "full": 2900
+  },
+  "related_skills": [
+    "secure-code-review",
+    "api-security",
+    "auth-security",
+    "ssrf-prevention",
+    "iam-best-practices",
+    "supply-chain-security"
+  ],
+  "last_updated": "2026-07-08",
+  "sources": [
+    "OWASP Threat Modeling Cheat Sheet",
+    "Microsoft STRIDE",
+    "NIST SP 800-154 (Data-Centric System Threat Modeling)"
+  ]
+}
