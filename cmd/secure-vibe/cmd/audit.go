@@ -142,7 +142,9 @@ need a CI-failing check on specific files.`,
 				if err != nil {
 					base = ""
 				}
-				return emitJSON(c.OutOrStdout(), tools.PolicyCheckSARIF(rep.Results, base))
+				// Full-lane: includes the model-semantic findings and excludes
+				// triaged/refuted ones (see audit.Report.SARIF).
+				return emitJSON(c.OutOrStdout(), rep.SARIF(base))
 			default:
 				renderAuditText(c, rep)
 			}
