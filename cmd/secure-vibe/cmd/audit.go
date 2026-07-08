@@ -20,7 +20,7 @@ import (
 // offline. The model-pluggable LLM lanes and dynamic verify layer on top of the
 // Report it produces (see later phases).
 func auditCmd() *cobra.Command {
-	var repoPath, severityFloor, format, vulnSource, sarifBase, report, model, diff string
+	var repoPath, severityFloor, format, vulnSource, sarifBase, report, model, diff, failOn string
 	var liveTarget, liveParam, liveMethod string
 	var jobs, votes int
 	var thorough, confirm bool
@@ -144,26 +144,41 @@ need a CI-failing check on specific files.`,
 				fmt.Fprintf(c.ErrOrStderr(), "audit: dynamic verify probed %d finding(s) against %s [%s]\n", n, liveTarget, mode)
 			}
 
-			if report != "" {
+			// Emit the report first (so a failing gate still publishes its
+			// findings), then apply --fail-on.
+			switch {
+			case report != "":
 				rep2 := newReport("audit", []string{root})
 				for _, res := range rep.Results {
 					rep2.Sections = append(rep2.Sections, gateSection(res))
 				}
-				return writeReport(c, report, rep2)
-			}
-			switch format {
-			case "json":
-				return emitJSON(c.OutOrStdout(), rep)
-			case "sarif":
+				if err := writeReport(c, report, rep2); err != nil {
+					return err
+				}
+			case format == "json":
+				if err := emitJSON(c.OutOrStdout(), rep); err != nil {
+					return err
+				}
+			case format == "sarif":
 				base, err := filepath.Abs(sarifBase)
 				if err != nil {
 					base = ""
 				}
 				// Full-lane: includes the model-semantic findings and excludes
 				// triaged/refuted ones (see audit.Report.SARIF).
-				return emitJSON(c.OutOrStdout(), rep.SARIF(base))
+				if err := emitJSON(c.OutOrStdout(), rep.SARIF(base)); err != nil {
+					return err
+				}
 			default:
 				renderAuditText(c, rep)
+			}
+
+			// CI gate: exit non-zero when confirmed findings meet --fail-on.
+			if strings.TrimSpace(failOn) != "" {
+				if n := rep.CountAtOrAbove(failOn); n > 0 {
+					c.SilenceUsage = true
+					return &policyFailureError{count: n, floor: failOn}
+				}
 			}
 			return nil
 		},
@@ -176,6 +191,8 @@ need a CI-failing check on specific files.`,
 		"only collect findings at or above this severity: critical | high | medium | low")
 	c.Flags().StringVar(&model, "model", "",
 		"enable the model lane with this provider: anthropic | openai | gemini | openai-compatible (model id + key come from SECURE_VIBE_MODEL / _API_KEY / _BASE_URL). Off by default")
+	c.Flags().StringVar(&failOn, "fail-on", "",
+		"exit non-zero when a confirmed finding is at or above this severity (critical|high|medium|low) — turns audit into a CI gate; empty = always exit 0")
 	c.Flags().IntVar(&votes, "votes", 1, "adversarial refute rounds per finding in the model lane (majority rules)")
 	c.Flags().BoolVar(&thorough, "thorough", false, "run completeness-critic sweep rounds (loop-until-dry); requires --model")
 	c.Flags().StringVar(&liveTarget, "live-target", "", "base URL to dynamically probe dynamically-verifiable findings (ssrf/sqli/xss/…) against")
