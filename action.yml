@@ -1,99 +1,131 @@
-name: SecureVibe gate
-description: Fail the build on secrets, vulnerable dependencies, and Dockerfile / GitHub Actions issues at or above a severity floor.
+name: SecureVibe audit
+description: Whole-tree (or PR-diff) security audit — dedup + rank + triage, fail the build on findings, upload SARIF to Code Scanning, and comment on the PR.
 branding:
   icon: shield
   color: orange
 
 inputs:
-  files:
-    description: Space-separated list of files to gate, e.g. "Dockerfile package-lock.json .github/workflows/ci.yml". gate scans exactly the files you name.
-    required: true
-  severity-floor:
-    description: "Lowest severity that fails the gate: critical | high | medium | low."
+  path:
+    description: Directory to audit.
     required: false
-    default: high
-  version:
-    description: npm version or dist-tag of @shieldnet360/secure-code-mcp to run (pin for reproducible CI).
-    required: false
-    default: latest
-  sarif-file:
+    default: "."
+  diff:
     description: >-
-      When set (e.g. "gate.sarif"), gate emits SARIF 2.1.0 to this path and the
-      action uploads it to GitHub Code Scanning — findings appear in the
-      Security tab and as PR annotations, and the job still fails when any
-      finding meets the severity floor. The calling workflow needs
-      `permissions: security-events: write` (and a package version whose gate
-      supports `--format sarif`). Leave empty for plain text output and no
-      upload.
+      Audit only files changed vs this git ref (a PR's changed set) instead of
+      the whole tree — e.g. "origin/${{ github.base_ref }}". Leave empty to audit
+      the whole tree. Requires a checkout with history (actions/checkout
+      fetch-depth: 0 for cross-branch diffs).
     required: false
     default: ""
+  severity-floor:
+    description: "Lowest severity to collect and report: critical | high | medium | low."
+    required: false
+    default: low
+  fail-on:
+    description: >-
+      Fail the build when a confirmed finding is at or above this severity
+      (critical | high | medium | low). Leave empty to report only (never fail).
+    required: false
+    default: high
+  sarif-file:
+    description: >-
+      When set (e.g. "audit.sarif"), the action emits full-lane SARIF 2.1.0 and
+      uploads it to GitHub Code Scanning — findings appear in the Security tab and
+      as PR annotations. The calling workflow needs `permissions:
+      security-events: write`. Set to "" to skip the upload.
+    required: false
+    default: audit.sarif
   category:
     description: Code Scanning category for the SARIF upload; change it when one workflow uploads several SARIF files.
     required: false
-    default: secure-code-gate
+    default: secure-vibe-audit
+  comment:
+    description: >-
+      Post a summary comment on the pull request. Needs `permissions:
+      pull-requests: write`. Set to "false" to disable.
+    required: false
+    default: "true"
+  version:
+    description: npm version or dist-tag of @shieldnet360/secure-vibe to run (pin for reproducible CI).
+    required: false
+    default: latest
 
 runs:
   using: composite
   steps:
-    - name: Run SecureVibe gate
-      id: gate
+    - name: Run SecureVibe audit
+      id: audit
       shell: bash
-      # Inputs flow through env: and are referenced as "$VARS" rather than
-      # interpolated as ${{ inputs.* }} inside the script. This forecloses the
-      # GitHub Actions shell-injection class: a caller that wires an input from
-      # untrusted data (e.g. files: ${{ github.event.pull_request.title }})
-      # cannot break out of the command, because the value never becomes part
-      # of the script text. FILES stays unquoted on the command line on purpose
-      # so the space-separated list word-splits into multiple path arguments.
+      # Inputs flow through env and are referenced as "$VARS" rather than
+      # interpolated as ${{ inputs.* }} inside the script, so a caller that wires
+      # an input from untrusted data cannot break out of the command.
       env:
-        FILES: ${{ inputs.files }}
+        PATH_ARG: ${{ inputs.path }}
+        DIFF: ${{ inputs.diff }}
         SEVERITY_FLOOR: ${{ inputs.severity-floor }}
-        VERSION: ${{ inputs.version }}
+        FAIL_ON: ${{ inputs.fail-on }}
         SARIF_FILE: ${{ inputs.sarif-file }}
+        VERSION: ${{ inputs.version }}
       run: |
         set -uo pipefail
-        if [ -z "$FILES" ]; then
-          echo "secure-code-gate: no files supplied via the 'files' input; nothing to gate." >&2
-          exit 0
-        fi
-        # The published package bundles the secure-vibe CLI binary + the rule
-        # data; the secure-code-check launcher points it at that data via
-        # $SECURE_VIBE_LIBRARY_PATH, so no checkout or --path is needed here.
-        if [ -z "$SARIF_FILE" ]; then
-          npx -y -p "@shieldnet360/secure-code-mcp@${VERSION}" \
-            secure-code-check gate $FILES \
-            --severity-floor "$SEVERITY_FLOOR"
+        pkg="@shieldnet360/secure-vibe@${VERSION}"
+        # The npm package bundles the CLI binary + rule data, so no checkout of
+        # the library or --path is needed — secure-vibe finds its data itself.
+        base=( audit "$PATH_ARG" --severity-floor "$SEVERITY_FLOOR" )
+        if [ -n "$DIFF" ]; then base+=( --diff "$DIFF" ); fi
+
+        # 1) JSON — drives the PR comment and the pass/fail decision. audit emits
+        #    the report BEFORE applying --fail-on, so stdout is always the full
+        #    report even when the gate trips; we capture the exit code separately.
+        code=0
+        if [ -n "$FAIL_ON" ]; then
+          npx -y -p "$pkg" secure-vibe "${base[@]}" --fail-on "$FAIL_ON" --format json > audit.json || code=$?
         else
-          # SARIF mode: capture the exit code instead of failing here, so the
-          # upload step below always runs — a FAILING gate still publishes its
-          # findings to Code Scanning. The last step re-asserts the failure.
-          # --sarif-base defaults to the working directory, which is the
-          # checkout root in a standard job, so artifact URIs come out
-          # repo-relative and Code Scanning anchors alerts to the files.
-          set +e
-          npx -y -p "@shieldnet360/secure-code-mcp@${VERSION}" \
-            secure-code-check gate $FILES \
-            --severity-floor "$SEVERITY_FLOOR" \
-            --format sarif > "$SARIF_FILE"
-          code=$?
-          set -e
-          echo "exit-code=$code" >> "$GITHUB_OUTPUT"
-          echo "secure-code-gate: exit $code; SARIF written to $SARIF_FILE"
+          npx -y -p "$pkg" secure-vibe "${base[@]}" --format json > audit.json || true
+        fi
+        echo "exit-code=$code" >> "$GITHUB_OUTPUT"
+
+        # 2) SARIF — full-lane document for Code Scanning (best effort).
+        if [ -n "$SARIF_FILE" ]; then
+          npx -y -p "$pkg" secure-vibe "${base[@]}" --format sarif > "$SARIF_FILE" || true
         fi
 
-    - name: Upload SARIF to GitHub Code Scanning
+    - name: Upload SARIF to Code Scanning
       if: ${{ inputs.sarif-file != '' }}
       uses: github/codeql-action/upload-sarif@v4
       with:
         sarif_file: ${{ inputs.sarif-file }}
         category: ${{ inputs.category }}
 
+    - name: Comment on the pull request
+      if: ${{ inputs.comment == 'true' && github.event_name == 'pull_request' }}
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          let report;
+          try { report = JSON.parse(fs.readFileSync('audit.json', 'utf8')); }
+          catch { core.info('no audit.json to comment from'); return; }
+          const findings = (report.findings || []).filter(f => !f.triage);
+          const counts = findings.reduce((a, f) => { a[f.severity] = (a[f.severity] || 0) + 1; return a; }, {});
+          const order = ['critical', 'high', 'medium', 'low', 'info'];
+          const summary = order.filter(s => counts[s]).map(s => `**${counts[s]}** ${s}`).join(' · ') || 'no confirmed findings';
+          const rows = findings.slice(0, 20).map(f =>
+            `- \`${f.severity}\` **${f.title}** — \`${f.file_path}\`${f.line ? ':' + f.line : ''} <sub>${f.rule_id}</sub>`);
+          const more = findings.length > 20 ? `\n\n…and ${findings.length - 20} more.` : '';
+          const marker = '<!-- secure-vibe-audit -->';
+          const body = `${marker}\n### 🛡️ SecureVibe audit\n\n**${findings.length}** confirmed finding(s): ${summary}\n\n${rows.join('\n')}${more}`;
+          // Upsert: update our previous comment instead of stacking new ones.
+          const { data: comments } = await github.rest.issues.listComments({ ...context.repo, issue_number: context.issue.number });
+          const mine = comments.find(c => (c.body || '').includes(marker));
+          if (mine) await github.rest.issues.updateComment({ ...context.repo, comment_id: mine.id, body });
+          else await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });
+
     - name: Fail when the gate found issues
-      if: ${{ inputs.sarif-file != '' && steps.gate.outputs.exit-code != '0' }}
+      if: ${{ inputs.fail-on != '' && steps.audit.outputs.exit-code != '0' }}
       shell: bash
       env:
-        SEVERITY_FLOOR: ${{ inputs.severity-floor }}
-        EXIT_CODE: ${{ steps.gate.outputs.exit-code }}
+        FAIL_ON: ${{ inputs.fail-on }}
       run: |
-        echo "SecureVibe gate: findings at or above '$SEVERITY_FLOOR' (exit $EXIT_CODE). See the Security tab / PR annotations." >&2
+        echo "::error::SecureVibe audit found finding(s) at or above '$FAIL_ON'. See the Security tab / PR comment." >&2
         exit 1
