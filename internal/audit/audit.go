@@ -149,6 +149,23 @@ func (r *Report) Total() int {
 	return n
 }
 
+// CountAtOrAbove returns how many confirmed findings are at or above the given
+// severity floor. Used by the `--fail-on` CI gate. An unrecognised floor counts
+// nothing (fail-open would be worse; the caller validates the floor).
+func (r *Report) CountAtOrAbove(floor string) int {
+	fr := severityRank(floor)
+	if fr == 0 {
+		return 0
+	}
+	n := 0
+	for _, f := range r.Findings {
+		if f.Triage == "" && severityRank(f.Severity) >= fr {
+			n++
+		}
+	}
+	return n
+}
+
 // Run scans every file concurrently with the given library factory, then
 // deduplicates, triages, and ranks the findings into a Report. ctx cancellation
 // stops the walk and returns ctx.Err(). A per-file scanner error skips that
