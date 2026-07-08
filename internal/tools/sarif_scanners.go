@@ -23,7 +23,7 @@ func ScanDependenciesSARIF(res *ScanDependenciesResult) *SARIFLog {
 	rules := make([]SARIFRule, 0)
 	ruleIndex := map[string]int{}
 	ensureRule := func(category, descr, level string) string {
-		id := "secure-vibe mcp." + category
+		id := "secure-vibe." + category
 		if _, ok := ruleIndex[id]; ok {
 			return id
 		}
@@ -119,7 +119,7 @@ func ScanGitHubActionsSARIF(res *ScanGitHubActionsResult) *SARIFLog {
 	uri := fileURI(res.FilePath)
 	results := make([]SARIFResult, 0, len(res.Findings))
 	for _, f := range res.Findings {
-		id := "secure-vibe mcp." + f.RuleID
+		id := "secure-vibe." + f.RuleID
 		if _, ok := ruleIndex[id]; !ok {
 			ruleIndex[id] = len(rules)
 			rules = append(rules, SARIFRule{
@@ -178,7 +178,7 @@ func ScanDockerfileSARIF(res *ScanDockerfileResult) *SARIFLog {
 	uri := fileURI(res.FilePath)
 	results := make([]SARIFResult, 0, len(res.Findings))
 	for _, f := range res.Findings {
-		id := "secure-vibe mcp." + f.RuleID
+		id := "secure-vibe." + f.RuleID
 		if _, ok := ruleIndex[id]; !ok {
 			ruleIndex[id] = len(rules)
 			rules = append(rules, SARIFRule{

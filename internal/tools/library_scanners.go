@@ -1179,7 +1179,7 @@ func (l *Library) PolicyCheck(filePath, severityFloor string) (*PolicyCheckResul
 		out.FileSize = res.FileSize
 		for _, f := range res.Findings {
 			out.Findings = append(out.Findings, PolicyCheckFinding{
-				RuleID:     "secure-vibe mcp." + f.Category,
+				RuleID:     "secure-vibe." + f.Category,
 				Severity:   f.Severity,
 				Confidence: f.Confidence,
 				Title:      f.Message,
