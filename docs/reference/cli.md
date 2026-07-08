@@ -114,6 +114,8 @@ Gemini, or any OpenAI-compatible/local endpoint):
 | Flag | Description |
 |------|-------------|
 | `[path]` | Directory to audit (default: current directory). |
+| `--diff [ref]` | Audit only files changed vs a git ref (a PR's changed set). Bare `--diff` diffs vs `HEAD`; pass a ref (e.g. `--diff origin/main`) for CI. |
+| `--fail-on <sev>` | Exit non-zero when a confirmed finding is at or above this severity — turns `audit` into a CI gate. Empty (default) always exits 0. |
 | `--severity-floor` | Only collect findings at or above this severity. Default `low`. |
 | `--jobs` | Concurrent scanner workers (default: `min(NumCPU, 8)`). |
 | `--model` | Enable the model lane with a provider: `anthropic` \| `openai` \| `gemini` \| `openai-compatible`. Model id + key come from `SECURE_VIBE_MODEL` / `SECURE_VIBE_MODEL_API_KEY` / `SECURE_VIBE_MODEL_BASE_URL`. Off by default. |
@@ -122,12 +124,15 @@ Gemini, or any OpenAI-compatible/local endpoint):
 | `--live-target` | Base URL to dynamically probe dynamic-class findings against. |
 | `--live-param` / `--live-method` | Injectable parameter / HTTP method for the probe. |
 | `--confirm` | Actually send verify probes (default dry-run); still gated by `SECURE_VIBE_VERIFY_SCOPE`. |
-| `--format` | `text` \| `json` \| `sarif`. (`sarif` / `--report-dir` reflect the deterministic findings; the model + verify lanes surface in `text`/`json`.) |
+| `--format` | `text` \| `json` \| `sarif`. **SARIF is full-lane** — it includes the model-semantic findings and excludes triaged/refuted ones, so `--format sarif` surfaces every lane in Code Scanning. (`--report-dir` still reflects the deterministic findings.) |
 | `--report-dir` / `--sarif-base` / `--vuln-source` / `--path` | As for `scan`. |
 
 ```bash
 secure-vibe audit .                                   # offline, deterministic, whole repo
 secure-vibe audit . --format json > audit.json        # full result incl. model/verify lanes
+
+# CI gate on a PR's changed files — fail on high+, emit SARIF for Code Scanning
+secure-vibe audit . --diff origin/main --fail-on high --format sarif > audit.sarif
 
 # BYO model: turn on the semantic + adversarial-verify lanes (keyless — your endpoint)
 export SECURE_VIBE_MODEL_API_KEY=sk-...
