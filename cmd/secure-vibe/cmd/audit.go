@@ -20,7 +20,7 @@ import (
 // offline. The model-pluggable LLM lanes and dynamic verify layer on top of the
 // Report it produces (see later phases).
 func auditCmd() *cobra.Command {
-	var repoPath, severityFloor, format, vulnSource, sarifBase, report, model string
+	var repoPath, severityFloor, format, vulnSource, sarifBase, report, model, diff string
 	var liveTarget, liveParam, liveMethod string
 	var jobs, votes int
 	var thorough, confirm bool
@@ -50,7 +50,24 @@ need a CI-failing check on specific files.`,
 			if err != nil {
 				return fmt.Errorf("resolve audit path %q: %w", root, err)
 			}
-			files, err := tools.ExpandGateFiles([]string{rootAbs})
+			// Audit surface: the whole tree, or — with --diff — only the files
+			// that changed vs a git ref (a PR's changed set).
+			var targets []string
+			if strings.TrimSpace(diff) != "" {
+				changed, err := changedFiles(rootAbs, diff)
+				if err != nil {
+					return fmt.Errorf("--diff: %w", err)
+				}
+				if len(changed) == 0 {
+					fmt.Fprintf(c.OutOrStdout(), "audit: no changed files vs %s.\n", diff)
+					return nil
+				}
+				targets = changed
+				fmt.Fprintf(c.ErrOrStderr(), "audit: diff mode vs %s — %d changed file(s)\n", diff, len(changed))
+			} else {
+				targets = []string{rootAbs}
+			}
+			files, err := tools.ExpandGateFiles(targets)
 			if err != nil {
 				return err
 			}
@@ -152,6 +169,9 @@ need a CI-failing check on specific files.`,
 		},
 	}
 	c.Flags().StringVar(&repoPath, "path", ".", "secure-vibe library checkout (default: $SECURE_VIBE_LIBRARY_PATH, else cwd)")
+	c.Flags().StringVar(&diff, "diff", "",
+		"audit only files changed vs a git ref (a PR's changed set); bare --diff diffs vs HEAD, or pass a ref e.g. --diff origin/main")
+	c.Flags().Lookup("diff").NoOptDefVal = "HEAD" // bare `--diff` == `--diff HEAD`
 	c.Flags().StringVar(&severityFloor, "severity-floor", "low",
 		"only collect findings at or above this severity: critical | high | medium | low")
 	c.Flags().StringVar(&model, "model", "",
