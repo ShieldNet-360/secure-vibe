@@ -569,7 +569,7 @@ func emptyLog(tool string) *SARIFLog {
 
 // sarifIDForPattern derives a stable SARIF rule ID from a pattern
 // name. The form `secure-vibe.dlp.<slug>` keeps every rule the MCP
-// server emits inside the `secure-vibe mcp.` namespace so downstream
+// server emits inside the `secure-vibe.` namespace so downstream
 // dashboards can filter all of them at once.
 func sarifIDForPattern(name string) string {
 	out := make([]rune, 0, len(name))
