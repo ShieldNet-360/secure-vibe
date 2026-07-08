@@ -348,7 +348,7 @@ jobs:
           SECURE_VIBE_LIBRARY_PATH: ${{ github.workspace }}
         run: |
           python3 evals/benchmarks/scanner-eval.py \
-            --secure-vibe mcp /tmp/secure-vibe \
+            --secure-vibe /tmp/secure-vibe \
             --out evals/baselines/scanner-eval-static.md \
             --verbose
 
