@@ -85,6 +85,28 @@ $ echo $?
 1
 ```
 
+## Use in CI
+
+Audit a PR's diff, fail the build on findings, upload to Code Scanning, and comment on the PR — one step:
+
+```yaml
+# .github/workflows/secure-vibe.yml
+on: [pull_request]
+permissions: { contents: read, security-events: write, pull-requests: write }
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: ShieldNet-360/secure-vibe@v1
+        with:
+          diff: origin/${{ github.base_ref }}   # PR-scoped; omit to audit the whole tree
+          fail-on: high
+```
+
+Any other CI (or a pre-commit hook): `npx -y @shieldnet360/secure-vibe audit . --fail-on high` — add `--diff origin/main` for PR scope, `--format sarif` for Code Scanning, `--model <provider>` for the AI lanes.
+
 ## What you get
 
 The lifecycle is **PREVENT → DETECT → ENFORCE → VERIFY → LEARN**:
