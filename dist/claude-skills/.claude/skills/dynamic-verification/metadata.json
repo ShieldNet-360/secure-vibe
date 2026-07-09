@@ -1,6 +1,6 @@
 {
   "id": "dynamic-verification",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "title": "Verify Findings",
   "description": "Confirm or refute a vulnerability candidate against a live target with a deterministic probe (the agent runs the probe, respecting authorization and scope)",
   "category": "detection",
@@ -8,22 +8,24 @@
   "applies_to": [
     "when a static/SAST or LLM review flags a possible injection or SSRF",
     "when triaging a finding before opening a bug or shipping a fix",
-    "when an authorized dynamic test against a running app is available"
+    "when an authorized dynamic test against a running app is available",
+    "when a verification result turns out wrong and the PoC or skill needs fixing"
   ],
   "languages": [
     "*"
   ],
   "token_budget": {
-    "minimal": 760,
-    "compact": 1200,
-    "full": 2600
+    "minimal": 860,
+    "compact": 1350,
+    "full": 3100
   },
   "related_skills": [
     "secure-code-review",
     "ssrf-prevention",
-    "api-security"
+    "api-security",
+    "security-regression-tests"
   ],
-  "last_updated": "2026-07-08",
+  "last_updated": "2026-07-09",
   "sources": [
     "OWASP Web Security Testing Guide (WSTG)",
     "OWASP Top 10 2021",

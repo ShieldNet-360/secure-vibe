@@ -18,6 +18,7 @@ Confirm or refute a vulnerability candidate against a live target with a determi
 - Pin file-read oracles (path traversal) to a content signature of a known system file (`root:…:0:0:` from `/etc/passwd`, `[fonts]` from `win.ini`), never to a generic 200/404.
 - Drive the probe yourself with SecureVibe's scope-gated primitives: `http_probe` (send one crafted request, read status/headers/body/timing) and `oob_listener` (allocate a callback URL, poll for blind hits). They fire only at a target the operator authorized — otherwise they return a dry-run plan and send nothing.
 - Reach past `http_probe` for what it cannot prove: use your **own headless browser** for XSS execution-proof and DOM-based XSS, and your **own shell** (see `list_external_tools`) for heavyweight scanners. SecureVibe ships the light primitives; the heavy tools are yours.
+- When a verdict turns out **wrong** (a "confirmed" that is actually benign, or a "refuted" that was real), root-cause *why the oracle misled you* before moving on. If it was a target-specific PoC flaw (payload filtered, sink not reached, timing threshold, OOB unreachable) → fix the PoC and re-probe. If this skill's guidance was itself wrong (bad oracle, mis-mapped class, missing caveat) → record it with `propose_skill_update` so the knowledge is fixed, not just this run.
 
 ## NEVER
 
