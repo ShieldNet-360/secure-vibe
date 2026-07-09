@@ -2,17 +2,14 @@ package audit
 
 import "github.com/shieldnet-360/secure-vibe/internal/tools"
 
-// SARIF renders the audit's confirmed findings — deterministic scanners AND the
-// model-semantic lane — as a SARIF 2.1.0 log for GitHub Code Scanning. It reuses
-// tools.PolicyCheckSARIF so the document shape is byte-for-byte the same as the
-// gate's (URI anchoring, rule table, deterministic ordering), which Code Scanning
-// already ingests.
+// SARIF renders the audit's confirmed findings as a SARIF 2.1.0 log for GitHub
+// Code Scanning. It reuses tools.PolicyCheckSARIF so the document shape is
+// byte-for-byte what Code Scanning already ingests (URI anchoring, rule table,
+// deterministic ordering).
 //
-// The difference from calling PolicyCheckSARIF on the raw deterministic results:
-// this walks the *enriched* finding set, so model-found findings reach Code
-// Scanning too ("full-lane"). Triaged findings — likely fixtures and
-// adversarially-refuted candidates — are omitted, because they are intentionally
-// not alerts.
+// It walks the ranked finding set and omits triaged findings — likely fixtures
+// are intentionally not alerts — so Code Scanning shows the confirmed set, not
+// the raw per-file dump.
 func (r *Report) SARIF(baseDir string) *tools.SARIFLog {
 	// Regroup confirmed findings into per-(file, lane) results so each carries a
 	// consistent Scan (a file can hold both a secret and an llm-semantic finding).

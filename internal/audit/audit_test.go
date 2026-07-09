@@ -34,7 +34,7 @@ func TestBuildDedupTriageRank(t *testing.T) {
 		},
 	}
 
-	rep := build("/repo", results)
+	rep := build("/repo", results, false)
 
 	if rep.FilesScanned != 3 {
 		t.Errorf("FilesScanned = %d, want 3", rep.FilesScanned)
@@ -81,7 +81,7 @@ func TestBuildDedupKeepsDistinctLines(t *testing.T) {
 			{RuleID: "key", Severity: "high", Title: "Key", Line: 9},
 		},
 	}}
-	rep := build("/repo", results)
+	rep := build("/repo", results, false)
 	if rep.Total() != 2 {
 		t.Errorf("confirmed = %d, want 2 (distinct lines not deduped)", rep.Total())
 	}

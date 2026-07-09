@@ -216,7 +216,6 @@ func TestToolsListReturnsExpectedTools(t *testing.T) {
 		"list_external_tools":    false,
 		"explain_finding":        false,
 		"gate":                   false,
-		"verify_finding":         false,
 		"audit":                  false,
 	}
 	if len(tools) != len(want) {
