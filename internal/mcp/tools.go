@@ -230,23 +230,8 @@ func toolDefinitions() []map[string]interface{} {
 			},
 		},
 		{
-			"name":        "verify_finding",
-			"description": "Actively VERIFY a detected finding against a LIVE target by sending a probe and checking a deterministic oracle (the dynamic 'verify' lane). Types: ssrf (out-of-band / cloud-metadata), sqli (time-based blind), xss (reflected), redirect (open redirect), path-traversal (system-file read, /etc/passwd · win.ini), command-injection (out-of-band curl, else time-based sleep), ssti (template arithmetic evaluation), xxe (out-of-band external entity — XML body, ignores param). SAFETY: this sends attack payloads, so it is gated — it runs DRY-RUN (builds the payload, sends NOTHING) unless the operator configured a scope AND the target matches it. Scope + auth come from an operator file outside the repo (SECURE_VIBE_VERIFY_SCOPE_FILE: per-target allow-list + auth headers/cookies for gated endpoints), or the simpler SECURE_VIBE_VERIFY_SCOPE host allow-list (no auth). The model chooses WHICH finding to verify; it never sees or chooses the scope, target, or credentials. Use only on targets you are authorized to test.",
-			"inputSchema": map[string]interface{}{
-				"type": "object",
-				"properties": map[string]interface{}{
-					"type":   map[string]interface{}{"type": "string", "description": "Vulnerability class to verify.", "enum": []string{"ssrf", "sqli", "xss", "redirect", "path-traversal", "command-injection", "ssti", "xxe"}},
-					"target": map[string]string{"type": "string", "description": "URL of the endpoint to probe, e.g. http://localhost:4000/research"},
-					"param":  map[string]string{"type": "string", "description": "The parameter believed injectable, e.g. url (ignored for xxe, which sends an XML body)."},
-					"method": map[string]interface{}{"type": "string", "description": "HTTP method (default GET).", "enum": []string{"", "GET", "POST"}},
-					"query":  map[string]interface{}{"type": "object", "description": "Other required query params, e.g. {\"symbol\":\"AAPL\"}."},
-				},
-				"required": []string{"type", "target", "param"},
-			},
-		},
-		{
 			"name":        "audit",
-			"description": "Run a whole-tree security audit: fan the deterministic scanners (secrets, dependencies, Dockerfile, GitHub Actions) across every file under `path`, then deduplicate, rank by severity, and triage likely fixtures (test/example/sample paths are reported but demoted). This is the DETECT orchestration layer above `gate` — same scanners, but repo-wide breadth and one ranked result instead of a per-file pass/fail. Deterministic and offline (the calling agent supplies the reasoning); use `gate` for a single CI-failing file check and `verify_finding` to confirm a dynamic finding against a live target. Respects the server's allowed-roots sandbox.",
+			"description": "Run a whole-tree security audit: fan the deterministic scanners (secrets, dependencies, Dockerfile, GitHub Actions) across every file under `path`, then deduplicate, rank by severity, and triage likely fixtures (test/example/sample paths are reported but demoted). One ranked result for the whole tree instead of a per-file pass/fail. Deterministic and offline — the calling agent supplies the reasoning and any dynamic verification. Respects the server's allowed-roots sandbox.",
 			"inputSchema": map[string]interface{}{
 				"type": "object",
 				"properties": map[string]interface{}{
