@@ -217,6 +217,8 @@ func TestToolsListReturnsExpectedTools(t *testing.T) {
 		"explain_finding":        false,
 		"gate":                   false,
 		"audit":                  false,
+		"http_probe":             false,
+		"oob_listener":           false,
 	}
 	if len(tools) != len(want) {
 		t.Fatalf("expected %d tools, got %d", len(want), len(tools))
