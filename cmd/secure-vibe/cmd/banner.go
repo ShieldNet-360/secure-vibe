@@ -129,8 +129,8 @@ func renderBanner(w io.Writer) {
 	rows := []string{
 		bold("Quick start"),
 		cmd("secure-vibe init --tool <ide>", "embed skills in your IDE"),
-		cmd("secure-vibe scan <path>", "find secrets / bad deps / misconfig"),
-		cmd("secure-vibe gate <path>", "CI gate — fail on findings"),
+		cmd("secure-vibe audit <path>", "scan: secrets / bad deps / misconfig"),
+		cmd("secure-vibe audit . --fail-on high", "CI gate — fail on findings"),
 		cmd("secure-vibe mcp", "MCP server over stdio"),
 		cmd("secure-vibe --help", "list every command"),
 	}
