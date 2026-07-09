@@ -7,7 +7,9 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
+	"github.com/shieldnet-360/secure-vibe/internal/proposal"
 	"github.com/shieldnet-360/secure-vibe/internal/tools"
 )
 
@@ -22,6 +24,52 @@ func runContribute(t *testing.T, args ...string) (string, error) {
 	root.SetArgs(append([]string{"contribute"}, args...))
 	err := root.Execute()
 	return buf.String(), err
+}
+
+// TestContributeSkillReview exercises the knowledge LEARN loop's review
+// half: a recorded proposal is listed, shown, and turned into an upstream
+// bundle — and the command never mutates a skill.
+func TestContributeSkillReview(t *testing.T) {
+	dir := t.TempDir()
+	path := filepath.Join(dir, proposal.RelPath)
+	stored, _, err := proposal.Record(path, proposal.Proposal{
+		SkillID:       "xss-prevention",
+		Kind:          proposal.KindMissing,
+		Claim:         "Trusted Types can eliminate DOM XSS sinks in Chromium.",
+		Evidence:      "https://web.dev/trusted-types",
+		SuggestedText: "Add: enforce Trusted Types via CSP require-trusted-types-for 'script'.",
+	}, time.Date(2026, 7, 9, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// list
+	out, err := runContribute(t, "skill", "--dir", dir)
+	if err != nil || !strings.Contains(out, stored.ID) || !strings.Contains(out, "xss-prevention") {
+		t.Fatalf("list: %v\n%s", err, out)
+	}
+
+	// show
+	out, err = runContribute(t, "skill", "--dir", dir, "--show", stored.ID)
+	if err != nil || !strings.Contains(out, "Trusted Types") || !strings.Contains(out, "evidence:") {
+		t.Fatalf("show: %v\n%s", err, out)
+	}
+
+	// upstream — paste-ready block + a prefilled issue URL, nothing opened
+	out, err = runContribute(t, "skill", "--dir", dir, "--upstream", stored.ID)
+	if err != nil {
+		t.Fatalf("upstream: %v\n%s", err, out)
+	}
+	for _, want := range []string{"Proposed skill update", "github.com/" + upstreamRepo + "/issues/new", "re-sign"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("upstream output missing %q\n%s", want, out)
+		}
+	}
+
+	// A bogus id errors cleanly.
+	if _, err := runContribute(t, "skill", "--dir", dir, "--show", "sp-nope"); err == nil {
+		t.Error("expected error for unknown proposal id")
+	}
 }
 
 // TestContributeAddListRemove exercises the local-overlay lifecycle and
