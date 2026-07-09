@@ -1,8 +1,8 @@
 ---
 id: dynamic-verification
-version: "1.0.0"
+version: "1.1.0"
 title: "Verify Findings"
-description: "Confirm or refute a vulnerability candidate against a live target with a deterministic probe before acting on it"
+description: "Confirm or refute a vulnerability candidate against a live target with a deterministic probe (the agent runs the probe, respecting authorization and scope)"
 category: detection
 severity: high
 applies_to:
@@ -15,7 +15,7 @@ token_budget:
   compact: 1000
   full: 2600
 related_skills: ["secure-code-review", "ssrf-prevention", "api-security"]
-last_updated: "2026-06-29"
+last_updated: "2026-07-08"
 sources:
   - "OWASP Web Security Testing Guide (WSTG)"
   - "OWASP Top 10 2021"
@@ -73,21 +73,25 @@ sources:
 
 Detection (static analysis, LLM review, dependency data) is good at finding
 *candidates* but cannot tell a real, reachable bug from dead code or a sanitized
-sink. Dynamic verification closes that gap: it sends a real probe at a running
-target and decides on a deterministic oracle, turning "looks vulnerable" into
-**confirmed** or **refuted** with reproducible evidence — the lane behind the
-`verify_finding` MCP tool.
+sink. Dynamic verification closes that gap: send a real probe at a running target
+and decide on a deterministic oracle, turning "looks vulnerable" into **confirmed**
+or **refuted** with reproducible evidence.
 
-### The two safety rails
+SecureVibe gives you the candidate (class, endpoint, parameter) and the oracle
+knowledge below; **you — the coding agent — run the probe** with your own tools (an
+HTTP client, an out-of-band listener, a headless browser). The binary never sends
+attack traffic: the judgement and the request are yours, so the safety is yours too.
 
-Active probing sends attack traffic, so the verify lane never fires on the model's
-say-so. **Rail 1 (no auto-fire):** with nothing configured it runs dry-run — builds
-the payload, sends nothing. **Rail 2 (scope gate):** even when enabled, a probe fires
-only if the target matches the operator's allow-list. The model chooses *what* to
-verify; the operator — via a file outside the repo (`SECURE_VIBE_VERIFY_SCOPE_FILE`
-for per-target auth, or `SECURE_VIBE_VERIFY_SCOPE` for a host list) — controls
-*where* it may fire and *with which* credentials. See the MCP tools reference,
-"Active verification".
+### Two rules you must not break
+
+Active probing *is* attack traffic — treat it like a live pentest:
+
+- **Authorization first.** Only probe a target the user has explicitly authorized
+  you to test. If you are not sure it is in scope, ask before firing — never probe
+  production, a shared environment, or a third party on your own initiative.
+- **Stay in scope, prefer dry-run.** Confine probes to the exact host(s) and
+  endpoints the user named; do not pivot, escalate, or exfiltrate. When in doubt,
+  build the payload and show the *plan* rather than sending it.
 
 ### Oracle by vulnerability class
 
@@ -116,4 +120,4 @@ lets you drop a candidate without spending review time on a non-issue.
 - [OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/).
 - [OWASP Top 10 2021](https://owasp.org/Top10/).
 - [PortSwigger Web Security Academy](https://portswigger.net/web-security).
-- MCP tools reference → "Active verification (the verify lane)".
+- Related skills: `secure-code-review`, `ssrf-prevention`, `api-security`.

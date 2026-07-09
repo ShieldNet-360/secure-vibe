@@ -350,7 +350,7 @@ _Block unsafe deserialization across Java, Python, .NET, PHP, Ruby, Node.js — 
 
 ## Verify Findings (`dynamic-verification`)
 
-_Confirm or refute a vulnerability candidate against a live target with a deterministic probe before acting on it_
+_Confirm or refute a vulnerability candidate against a live target with a deterministic probe (the agent runs the probe, respecting authorization and scope)_
 
 **Always:**
 - Treat a static-analysis or LLM-review hit as a *candidate*, not a vulnerability, until a probe with a deterministic oracle confirms it against a live target.
