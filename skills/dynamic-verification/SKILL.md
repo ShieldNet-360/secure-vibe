@@ -1,6 +1,6 @@
 ---
 id: dynamic-verification
-version: "1.1.0"
+version: "1.2.0"
 title: "Verify Findings"
 description: "Confirm or refute a vulnerability candidate against a live target with a deterministic probe (the agent runs the probe, respecting authorization and scope)"
 category: detection
@@ -9,13 +9,14 @@ applies_to:
   - "when a static/SAST or LLM review flags a possible injection or SSRF"
   - "when triaging a finding before opening a bug or shipping a fix"
   - "when an authorized dynamic test against a running app is available"
+  - "when a verification result turns out wrong and the PoC or skill needs fixing"
 languages: ["*"]
 token_budget:
-  minimal: 760
-  compact: 1200
-  full: 2600
-related_skills: ["secure-code-review", "ssrf-prevention", "api-security"]
-last_updated: "2026-07-08"
+  minimal: 860
+  compact: 1350
+  full: 3100
+related_skills: ["secure-code-review", "ssrf-prevention", "api-security", "security-regression-tests"]
+last_updated: "2026-07-09"
 sources:
   - "OWASP Web Security Testing Guide (WSTG)"
   - "OWASP Top 10 2021"
@@ -50,6 +51,13 @@ sources:
   browser** for XSS execution-proof and DOM-based XSS, and your **own shell**
   (see `list_external_tools`) for heavyweight scanners. SecureVibe ships the light
   primitives; the heavy tools are yours.
+- When a verdict turns out **wrong** (a "confirmed" that is actually benign, or a
+  "refuted" that was real), root-cause *why the oracle misled you* before moving
+  on. If it was a target-specific PoC flaw (payload filtered, sink not reached,
+  timing threshold, OOB unreachable) → fix the PoC and re-probe. If this skill's
+  guidance was itself wrong (bad oracle, mis-mapped class, missing caveat) →
+  record it with `propose_skill_update` so the knowledge is fixed, not just this
+  run.
 
 ### NEVER
 - Send an attack payload at a host you are not explicitly authorized to test —
@@ -147,6 +155,28 @@ Active probing *is* attack traffic — treat it like a live pentest:
 
 A confirmed verdict is reproducible evidence to attach to the fix; a refuted verdict
 lets you drop a candidate without spending review time on a non-issue.
+
+### When a verification is wrong (close the loop)
+
+A verdict can be wrong: a "confirmed" that later proves benign, or a "refuted"
+that was actually exploitable. When that happens, diagnose *why the oracle misled
+you* before moving on, then route the fix by its blast radius:
+
+- **A target-specific PoC flaw** — the payload was filtered, never reached the
+  sink, the timing threshold was too low, or the OOB listener was unreachable.
+  Ephemeral: fix the payload/probe and re-run `http_probe` / `oob_listener`.
+  Nothing to record — it only concerned this one target.
+- **A flaw in this skill's guidance** — the oracle for the class was wrong, the
+  class was mis-mapped (an "SSRF" that was really an open redirect), or a caveat
+  was missing (reflection proved, but not execution). Durable: record it with
+  `propose_skill_update(skill_id: "dynamic-verification", kind: wrong|missing,
+  claim, evidence)`, where the evidence is the PoC, the observed result, and the
+  root cause. A maintainer reviews and re-signs; the skill improves for next time.
+
+Rule of thumb: a bad payload for *this* target → fix the PoC; a bad *method* for
+*this class* → propose a skill update. And when a verdict is finally **confirmed**,
+its PoC graduates into a committed regression test ([[security-regression-tests]])
+so the fix stays verified in CI — no PoC is wasted.
 
 ## References
 
