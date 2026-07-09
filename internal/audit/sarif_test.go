@@ -7,17 +7,17 @@ import (
 	"github.com/shieldnet-360/secure-vibe/internal/tools"
 )
 
-func TestReportSARIFFullLane(t *testing.T) {
+func TestReportSARIF(t *testing.T) {
 	rep := &Report{Findings: []Finding{
-		{ // deterministic
+		{
 			PolicyCheckFinding: tools.PolicyCheckFinding{RuleID: "secure-vibe.secret.gh", Severity: "critical", Title: "GitHub PAT", Line: 3},
 			FilePath:           "/repo/config.js", Scan: "scan_secrets",
 		},
-		{ // model-semantic — must reach SARIF (full-lane)
-			PolicyCheckFinding: tools.PolicyCheckFinding{RuleID: "secure-vibe.llm.sqli", Severity: "high", Title: "SQL injection"},
-			FilePath:           "/repo/db.go", Scan: semanticScan,
+		{
+			PolicyCheckFinding: tools.PolicyCheckFinding{RuleID: "secure-vibe.dockerfile.root", Severity: "high", Title: "USER root"},
+			FilePath:           "/repo/Dockerfile", Scan: "scan_dockerfile",
 		},
-		{ // triaged fixture — must be excluded
+		{ // triaged fixture — must be excluded from SARIF
 			PolicyCheckFinding: tools.PolicyCheckFinding{RuleID: "secure-vibe.secret.gh", Severity: "critical", Title: "GitHub PAT", Line: 1},
 			FilePath:           "/repo/testdata/x.js", Scan: "scan_secrets", Triage: "likely-fixture",
 		},
@@ -31,24 +31,13 @@ func TestReportSARIFFullLane(t *testing.T) {
 	if len(res) != 2 {
 		t.Fatalf("results = %d, want 2 (triaged excluded)", len(res))
 	}
-
-	var sawSemantic, sawSecret bool
 	for _, r := range res {
-		switch r.RuleID {
-		case "secure-vibe.llm.sqli":
-			sawSemantic = true
-		case "secure-vibe.secret.gh":
-			sawSecret = true
+		if r.RuleID == "secure-vibe.secret.gh" && strings.Contains(r.Locations[0].PhysicalLocation.ArtifactLocation.URI, "testdata") {
+			t.Error("triaged fixture leaked into SARIF")
 		}
 		if uri := r.Locations[0].PhysicalLocation.ArtifactLocation.URI; strings.HasPrefix(uri, "/") || strings.HasPrefix(uri, "file://") {
 			t.Errorf("URI not repo-relative: %q", uri)
 		}
-	}
-	if !sawSemantic {
-		t.Error("model-semantic finding missing from SARIF (full-lane broken)")
-	}
-	if !sawSecret {
-		t.Error("deterministic finding missing from SARIF")
 	}
 	if log.Runs[0].Tool.Driver.Name != "secure-vibe" {
 		t.Errorf("driver name = %q", log.Runs[0].Tool.Driver.Name)

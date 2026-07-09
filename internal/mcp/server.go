@@ -16,16 +16,15 @@ import (
 
 	"github.com/shieldnet-360/secure-vibe/internal/audit"
 	"github.com/shieldnet-360/secure-vibe/internal/tools"
-	"github.com/shieldnet-360/secure-vibe/internal/verify"
 )
 
 // Server is the JSON-RPC dispatcher. It owns one Library and exposes the
-// 18 Skills Library tools as MCP tools: lookup_vulnerability,
+// 17 Skills Library tools as MCP tools: lookup_vulnerability,
 // check_secret_pattern, get_skill, search_skills, scan_secrets,
 // check_dependency, check_typosquat, map_compliance_control,
 // get_sigma_rule, version_status, scan_dependencies,
 // scan_github_actions, scan_dockerfile, list_external_tools,
-// explain_finding, gate (formerly policy_check), verify_finding, and
+// explain_finding, gate (formerly policy_check), and
 // audit (whole-tree deterministic audit).
 type Server struct {
 	lib *tools.Library
@@ -391,29 +390,11 @@ func (s *Server) invokeTool(name string, args map[string]interface{}) (interface
 			stringArg(args, "file_path"),
 			stringArg(args, "severity_floor"),
 		)
-	case "verify_finding":
-		// Active DAST verify. Scope + Confirm come from the operator's env,
-		// never from the model: unset scope ⇒ dry-run only (builds payload,
-		// sends nothing). See verify package safety rails.
-		allow, headers, scoped := loadVerifyScope()
-		target := stringArg(args, "target")
-		f := verify.Finding{
-			Type:   stringArg(args, "type"),
-			Target: target,
-			Param:  stringArg(args, "param"),
-			Method: stringArg(args, "method"),
-			Query:  mapArg(args, "query"),
-			Header: headers(target), // operator-resolved auth (scope file), never from the model
-		}
-		return verify.Run(context.Background(), f, verify.Opts{
-			Confirm:     scoped,
-			AllowTarget: allow,
-		})
 	case "audit":
 		// Whole-tree deterministic audit. Reuses the server Library (so the
 		// allowed-roots sandbox is enforced) serially — jobs=1 avoids sharing
-		// mutable library state across goroutines. The LLM lanes are a CLI
-		// concern; here the calling agent is the reasoning layer.
+		// mutable library state across goroutines. Deterministic by design; the
+		// calling agent is the reasoning (and any dynamic verification) layer.
 		root := stringArg(args, "path")
 		if strings.TrimSpace(root) == "" {
 			root = "."

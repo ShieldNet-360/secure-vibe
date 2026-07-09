@@ -18,9 +18,9 @@
 - id: secure-vibe-gate
   name: SecureVibe gate
   description: Fail on secrets, vulnerable dependencies, and Dockerfile / GitHub Actions issues at or above a severity floor.
-  entry: secure-vibe gate
+  entry: secure-vibe audit --fail-on high
   language: node
-  args: ["--severity-floor", "high"]
+  args: []
   types: [text]
   pass_filenames: true
   require_serial: false
