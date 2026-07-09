@@ -125,8 +125,8 @@ func TestGateSection(t *testing.T) {
 		},
 	}
 	s := gateSection(res)
-	if !strings.Contains(s.Subtitle, "scanner=scan_dependencies") || !strings.Contains(s.Subtitle, "floor=high") {
-		t.Fatalf("subtitle = %q", s.Subtitle)
+	if s.Subtitle != "dependency scan" {
+		t.Fatalf("subtitle = %q; want %q", s.Subtitle, "dependency scan")
 	}
 	wantLoc := []string{"line-rule · line 4", "pkg-rule · evil@1.2.3", "bare-rule"}
 	for i, w := range wantLoc {

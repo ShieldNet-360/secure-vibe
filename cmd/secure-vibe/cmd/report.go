@@ -398,7 +398,7 @@ func dockerfileSection(label string, res *tools.ScanDockerfileResult) reportSect
 func gateSection(res *tools.PolicyCheckResult) reportSection {
 	s := reportSection{
 		Title:    res.FilePath,
-		Subtitle: fmt.Sprintf("scanner=%s, floor=%s", res.Scan, res.SeverityFloor),
+		Subtitle: scanCategory(res.Scan) + " scan",
 	}
 	for _, f := range res.Findings {
 		loc := f.RuleID
@@ -458,8 +458,15 @@ const reportHTML = `<!DOCTYPE html>
 <style>
   :root {
     --bg: #f6f7f9; --card: #ffffff; --ink: #1b1f24; --muted: #5b6470;
-    --border: #e2e6ea; --crit: #b00020; --high: #d9480f; --med: #b08900;
-    --low: #2f6feb; --info: #5b6470;
+    --border: #e2e6ea; --chip: #eef0f3; --crit: #b00020; --high: #d9480f;
+    --med: #b08900; --low: #2f6feb; --info: #5b6470;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171a; --card: #1c2024; --ink: #e8eaed; --muted: #9aa4b0;
+      --border: #2c3238; --chip: #23282e; --crit: #ff5a6a; --high: #ff9a52;
+      --med: #e6c34a; --low: #6ea8ff; --info: #9aa4b0;
+    }
   }
   * { box-sizing: border-box; }
   body {
@@ -470,7 +477,7 @@ const reportHTML = `<!DOCTYPE html>
   header.report { margin-bottom: 1.5rem; }
   header.report h1 { margin: 0 0 .25rem; font-size: 1.6rem; }
   .meta { color: var(--muted); font-size: .85rem; }
-  .meta code { background: #eef0f3; padding: .05rem .35rem; border-radius: 4px; }
+  .meta code { background: var(--chip); padding: .05rem .35rem; border-radius: 4px; }
   .summary {
     display: flex; flex-wrap: wrap; gap: .6rem; align-items: center;
     margin: 1rem 0 1.5rem;
@@ -507,7 +514,7 @@ const reportHTML = `<!DOCTYPE html>
   .clean { padding: .75rem 1rem; color: #1a7f37; font-size: .9rem; }
   table { width: 100%; border-collapse: collapse; }
   th, td { text-align: left; padding: .55rem 1rem; vertical-align: top; border-top: 1px solid var(--border); }
-  th { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); background: #fafbfc; }
+  th { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); background: var(--chip); }
   td.sev { white-space: nowrap; }
   td .loc { color: var(--muted); font-size: .82rem; }
   td .fix { margin-top: .3rem; font-size: .85rem; }

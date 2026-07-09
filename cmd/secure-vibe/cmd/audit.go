@@ -111,7 +111,9 @@ that treats fixtures like any other finding.`,
 			case report != "":
 				rep2 := newReport("audit", raw)
 				for _, res := range rep.Results {
-					rep2.Sections = append(rep2.Sections, gateSection(res))
+					sec := gateSection(res)
+					sec.Title = relInRoot(rep.Root, sec.Title) // compact, repo-relative path
+					rep2.Sections = append(rep2.Sections, sec)
 				}
 				if err := writeReport(c, report, rep2); err != nil {
 					return err
@@ -185,51 +187,158 @@ func allowedRootsFor(targets []string) []string {
 	return roots
 }
 
-// renderAuditText prints the ranked, human-readable audit summary. Confirmed
-// findings are grouped by severity; triaged (likely-fixture) findings are
+// scanCategory maps a scanner id (scan_secrets, …) to a short human tag shown
+// next to each finding so the class is legible without the verbose rule id.
+func scanCategory(scan string) string {
+	switch scan {
+	case "scan_secrets":
+		return "secret"
+	case "scan_dependencies":
+		return "dependency"
+	case "scan_dockerfile":
+		return "dockerfile"
+	case "scan_github_actions":
+		return "actions"
+	}
+	if s := strings.TrimPrefix(scan, "scan_"); s != "" && s != scan {
+		return s
+	}
+	return "finding"
+}
+
+// relInRoot renders p relative to root for compact display, falling back to the
+// absolute path when it lies outside root.
+func relInRoot(root, p string) string {
+	if r, err := filepath.Rel(root, p); err == nil && !strings.HasPrefix(r, "..") {
+		return r
+	}
+	return p
+}
+
+func plural(n int) string {
+	if n == 1 {
+		return ""
+	}
+	return "s"
+}
+
+// sevAnsi colours severity accents in an interactive terminal (see colorTo).
+var sevAnsi = map[string]string{
+	"critical": "\x1b[1;31m",
+	"high":     "\x1b[31m",
+	"medium":   "\x1b[33m",
+	"low":      "\x1b[34m",
+	"info":     "\x1b[90m",
+}
+
+// renderAuditText prints the ranked, human-readable audit summary: a one-line
+// header, a summary line, then confirmed findings grouped by severity and then
+// by file (path relative, class tagged). Triaged (likely-fixture) findings are
 // summarised as a count so the report reads honest without drowning in samples.
 func renderAuditText(c *cobra.Command, rep *audit.Report) {
 	out := c.OutOrStdout()
-	fmt.Fprintf(out, "=== secure-vibe audit: %s ===\n", rep.Root)
-	fmt.Fprintf(out, "Files scanned: %d\n", rep.FilesScanned)
+	color := colorTo(out)
+	dim := func(s string) string {
+		if color {
+			return "\x1b[90m" + s + "\x1b[0m"
+		}
+		return s
+	}
+	sevAccent := func(sev, s string) string {
+		if color {
+			if a := sevAnsi[sev]; a != "" {
+				return a + s + "\x1b[0m"
+			}
+		}
+		return s
+	}
+
+	name := filepath.Base(rep.Root)
+	if name == "." || name == "" || name == string(filepath.Separator) {
+		name = rep.Root
+	}
+	fmt.Fprintf(out, "secure-vibe audit %s %s\n", dim("·"), name)
 
 	confirmed := rep.Total()
-	fmt.Fprintf(out, "Findings: %d%s", confirmed, severitySummary(rep.Counts))
-	if rep.Triaged > 0 {
-		fmt.Fprintf(out, "   [+%d triaged as likely fixtures]", rep.Triaged)
-	}
-	fmt.Fprintln(out)
-
 	if confirmed == 0 {
-		fmt.Fprintln(out, "\nNo confirmed findings.")
+		line := fmt.Sprintf("No findings %s %d file(s) scanned", dim("·"), rep.FilesScanned)
 		if rep.Triaged > 0 {
-			fmt.Fprintln(out, "(triaged findings are hidden here — see --format json for the full list)")
+			line += fmt.Sprintf(" %s +%d triaged (fixtures)", dim("·"), rep.Triaged)
 		}
+		fmt.Fprintln(out, line)
 		return
 	}
 
-	lastSev := ""
+	// Bucket confirmed findings by severity; count the files they touch.
+	buckets := map[string][]audit.Finding{}
+	files := map[string]bool{}
 	for _, f := range rep.Findings {
 		if f.Triage != "" {
 			continue
 		}
+		files[f.FilePath] = true
 		sev := strings.ToLower(strings.TrimSpace(f.Severity))
 		if sev == "" {
 			sev = "info"
 		}
-		if sev != lastSev {
-			fmt.Fprintf(out, "\n%s\n", strings.ToUpper(sev))
-			lastSev = sev
-		}
-		loc := f.FilePath
-		if f.Line > 0 {
-			loc = fmt.Sprintf("%s:%d", f.FilePath, f.Line)
-		}
-		fmt.Fprintf(out, "  %s  [%s]  %s\n", loc, f.RuleID, f.Title)
+		buckets[sev] = append(buckets[sev], f)
 	}
+
+	summary := fmt.Sprintf("%d finding%s %s across %d file%s %s %d scanned",
+		confirmed, plural(confirmed), strings.TrimSpace(severitySummary(rep.Counts)),
+		len(files), plural(len(files)), dim("·"), rep.FilesScanned)
 	if rep.Triaged > 0 {
-		fmt.Fprintf(out, "\n%d finding(s) triaged as likely fixtures — see --format json (or --no-triage to include them).\n", rep.Triaged)
+		summary += fmt.Sprintf(" %s +%d triaged", dim("·"), rep.Triaged)
 	}
+	fmt.Fprintln(out, summary)
+
+	// Severity iteration order: known ranks that are present, then any extras.
+	order := []string{"critical", "high", "medium", "low", "info"}
+	var sevs []string
+	for _, s := range order {
+		if len(buckets[s]) > 0 {
+			sevs = append(sevs, s)
+		}
+	}
+	var extras []string
+	for s := range buckets {
+		if !contains(order, s) {
+			extras = append(extras, s)
+		}
+	}
+	sort.Strings(extras)
+	sevs = append(sevs, extras...)
+
+	for _, sev := range sevs {
+		group := buckets[sev]
+		sort.SliceStable(group, func(i, j int) bool {
+			ri, rj := relInRoot(rep.Root, group[i].FilePath), relInRoot(rep.Root, group[j].FilePath)
+			if ri != rj {
+				return ri < rj
+			}
+			return group[i].Line < group[j].Line
+		})
+		fmt.Fprintf(out, "\n%s\n", sevAccent(sev, strings.ToUpper(sev)))
+		lastFile := ""
+		for _, f := range group {
+			rel := relInRoot(rep.Root, f.FilePath)
+			if rel != lastFile {
+				fmt.Fprintf(out, "  %s\n", rel)
+				lastFile = rel
+			}
+			cat := scanCategory(f.Scan)
+			if f.Line > 0 {
+				cat = fmt.Sprintf("%s:%d", cat, f.Line)
+			}
+			fmt.Fprintf(out, "    %s %s  %s\n", sevAccent(sev, "●"), f.Title, dim("("+cat+")"))
+		}
+	}
+
+	if rep.Triaged > 0 {
+		fmt.Fprintf(out, "\n%s\n", dim(fmt.Sprintf(
+			"%d finding(s) triaged as likely fixtures — --no-triage to include, --format json for the list.", rep.Triaged)))
+	}
+	fmt.Fprintf(out, "\n%s\n", dim("Next: --report-dir out/ (HTML+PDF) · --fail-on high (gate CI) · --format json (rule IDs)"))
 }
 
 // severitySummary renders the per-severity breakdown in severity order,
