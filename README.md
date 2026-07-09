@@ -60,7 +60,7 @@ secure-vibe audit . --fail-on high --format sarif
 # 4 · vet one package before adding it
 secure-vibe check event-stream@3.3.6 -e npm
 
-# 5 · the MCP server (19 tools over stdio) — this is the command clients spawn:
+# 5 · the MCP server (20 tools over stdio) — this is the command clients spawn:
 secure-vibe mcp                                    # or: npx -y @shieldnet360/secure-vibe mcp
 #    register it with Claude Code in one line:
 claude mcp add SecureVibe -- npx -y @shieldnet360/secure-vibe mcp
@@ -116,7 +116,7 @@ tool stays keyless and works the same in Claude Code, Codex, Gemini, or plain CI
 - **DETECT** — one command, `audit`: fans the deterministic scanners (secrets, dependencies via a curated malicious / typosquat DB + CVE / OSV across 10 ecosystems, Dockerfile, GitHub Actions) across the tree (or a PR's `--diff`), then dedups, ranks by severity, and triages likely fixtures.
 - **ENFORCE** — `audit --fail-on <severity>` exits non-zero for CI; `--format sarif` for Code Scanning, `--report-dir` for an HTML + PDF report, `--no-triage` for a strict gate.
 - **VERIFY** — the coding agent confirms candidates dynamically using two scope-gated MCP primitives — `http_probe` (send one crafted request) and `oob_listener` (catch blind callbacks) — guided by the `dynamic-verification` skill. In CI (no agent), verification is a committed **regression test** (`security-regression-tests` skill), not a live probe. The binary never sends attack traffic on its own.
-- **LEARN** — `secure-vibe contribute add -p <pkg> -e npm` writes a signed `.secure-vibe/overlay.json`; commit it (team) or point `$SECURE_VIBE_OVERLAY` at a shared file (org).
+- **LEARN** — two feedback loops that improve the tool from real use. *Data:* `secure-vibe contribute add -p <pkg> -e npm` writes a `.secure-vibe/overlay.json` the gate enforces — commit it (team) or point `$SECURE_VIBE_OVERLAY` at a shared file (org). *Knowledge:* when the agent finds a skill is wrong or missing a fact, it records an inert proposal via the `propose_skill_update` MCP tool; review with `secure-vibe contribute skill`, then edit the skill and re-sign. Proposals never touch the signed skill on their own — a human review is the gate.
 
 > **Narrow by design.** Detection is four deterministic scanners, not a general SAST. It catches known patterns and known-bad packages with near-zero false positives; it does not claim to find every vulnerability. The semantic and dynamic depth comes from the agent driving it.
 
@@ -127,8 +127,8 @@ tool stays keyless and works the same in Claude Code, Codex, Gemini, or plain CI
 | `init --tool <ide>` | Write the assistant config (`CLAUDE.md`, `.cursorrules`, …) that embeds the skills |
 | `audit [path...]` | The scanner: fan out every scanner, dedup, rank, triage. Reports by default; `--fail-on` gates CI; `--diff` scopes to a PR; `--format sarif` for Code Scanning |
 | `check <pkg>[@ver] -e <eco>` | Look up one package: malicious / typosquat / CVE / OSV |
-| `mcp` | Run the MCP server (19 tools); `mcp connect` registers it with Claude Code |
-| `contribute` | The LEARN loop — block a bad package locally, share via git / overlay |
+| `mcp` | Run the MCP server (20 tools); `mcp connect` registers it with Claude Code |
+| `contribute` | The LEARN loop — block a bad package (`add`), or review agent-proposed skill fixes (`skill`) |
 | `update` | Pull signed skills + vuln data (`--self` updates the binary) · `status` reports freshness |
 
 Full reference: [docs/reference/cli.md](./docs/reference/cli.md) · `secure-vibe --help`.
@@ -137,7 +137,7 @@ Full reference: [docs/reference/cli.md](./docs/reference/cli.md) · `secure-vibe
 
 - [ARCHITECTURE.md](./ARCHITECTURE.md) — design, compiler, update protocol, repo layout.
 - [docs/](./docs/) — guides (developer · devops · security · evaluator), install, air-gapped, team rollout.
-- [docs/reference/mcp-clients.md](./docs/reference/mcp-clients.md) — connect the MCP server to any agent (Claude Code · Cursor · Windsurf · VS Code · Cline · Zed) · [docs/reference/mcp-tools.md](./docs/reference/mcp-tools.md) — the 19 MCP tools · [skills/](./skills) — the 33-skill catalogue.
+- [docs/reference/mcp-clients.md](./docs/reference/mcp-clients.md) — connect the MCP server to any agent (Claude Code · Cursor · Windsurf · VS Code · Cline · Zed) · [docs/reference/mcp-tools.md](./docs/reference/mcp-tools.md) — the 20 MCP tools · [skills/](./skills) — the 33-skill catalogue.
 - [SIGNING.md](./SIGNING.md) — Ed25519 release signing · [CONTRIBUTING.md](./CONTRIBUTING.md) · [SECURITY.md](./SECURITY.md).
 
 ## Platform support

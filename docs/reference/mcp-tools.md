@@ -39,7 +39,7 @@ The file-reading tools (`scan_secrets`, `scan_dependencies`, `scan_github_action
 
 ## Tool catalogue
 
-The server exposes 19 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
+The server exposes 20 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
 
 | Tool | Purpose |
 | --- | --- |
@@ -62,6 +62,7 @@ The server exposes 19 tools; `policy_check` is additionally accepted as a back-c
 | `get_sigma_rule` | Return Sigma-format detection rules by ID or query. |
 | `list_external_tools` | List recommended external CLIs and whether each is on `PATH`. |
 | `version_status` | Report the data version, release timestamp, and signature/trust state. |
+| `propose_skill_update` | Record an inert proposal that a skill is missing/wrong/outdated knowledge (the knowledge LEARN loop). Appends to a local, unsigned review log; never edits or signs a skill. Reviewed with `secure-vibe contribute skill`. |
 
 ## Dependency & supply-chain tools
 
@@ -259,6 +260,31 @@ Returns the Skills Library data version, release timestamp, signature status, an
 !!! tip "Call this first"
     Use `version_status` before relying on results from the other tools, so the assistant can disclose data freshness and trust state. (See the [trust model](../concepts/why.md) for how releases are Ed25519-signed.)
 
+## Knowledge LEARN loop
+
+### `propose_skill_update`
+
+Record a proposal that a skill is **missing** a fact, states something **wrong**,
+or has gone **outdated** — the feedback loop for knowledge, complementing the
+vuln-data overlay (`contribute add`). Use it when you discovered better security
+knowledge than the skill carries (a new bypass, a corrected control, a fresh
+CVE/spec).
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `skill_id` | yes | The skill this is about (e.g. `xss-prevention`). Find it with `search_skills` / `get_skill`. |
+| `kind` | yes | `missing` \| `wrong` \| `outdated`. |
+| `claim` | yes | The new or corrected knowledge, stated plainly. |
+| `evidence` | yes | Why the claim holds — a source, repro, CVE, or spec link. |
+| `suggested_text` | no | Optional drop-in wording for the `SKILL.md`. |
+
+It is **inert and safe**: it only appends to a local, unsigned review log
+(`.secure-vibe/skill-proposals.jsonl`). It never edits the signed skill, signs
+anything, or opens a PR — a human reviews it with `secure-vibe contribute skill`
+and, if it holds up, edits the skill and re-signs. Re-recording the same claim is
+idempotent. This human review + re-sign is the trust gate that keeps a
+prompt-injectable model from mutating signed knowledge.
+
 ## Honest scope
 
 The scanners behind these tools are **narrow by design** — four deterministic scanners (secrets, dependencies, Dockerfile, GitHub Actions), not a general SAST. They catch known patterns and exact-match known-bad packages with zero false positives on the data moat, but they miss novel or semantic bugs. That is the accepted trade-off: a fast, offline prevention layer that grounds an AI assistant at generation time, backed by a deterministic gate — not a replacement for human review or a claim to find every vulnerability.
@@ -266,5 +292,5 @@ The scanners behind these tools are **narrow by design** — four deterministic 
 ## See also
 
 - [Developer guide](../guides/developer.md) — wiring SecureVibe into your editor and workflow.
-- [DevOps guide](../guides/devops.md) — the `gate` in CI with SARIF.
-- [Quick start](../quickstart.md) — install and first scan.
+- [DevOps guide](../guides/devops.md) — `audit --fail-on` in CI with SARIF.
+- [Quick start](../quickstart.md) — install and first audit.
