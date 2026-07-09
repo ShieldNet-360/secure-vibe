@@ -41,6 +41,25 @@ func TestAuditReportsAndTriagesFixtures(t *testing.T) {
 	}
 }
 
+// TestAuditTextPresentation locks in the v1.2 presentation: a compact header,
+// repo-relative paths (not absolute), a per-finding class tag, and a footer.
+func TestAuditTextPresentation(t *testing.T) {
+	dir := auditTarget(t)
+	out, _, err := run(t, "audit", dir, "--path", repoRootForTest(t))
+	if err != nil {
+		t.Fatalf("audit: %v", err)
+	}
+	for _, want := range []string{"secure-vibe audit ·", "app/config.js", "(secret)", "Next:"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("presentation missing %q in:\n%s", want, out)
+		}
+	}
+	// The confirmed finding's line must NOT show the absolute temp-dir path.
+	if strings.Contains(out, filepath.Join(dir, "app", "config.js")) {
+		t.Errorf("report shows an absolute path; expected relative:\n%s", out)
+	}
+}
+
 func TestAuditFailOnExitsNonZero(t *testing.T) {
 	dir := auditTarget(t)
 	_, _, err := run(t, "audit", dir, "--path", repoRootForTest(t), "--fail-on", "high")
