@@ -39,7 +39,7 @@ The file-reading tools (`scan_secrets`, `scan_dependencies`, `scan_github_action
 
 ## Tool catalogue
 
-The server exposes 18 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
+The server exposes 17 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
 
 | Tool | Purpose |
 | --- | --- |
@@ -53,7 +53,6 @@ The server exposes 18 tools; `policy_check` is additionally accepted as a back-c
 | `scan_github_actions` | Run the CI/CD hardening checklist over a GitHub Actions workflow. |
 | `gate` | Auto-pick the right scanner for a file and return a CI-friendly pass/fail. |
 | `audit` | Whole-tree audit: fan every scanner across a directory, then dedup, rank by severity, and triage likely fixtures. The DETECT layer above `gate`; deterministic, respects the allowed-roots sandbox. |
-| `verify_finding` | Actively confirm a finding against a live target by sending a probe and checking a deterministic oracle (the dynamic "verify" lane). Gated: dry-run unless an operator scope is configured. |
 | `map_compliance_control` | Map a skill / category / term to SOC 2, HIPAA, or PCI DSS controls. |
 | `explain_finding` | Map a CWE/CVE/finding description to relevant skills and CVE patterns. |
 | `get_skill` | Return a skill at a chosen token tier (minimal / compact / full). |
@@ -189,70 +188,7 @@ Where `gate` checks one file, `audit` checks a whole tree: it fans every scanner
 | `path` | yes | Directory to audit. Must be within the server's allowed roots. |
 | `severity_floor` | no | Only collect findings at or above this severity. Default: `low`. |
 
-The tool is **deterministic and offline** — the calling agent is the reasoning layer, so the CLI's model / dynamic-verify lanes are intentionally not exposed here. It respects the [allowed-roots sandbox](#file-access-safety); a `path` outside the sandbox yields no findings.
-
-## Active verification (the verify lane)
-
-Static and LLM detection produce a *candidate*. The verify lane turns a candidate into a verdict — **confirmed** or **refuted** — by sending a real probe at a live target and checking a deterministic oracle (build payload → fire → oracle → result). It is the only tool that sends attack traffic, so it is gated by two safety rails described below.
-
-### `verify_finding`
-
-Actively verifies one finding against a live endpoint.
-
-| Parameter | Required | Description |
-| --- | --- | --- |
-| `type` | yes | Vulnerability class: `ssrf`, `sqli`, `xss`, `redirect`, `path-traversal`, `command-injection`, `ssti`, `xxe`. |
-| `target` | yes | URL of the endpoint to probe, e.g. `http://localhost:4000/research`. |
-| `param` | yes | The parameter believed injectable, e.g. `url`. Ignored for `xxe` (which sends an XML body). |
-| `method` | no | `GET` (default) or `POST`. |
-| `query` | no | Other required params as an object, e.g. `{"symbol":"AAPL"}`. |
-
-Each class has its own payload set and a deterministic oracle, so a generic error page or echo never confirms:
-
-| `type` | Technique | Oracle (what confirms) |
-| --- | --- | --- |
-| `ssrf` | Out-of-band callback, else cloud-metadata URL | Listener hit with our nonce (blind), or an internal/metadata signature reflected |
-| `sqli` | Time-based blind (`SLEEP`/`pg_sleep`/`WAITFOR`) | Injected latency ≥ threshold over baseline, re-confirmed |
-| `xss` | Reflected marker that breaks out of attribute/text | Payload reflected **unescaped** (HTML-escaped ⇒ refuted) |
-| `redirect` | Attacker URL + filter bypasses, no-follow client | `3xx` with a `Location` to the attacker host |
-| `path-traversal` | Climb to `/etc/passwd` · `win.ini` (+ encoding bypasses) | A known system-file signature in the body (`root:…:0:0:`) |
-| `command-injection` | Out-of-band `curl`, else time-based `sleep` | Listener hit (blind), or injected latency ≥ threshold, re-confirmed |
-| `ssti` | Template arithmetic in each engine's delimiters | The product renders as a standalone number while the expression does not |
-| `xxe` | XML body with an external entity → listener | Listener hit — the parser dereferenced the entity (blind, out-of-band) |
-
-!!! danger "Two safety rails — the model never holds the trigger"
-    - **RAIL 1 — no auto-fire.** With nothing configured, `verify_finding` runs **dry-run**: it builds the payload and returns the plan, sending *nothing*.
-    - **RAIL 2 — scope gate.** Even configured, a probe only fires when the `target` matches the operator's allow-list. Out-of-scope ⇒ dry-run.
-
-    The model chooses *which* finding to verify; it never sees or chooses the target scope or the credentials. Both come from an operator-controlled file outside the repo.
-
-### Configuring scope (operator only)
-
-Two environment variables, highest precedence first:
-
-`SECURE_VIBE_VERIFY_SCOPE_FILE` — path to a JSON file **outside any scanned repo** (`chmod 600`) listing the targets a probe may fire at and, per target, the auth headers to send. The token lives here, on the operator's machine — never in the repo, never chosen by the model:
-
-```json
-{
-  "targets": [
-    { "match": "localhost:4000", "headers": { "Cookie": "connect.sid=..." } },
-    { "match": "*.staging.myco.com", "headers": { "Authorization": "Bearer ..." } }
-  ]
-}
-```
-
-`match` is a substring of the full target URL, or a wildcard pattern (`*`, `?`, `[…]`) matched against the target host.
-
-`SECURE_VIBE_VERIFY_SCOPE` — a simpler comma-separated `host[:port]` allow-list with **no** auth headers, for unauthenticated endpoints:
-
-```bash
-export SECURE_VIBE_VERIFY_SCOPE="localhost:4000,127.0.0.1:8080"
-```
-
-If neither is set — or the file is missing/unreadable/invalid — the lane denies all live fires and stays in dry-run. A misconfigured operator never accidentally fires at a live target.
-
-!!! tip "When to call it"
-    After detection flags a candidate (e.g. an unvalidated `?url=` fetch) on a target you are **authorized** to test — to upgrade "looks vulnerable" to reproducible, confirmed evidence.
+The tool is **deterministic and offline** — the calling agent is the reasoning (and dynamic-verification) layer, so no LLM or attack-traffic lane is exposed here. It respects the [allowed-roots sandbox](#file-access-safety); a `path` outside the sandbox yields no findings.
 
 ## Compliance & finding tools
 

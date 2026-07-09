@@ -15,132 +15,57 @@ Several scanner and data commands share a `--path` flag that points at the secur
 2. the `$SECURE_VIBE_LIBRARY_PATH` environment variable, so the CLI can run inside an arbitrary project (CI, a pre-commit hook) while pointed at a bundled data tree;
 3. the current working directory.
 
-The file scanners and `gate` accept a common `--format` flag:
+The `audit` and `check` commands accept a common `--format` flag:
 
 | Value | Meaning |
 |-------|---------|
 | `text` | Human-readable (default). |
 | `json` | Machine-readable; identical schema to the MCP server's response. |
-| `sarif` | SARIF document for CI ingestion (GitHub Code Scanning). Only on commands that ship a SARIF transformer: `scan`, `gate`, `check`. |
+| `sarif` | SARIF document for CI ingestion (GitHub Code Scanning). Only on commands that ship a SARIF transformer: `audit`, `check`. |
 
 ---
 
-## Scan & gate
+## Audit
 
-The deterministic scanners and the CI gate. Detection is **narrow by design** — four scanners (secrets, dependencies, Dockerfile, GitHub Actions), not a general SAST. They catch known patterns and known-bad packages with high precision; they do not claim to find every vulnerability.
-
-### `scan`
-
-Report-only scan that **auto-detects** the right scanner per file — dependencies
-(lockfiles: `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `requirements*.txt`,
-`go.sum`, `Cargo.lock`, `pom.xml`, `Gemfile.lock`, `composer.lock`, …), Dockerfile,
-GitHub Actions workflows, falling back to secret detection for any other text file.
-Accepts files or directories (walked, skipping `.git`, `node_modules`, `vendor`,
-build output). Always exits 0 — use `gate` for a CI-failing check.
-
-```text
-secure-vibe scan <file-or-dir>... [flags]
-```
-
-| Flag | Description |
-|------|-------------|
-| `--path` | secure-vibe checkout for rule data (default: `$SECURE_VIBE_LIBRARY_PATH`, else cwd). |
-| `--severity-floor` | Only report findings at or above this severity: `critical` \| `high` \| `medium` \| `low`. Default `low` (report everything). |
-| `--format` | `text` \| `json` \| `sarif`. |
-| `--vuln-source` | Where OSV advisory lookups read from: `local` (no network, default), `external` (api.osv.dev), or `hybrid`. |
-| `--report-dir` | Write a self-contained HTML report **and** a matching PDF into this directory instead of printing. |
-| `--sarif-base` | Directory SARIF artifact URIs are made relative to; only with `--format sarif`. |
-
-```bash
-secure-vibe scan ./src                       # secrets in a source tree
-secure-vibe scan package-lock.json           # dependency audit
-secure-vibe scan Dockerfile --format sarif > docker.sarif
-secure-vibe scan . --vuln-source hybrid      # walk everything
-```
-
-### `gate`
-
-The canonical "fail the build" entry point. Same auto-detection as `scan`, but
-**exits non-zero** when any finding meets the severity floor. Takes one or more
-files or directories; directories are walked, skipping `.git`, `node_modules`,
-`vendor`, and build output.
-
-```text
-secure-vibe gate <file-or-dir>... [flags]
-```
-
-!!! note "Alias"
-    `gate` was formerly named `policy-check`; that name still works as an alias.
-
-| Flag | Description |
-|------|-------------|
-| `--severity-floor` | Lowest severity that causes a non-zero exit: `critical` \| `high` \| `medium` \| `low`. Default `high`. |
-| `--sarif-base` | Directory SARIF artifact URIs are made relative to (default `.`); only used with `--format sarif`. |
-| `--path` | secure-vibe checkout. |
-| `--format` | `text` \| `json` \| `sarif`. |
-| `--report-dir` | Write HTML + PDF reports into this directory (a failing gate still produces its report). |
-
-```bash
-# Pre-commit / CI: fail on any high+ finding, emit SARIF for Code Scanning.
-secure-vibe gate . --severity-floor high --format sarif > results.sarif
-```
-
-### `audit`
-
-The **DETECT orchestration layer above `gate`**: fans the same deterministic
-scanners across a whole tree concurrently, then **deduplicates**, **ranks by
+`audit` is **the** scanning command: it fans the deterministic scanners (secrets,
+dependencies, Dockerfile, GitHub Actions) across the given paths — a whole tree by
+default, or a PR's changed set with `--diff` — then **deduplicates**, **ranks by
 severity**, and **triages likely fixtures** (findings in `test` / `fixture` /
-`example` / `sample` paths are reported but demoted). Offline and deterministic
-by default — a strict superset of `gate` that works on every platform with no
-model and no network.
+`example` / `sample` paths are reported but demoted). It reports and exits 0 by
+default; `--fail-on` makes it a CI gate.
+
+Detection is **narrow by design** — four scanners, not a general SAST. `audit` is
+deterministic, offline, and passive: the semantic and dynamic depth comes from the
+coding agent driving SecureVibe (guided by the skills), not from the binary.
 
 ```text
-secure-vibe audit [path] [flags]
+secure-vibe audit [path...] [flags]
 ```
-
-Two **opt-in** lanes layer on top when you bring a model — SecureVibe ships no key
-and no model, so the reasoning layer stays yours (works with Claude, OpenAI,
-Gemini, or any OpenAI-compatible/local endpoint):
-
-- **Semantic sweep** (`--model`) reads each source file through a skill-derived
-  security lens and surfaces candidates the pattern scanners can't see.
-- **Adversarial verify** (`--votes`) runs skeptic rounds per finding; a majority
-  refutation demotes a false positive.
-- **Completeness loop** (`--thorough`) re-sweeps for what the first pass missed.
-- **Dynamic verify** (`--live-target`) probes dynamically-verifiable findings
-  (ssrf/sqli/xss/…) via the verify lane — dry-run unless `--confirm` **and** the
-  target is in `SECURE_VIBE_VERIFY_SCOPE`.
 
 | Flag | Description |
 |------|-------------|
-| `[path]` | Directory to audit (default: current directory). |
+| `[path...]` | Files or directories to audit (default: current directory). Directories are walked, skipping `.git`, `node_modules`, `vendor`, and build output. |
 | `--diff [ref]` | Audit only files changed vs a git ref (a PR's changed set). Bare `--diff` diffs vs `HEAD`; pass a ref (e.g. `--diff origin/main`) for CI. |
 | `--fail-on <sev>` | Exit non-zero when a confirmed finding is at or above this severity — turns `audit` into a CI gate. Empty (default) always exits 0. |
-| `--severity-floor` | Only collect findings at or above this severity. Default `low`. |
+| `--no-triage` | Do not demote fixtures — a strict gate that treats test/example findings like any other. |
+| `--severity-floor` | Only collect findings at or above this severity: `critical` \| `high` \| `medium` \| `low`. Default `low`. |
 | `--jobs` | Concurrent scanner workers (default: `min(NumCPU, 8)`). |
-| `--model` | Enable the model lane with a provider: `anthropic` \| `openai` \| `gemini` \| `openai-compatible`. Model id + key come from `SECURE_VIBE_MODEL` / `SECURE_VIBE_MODEL_API_KEY` / `SECURE_VIBE_MODEL_BASE_URL`. Off by default. |
-| `--votes` | Adversarial refute rounds per finding (majority rules). Default 1. |
-| `--thorough` | Run completeness-critic sweep rounds (needs `--model`). |
-| `--live-target` | Base URL to dynamically probe dynamic-class findings against. |
-| `--live-param` / `--live-method` | Injectable parameter / HTTP method for the probe. |
-| `--confirm` | Actually send verify probes (default dry-run); still gated by `SECURE_VIBE_VERIFY_SCOPE`. |
-| `--format` | `text` \| `json` \| `sarif`. **SARIF is full-lane** — it includes the model-semantic findings and excludes triaged/refuted ones, so `--format sarif` surfaces every lane in Code Scanning. (`--report-dir` still reflects the deterministic findings.) |
-| `--report-dir` / `--sarif-base` / `--vuln-source` / `--path` | As for `scan`. |
+| `--format` | `text` \| `json` \| `sarif`. SARIF carries the confirmed findings (triaged excluded) for GitHub Code Scanning. |
+| `--report-dir` | Write a self-contained HTML report **and** a matching PDF into this directory instead of printing. |
+| `--sarif-base` | Directory SARIF artifact URIs are made relative to; only with `--format sarif`. |
+| `--vuln-source` | Where OSV advisory lookups read from: `local` (no network, default), `external` (api.osv.dev), or `hybrid`. |
+| `--path` | secure-vibe checkout for rule data (default: `$SECURE_VIBE_LIBRARY_PATH`, else cwd). |
 
 ```bash
-secure-vibe audit .                                   # offline, deterministic, whole repo
-secure-vibe audit . --format json > audit.json        # full result incl. model/verify lanes
+secure-vibe audit .                                   # whole repo, offline, deterministic
+secure-vibe audit package-lock.json Dockerfile        # just these files
+secure-vibe audit . --format json > audit.json        # machine-readable report
 
 # CI gate on a PR's changed files — fail on high+, emit SARIF for Code Scanning
 secure-vibe audit . --diff origin/main --fail-on high --format sarif > audit.sarif
 
-# BYO model: turn on the semantic + adversarial-verify lanes (keyless — your endpoint)
-export SECURE_VIBE_MODEL_API_KEY=sk-...
-secure-vibe audit ./src --model anthropic --votes 3 --thorough
-
-# Dynamic verify against an authorised live target (dry-run by default)
-SECURE_VIBE_VERIFY_SCOPE=staging.internal \
-  secure-vibe audit ./src --model openai --live-target https://staging.internal --confirm
+# strict gate: a real secret in a test fixture also fails the build
+secure-vibe audit . --fail-on high --no-triage
 ```
 
 ### `check`
@@ -148,7 +73,7 @@ SECURE_VIBE_VERIFY_SCOPE=staging.internal \
 Look up a single package against malicious entries, typosquats, CVE patterns,
 and OSV advisories — the former `check-dependency`, `check-typosquat`, and
 `lookup-vulnerability` in one command. Pass `name@version` to constrain OSV
-matching. Always exits 0 (use `gate` for a CI-failing scan).
+matching. Always exits 0 (use `audit --fail-on` to fail a build).
 
 ```text
 secure-vibe check <package>[@version] -e <ecosystem> [flags]
@@ -204,7 +129,7 @@ secure-vibe init --tool cursor --profile financial-services
 
 Record a locally-discovered bad package so the gate blocks it immediately — the rule never leaves your machine unless you choose to share it. Overlay scopes, in increasing blast radius:
 
-- **You** — `.secure-vibe/overlay.json` is read by every `check` / `scan` / `gate` run.
+- **You** — `.secure-vibe/overlay.json` is read by every `check` / `audit` run.
 - **Team** — commit `.secure-vibe/overlay.json`; git is the fan-out.
 - **Org** — point `$SECURE_VIBE_OVERLAY` at a shared overlay file (OS path-list separated for more than one); every invocation folds it in.
 
