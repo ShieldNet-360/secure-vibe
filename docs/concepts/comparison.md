@@ -45,7 +45,7 @@ This is an honest, side-by-side view. SecureVibe's detection is **narrow by desi
 | Capability | SecureVibe | Post-hoc scanners (Semgrep / Snyk / gitleaks) |
 |---|---|---|
 | **Gen-time prevention** (left of the cursor) | Yes — signed skills feed AI assistants so they write secure code as it's generated | No — they scan code that already exists |
-| **Deterministic CI gate** | Yes — `secure-vibe gate` exits non-zero above a severity floor, emits SARIF, auto-picks the scanner per file | Varies — most can fail CI; comparable in spirit |
+| **Deterministic CI gate** | Yes — `secure-vibe audit --fail-on` exits non-zero above a severity floor, emits SARIF, auto-picks the scanner per file | Varies — most can fail CI; comparable in spirit |
 | **Secret detection** | Yes — 100% precision / 100% recall vs gitleaks 92.4% / 65.9% (76.9 F1) **on the shapes we tested** (SecureVibe's own tuned corpus); the honest signal is gitleaks' recall gap, not a universal win | Yes — gitleaks et al. are mature, broad secret scanners |
 | **Malicious-dependency DB** | Yes — curated 3,623 entries across 10 ecosystems, every entry web-cited; exact-match lookups = zero false positives | Yes — Snyk and others ship large vulnerability/SCA databases (far larger general CVE coverage) |
 | **General SAST breadth** | **No — narrow by design** (4 scanners: secrets, dependencies, Dockerfile, GitHub Actions). Not a SAST replacement | **Yes — much broader.** Semgrep/Snyk cover many languages and rule classes SecureVibe does not |
@@ -69,7 +69,7 @@ This is an honest, side-by-side view. SecureVibe's detection is **narrow by desi
 The recommended posture is not "SecureVibe instead of your scanners" — it's **SecureVibe in front of them**.
 
 1. **At generation time**, install SecureVibe's skills into your AI assistant (`secure-vibe init --tool <claude|cursor|copilot|...>`) so the model writes secure code in the first place.
-2. **At the gate**, run `secure-vibe gate <path> --severity-floor high --sarif results.sarif` in CI to block insecure diffs deterministically and feed GitHub Code Scanning.
+2. **At the gate**, run `secure-vibe audit <path> --fail-on high --format sarif > results.sarif` in CI to block insecure diffs deterministically and feed GitHub Code Scanning.
 3. **For breadth and runtime**, keep your existing tools — Semgrep/Snyk for wide SAST/SCA coverage, gitleaks for secrets at scale, and your DAST/runtime scanners for production. SecureVibe does not replace these.
 
 !!! tip "The short version"

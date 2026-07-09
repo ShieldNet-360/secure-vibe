@@ -12,9 +12,9 @@ The lifecycle has four stages:
 
 | Stage | What it does | How |
 |-------|--------------|-----|
-| **PREVENT** | Stop insecure code from being written at all | 30 signed security skills fed to 8 AI assistants at generation time |
+| **PREVENT** | Stop insecure code from being written at all | 33 signed security skills fed to 8 AI assistants at generation time |
 | **DETECT** | Catch known issues that slip through | 4 deterministic scanners (secrets, dependencies, Dockerfile, GitHub Actions) |
-| **ENFORCE** | Block insecure diffs before merge | `gate` command, exits non-zero above a severity floor, emits SARIF |
+| **ENFORCE** | Block insecure diffs before merge | `audit --fail-on`, exits non-zero above the chosen severity, emits SARIF |
 | **LEARN** | Grow coverage from real findings | Signed contribution overlays shared you → team → org |
 
 ```mermaid
@@ -67,18 +67,16 @@ Create a `package.json` that references a known-bad package:
 Then scan its directory:
 
 ```bash
-secure-vibe scan .
+secure-vibe audit .
 ```
 
 ```text
-Scanning dependencies in .
-  package.json
+=== secure-vibe audit: . ===
+Files scanned: 1
+Findings: 1   (critical: 1)
 
-[HIGH] malicious package: event-stream@3.3.6 (npm)
-  reason: known supply-chain compromise (cited)
-  ecosystem: npm
-
-1 issue found (1 high)
+CRITICAL
+  package.json  [secure-vibe.malicious-package]  event-stream flagged as malicious_code: Maintainer account compromised; malicious flatmap-stream dependency added to steal cryptocurrency wallets from copay app
 ```
 
 ### 3. Catch a planted secret
@@ -86,18 +84,17 @@ Scanning dependencies in .
 Drop a hard-coded credential into a file:
 
 ```bash
-printf 'aws_secret_access_key = AKIAIOSFODNN7EXAMPLE\n' > config.env
-secure-vibe scan config.env
+printf 'GITHUB_TOKEN = "ghp_016C6eB6D6a1F2b3C4d5E6f7A8b9C0d1E2f3G4H5"\n' > config.env
+secure-vibe audit config.env
 ```
 
 ```text
-Scanning secrets in config.env
+=== secure-vibe audit: config.env ===
+Files scanned: 1
+Findings: 1   (critical: 1)
 
-[HIGH] AWS access key id detected
-  file: config.env:1
-  pattern: aws-access-key-id
-
-1 issue found (1 high)
+CRITICAL
+  config.env  [secure-vibe.secret.GitHub Personal Access Token]  GitHub Personal Access Token
 ```
 
 The secret scanner ships **83 secret-detection patterns**.
@@ -122,7 +119,7 @@ Overlay signed.
 Now reference `evil-pkg` in a `package.json` and rescan — it is flagged where it was clean a moment ago:
 
 ```bash
-secure-vibe scan .
+secure-vibe audit .
 ```
 
 ```text
@@ -146,9 +143,9 @@ To share peer-to-peer, run `secure-vibe contribute submit --sign`; a maintainer 
 !!! example "Enforce it in CI"
     The same data drives the gate, which auto-picks the right scanner per file:
     ```bash
-    secure-vibe gate . --severity-floor high --sarif results.sarif
+    secure-vibe audit . --fail-on high --format sarif > results.sarif
     ```
-    It exits non-zero above the severity floor and emits SARIF for GitHub Code Scanning.
+    It exits non-zero above the `--fail-on` threshold and emits SARIF for GitHub Code Scanning.
 
 ## When to use it / when NOT to
 

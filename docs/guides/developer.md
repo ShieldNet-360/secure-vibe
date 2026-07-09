@@ -8,7 +8,7 @@ SecureVibe works **left of the cursor**. Instead of waiting for a scanner to fla
 
 The lifecycle is **PREVENT → DETECT → ENFORCE → LEARN**:
 
-- **PREVENT** — 30 skills are installed into your assistant's config and consulted as it writes.
+- **PREVENT** — 33 skills are installed into your assistant's config and consulted as it writes.
 - **DETECT** — 4 narrow, deterministic scanners (secrets, dependencies, Dockerfile, GitHub Actions) check the result.
 - **ENFORCE** — a `gate` blocks insecure diffs locally and in CI.
 - **LEARN** — when you find a bad package the DB doesn't know about, you teach it in 30 seconds.
@@ -134,7 +134,7 @@ claude mcp add secure-vibe -- npx -y @shieldnet360/secure-vibe mcp
 
 For any other MCP-capable client, point it at the `secure-vibe mcp` binary as a **stdio** server (it speaks MCP over stdin/stdout — no network).
 
-The server exposes **17 MCP tools**. The ones your assistant reaches for most often:
+The server exposes **20 MCP tools**. The ones your assistant reaches for most often:
 
 | Tool | What it does | When the assistant calls it |
 | --- | --- | --- |
@@ -155,17 +155,17 @@ The server exposes **17 MCP tools**. The ones your assistant reaches for most of
 The scanners are the backstop; the **gate** is the line your insecure code can't cross. Wire it into a pre-commit hook so nothing risky leaves your machine:
 
 ```bash
-secure-vibe gate . --severity-floor high
+secure-vibe audit . --fail-on high
 ```
 
-The gate auto-picks the right scanner per file, exits non-zero on anything at or above the severity floor, and (with `--sarif results.sarif`) emits SARIF for GitHub Code Scanning.
+`audit` auto-picks the right scanner per file, and with `--fail-on` exits non-zero on anything at or above that severity, and (with `--format sarif`) emits SARIF for GitHub Code Scanning.
 
 A minimal `.git/hooks/pre-commit`:
 
 ```bash
 #!/bin/sh
-secure-vibe gate . --severity-floor high || {
-    echo "SecureVibe gate failed — fix the findings above or lower --severity-floor."
+secure-vibe audit . --fail-on high || {
+    echo "SecureVibe gate failed — fix the findings above or lower --fail-on."
     exit 1
 }
 ```

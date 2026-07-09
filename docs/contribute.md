@@ -48,7 +48,7 @@ secure-vibe contribute add -p evil-pkg -e npm \
   --reason "exfiltrates AWS creds in a postinstall script"
 
 # The next gate run fails on it:
-secure-vibe gate package.json --severity-floor high   # exit 1
+secure-vibe audit package.json --fail-on high   # exit 1
 ```
 
 By default the block applies to **all versions** at **high** severity (so it
@@ -120,6 +120,21 @@ secure-vibe contribute import candidate.json --allow-unsigned
 That is the full peer-to-peer path — `submit` on one machine, `verify` to
 review, `import` to adopt — letting a finding travel from one developer's gate
 to another's without waiting on the central pipeline.
+
+## Propose a skill fix (the knowledge LEARN loop)
+
+The overlay above teaches SecureVibe about a bad *artifact*. When the gap is
+*knowledge* instead — a skill is missing a fact, or gives guidance that turned
+out to be wrong — your assistant records an **inert local proposal** through the
+`propose_skill_update` MCP tool. Nothing is applied automatically: the proposal
+just sits in a queue on your machine. A human reviews the queue with
+
+```bash
+secure-vibe contribute skill
+```
+
+and, if the fix is sound, folds it into the skill and **re-signs** it. Same
+discipline as package canon — crowdsource the proposal, keep the signing central.
 
 ## What is free, and what is not
 
