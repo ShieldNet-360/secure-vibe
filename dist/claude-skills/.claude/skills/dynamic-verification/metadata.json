@@ -14,8 +14,8 @@
     "*"
   ],
   "token_budget": {
-    "minimal": 650,
-    "compact": 1000,
+    "minimal": 760,
+    "compact": 1200,
     "full": 2600
   },
   "related_skills": [

@@ -16,7 +16,8 @@ Confirm or refute a vulnerability candidate against a live target with a determi
 - Re-confirm any timing-based result a second time before trusting it — one slow response is noise, a repeatable delay over baseline is signal.
 - For reflected oracles (XSS, SSTI), require the dangerous form: XSS confirms only when the payload comes back UNESCAPED; SSTI confirms only when the arithmetic is EVALUATED (the product appears as a standalone number and the raw expression does not).
 - Pin file-read oracles (path traversal) to a content signature of a known system file (`root:…:0:0:` from `/etc/passwd`, `[fonts]` from `win.ini`), never to a generic 200/404.
-- Let the operator's scope gate decide whether a probe fires; pass only the finding (type, target, param) and read the verdict.
+- Drive the probe yourself with SecureVibe's scope-gated primitives: `http_probe` (send one crafted request, read status/headers/body/timing) and `oob_listener` (allocate a callback URL, poll for blind hits). They fire only at a target the operator authorized — otherwise they return a dry-run plan and send nothing.
+- Reach past `http_probe` for what it cannot prove: use your **own headless browser** for XSS execution-proof and DOM-based XSS, and your **own shell** (see `list_external_tools`) for heavyweight scanners. SecureVibe ships the light primitives; the heavy tools are yours.
 
 ## NEVER
 
@@ -29,6 +30,7 @@ Confirm or refute a vulnerability candidate against a live target with a determi
 ## KNOWN FALSE POSITIVES
 
 - XSS payload reflected but HTML-escaped → output encoding is working; refuted, not a bug (it may still be an encoding lead, not an executable XSS).
+- XSS marker **not in the server response** (`http_probe` body) → does NOT refute DOM-based XSS: the payload may flow entirely client-side. Read the client JS or render in a browser before refuting.
 - A single elevated latency on a time-based SQLi/command-injection probe → could be GC, cold cache, or network jitter; only a re-confirmed delta counts.
 - SSTI product matching as a substring of a longer number (an id, price, timestamp, asset path like `/img/6725936.jpg`) → not evaluation; require a standalone number.
 - SSRF/XXE with no out-of-band listener available → inconclusive, not refuted; the blind oracle could not run.

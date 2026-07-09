@@ -84,6 +84,7 @@ Not inlined — query via MCP or read the source on disk:
 - `saas-security` — SaaS Application Security
 - `secret-detection` — Secret Detection
 - `secure-code-review` — Secure Code Review
+- `security-regression-tests` — Security Regression Tests
 - `ssrf-prevention` — SSRF Prevention
 - `template-injection` — Template Injection (SSTI)
 - `threat-modeling` — Threat Modeling
