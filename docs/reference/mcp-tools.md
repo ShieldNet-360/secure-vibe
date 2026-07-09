@@ -39,7 +39,7 @@ The file-reading tools (`scan_secrets`, `scan_dependencies`, `scan_github_action
 
 ## Tool catalogue
 
-The server exposes 17 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
+The server exposes 19 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
 
 | Tool | Purpose |
 | --- | --- |
@@ -53,6 +53,8 @@ The server exposes 17 tools; `policy_check` is additionally accepted as a back-c
 | `scan_github_actions` | Run the CI/CD hardening checklist over a GitHub Actions workflow. |
 | `gate` | Auto-pick the right scanner for a file and return a CI-friendly pass/fail. |
 | `audit` | Whole-tree audit: fan every scanner across a directory, then dedup, rank by severity, and triage likely fixtures. The DETECT layer above `gate`; deterministic, respects the allowed-roots sandbox. |
+| `http_probe` | Send one crafted HTTP request to an operator-authorized target and read status/headers/body/timing — the dynamic-verify primitive. Scope-gated: dry-run unless the target is in scope. |
+| `oob_listener` | Allocate an out-of-band callback URL + poll for blind hits (SSRF/XXE/blind command injection). |
 | `map_compliance_control` | Map a skill / category / term to SOC 2, HIPAA, or PCI DSS controls. |
 | `explain_finding` | Map a CWE/CVE/finding description to relevant skills and CVE patterns. |
 | `get_skill` | Return a skill at a chosen token tier (minimal / compact / full). |

@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![npm](https://img.shields.io/npm/v/@shieldnet360/secure-vibe?color=cb3837&logo=npm)](https://www.npmjs.com/package/@shieldnet360/secure-vibe)
-[![Skills](https://img.shields.io/badge/skills-30-blue)](./skills)
+[![Skills](https://img.shields.io/badge/skills-33-blue)](./skills)
 [![Platforms](https://img.shields.io/badge/platforms-win%20%7C%20mac%20%7C%20linux-green)](#platform-support)
 
 **Prevention-first security for AI-written code.** SecureVibe feeds your AI coding
@@ -18,7 +18,7 @@ Maintained by **[ShieldNet360](https://www.shieldnet360.com)** · MIT — free t
 npm bundles the library data (skills + vuln DB), so it works on macOS, Linux, and Windows out of the box:
 
 ```bash
-npx -y @shieldnet360/secure-vibe <command>   # run on demand: scan · gate · check · init · mcp · status
+npx -y @shieldnet360/secure-vibe <command>   # run on demand: audit · check · init · mcp · status
 npm install -g @shieldnet360/secure-vibe      # …or install globally for a persistent `secure-vibe`
 ```
 
@@ -60,7 +60,7 @@ secure-vibe audit . --fail-on high --format sarif
 # 4 · vet one package before adding it
 secure-vibe check event-stream@3.3.6 -e npm
 
-# 5 · the MCP server (17 tools over stdio) — this is the command clients spawn:
+# 5 · the MCP server (19 tools over stdio) — this is the command clients spawn:
 secure-vibe mcp                                    # or: npx -y @shieldnet360/secure-vibe mcp
 #    register it with Claude Code in one line:
 claude mcp add SecureVibe -- npx -y @shieldnet360/secure-vibe mcp
@@ -112,10 +112,10 @@ deterministic and passive — it never calls an LLM and never sends attack traff
 the *reasoning* and *dynamic verification* are your coding agent's job, so the
 tool stays keyless and works the same in Claude Code, Codex, Gemini, or plain CI.
 
-- **PREVENT** — 30 signed skills across 8 assistants, consulted as code is written.
+- **PREVENT** — 33 signed skills across 8 assistants, consulted as code is written.
 - **DETECT** — one command, `audit`: fans the deterministic scanners (secrets, dependencies via a curated malicious / typosquat DB + CVE / OSV across 10 ecosystems, Dockerfile, GitHub Actions) across the tree (or a PR's `--diff`), then dedups, ranks by severity, and triages likely fixtures.
 - **ENFORCE** — `audit --fail-on <severity>` exits non-zero for CI; `--format sarif` for Code Scanning, `--report-dir` for an HTML + PDF report, `--no-triage` for a strict gate.
-- **VERIFY** — the coding agent confirms candidates dynamically, guided by the `dynamic-verification` skill (SecureVibe hands it the finding + method; the agent, with your authorization and scope, does the probing — the binary never sends the payload).
+- **VERIFY** — the coding agent confirms candidates dynamically using two scope-gated MCP primitives — `http_probe` (send one crafted request) and `oob_listener` (catch blind callbacks) — guided by the `dynamic-verification` skill. In CI (no agent), verification is a committed **regression test** (`security-regression-tests` skill), not a live probe. The binary never sends attack traffic on its own.
 - **LEARN** — `secure-vibe contribute add -p <pkg> -e npm` writes a signed `.secure-vibe/overlay.json`; commit it (team) or point `$SECURE_VIBE_OVERLAY` at a shared file (org).
 
 > **Narrow by design.** Detection is four deterministic scanners, not a general SAST. It catches known patterns and known-bad packages with near-zero false positives; it does not claim to find every vulnerability. The semantic and dynamic depth comes from the agent driving it.
@@ -127,7 +127,7 @@ tool stays keyless and works the same in Claude Code, Codex, Gemini, or plain CI
 | `init --tool <ide>` | Write the assistant config (`CLAUDE.md`, `.cursorrules`, …) that embeds the skills |
 | `audit [path...]` | The scanner: fan out every scanner, dedup, rank, triage. Reports by default; `--fail-on` gates CI; `--diff` scopes to a PR; `--format sarif` for Code Scanning |
 | `check <pkg>[@ver] -e <eco>` | Look up one package: malicious / typosquat / CVE / OSV |
-| `mcp` | Run the MCP server (17 tools); `mcp connect` registers it with Claude Code |
+| `mcp` | Run the MCP server (19 tools); `mcp connect` registers it with Claude Code |
 | `contribute` | The LEARN loop — block a bad package locally, share via git / overlay |
 | `update` | Pull signed skills + vuln data (`--self` updates the binary) · `status` reports freshness |
 
@@ -137,7 +137,7 @@ Full reference: [docs/reference/cli.md](./docs/reference/cli.md) · `secure-vibe
 
 - [ARCHITECTURE.md](./ARCHITECTURE.md) — design, compiler, update protocol, repo layout.
 - [docs/](./docs/) — guides (developer · devops · security · evaluator), install, air-gapped, team rollout.
-- [docs/reference/mcp-clients.md](./docs/reference/mcp-clients.md) — connect the MCP server to any agent (Claude Code · Cursor · Windsurf · VS Code · Cline · Zed) · [docs/reference/mcp-tools.md](./docs/reference/mcp-tools.md) — the 17 MCP tools · [skills/](./skills) — the 30-skill catalogue.
+- [docs/reference/mcp-clients.md](./docs/reference/mcp-clients.md) — connect the MCP server to any agent (Claude Code · Cursor · Windsurf · VS Code · Cline · Zed) · [docs/reference/mcp-tools.md](./docs/reference/mcp-tools.md) — the 19 MCP tools · [skills/](./skills) — the 33-skill catalogue.
 - [SIGNING.md](./SIGNING.md) — Ed25519 release signing · [CONTRIBUTING.md](./CONTRIBUTING.md) · [SECURITY.md](./SECURITY.md).
 
 ## Platform support
