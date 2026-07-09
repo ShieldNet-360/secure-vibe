@@ -13,17 +13,17 @@ This guide is for the platform engineer who owns CI and developer tooling. It co
 
 ## The gate in CI
 
-The gate auto-picks the right scanner per file, exits non-zero when it finds anything at or above the severity floor, and emits SARIF for GitHub Code Scanning:
+The gate auto-picks the right scanner per file, exits non-zero when it finds anything at or above the `--fail-on` threshold, and emits SARIF for GitHub Code Scanning:
 
 ```bash
-secure-vibe gate <path> --severity-floor high --sarif results.sarif
+secure-vibe audit <path> --fail-on high --format sarif > results.sarif
 ```
 
 | Flag | Meaning |
 | --- | --- |
-| `<path>` | File or directory to gate (the scanner is chosen per file). |
-| `--severity-floor high` | Severity floor — findings at or above this fail the build. |
-| `--sarif results.sarif` | Write SARIF 2.1.0 for GitHub Code Scanning / any SARIF viewer. |
+| `<path>` | File or directory to audit (the scanner is chosen per file). |
+| `--fail-on high` | Severity threshold — findings at or above this fail the build. |
+| `--format sarif` | Emit SARIF 2.1.0 (to stdout) for GitHub Code Scanning / any SARIF viewer. |
 
 ### GitHub Actions workflow
 
@@ -52,7 +52,7 @@ jobs:
 
       - name: Run the gate
         id: gate
-        run: secure-vibe gate . --severity-floor high --sarif results.sarif
+        run: secure-vibe audit . --fail-on high --format sarif > results.sarif
 
       - name: Upload SARIF to Code Scanning
         if: always()   # surface findings even when the gate fails the build
@@ -62,8 +62,8 @@ jobs:
 ```
 
 !!! tip "Tune the floor per pipeline"
-    Use `--severity-floor high` on protected branches and `critical` on hotfix lanes if
-    you want the lowest possible friction. Lower the floor in nightly jobs to surface
+    Use `--fail-on high` on protected branches and `--fail-on critical` on hotfix lanes if
+    you want the lowest possible friction. Lower `--severity-floor` in nightly jobs to surface
     medium findings without blocking developers.
 
 ### CI gate flow
@@ -72,7 +72,7 @@ jobs:
 flowchart TD
     A[Push / Pull request] --> B[Checkout]
     B --> C[Install secure-vibe]
-    C --> D["secure-vibe gate .<br/>--severity-floor high<br/>--sarif results.sarif"]
+    C --> D["secure-vibe audit .<br/>--fail-on high<br/>--format sarif"]
     D --> E[Auto-pick scanner per file]
     E --> F{Finding at or<br/>above floor?}
     F -- No --> G[Exit 0 - build passes]
@@ -91,8 +91,8 @@ Catch issues before they ever reach CI. Run the gate on the working tree from a 
     ```bash
     # .git/hooks/pre-commit  (chmod +x)
     #!/bin/sh
-    secure-vibe gate . --severity-floor high || {
-      echo "SecureVibe gate failed — fix findings or lower the floor."
+    secure-vibe audit . --fail-on high || {
+      echo "SecureVibe gate failed — fix findings or lower --fail-on."
       exit 1
     }
     ```
@@ -106,7 +106,7 @@ Catch issues before they ever reach CI. Run the gate on the working tree from a 
         hooks:
           - id: secure-vibe-gate
             name: SecureVibe gate
-            entry: secure-vibe gate . --severity-floor high
+            entry: secure-vibe audit . --fail-on high
             language: system
             pass_filenames: false
     ```
@@ -138,7 +138,7 @@ Two files, committed to the repo, make the whole team inherit the same behaviour
 
 !!! example "Why this works"
     The overlay is a signed JSON file under `.secure-vibe/`. Because it lives in the
-    repo, every `git pull` distributes it; the next `secure-vibe gate` reads it and
+    repo, every `git pull` distributes it; the next `secure-vibe audit` reads it and
     blocks the package. No registry, no server — the git remote is the distribution
     channel.
 
