@@ -11,8 +11,8 @@ applies_to:
   - "when an authorized dynamic test against a running app is available"
 languages: ["*"]
 token_budget:
-  minimal: 650
-  compact: 1000
+  minimal: 760
+  compact: 1200
   full: 2600
 related_skills: ["secure-code-review", "ssrf-prevention", "api-security"]
 last_updated: "2026-07-08"
@@ -42,8 +42,14 @@ sources:
 - Pin file-read oracles (path traversal) to a content signature of a known system
   file (`root:…:0:0:` from `/etc/passwd`, `[fonts]` from `win.ini`), never to a
   generic 200/404.
-- Let the operator's scope gate decide whether a probe fires; pass only the finding
-  (type, target, param) and read the verdict.
+- Drive the probe yourself with SecureVibe's scope-gated primitives: `http_probe`
+  (send one crafted request, read status/headers/body/timing) and `oob_listener`
+  (allocate a callback URL, poll for blind hits). They fire only at a target the
+  operator authorized — otherwise they return a dry-run plan and send nothing.
+- Reach past `http_probe` for what it cannot prove: use your **own headless
+  browser** for XSS execution-proof and DOM-based XSS, and your **own shell**
+  (see `list_external_tools`) for heavyweight scanners. SecureVibe ships the light
+  primitives; the heavy tools are yours.
 
 ### NEVER
 - Send an attack payload at a host you are not explicitly authorized to test —
@@ -60,6 +66,9 @@ sources:
 ### KNOWN FALSE POSITIVES
 - XSS payload reflected but HTML-escaped → output encoding is working; refuted, not a
   bug (it may still be an encoding lead, not an executable XSS).
+- XSS marker **not in the server response** (`http_probe` body) → does NOT refute
+  DOM-based XSS: the payload may flow entirely client-side. Read the client JS or
+  render in a browser before refuting.
 - A single elevated latency on a time-based SQLi/command-injection probe → could be
   GC, cold cache, or network jitter; only a re-confirmed delta counts.
 - SSTI product matching as a substring of a longer number (an id, price, timestamp,
@@ -93,24 +102,48 @@ Active probing *is* attack traffic — treat it like a live pentest:
   endpoints the user named; do not pivot, escalate, or exfiltrate. When in doubt,
   build the payload and show the *plan* rather than sending it.
 
-### Oracle by vulnerability class
+### The primitives you drive
 
-- **ssrf** — point the param at an out-of-band URL (blind) or a cloud-metadata
-  address (reflected); confirmed on a listener hit or an internal signature echoed.
-- **sqli** — time-based blind (`SLEEP`/`pg_sleep`/`WAITFOR`); confirmed on a
-  re-confirmed latency delta over baseline.
-- **xss** — marker that breaks out of attribute/text context; confirmed only when
-  reflected unescaped.
-- **redirect** — attacker URL plus filter bypasses on a no-follow client; confirmed
-  on a `3xx` whose `Location` leaves for the attacker host.
-- **path-traversal** — climb to `/etc/passwd` / `win.ini` with encoding bypasses;
-  confirmed on a system-file content signature.
-- **command-injection** — out-of-band `curl` callback, else a time-based `sleep`;
-  confirmed on a listener hit or a re-confirmed latency delta.
-- **ssti** — template arithmetic in each engine's delimiters; confirmed when it
-  renders to the product and the expression is gone.
-- **xxe** — an XML body with an external entity pointing at the listener; confirmed
-  on a listener hit (blind, out-of-band).
+- **`http_probe`** — send one request you crafted (`url`, `method`, `headers`,
+  `body`, `follow_redirects`) and read back `status` / `headers` / `body` /
+  `elapsed_ms`. It is scope-gated: out of scope or unconfigured ⇒ it returns a
+  `plan` with `sent: false` and sends nothing. Covers **response** and **timing**
+  oracles.
+- **`oob_listener`** — `allocate` returns a callback URL + token; `poll` returns
+  the hits it received. Covers **blind / out-of-band** oracles (nothing reflected
+  in the body).
+
+### Oracle by class (which primitive, which signal)
+
+- **ssrf** — `oob_listener.allocate`, put the callback URL in the param, `http_probe`
+  the endpoint, then `poll`; **confirmed** on a listener hit. (Reflected variant:
+  point at a cloud-metadata address and look for an internal signature in the body.)
+- **sqli** — `http_probe` a time-based payload (`SLEEP`/`pg_sleep`/`WAITFOR`);
+  **confirmed** on a re-confirmed `elapsed_ms` delta over baseline (send a baseline
+  request first, then compare).
+- **xss (reflected)** — `http_probe` a marker; **candidate-confirmed** when it
+  returns **UNESCAPED** in an executable context AND no `Content-Security-Policy`
+  header blocks it. Note: `http_probe` proves *reflection*, not *execution*.
+- **xss (execution-proof or DOM-based)** — `http_probe` is not enough. For hard
+  proof, or DOM XSS (the payload never reaches the server response — it flows
+  client-side through `location.hash` → `innerHTML` etc.), use **your own headless
+  browser** to render the page and detect the JS actually firing, or **read the
+  client-side JS** and trace the source→sink statically. SecureVibe does not ship a
+  browser — that capability is yours.
+- **redirect** — `http_probe` with `follow_redirects:false` and an attacker URL;
+  **confirmed** on a `3xx` whose `Location` leaves for the attacker host (not
+  same-origin, not relative).
+- **path-traversal** — `http_probe` climbing to `/etc/passwd` / `win.ini` with
+  encoding bypasses; **confirmed** on a system-file content signature (`root:…:0:0:`,
+  `[fonts]`), never a bare 200/404.
+- **command-injection** — blind: `oob_listener` + an out-of-band `curl` callback in
+  the payload; else a time-based `sleep` via `http_probe`. **Confirmed** on a
+  listener hit or a re-confirmed latency delta.
+- **ssti** — `http_probe` template arithmetic in each engine's delimiters
+  (`{{7*7}}`, `${7*7}`, `<%= 7*7 %>`); **confirmed** when the body shows the product
+  as a standalone number and the raw expression is gone.
+- **xxe** — `oob_listener` + an XML body whose external entity points at the
+  callback URL; `http_probe` it, then `poll`; **confirmed** on a listener hit.
 
 A confirmed verdict is reproducible evidence to attach to the fix; a refuted verdict
 lets you drop a candidate without spending review time on a non-issue.
