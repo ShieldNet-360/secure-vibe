@@ -241,5 +241,33 @@ func toolDefinitions() []map[string]interface{} {
 				"required": []string{"path"},
 			},
 		},
+		{
+			"name":        "http_probe",
+			"description": "Send ONE HTTP request you crafted to an operator-authorized target and read back status / headers / body / elapsed_ms — the primitive for dynamically verifying a candidate finding (SQLi timing, reflected XSS, open redirect, path traversal, SSTI). SAFETY: it is scope-gated. With no scope configured, or a target outside SECURE_VIBE_VERIFY_SCOPE / SECURE_VIBE_VERIFY_SCOPE_FILE, it does NOT send — it returns the request `plan` with `sent:false`. Operator-configured auth headers are merged in; never supply credentials for an out-of-scope host. Use `oob_listener` for blind/out-of-band classes (SSRF/XXE/blind command injection), and your OWN headless browser for XSS execution-proof or DOM XSS (this proves reflection, not execution). Per-class oracles are in the dynamic-verification skill.",
+			"inputSchema": map[string]interface{}{
+				"type": "object",
+				"properties": map[string]interface{}{
+					"url":              map[string]string{"type": "string", "description": "Target URL to probe."},
+					"method":           map[string]interface{}{"type": "string", "description": "HTTP method (default GET).", "enum": []string{"", "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"}},
+					"headers":          map[string]interface{}{"type": "object", "description": "Request headers you crafted. Auth for in-scope hosts is supplied by the operator, not here."},
+					"body":             map[string]string{"type": "string", "description": "Request body (e.g. an XML payload for XXE, a form body for POST)."},
+					"follow_redirects": map[string]interface{}{"type": "boolean", "description": "Follow 3xx redirects. Default false — keep false to detect open redirects from the Location header."},
+					"timeout_ms":       map[string]interface{}{"type": "integer", "description": "Per-request timeout in milliseconds (default 8000, capped at 30000)."},
+				},
+				"required": []string{"url"},
+			},
+		},
+		{
+			"name":        "oob_listener",
+			"description": "Out-of-band callback listener for BLIND verification (SSRF, XXE, blind command injection) — classes that leave no trace in the response body. `allocate` returns a unique callback URL to weave into your payload; after probing the target with `http_probe`, `poll` the token to see whether the target called back. A hit is confirmation. The listener runs on 127.0.0.1, so it is reachable from a target on the same host (local / staging); a target that cannot reach it needs an external OOB service. Receiving callbacks is passive, so this is not scope-gated.",
+			"inputSchema": map[string]interface{}{
+				"type": "object",
+				"properties": map[string]interface{}{
+					"action": map[string]interface{}{"type": "string", "description": "allocate a new callback URL, or poll a token for hits.", "enum": []string{"allocate", "poll"}},
+					"token":  map[string]string{"type": "string", "description": "Required for poll: the token returned by a prior allocate."},
+				},
+				"required": []string{"action"},
+			},
+		},
 	}
 }

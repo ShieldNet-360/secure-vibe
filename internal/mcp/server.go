@@ -15,17 +15,18 @@ import (
 	"strings"
 
 	"github.com/shieldnet-360/secure-vibe/internal/audit"
+	"github.com/shieldnet-360/secure-vibe/internal/probe"
 	"github.com/shieldnet-360/secure-vibe/internal/tools"
 )
 
 // Server is the JSON-RPC dispatcher. It owns one Library and exposes the
-// 17 Skills Library tools as MCP tools: lookup_vulnerability,
+// 19 Skills Library tools as MCP tools: lookup_vulnerability,
 // check_secret_pattern, get_skill, search_skills, scan_secrets,
 // check_dependency, check_typosquat, map_compliance_control,
 // get_sigma_rule, version_status, scan_dependencies,
 // scan_github_actions, scan_dockerfile, list_external_tools,
-// explain_finding, gate (formerly policy_check), and
-// audit (whole-tree deterministic audit).
+// explain_finding, gate (formerly policy_check), audit, and the
+// dynamic-verify primitives http_probe + oob_listener.
 type Server struct {
 	lib *tools.Library
 }
@@ -413,6 +414,40 @@ func (s *Server) invokeTool(name string, args map[string]interface{}) (interface
 			SeverityFloor: stringArg(args, "severity_floor"),
 			Jobs:          1,
 		})
+	case "http_probe":
+		// Scope-gated dynamic-verify primitive. The scope (where a probe may fire
+		// + operator auth) comes from the env, never the model. Out of scope /
+		// unconfigured ⇒ dry-run (returns the plan, sends nothing).
+		req := probe.Request{
+			URL:     stringArg(args, "url"),
+			Method:  stringArg(args, "method"),
+			Headers: mapArg(args, "headers"),
+			Body:    stringArg(args, "body"),
+		}
+		if v, ok := args["follow_redirects"].(bool); ok {
+			req.FollowRedirects = v
+		}
+		if v, ok := args["timeout_ms"].(float64); ok {
+			req.TimeoutMs = int(v)
+		}
+		return probe.HTTPProbe(context.Background(), probe.LoadScope(), req, nil)
+	case "oob_listener":
+		switch stringArg(args, "action") {
+		case "allocate":
+			url, token, err := probe.Listener().Allocate()
+			if err != nil {
+				return nil, err
+			}
+			return map[string]interface{}{"callback_url": url, "token": token}, nil
+		case "poll":
+			token := stringArg(args, "token")
+			if token == "" {
+				return nil, fmt.Errorf("oob_listener poll requires a token")
+			}
+			return map[string]interface{}{"token": token, "hits": probe.Listener().Poll(token)}, nil
+		default:
+			return nil, fmt.Errorf("oob_listener action must be allocate or poll")
+		}
 	}
 	return nil, fmt.Errorf("%w: %s", errToolNotFound, name)
 }
