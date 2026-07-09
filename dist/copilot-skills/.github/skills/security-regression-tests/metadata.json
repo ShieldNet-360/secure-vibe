@@ -1,0 +1,31 @@
+{
+  "id": "security-regression-tests",
+  "version": "1.0.0",
+  "title": "Security Regression Tests",
+  "description": "Lock every confirmed security fix with a deterministic regression test so CI re-verifies it on every build (no live probing)",
+  "category": "prevention",
+  "severity": "medium",
+  "applies_to": [
+    "when a security finding has been confirmed and fixed",
+    "when generating or changing security-sensitive code (authz, input handling, secrets)",
+    "when wiring a security gate into CI/CD"
+  ],
+  "languages": [
+    "*"
+  ],
+  "token_budget": {
+    "minimal": 600,
+    "compact": 950,
+    "full": 1800
+  },
+  "related_skills": [
+    "dynamic-verification",
+    "secure-code-review",
+    "api-security"
+  ],
+  "last_updated": "2026-07-08",
+  "sources": [
+    "OWASP Web Security Testing Guide (WSTG)",
+    "Google Testing Blog — regression testing"
+  ]
+}

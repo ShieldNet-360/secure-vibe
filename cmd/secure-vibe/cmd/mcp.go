@@ -20,7 +20,7 @@ func mcpCmd() *cobra.Command {
 		Long: `mcp serves the Skills Library over the Model Context Protocol
 (JSON-RPC 2.0, one message per line on stdin/stdout). It exposes the same
 tools as the standalone secure-vibe mcp binary (search_skills, get_skill,
-scan_secrets, scan_dependencies, check_dependency, gate, verify_finding, ...).
+scan_secrets, scan_dependencies, check_dependency, gate, audit, ...).
 
 Register it with an MCP client rather than running it by hand, e.g.:
 

@@ -30,7 +30,7 @@ Sleep 600ms
 Type "cat requirements.txt config.py" Enter
 Sleep 1800ms
 
-Type "secure-vibe gate requirements.txt config.py --severity-floor high" Sleep 500ms Enter
+Type "secure-vibe audit requirements.txt config.py --fail-on high" Sleep 500ms Enter
 Sleep 2600ms
 
 Type "# Blocked before commit. No cloud, no tokens, fully offline." Sleep 400ms Enter

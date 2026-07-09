@@ -1,7 +1,7 @@
 # Quick Start
 
 Get SecureVibe into a project in minutes. **One npm package is everything** — the
-CLI scanners + `gate`, the MCP server, and the skill installer, all in a single
+CLI scanner (`audit`), the MCP server, and the skill installer, all in a single
 `secure-vibe` binary. The easiest path is npm; building from source is for contributors.
 
 !!! note "Prerequisites"
@@ -15,8 +15,8 @@ CLI scanners + `gate`, the MCP server, and the skill installer, all in a single
 npm i -g @shieldnet360/secure-vibe
 ```
 
-That puts one command on your PATH — `secure-vibe` — which is the CLI scanners
-and `gate`, the MCP server (`secure-vibe mcp`), and the skill installer
+That puts one command on your PATH — `secure-vibe` — which is the CLI scanner
+(`secure-vibe audit`), the MCP server (`secure-vibe mcp`), and the skill installer
 (`secure-vibe init`). It bundles the rule data, so everything runs fully offline.
 
 !!! tip "Sanity check"
@@ -31,18 +31,18 @@ assistant over **MCP**.
 
 ## 2. Scan from the CLI
 
-The everyday command. `scan` auto-detects the right scanner per file — secrets,
+The everyday command. `audit` auto-detects the right scanner per file — secrets,
 dependencies (lockfiles), Dockerfile, GitHub Actions — and reports findings.
-`gate` runs the same detection but **exits non-zero** for CI, and `check` vets a
+Add `--fail-on` to make it **exit non-zero** for CI, and `check` vets a
 single package.
 
 ```bash
-secure-vibe scan .                                   # walk the repo, report everything
-secure-vibe gate . --severity-floor high --format sarif   # CI: fail on high+, emit SARIF
+secure-vibe audit .                                  # walk the repo, report everything
+secure-vibe audit . --fail-on high --format sarif > results.sarif   # CI: fail on high+, emit SARIF
 secure-vibe check left-pad@1.3.0 -e npm              # vet one package before adding it
 ```
 
-`gate` is the canonical "fail the build" entry point — wire it into a pre-commit
+`audit --fail-on` is the canonical "fail the build" entry point — wire it into a pre-commit
 hook or a CI step. Add `--report-dir ./reports` for a self-contained HTML + PDF report.
 
 ## 3. Embed the skills into a project (prevention)
@@ -130,7 +130,7 @@ Block it immediately — locally, no central round trip:
 
 ```bash
 secure-vibe contribute add -p evil-pkg -e npm --reason "exfiltrates env in postinstall"
-secure-vibe gate package.json --severity-floor high   # now fails on evil-pkg
+secure-vibe audit package.json --fail-on high   # now fails on evil-pkg
 ```
 
 The rule is written to `.secure-vibe/overlay.json` and never leaves your machine.

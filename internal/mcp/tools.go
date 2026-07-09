@@ -241,5 +241,48 @@ func toolDefinitions() []map[string]interface{} {
 				"required": []string{"path"},
 			},
 		},
+		{
+			"name":        "http_probe",
+			"description": "Send ONE HTTP request you crafted to an operator-authorized target and read back status / headers / body / elapsed_ms — the primitive for dynamically verifying a candidate finding (SQLi timing, reflected XSS, open redirect, path traversal, SSTI). SAFETY: it is scope-gated. With no scope configured, or a target outside SECURE_VIBE_VERIFY_SCOPE / SECURE_VIBE_VERIFY_SCOPE_FILE, it does NOT send — it returns the request `plan` with `sent:false`. Operator-configured auth headers are merged in; never supply credentials for an out-of-scope host. Use `oob_listener` for blind/out-of-band classes (SSRF/XXE/blind command injection), and your OWN headless browser for XSS execution-proof or DOM XSS (this proves reflection, not execution). Per-class oracles are in the dynamic-verification skill.",
+			"inputSchema": map[string]interface{}{
+				"type": "object",
+				"properties": map[string]interface{}{
+					"url":              map[string]string{"type": "string", "description": "Target URL to probe."},
+					"method":           map[string]interface{}{"type": "string", "description": "HTTP method (default GET).", "enum": []string{"", "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"}},
+					"headers":          map[string]interface{}{"type": "object", "description": "Request headers you crafted. Auth for in-scope hosts is supplied by the operator, not here."},
+					"body":             map[string]string{"type": "string", "description": "Request body (e.g. an XML payload for XXE, a form body for POST)."},
+					"follow_redirects": map[string]interface{}{"type": "boolean", "description": "Follow 3xx redirects. Default false — keep false to detect open redirects from the Location header."},
+					"timeout_ms":       map[string]interface{}{"type": "integer", "description": "Per-request timeout in milliseconds (default 8000, capped at 30000)."},
+				},
+				"required": []string{"url"},
+			},
+		},
+		{
+			"name":        "oob_listener",
+			"description": "Out-of-band callback listener for BLIND verification (SSRF, XXE, blind command injection) — classes that leave no trace in the response body. `allocate` returns a unique callback URL to weave into your payload; after probing the target with `http_probe`, `poll` the token to see whether the target called back. A hit is confirmation. The listener runs on 127.0.0.1, so it is reachable from a target on the same host (local / staging); a target that cannot reach it needs an external OOB service. Receiving callbacks is passive, so this is not scope-gated.",
+			"inputSchema": map[string]interface{}{
+				"type": "object",
+				"properties": map[string]interface{}{
+					"action": map[string]interface{}{"type": "string", "description": "allocate a new callback URL, or poll a token for hits.", "enum": []string{"allocate", "poll"}},
+					"token":  map[string]string{"type": "string", "description": "Required for poll: the token returned by a prior allocate."},
+				},
+				"required": []string{"action"},
+			},
+		},
+		{
+			"name":        "propose_skill_update",
+			"description": "Record a proposal that a SecureVibe skill is MISSING a fact, states something WRONG, or has gone OUTDATED — when you discovered better security knowledge than the skill carries (a new bypass, a corrected control, a fresh CVE/spec). Fire it at EITHER point: the moment you read a skill (via get_skill) and spot an error, OR later when a finding that skill led you to make fails verification and you trace the cause back to the skill. This is the knowledge LEARN loop. It is INERT and safe: it only appends to a local, unsigned review log (.secure-vibe/skill-proposals.jsonl). It NEVER edits the signed skill, signs anything, or opens a PR — a human reviews it (`secure-vibe contribute skill`) and, if it holds up, edits the skill and re-signs. `evidence` is required, so record verifiable knowledge (a source/repro/spec), not a guess — do not propose a change to a rule you merely disagree with but could not refute. Re-recording the same claim is idempotent.",
+			"inputSchema": map[string]interface{}{
+				"type": "object",
+				"properties": map[string]interface{}{
+					"skill_id":       map[string]string{"type": "string", "description": "The skill this is about (e.g. \"xss-prevention\"). Find it with search_skills / get_skill."},
+					"kind":           map[string]interface{}{"type": "string", "description": "missing = the skill lacks this; wrong = the skill states it incorrectly; outdated = it was right but is now stale.", "enum": []string{"missing", "wrong", "outdated"}},
+					"claim":          map[string]string{"type": "string", "description": "The new or corrected knowledge, stated plainly."},
+					"evidence":       map[string]string{"type": "string", "description": "Why the claim holds — a source, repro, CVE, or spec link. Required."},
+					"suggested_text": map[string]string{"type": "string", "description": "Optional drop-in wording the maintainer could paste into the SKILL.md."},
+				},
+				"required": []string{"skill_id", "kind", "claim", "evidence"},
+			},
+		},
 	}
 }

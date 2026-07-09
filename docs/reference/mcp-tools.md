@@ -39,7 +39,7 @@ The file-reading tools (`scan_secrets`, `scan_dependencies`, `scan_github_action
 
 ## Tool catalogue
 
-The server exposes 17 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
+The server exposes 20 tools; `policy_check` is additionally accepted as a back-compat alias of `gate`.
 
 | Tool | Purpose |
 | --- | --- |
@@ -53,6 +53,8 @@ The server exposes 17 tools; `policy_check` is additionally accepted as a back-c
 | `scan_github_actions` | Run the CI/CD hardening checklist over a GitHub Actions workflow. |
 | `gate` | Auto-pick the right scanner for a file and return a CI-friendly pass/fail. |
 | `audit` | Whole-tree audit: fan every scanner across a directory, then dedup, rank by severity, and triage likely fixtures. The DETECT layer above `gate`; deterministic, respects the allowed-roots sandbox. |
+| `http_probe` | Send one crafted HTTP request to an operator-authorized target and read status/headers/body/timing — the dynamic-verify primitive. Scope-gated: dry-run unless the target is in scope. |
+| `oob_listener` | Allocate an out-of-band callback URL + poll for blind hits (SSRF/XXE/blind command injection). |
 | `map_compliance_control` | Map a skill / category / term to SOC 2, HIPAA, or PCI DSS controls. |
 | `explain_finding` | Map a CWE/CVE/finding description to relevant skills and CVE patterns. |
 | `get_skill` | Return a skill at a chosen token tier (minimal / compact / full). |
@@ -60,6 +62,7 @@ The server exposes 17 tools; `policy_check` is additionally accepted as a back-c
 | `get_sigma_rule` | Return Sigma-format detection rules by ID or query. |
 | `list_external_tools` | List recommended external CLIs and whether each is on `PATH`. |
 | `version_status` | Report the data version, release timestamp, and signature/trust state. |
+| `propose_skill_update` | Record an inert proposal that a skill is missing/wrong/outdated knowledge (the knowledge LEARN loop). Appends to a local, unsigned review log; never edits or signs a skill. Reviewed with `secure-vibe contribute skill`. |
 
 ## Dependency & supply-chain tools
 
@@ -224,6 +227,12 @@ Returns the requested tier of a skill, so the assistant can pull in only as much
 | `skill_id` | yes | Skill ID, e.g. `secret-detection`. |
 | `budget` | no | Token tier: `minimal`, `compact`, or `full`. Default: `compact`. |
 
+Every result also carries a `feedback_hint`: a standing reminder that a skill is
+curated but not infallible, so if the agent finds a rule wrong/missing/outdated —
+while reading it or after a finding it produced fails verification — it records a
+correction via [`propose_skill_update`](#propose_skill_update). This closes the
+knowledge LEARN loop without a special prompt.
+
 ### `search_skills`
 
 Searches the Skills Library by substring match against title, description, ID, and category, returning matching skill metadata.
@@ -257,6 +266,31 @@ Returns the Skills Library data version, release timestamp, signature status, an
 !!! tip "Call this first"
     Use `version_status` before relying on results from the other tools, so the assistant can disclose data freshness and trust state. (See the [trust model](../concepts/why.md) for how releases are Ed25519-signed.)
 
+## Knowledge LEARN loop
+
+### `propose_skill_update`
+
+Record a proposal that a skill is **missing** a fact, states something **wrong**,
+or has gone **outdated** — the feedback loop for knowledge, complementing the
+vuln-data overlay (`contribute add`). Use it when you discovered better security
+knowledge than the skill carries (a new bypass, a corrected control, a fresh
+CVE/spec).
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `skill_id` | yes | The skill this is about (e.g. `xss-prevention`). Find it with `search_skills` / `get_skill`. |
+| `kind` | yes | `missing` \| `wrong` \| `outdated`. |
+| `claim` | yes | The new or corrected knowledge, stated plainly. |
+| `evidence` | yes | Why the claim holds — a source, repro, CVE, or spec link. |
+| `suggested_text` | no | Optional drop-in wording for the `SKILL.md`. |
+
+It is **inert and safe**: it only appends to a local, unsigned review log
+(`.secure-vibe/skill-proposals.jsonl`). It never edits the signed skill, signs
+anything, or opens a PR — a human reviews it with `secure-vibe contribute skill`
+and, if it holds up, edits the skill and re-signs. Re-recording the same claim is
+idempotent. This human review + re-sign is the trust gate that keeps a
+prompt-injectable model from mutating signed knowledge.
+
 ## Honest scope
 
 The scanners behind these tools are **narrow by design** — four deterministic scanners (secrets, dependencies, Dockerfile, GitHub Actions), not a general SAST. They catch known patterns and exact-match known-bad packages with zero false positives on the data moat, but they miss novel or semantic bugs. That is the accepted trade-off: a fast, offline prevention layer that grounds an AI assistant at generation time, backed by a deterministic gate — not a replacement for human review or a claim to find every vulnerability.
@@ -264,5 +298,5 @@ The scanners behind these tools are **narrow by design** — four deterministic 
 ## See also
 
 - [Developer guide](../guides/developer.md) — wiring SecureVibe into your editor and workflow.
-- [DevOps guide](../guides/devops.md) — the `gate` in CI with SARIF.
-- [Quick start](../quickstart.md) — install and first scan.
+- [DevOps guide](../guides/devops.md) — `audit --fail-on` in CI with SARIF.
+- [Quick start](../quickstart.md) — install and first audit.

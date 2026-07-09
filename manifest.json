@@ -74,38 +74,38 @@
     },
     {
       "path": "dist/.clinerules",
-      "sha256": "a54270c277a18d71d1e309bb08d2005316fcc3d617ad673f657bfc5179c90a68",
-      "size": 3924,
+      "sha256": "efbd48e4399ee66d57c9324e4fb22fefd7accc942e31cfde7c36b49d78f87b7e",
+      "size": 3990,
       "action": "unchanged"
     },
     {
       "path": "dist/.cursorrules",
-      "sha256": "48ac2a70175a0b540ae3ff5a873eefaac7c1122af06d660e1ddd65e7194a35b6",
-      "size": 3915,
+      "sha256": "e121df99c7d5e9657199b867386605de8759a225a1d7d867e5eba8c2313502b0",
+      "size": 3981,
       "action": "unchanged"
     },
     {
       "path": "dist/.windsurfrules",
-      "sha256": "4c25016aa8a1cf80db0ee5263822c3e969370ea74fdefe771e0de00c4803fd52",
-      "size": 3919,
+      "sha256": "b6e2860c6e17cfde88cd300cc0225cda285884db07ffd0804d7811590613a3e3",
+      "size": 3985,
       "action": "unchanged"
     },
     {
       "path": "dist/AGENTS.md",
-      "sha256": "13305afdd770a49721794884fe862475edb377d79e272ebfc708f063ed68898e",
-      "size": 3870,
+      "sha256": "e655c53adfb7ea6f88830d85cb3a0cd68ccc598723d808904e0e8b41e6500bd5",
+      "size": 3936,
       "action": "unchanged"
     },
     {
       "path": "dist/CLAUDE.md",
-      "sha256": "e9f92e8526d4f381beca05ec219289fe86d12f0f57c879d56fc82f5c728c658c",
-      "size": 3860,
+      "sha256": "69e5026e1bda6cb810fa3a382277df9baad3544a26463e39383c9f37598df131",
+      "size": 3926,
       "action": "unchanged"
     },
     {
       "path": "dist/SECURITY-SKILLS.md",
-      "sha256": "cdd638f55324dadefff41f804d207f87d8a36f773602bd25947a4de6c2112cdb",
-      "size": 127059,
+      "sha256": "61596c8e83c551b809f5dca8ff560b17e2a73b8be8cfe7b62b303f7a82727fa3",
+      "size": 130782,
       "action": "unchanged"
     },
     {
@@ -230,14 +230,14 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/dynamic-verification/SKILL.md",
-      "sha256": "f8a426dfb030abce92e50807c0b16668d9f25e038b8713d31820712066836fea",
-      "size": 3333,
+      "sha256": "43cb75f7964ecc43e5bbcf5e006e5f095e463a036d143aab272c6280bfb1526f",
+      "size": 4642,
       "action": "unchanged"
     },
     {
       "path": "dist/agent-skills/.agents/skills/dynamic-verification/metadata.json",
-      "sha256": "d6154960baa7079d6dbfa111f3c83552bc918646d43dbeabee946a468b4dab68",
-      "size": 881,
+      "sha256": "2ea7cd48d2c7d1bbb4bc7ed707280c4bb7f62a31e83d22bb61aacf0cfa2b4f84",
+      "size": 1041,
       "action": "unchanged"
     },
     {
@@ -418,6 +418,18 @@
       "path": "dist/agent-skills/.agents/skills/secure-code-review/metadata.json",
       "sha256": "73ca9cdf39efcbfbc3462566d6b7c04c384c1de477826e100f887b780b8290af",
       "size": 828,
+      "action": "unchanged"
+    },
+    {
+      "path": "dist/agent-skills/.agents/skills/security-regression-tests/SKILL.md",
+      "sha256": "43bc80da80251ce65249ec0d90ef58ba8fea79e0ccb3383b7adfbaae28f192e9",
+      "size": 3028,
+      "action": "unchanged"
+    },
+    {
+      "path": "dist/agent-skills/.agents/skills/security-regression-tests/metadata.json",
+      "sha256": "a791725284592fb499aa5afc3e9a97659abe946100db7985f4e5affe736355ab",
+      "size": 879,
       "action": "unchanged"
     },
     {
@@ -614,14 +626,14 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/dynamic-verification/SKILL.md",
-      "sha256": "38c32523558c7dfa8da956dd6635d5551369e36cb08329f71ebe5f71d443e2db",
-      "size": 3308,
+      "sha256": "f9c0fb2ae214586a15fdf0cca7e38223f6d1fe3dfa82cdd05628ec3d0eb06dd8",
+      "size": 4617,
       "action": "unchanged"
     },
     {
       "path": "dist/claude-skills/.claude/skills/dynamic-verification/metadata.json",
-      "sha256": "d6154960baa7079d6dbfa111f3c83552bc918646d43dbeabee946a468b4dab68",
-      "size": 881,
+      "sha256": "2ea7cd48d2c7d1bbb4bc7ed707280c4bb7f62a31e83d22bb61aacf0cfa2b4f84",
+      "size": 1041,
       "action": "unchanged"
     },
     {
@@ -805,6 +817,18 @@
       "action": "unchanged"
     },
     {
+      "path": "dist/claude-skills/.claude/skills/security-regression-tests/SKILL.md",
+      "sha256": "b08b983ee72370514c76a3980dba09ad02435b726a611c9a20e86f7bbe50633d",
+      "size": 3003,
+      "action": "unchanged"
+    },
+    {
+      "path": "dist/claude-skills/.claude/skills/security-regression-tests/metadata.json",
+      "sha256": "a791725284592fb499aa5afc3e9a97659abe946100db7985f4e5affe736355ab",
+      "size": 879,
+      "action": "unchanged"
+    },
+    {
       "path": "dist/claude-skills/.claude/skills/serverless-security/SKILL.md",
       "sha256": "9000ef1de8a80fd5a3a4288b3027fc4354022322354f523ceb1974a5cf2acb45",
       "size": 3335,
@@ -878,8 +902,8 @@
     },
     {
       "path": "dist/copilot-instructions.md",
-      "sha256": "62a4d9d205a40bfcae691870d20aa7e2f1ae0138477d85ebf76e98cb383f97a1",
-      "size": 3877,
+      "sha256": "1823168c23e96ba424c9cf43fb43ad41c805ec2ec65c0de692244c220d2e11d1",
+      "size": 3943,
       "action": "unchanged"
     },
     {
@@ -944,8 +968,8 @@
     },
     {
       "path": "dist/copilot-rules/.github/instructions/dynamic-verification.instructions.md",
-      "sha256": "1d7bd08fd9c29cee55a6260e2eebb29b20c6dcb1a73bf3a3f1a883a369b68bac",
-      "size": 2950,
+      "sha256": "ba6788e28f5c33545cec7bd93764aceff83df3819a966aeef26f98b1a16ebc3d",
+      "size": 4138,
       "action": "unchanged"
     },
     {
@@ -1036,6 +1060,12 @@
       "path": "dist/copilot-rules/.github/instructions/secure-code-review.instructions.md",
       "sha256": "c0da734a41b02852757f9eff8cfbd0e12cab67a6b64dbb00f67d1522c58b4e4e",
       "size": 2720,
+      "action": "unchanged"
+    },
+    {
+      "path": "dist/copilot-rules/.github/instructions/security-regression-tests.instructions.md",
+      "sha256": "9beac84e10d6f40616f9b9d5e9f28be3d03589b6a741e6ac5c3f5e77fff3d470",
+      "size": 2649,
       "action": "unchanged"
     },
     {
@@ -1196,14 +1226,14 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/dynamic-verification/SKILL.md",
-      "sha256": "36a7a33531d6152f082d6c304d435edf138204cee36471fe6c38769a8e677779",
-      "size": 3311,
+      "sha256": "6c828f448b94ace5189a4c0659305b521abee70cbc29e0f3580fa0d088a4c155",
+      "size": 4620,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-skills/.github/skills/dynamic-verification/metadata.json",
-      "sha256": "d6154960baa7079d6dbfa111f3c83552bc918646d43dbeabee946a468b4dab68",
-      "size": 881,
+      "sha256": "2ea7cd48d2c7d1bbb4bc7ed707280c4bb7f62a31e83d22bb61aacf0cfa2b4f84",
+      "size": 1041,
       "action": "unchanged"
     },
     {
@@ -1387,6 +1417,18 @@
       "action": "unchanged"
     },
     {
+      "path": "dist/copilot-skills/.github/skills/security-regression-tests/SKILL.md",
+      "sha256": "7d106a042919cf0b6c1a174e7476a7a7b18de451178edc797d0561751e84eecf",
+      "size": 3006,
+      "action": "unchanged"
+    },
+    {
+      "path": "dist/copilot-skills/.github/skills/security-regression-tests/metadata.json",
+      "sha256": "a791725284592fb499aa5afc3e9a97659abe946100db7985f4e5affe736355ab",
+      "size": 879,
+      "action": "unchanged"
+    },
+    {
       "path": "dist/copilot-skills/.github/skills/serverless-security/SKILL.md",
       "sha256": "f423dcd7fa7d9bd8a004b9f0bf0d3a672917c43d56982a29323081eec29041b5",
       "size": 3338,
@@ -1520,8 +1562,8 @@
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/dynamic-verification.mdc",
-      "sha256": "e184474fe48dd1af279fe8e2a280bcae7bfebd3941e2df49ad9f66117db7041a",
-      "size": 3291,
+      "sha256": "6b92bf19cb5413356704dc81ea5ece447662e3d2a51cb521fe2ae9782e4f6a5e",
+      "size": 4600,
       "action": "unchanged"
     },
     {
@@ -1612,6 +1654,12 @@
       "path": "dist/cursor-rules/.cursor/rules/secure-code-review.mdc",
       "sha256": "2e72b2639e5e991fe97605b21209eb66226d7a3e25f91f5b6f403655f9d9085b",
       "size": 3000,
+      "action": "unchanged"
+    },
+    {
+      "path": "dist/cursor-rules/.cursor/rules/security-regression-tests.mdc",
+      "sha256": "668093d555752987cb27599a4e46e0c335eed7ce3dccc9c8a2cb01c2b17f30f4",
+      "size": 2981,
       "action": "unchanged"
     },
     {
@@ -1712,8 +1760,8 @@
     },
     {
       "path": "dist/devin-rules/.devin/rules/dynamic-verification.md",
-      "sha256": "d78a8671c127262a139f38142bb28f5a5d93757b85beb9ba1e01666cc60f90d7",
-      "size": 3295,
+      "sha256": "1f5bd250ac4893cf828d90aadef589b3b3f4e3e22db4fd030338f7a476b5c27f",
+      "size": 4604,
       "action": "unchanged"
     },
     {
@@ -1807,6 +1855,12 @@
       "action": "unchanged"
     },
     {
+      "path": "dist/devin-rules/.devin/rules/security-regression-tests.md",
+      "sha256": "99111354cdb205ed5441e6edbc6f11df4498b34ffc059b38860f689c6685ae15",
+      "size": 2985,
+      "action": "unchanged"
+    },
+    {
       "path": "dist/devin-rules/.devin/rules/serverless-security.md",
       "sha256": "396de818e2387bb55a8a56078d556a9752a3a3d200dae03ff99cf465de8be7ec",
       "size": 3084,
@@ -1844,8 +1898,8 @@
     },
     {
       "path": "dist/devin.md",
-      "sha256": "3510fcfcc9fe9621cab4e08dd85e0e8cd9b38354354717e989c3b7aff23150e8",
-      "size": 3853,
+      "sha256": "8ce885672957897c89d01859d17f671f8af54e393b3a3baedeec7c13e7bc0b67",
+      "size": 3919,
       "action": "unchanged"
     },
     {
@@ -2246,8 +2300,8 @@
     },
     {
       "path": "skills/dynamic-verification/SKILL.md",
-      "sha256": "049d75b1ae34f2402453907251ee4ddcdfbeabef461dbff0b1d5c9c6bab1e8e3",
-      "size": 6122,
+      "sha256": "a4892b854b7208f3ae748bde727745256dbf2235fa21f5a84b0b76cd9bd1734e",
+      "size": 10646,
       "action": "unchanged"
     },
     {
@@ -2650,6 +2704,12 @@
       "path": "skills/secure-code-review/tests/corpus.json",
       "sha256": "8439d172f4a54b1d3dad541a5ccc31448488e95cb418981369d455dcae69c2e7",
       "size": 3781,
+      "action": "unchanged"
+    },
+    {
+      "path": "skills/security-regression-tests/SKILL.md",
+      "sha256": "4c918abb8f0a373591d88b4851982fd339c8a02c42beeb6c510c9127a7424196",
+      "size": 4099,
       "action": "unchanged"
     },
     {
