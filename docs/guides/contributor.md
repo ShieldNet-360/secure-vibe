@@ -77,12 +77,12 @@ Say you found a malicious npm package and want the gate to start blocking it **n
 4. **Confirm the gate now blocks it.** Re-run the dependency scanner or the gate against a project that lists the package; it exits non-zero:
 
     ```bash
-    secure-vibe scan .
-    secure-vibe gate . --severity-floor high
+    secure-vibe audit .
+    secure-vibe audit . --fail-on high
     ```
 
 !!! tip "Nothing leaves your machine"
-    The overlay is read locally from `.secure-vibe/overlay.json` by every scan and gate run. It does **not** leave your machine until you choose to share it — by committing it, or by submitting a candidate.
+    The overlay is read locally from `.secure-vibe/overlay.json` by every `audit` run. It does **not** leave your machine until you choose to share it — by committing it, or by submitting a candidate.
 
 You can review or prune your overlay at any time:
 
@@ -162,6 +162,12 @@ Skills are structured knowledge that AI assistants read at generation time. Each
     ```
 
 4. Open a PR.
+
+!!! tip "Start from an assistant's proposal"
+    If an AI assistant flagged the missing or wrong knowledge mid-task, it will
+    have recorded an inert proposal via the `propose_skill_update` MCP tool.
+    Review the queue with `secure-vibe contribute skill`, then fold the
+    accepted fix into the skill above and re-sign it.
 
 ### A malicious-package data entry
 

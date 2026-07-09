@@ -43,14 +43,14 @@ Being explicit here is part of the trust contract:
 
 ## Detection scope (honest)
 
-Four scanners are **enforced** by the tooling. The 30 skills cover a broader set of security domains as *prevention guidance* at generation time, but only the four below are backed by a deterministic scanner and the CI gate.
+Four scanners are **enforced** by the tooling. The 33 skills cover a broader set of security domains as *prevention guidance* at generation time, but only the four below are backed by a deterministic scanner and the CI gate.
 
 | Scanner | Command | What it catches |
 |---|---|---|
-| **Secrets** | `secure-vibe scan <path>` | Hardcoded API keys, tokens, and credentials via 83 secret-detection patterns. |
-| **Dependencies** | `secure-vibe scan <path>` | Malicious / typosquatted packages, plus CVE/OSV matches, via exact-match lookups against the curated DB (3,623 entries across 10 ecosystems) and 58 CVE code-patterns. |
-| **Dockerfile** | `secure-vibe scan <path>` | Container anti-patterns — root user, unpinned/`:latest` base images, and related least-privilege drift. |
-| **GitHub Actions** | `secure-vibe scan <path>` | Unpinned actions, mutable refs, and insecure CI workflow configuration. |
+| **Secrets** | `secure-vibe audit <path>` | Hardcoded API keys, tokens, and credentials via 83 secret-detection patterns. |
+| **Dependencies** | `secure-vibe audit <path>` | Malicious / typosquatted packages, plus CVE/OSV matches, via exact-match lookups against the curated DB (3,623 entries across 10 ecosystems) and 58 CVE code-patterns. |
+| **Dockerfile** | `secure-vibe audit <path>` | Container anti-patterns — root user, unpinned/`:latest` base images, and related least-privilege drift. |
+| **GitHub Actions** | `secure-vibe audit <path>` | Unpinned actions, mutable refs, and insecure CI workflow configuration. |
 
 !!! note "Skills ≠ scanners"
     Prevention skills span more domains than the four enforced scanners. Treat the table above as the **enforced** detection surface; the skills are advisory at generation time.
@@ -146,10 +146,10 @@ SecureVibe is designed to be evaluated without trusting anyone — including its
 2. **Run it offline.** No API key, no telemetry, no cloud call is required. Run the scanners on your own fixtures and disconnect the network to confirm there is no egress.
 
    ```bash
-   secure-vibe scan .
-   secure-vibe scan .
-   secure-vibe scan .
-   secure-vibe scan .
+   secure-vibe audit .
+   secure-vibe audit .
+   secure-vibe audit .
+   secure-vibe audit .
    ```
 
 3. **Reproduce the eval.** The eval corpus is committed. Re-run the scanners against it to reproduce the stated precision/recall — and confirm for yourself that the numbers are corpus-bounded, exactly as documented above.

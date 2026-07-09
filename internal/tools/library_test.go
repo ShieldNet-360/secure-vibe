@@ -273,6 +273,23 @@ func TestGetSkillRejectsUnknownSkill(t *testing.T) {
 	}
 }
 
+// TestGetSkillCarriesFeedbackHint locks in the standing knowledge-LEARN nudge:
+// every skill fetch reminds the agent it can correct a wrong/missing rule via
+// propose_skill_update, so the loop fires without a special prompt.
+func TestGetSkillCarriesFeedbackHint(t *testing.T) {
+	lib := newLibrary(t)
+	res, err := lib.GetSkill("secret-detection", "compact")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if res.FeedbackHint == "" {
+		t.Fatal("get_skill result should carry a feedback_hint")
+	}
+	if !strings.Contains(res.FeedbackHint, "propose_skill_update") {
+		t.Errorf("feedback_hint should name propose_skill_update; got %q", res.FeedbackHint)
+	}
+}
+
 func TestSearchSkillsByQuery(t *testing.T) {
 	lib := newLibrary(t)
 	res, err := lib.SearchSkills("secret")

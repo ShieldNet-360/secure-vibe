@@ -17,7 +17,7 @@ import (
 
 func initCmd() *cobra.Command {
 	var libraryPath, tool, skillsList, budget, outDir, profileName string
-	var noPrompt, fullInline, legacy, noAttestHook bool
+	var noPrompt, fullInline, legacy, noAttestHook, noWorkflow bool
 	c := &cobra.Command{
 		Use:   "init",
 		Short: "Generate an IDE-specific config file in the current project",
@@ -101,6 +101,18 @@ func initCmd() *cobra.Command {
 			fmt.Fprintf(out, "wrote %s (%s tier, %d skills, %d openai / %d claude tokens)\n",
 				filepath.Join(outDir, f.OutputName()), tier, len(all), report.Total.OpenAI, report.Total.Claude)
 			fmt.Fprintln(out, nextStepHint(tool))
+
+			// Claude Code is the only tool with a Workflow runtime, so drop the
+			// repo-wide audit workflow into .claude/workflows/ for it. Other
+			// tools have no such runtime; skip them.
+			if tool == "claude" && !noWorkflow {
+				wfPath, wrote, werr := writeAuditWorkflow(outDir)
+				if werr != nil {
+					fmt.Fprintln(c.ErrOrStderr(), "warn: could not write workflow:", werr)
+				} else {
+					fmt.Fprintln(out, workflowNote(wfPath, wrote))
+				}
+			}
 			for _, w := range warns {
 				fmt.Fprintln(c.ErrOrStderr(), "warn:", w)
 			}
@@ -129,6 +141,7 @@ func initCmd() *cobra.Command {
 	c.Flags().BoolVar(&fullInline, "full-inline", false, "render the legacy monolithic per-tool dist/ output that inlines every skill body (default is the minimal pointer file)")
 	c.Flags().BoolVar(&legacy, "legacy", false, "alias for --full-inline")
 	c.Flags().BoolVar(&noAttestHook, "no-attest-hook", false, "do not install the commit attestation (prepare-commit-msg) hook")
+	c.Flags().BoolVar(&noWorkflow, "no-workflow", false, "do not write the Claude Code audit workflow (.claude/workflows/, --tool claude only)")
 	return c
 }
 

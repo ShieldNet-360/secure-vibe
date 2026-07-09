@@ -50,7 +50,11 @@ Sharing the block (the LEARN flywheel), in order of blast radius:
     all repos and CI jobs.
 
 Run "contribute submit" to export a portable, optionally-signed candidate you
-can attach to an upstream issue/PR for review into the central database.`,
+can attach to an upstream issue/PR for review into the central database.
+
+The same LEARN loop covers knowledge, not just data: when a coding agent finds
+a skill is missing a fact or is wrong, it records an inert proposal via the
+propose_skill_update MCP tool. Review those with "contribute skill".`,
 	}
 	c.AddCommand(contributeAddCmd())
 	c.AddCommand(contributeListCmd())
@@ -59,6 +63,7 @@ can attach to an upstream issue/PR for review into the central database.`,
 	c.AddCommand(contributeKeygenCmd())
 	c.AddCommand(contributeVerifyCmd())
 	c.AddCommand(contributeImportCmd())
+	c.AddCommand(contributeSkillCmd())
 	return c
 }
 

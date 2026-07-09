@@ -14,7 +14,7 @@ hide:
   <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT">
   <img src="https://img.shields.io/github/actions/workflow/status/shieldnet-360/secure-vibe/validate.yml?branch=main&label=CI" alt="CI">
   <img src="https://img.shields.io/github/last-commit/shieldnet-360/secure-vibe?label=last%20update&color=brightgreen" alt="Last commit">
-  <img src="https://img.shields.io/badge/skills-30-blue" alt="Skills">
+  <img src="https://img.shields.io/badge/skills-33-blue" alt="Skills">
   <img src="https://img.shields.io/badge/CVE%20patterns-58-orange" alt="CVE patterns">
   <img src="https://img.shields.io/badge/supply--chain%20ecosystems-10-purple" alt="Supply-chain ecosystems">
   <img src="https://img.shields.io/badge/Secret%20patterns-83-red" alt="secret-detection patterns">
@@ -37,7 +37,7 @@ hide:
 <div class="ss-stats">
   <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="malicious">3,623</span><span class="ss-stat-label">Curated Entries</span></div>
   <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="ecosystems">10</span><span class="ss-stat-label">Supply-Chain Ecosystems</span></div>
-  <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="skills">30</span><span class="ss-stat-label">Skills</span></div>
+  <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="skills">33</span><span class="ss-stat-label">Skills</span></div>
   <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="cve">58</span><span class="ss-stat-label">CVE Patterns</span></div>
   <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="secret">83</span><span class="ss-stat-label">Secret Patterns</span></div>
   <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="integrations">8</span><span class="ss-stat-label">AI Client Integrations</span></div>
@@ -80,11 +80,11 @@ claude mcp add SecureVibe -- npx -y @shieldnet360/secure-vibe mcp
 
 ```bash
 # Or gate files from the terminal / CI / pre-commit (deterministic, exit code)
-npx -y @shieldnet360/secure-vibe gate Dockerfile package-lock.json --severity-floor high
+npx -y @shieldnet360/secure-vibe audit Dockerfile package-lock.json --fail-on high
 ```
 
-`gate` picks the right scanner per file (Dockerfile / lockfile / workflow → specialised
-scanner; anything else → secret scan) and exits non-zero when a finding meets the floor.
+`audit` picks the right scanner per file (Dockerfile / lockfile / workflow → specialised
+scanner; anything else → secret scan) and, with `--fail-on`, exits non-zero when a finding meets the floor.
 The data is bundled, so it runs fully offline.
 
 </div>
@@ -99,7 +99,7 @@ flowchart LR
     AI -->|JSON-RPC on demand| MCP["secure-vibe mcp<br/>server"]
     subgraph LIB [" SecureVibe library "]
         direction TB
-        SK["skills/<br/>30 SKILL.md"]
+        SK["skills/<br/>33 SKILL.md"]
         VU["vulnerabilities/<br/>npm · pypi · cargo · gem · go ·<br/>nuget · maven · gh-actions · docker"]
         CV["CVE patterns<br/>58 code-relevant"]
         SECRETS["Secret patterns<br/>83 detection rules"]
@@ -124,7 +124,7 @@ Every surface is optional. Drop a static `CLAUDE.md` for zero-config baseline co
 <a class="ss-card" data-pkg="skills" href="https://github.com/shieldnet-360/secure-vibe/tree/main/skills">
 <span class="ss-card-icon">🧠</span>
 <span class="ss-card-body"><span class="ss-card-title">Skill Catalogue</span>
-<span class="ss-card-desc">30 structured security skills, machine-readable, ranked by severity. Three token tiers (minimal / compact / full) per skill.</span></span>
+<span class="ss-card-desc">33 structured security skills, machine-readable, ranked by severity. Three token tiers (minimal / compact / full) per skill.</span></span>
 </a>
 <a class="ss-card" data-pkg="cve" href="https://github.com/shieldnet-360/secure-vibe/tree/main/vulnerabilities/cve">
 <span class="ss-card-icon">🛡️</span>
@@ -149,7 +149,7 @@ Every surface is optional. Drop a static `CLAUDE.md` for zero-config baseline co
 <a class="ss-card" data-pkg="cli" href="quickstart/">
 <span class="ss-card-icon">⚡</span>
 <span class="ss-card-body"><span class="ss-card-title">CLI + MCP Server</span>
-<span class="ss-card-desc"><code>secure-vibe</code> Go binary for init / validate / update / regenerate / gate. <code>secure-vibe mcp</code> exposes 17 JSON-RPC tools.</span></span>
+<span class="ss-card-desc"><code>secure-vibe</code> Go binary for init / validate / update / regenerate / audit. <code>secure-vibe mcp</code> exposes 20 JSON-RPC tools.</span></span>
 </a>
 <a class="ss-card" data-pkg="compliance" href="compliance/">
 <span class="ss-card-icon">📋</span>
@@ -203,7 +203,7 @@ Eight first-class targets. Same skills, same library, eight rendered output form
 
 Native skill bundles are also produced for the three clients that support per-skill directories: `agent-skills/.agents/skills/`, `claude-skills/.claude/skills/`, `copilot-skills/.github/skills/`.
 
-For MCP-aware clients (Claude Code, Cursor, etc.), `secure-vibe mcp` exposes 17 JSON-RPC tools — `lookup_vulnerability`, `scan_dependencies`, `scan_dockerfile`, `scan_github_actions`, `check_secret_pattern`, `map_compliance_control`, `gate`, and 10 more — so the assistant can ask for security context on demand instead of loading the whole rule corpus into its prompt.
+For MCP-aware clients (Claude Code, Cursor, etc.), `secure-vibe mcp` exposes 20 JSON-RPC tools — `lookup_vulnerability`, `scan_dependencies`, `scan_dockerfile`, `scan_github_actions`, `check_secret_pattern`, `map_compliance_control`, `gate`, and 13 more — so the assistant can ask for security context on demand instead of loading the whole rule corpus into its prompt.
 
 </div>
 

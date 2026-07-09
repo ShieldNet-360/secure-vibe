@@ -27,7 +27,7 @@ flowchart LR
 
     subgraph GROUND["Grounding layer — SecureVibe (deterministic, offline, signed)"]
         DB["Curated malicious-package DB<br/>+ CVE / OSV"]
-        SK["30 security skills"]
+        SK["33 security skills"]
         SC["4 scanners"]
         SG["Ed25519 signing / verify"]
         GT["CI gate"]
@@ -50,9 +50,9 @@ SecureVibe plugs into a workflow through four distinct surfaces. The first two g
 | Surface | Component | How it connects | Primary command |
 | --- | --- | --- | --- |
 | Static skill files | `secure-vibe init` | Writes the assistant's native config so security knowledge is always in context | `secure-vibe init --tool claude` (also `cursor`, `copilot`, `codex`, `windsurf`, `cline`, `devin`) |
-| MCP server | `secure-vibe mcp` | Exposes **17 tools** over stdio; the assistant calls them on demand for live, deterministic lookups | `claude mcp add secure-vibe -- npx -y @shieldnet360/secure-vibe mcp` |
-| CLI scanners | `secure-vibe scan` | The four deterministic scanners, run by a human or a script | `secure-vibe scan <path>` |
-| CI gate | `secure-vibe gate` | Blocks insecure diffs in CI; auto-picks the scanner per file and emits SARIF | `secure-vibe gate <path> --severity-floor high --sarif results.sarif` |
+| MCP server | `secure-vibe mcp` | Exposes **20 tools** over stdio; the assistant calls them on demand for live, deterministic lookups | `claude mcp add secure-vibe -- npx -y @shieldnet360/secure-vibe mcp` |
+| CLI scanners | `secure-vibe audit` | The four deterministic scanners, run by a human or a script | `secure-vibe audit <path>` |
+| CI gate | `secure-vibe audit --fail-on` | Blocks insecure diffs in CI; auto-picks the scanner per file and emits SARIF | `secure-vibe audit <path> --fail-on high --format sarif > results.sarif` |
 
 !!! tip "Surfaces compose"
     `init` puts the skills *in front of* generation, the MCP tools let the assistant *check itself* mid-task, the scanners give a human a manual pass, and the `gate` is the non-negotiable backstop in CI. You can adopt any subset.
@@ -175,7 +175,7 @@ flowchart TD
 
     P -.uses.-> Pc["Skills (init) +<br/>MCP tools in-context"]
     D -.uses.-> Dc["4 scanners +<br/>curated DB / CVE / OSV"]
-    E -.uses.-> Ec["gate (SARIF, severity floor)"]
+    E -.uses.-> Ec["audit --fail-on (SARIF)"]
     L -.uses.-> Lc["contribute → signed overlay"]
 ```
 
@@ -183,7 +183,7 @@ flowchart TD
 | --- | --- | --- |
 | **PREVENT** | Signed skills sit in the assistant's context so it writes secure code at generation time | `init` config files, `secure-vibe mcp` |
 | **DETECT** | Deterministic scanners flag known issues with zero-false-positive exact-match lookups | 4 scanners, curated DB + CVE + OSV |
-| **ENFORCE** | The gate fails the build above a severity floor and emits SARIF for GitHub Code Scanning | `secure-vibe gate` |
+| **ENFORCE** | The gate fails the build above a severity floor and emits SARIF for GitHub Code Scanning | `secure-vibe audit --fail-on` |
 | **LEARN** | A new finding is captured into a signed overlay that feeds back into prevention/detection | `secure-vibe contribute`, `.secure-vibe/overlay.json` |
 
 ## An MCP request, end to end
@@ -211,7 +211,7 @@ The top-level directories that matter for understanding the build:
 
 ```text
 secure-vibe/
-├── skills/                       # 30 security SKILL.md knowledge files (3 token tiers)
+├── skills/                       # 33 security SKILL.md knowledge files (3 token tiers)
 ├── vulnerabilities/
 │   ├── supply-chain/             # curated malicious-package DB (3,623 entries, 10 ecosystems)
 │   ├── cve/                      # 58 CVE code-patterns
@@ -220,8 +220,8 @@ secure-vibe/
 ├── profiles/                     # enterprise profiles: financial-services / government / healthcare
 ├── rules/                        # 27 Sigma detection rules (cloud / container / endpoint / saas)
 ├── cmd/
-│   ├── secure-vibe/             # the Go CLI: scanners, gate, init, contribute, self-update
-│   └── secure-vibe/               # the MCP server (17 tools over stdio)
+│   ├── secure-vibe/             # the Go CLI: scanners, audit, init, contribute, self-update
+│   └── secure-vibe/               # the MCP server (20 tools over stdio)
 └── dist/                         # built/generated artifacts shipped with releases
 ```
 

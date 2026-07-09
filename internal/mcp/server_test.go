@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/shieldnet-360/secure-vibe/internal/audit"
+	"github.com/shieldnet-360/secure-vibe/internal/proposal"
 )
 
 func repoRoot(t *testing.T) string {
@@ -217,6 +218,9 @@ func TestToolsListReturnsExpectedTools(t *testing.T) {
 		"explain_finding":        false,
 		"gate":                   false,
 		"audit":                  false,
+		"http_probe":             false,
+		"oob_listener":           false,
+		"propose_skill_update":   false,
 	}
 	if len(tools) != len(want) {
 		t.Fatalf("expected %d tools, got %d", len(want), len(tools))
@@ -374,5 +378,39 @@ func TestInvokeAuditRespectsSandbox(t *testing.T) {
 	}
 	if rep.Total() < 1 {
 		t.Errorf("expected at least one finding under the audited dir, got %d", rep.Total())
+	}
+}
+
+func TestInvokeProposeSkillUpdate(t *testing.T) {
+	// Route the log to a temp file so the test never writes into cwd.
+	logPath := filepath.Join(t.TempDir(), ".secure-vibe", "skill-proposals.jsonl")
+	t.Setenv("SECURE_VIBE_PROPOSALS_FILE", logPath)
+
+	srv := newServer(t)
+	res, err := srv.invokeTool("propose_skill_update", map[string]interface{}{
+		"skill_id": "xss-prevention",
+		"kind":     "missing",
+		"claim":    "Trusted Types can eliminate DOM XSS sinks.",
+		"evidence": "https://web.dev/trusted-types",
+	})
+	if err != nil {
+		t.Fatalf("propose_skill_update: %v", err)
+	}
+	out := res.(map[string]interface{})
+	if out["is_new"] != true {
+		t.Errorf("first proposal should be new: %+v", out)
+	}
+
+	// Missing evidence is rejected (a proposal must be reviewable).
+	if _, err := srv.invokeTool("propose_skill_update", map[string]interface{}{
+		"skill_id": "xss-prevention", "kind": "missing", "claim": "x",
+	}); err == nil {
+		t.Error("expected error when evidence is omitted")
+	}
+
+	// The record landed in the routed log, not cwd.
+	got, err := proposal.Load(logPath)
+	if err != nil || len(got) != 1 {
+		t.Fatalf("expected 1 recorded proposal, got %d (err %v)", len(got), err)
 	}
 }

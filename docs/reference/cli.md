@@ -115,8 +115,13 @@ secure-vibe init --tool <tool> [flags]
 | `--out` | Output directory (default: cwd). |
 | `--profile` | Enterprise profile, e.g. `financial-services`, `healthcare`, `government` — restricts the skill set. |
 | `--no-prompt` | Skip the interactive prompt to set up scheduled updates. |
+| `--no-workflow` | Do not write the Claude Code audit workflow (`.claude/workflows/`, `--tool claude` only). |
 | `--full-inline` | Render the legacy monolithic per-tool output that inlines every skill body (default is the minimal pointer file). |
 | `--legacy` | Alias for `--full-inline`. |
+
+For `--tool claude`, `init` also drops the repo-wide audit workflow into
+`.claude/workflows/secure-vibe-audit.js` (run it from Claude Code with "use a
+workflow"). It never overwrites an existing copy; suppress it with `--no-workflow`.
 
 ```bash
 secure-vibe init --tool claude
@@ -136,7 +141,7 @@ Record a locally-discovered bad package so the gate blocks it immediately — th
 ```mermaid
 flowchart LR
   A[contribute add] --> B[.secure-vibe/overlay.json]
-  B --> C[gate blocks it next run]
+  B --> C[audit --fail-on blocks it next run]
   B -- commit --> D[team gates enforce]
   A2[contribute submit --key] --> E[candidate.json]
   E --> F[contribute verify]
@@ -240,6 +245,31 @@ secure-vibe contribute import <candidate.json> [flags]
 |------|-------------|
 | `--allow-unsigned` | Import a candidate that carries no signature/provenance. |
 | `--dir` | Project directory (default: cwd). |
+
+### `contribute skill`
+
+Review the **knowledge** LEARN loop: proposals an agent recorded via the
+`propose_skill_update` MCP tool when it found a skill missing a fact, wrong, or
+stale. Proposals are inert suggestions in `.secure-vibe/skill-proposals.jsonl` —
+this command reads them; it never edits or signs a skill. Adopting a proposal is
+a human act: edit `skills/<id>/SKILL.md` and re-run the signing pipeline.
+
+```text
+secure-vibe contribute skill [--show <id> | --upstream <id>] [--dir <dir>]
+```
+
+| Flag | Description |
+|------|-------------|
+| *(none)* | List pending proposals. |
+| `--show <id>` | Print full detail (claim, evidence, suggested text) for one proposal. |
+| `--upstream <id>` | Print a paste-ready upstream contribution (PR body) plus a prefilled GitHub issue URL — a human opens it; nothing is published automatically. |
+| `--dir` | Project directory holding `.secure-vibe/skill-proposals.jsonl` (default: cwd). |
+
+```bash
+secure-vibe contribute skill                    # list
+secure-vibe contribute skill --show sp-0bd139    # inspect one
+secure-vibe contribute skill --upstream sp-0bd139  # PR-ready bundle + URL
+```
 
 ---
 
