@@ -1285,7 +1285,20 @@ type GetSkillResult struct {
 	Tier        string `json:"tier"`
 	Content     string `json:"content"`
 	Description string `json:"description,omitempty"`
+	// FeedbackHint is a standing nudge returned with every skill so the
+	// knowledge LEARN loop fires without a special prompt: a skill is signed
+	// and curated, but not infallible.
+	FeedbackHint string `json:"feedback_hint"`
 }
+
+// SkillFeedbackHint accompanies every get_skill result. It closes the knowledge
+// LEARN loop at the exact moment the agent reads a skill: if a rule is wrong,
+// missing, or stale for the code at hand — whether the agent notices now
+// (reading it) or only later (a finding it produced fails verification) — it
+// should record a correction with propose_skill_update. Requiring evidence and
+// routing through human review (see the proposal package) keeps a
+// prompt-injectable model from mutating signed knowledge on a whim.
+const SkillFeedbackHint = "This skill is curated but not infallible. If a rule here is wrong, missing, or outdated for the code you're working on — whether you notice now or only after a finding it produced fails verification — record a correction with propose_skill_update (include evidence). Do not silently act on, or discard, knowledge you could not verify."
 
 // GetSkill loads a skill manifest and returns the requested tier
 // content. budget defaults to "compact" when empty.
@@ -1308,13 +1321,14 @@ func (l *Library) GetSkill(skillID, budget string) (*GetSkillResult, error) {
 			continue
 		}
 		return &GetSkillResult{
-			SkillID:     skillID,
-			Title:       s.Frontmatter.Title,
-			Category:    s.Frontmatter.Category,
-			Severity:    s.Frontmatter.Severity,
-			Tier:        budget,
-			Content:     s.Extract(skill.Tier(budget)),
-			Description: s.Frontmatter.Description,
+			SkillID:      skillID,
+			Title:        s.Frontmatter.Title,
+			Category:     s.Frontmatter.Category,
+			Severity:     s.Frontmatter.Severity,
+			Tier:         budget,
+			Content:      s.Extract(skill.Tier(budget)),
+			Description:  s.Frontmatter.Description,
+			FeedbackHint: SkillFeedbackHint,
 		}, nil
 	}
 	return nil, fmt.Errorf("skill %q not found", skillID)

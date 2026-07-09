@@ -227,6 +227,12 @@ Returns the requested tier of a skill, so the assistant can pull in only as much
 | `skill_id` | yes | Skill ID, e.g. `secret-detection`. |
 | `budget` | no | Token tier: `minimal`, `compact`, or `full`. Default: `compact`. |
 
+Every result also carries a `feedback_hint`: a standing reminder that a skill is
+curated but not infallible, so if the agent finds a rule wrong/missing/outdated —
+while reading it or after a finding it produced fails verification — it records a
+correction via [`propose_skill_update`](#propose_skill_update). This closes the
+knowledge LEARN loop without a special prompt.
+
 ### `search_skills`
 
 Searches the Skills Library by substring match against title, description, ID, and category, returning matching skill metadata.
