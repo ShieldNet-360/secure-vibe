@@ -1,5 +1,5 @@
 ---
-description: "Confirm or refute a vulnerability candidate against a live target with a deterministic probe before acting on it — Applies to: when a static/SAST or LLM review flags a possible injection or SSRF; when triaging a finding before opening a bug or shipping a fix; when an authorized dynamic test against a running app is available"
+description: "Confirm or refute a vulnerability candidate against a live target with a deterministic probe (the agent runs the probe, respecting authorization and scope) — Applies to: when a static/SAST or LLM review flags a possible injection or SSRF; when triaging a finding before opening a bug or shipping a fix; when an authorized dynamic test against a running app is available"
 alwaysApply: false
 ---
 
@@ -8,7 +8,7 @@ alwaysApply: false
 
 # Verify Findings
 
-Confirm or refute a vulnerability candidate against a live target with a deterministic probe before acting on it
+Confirm or refute a vulnerability candidate against a live target with a deterministic probe (the agent runs the probe, respecting authorization and scope)
 
 ## ALWAYS
 

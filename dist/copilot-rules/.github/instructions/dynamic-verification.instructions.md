@@ -7,7 +7,7 @@ applyTo: "**"
 
 # Verify Findings
 
-Confirm or refute a vulnerability candidate against a live target with a deterministic probe before acting on it
+Confirm or refute a vulnerability candidate against a live target with a deterministic probe (the agent runs the probe, respecting authorization and scope)
 
 ## ALWAYS
 
