@@ -63,10 +63,8 @@ func RenderPointer(spec PointerSpec, skills []*skill.Skill) string {
 	}
 	fmt.Fprintf(&b, "Use the local security skills when generating or reviewing\n")
 	fmt.Fprintf(&b, "security-sensitive code in %s. Call the local skills MCP server\n", audience)
-	b.WriteString("before finalizing.\n\n")
-
-	b.WriteString("Do not treat these skills as a replacement for SAST, SCA, secrets\n")
-	b.WriteString("scanning, or CI policy checks.\n\n")
+	b.WriteString("before finalizing. They do not replace SAST, SCA, secrets scanning,\n")
+	b.WriteString("or CI policy checks (see Non-goals).\n\n")
 
 	// MCP-first instructions. Keep this in lockstep with the
 	// tool surface listed in internal/mcp/tools.go and the
@@ -87,9 +85,9 @@ func RenderPointer(spec PointerSpec, skills []*skill.Skill) string {
 	b.WriteString("     `explain_finding(query)` for CI / image / finding triage.\n")
 	b.WriteString("   - `map_compliance_control`, `get_sigma_rule`, `version_status()`\n")
 	b.WriteString("     for controls / Sigma rules / data version respectively.\n")
-	b.WriteString("   - For deeper coverage, call `list_external_tools` to see which\n")
-	b.WriteString("     industry-standard CLIs (gitleaks, hadolint, …) are installed,\n")
-	b.WriteString("     then run the chosen one via the shell.\n")
+	b.WriteString("   - `propose_skill_update` when a skill is wrong or missing knowledge.\n")
+	b.WriteString("   - `list_external_tools` to see which extra CLIs (gitleaks,\n")
+	b.WriteString("     hadolint, …) are installed, then run one via the shell.\n")
 	b.WriteString("2. If the MCP server is not reachable, read the skill source\n")
 	b.WriteString("   directly under `skills/<skill-id>/SKILL.md` and the matching\n")
 	b.WriteString("   rule under `rules/<category>/`.\n\n")

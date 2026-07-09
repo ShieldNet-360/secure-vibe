@@ -269,5 +269,20 @@ func toolDefinitions() []map[string]interface{} {
 				"required": []string{"action"},
 			},
 		},
+		{
+			"name":        "propose_skill_update",
+			"description": "Record a proposal that a SecureVibe skill is MISSING a fact, states something WRONG, or has gone OUTDATED — when you discovered better security knowledge than the skill carries (a new bypass, a corrected control, a fresh CVE/spec). This is the knowledge LEARN loop. It is INERT and safe: it only appends to a local, unsigned review log (.secure-vibe/skill-proposals.jsonl). It NEVER edits the signed skill, signs anything, or opens a PR — a human reviews it (`secure-vibe contribute skill`) and, if it holds up, edits the skill and re-signs. `evidence` is required, so record verifiable knowledge (a source/repro/spec), not a guess. Re-recording the same claim is idempotent.",
+			"inputSchema": map[string]interface{}{
+				"type": "object",
+				"properties": map[string]interface{}{
+					"skill_id":       map[string]string{"type": "string", "description": "The skill this is about (e.g. \"xss-prevention\"). Find it with search_skills / get_skill."},
+					"kind":           map[string]interface{}{"type": "string", "description": "missing = the skill lacks this; wrong = the skill states it incorrectly; outdated = it was right but is now stale.", "enum": []string{"missing", "wrong", "outdated"}},
+					"claim":          map[string]string{"type": "string", "description": "The new or corrected knowledge, stated plainly."},
+					"evidence":       map[string]string{"type": "string", "description": "Why the claim holds — a source, repro, CVE, or spec link. Required."},
+					"suggested_text": map[string]string{"type": "string", "description": "Optional drop-in wording the maintainer could paste into the SKILL.md."},
+				},
+				"required": []string{"skill_id", "kind", "claim", "evidence"},
+			},
+		},
 	}
 }

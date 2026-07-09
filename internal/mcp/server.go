@@ -13,20 +13,23 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/shieldnet-360/secure-vibe/internal/audit"
 	"github.com/shieldnet-360/secure-vibe/internal/probe"
+	"github.com/shieldnet-360/secure-vibe/internal/proposal"
 	"github.com/shieldnet-360/secure-vibe/internal/tools"
 )
 
 // Server is the JSON-RPC dispatcher. It owns one Library and exposes the
-// 19 Skills Library tools as MCP tools: lookup_vulnerability,
+// 20 Skills Library tools as MCP tools: lookup_vulnerability,
 // check_secret_pattern, get_skill, search_skills, scan_secrets,
 // check_dependency, check_typosquat, map_compliance_control,
 // get_sigma_rule, version_status, scan_dependencies,
 // scan_github_actions, scan_dockerfile, list_external_tools,
-// explain_finding, gate (formerly policy_check), audit, and the
-// dynamic-verify primitives http_probe + oob_listener.
+// explain_finding, gate (formerly policy_check), audit, the
+// dynamic-verify primitives http_probe + oob_listener, and the
+// knowledge LEARN loop propose_skill_update.
 type Server struct {
 	lib *tools.Library
 }
@@ -448,6 +451,38 @@ func (s *Server) invokeTool(name string, args map[string]interface{}) (interface
 		default:
 			return nil, fmt.Errorf("oob_listener action must be allocate or poll")
 		}
+	case "propose_skill_update":
+		// Knowledge LEARN loop. Inert + passive: append to the local,
+		// unsigned review log only. The signed skill is never touched; a
+		// human reviews (`contribute skill`) and re-signs. This is the
+		// prompt-injection boundary — a model cannot mutate trusted
+		// knowledge, only suggest a review.
+		path, err := proposal.PathFor("")
+		if err != nil {
+			return nil, err
+		}
+		stored, isNew, err := proposal.Record(path, proposal.Proposal{
+			SkillID:       stringArg(args, "skill_id"),
+			Kind:          stringArg(args, "kind"),
+			Claim:         stringArg(args, "claim"),
+			Evidence:      stringArg(args, "evidence"),
+			SuggestedText: stringArg(args, "suggested_text"),
+			Source:        "agent",
+		}, time.Now())
+		if err != nil {
+			return nil, err
+		}
+		note := "recorded a new proposal"
+		if !isNew {
+			note = "this proposal was already recorded (idempotent)"
+		}
+		return map[string]interface{}{
+			"id":       stored.ID,
+			"is_new":   isNew,
+			"path":     path,
+			"note":     note + "; it is inert until a maintainer reviews it with `secure-vibe contribute skill` and re-signs the skill.",
+			"proposal": stored,
+		}, nil
 	}
 	return nil, fmt.Errorf("%w: %s", errToolNotFound, name)
 }
